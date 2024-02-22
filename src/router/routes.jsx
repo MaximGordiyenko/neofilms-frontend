@@ -22,6 +22,10 @@ export const routes = createBrowserRouter([
       //   element: <Admin children={<Outlet/>} />,
       //   children: [
           {
+            path: ROUTE.admin,
+            element: <Admin/>
+          },
+          {
             path: `${ROUTE.admin}/${ROUTE.mainSlider}`,
             element: <MainSliderPage/>
           },
