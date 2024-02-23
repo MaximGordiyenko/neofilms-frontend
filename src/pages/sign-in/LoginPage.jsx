@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import { SignInSchema } from "../../validation/authorization";
-import { Box, Button, Divider, Grid, Typography } from "@mui/material";
-import { ContainerCSS, Block, InputLabelCSS, LinkCss, TitleGridCSS } from "../../components/ui/ui.styles.js";
+import { styled } from "@mui/material/styles";
+import { Button, Grid, Typography } from "@mui/material";
+import { ContainerCSS, Block } from "../../components/ui/ui.styles.js";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
 // import { signInAccount } from "../../api/auth";
 import { toast } from "react-toastify";
 import { InputText } from "../../components/inputs/InputText";
 // import { useAuth } from "../../hooks/useAuth.jsx";
+import NeoLogoBG from '../../assets/neoLogoBG.png';
 
 export const LoginPage = () => {
   // const {setAuth } = useAuth();
@@ -20,42 +20,41 @@ export const LoginPage = () => {
     control,
     formState: { errors, isSubmitSuccessful, isValid },
     reset,
-    handleSubmit,
+    handleSubmit
   } = useForm({
     mode: 'onChange',
-    reValidateMode: 'onSubmit',
-    // resolver: yupResolver(SignInSchema),
+    reValidateMode: 'onSubmit'
   });
   
- /* const { refetch } = useQuery('authUser', signInAccount, {
-    enabled: false,
-    retry: 1,
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError(error) {
-      console.error(error);
-    }
-  });
-  
-  const { mutate } = useMutation(
-    (data) => signInAccount(data),
-    {
-      onSuccess() {
-        refetch().then(r => console.log('sing in data', r));
-        // setAuth (data.email, data.password, roles, accessToken)
-        toast.success('You successfully logged in');
-        // navigate(`/${ROUTE.landing}`);
-      },
-      onError(error) {
-        if (Array.isArray(error.response.data.error)) {
-          (error).response.data.error.forEach((el) => toast.error(el.message));
-        } else {
-          toast.error(error.response.data.message);
-        }
-      },
-    }
-  );*/
+  /* const { refetch } = useQuery('authUser', signInAccount, {
+   enabled: false,
+   retry: 1,
+   onSuccess: (data) => {
+   console.log(data);
+   },
+   onError(error) {
+   console.error(error);
+   }
+   });
+   
+   const { mutate } = useMutation(
+   (data) => signInAccount(data),
+   {
+   onSuccess() {
+   refetch().then(r => console.log('sing in data', r));
+   // setAuth (data.email, data.password, roles, accessToken)
+   toast.success('You successfully logged in');
+   // navigate(`/${ROUTE.landing}`);
+   },
+   onError(error) {
+   if (Array.isArray(error.response.data.error)) {
+   (error).response.data.error.forEach((el) => toast.error(el.message));
+   } else {
+   toast.error(error.response.data.message);
+   }
+   },
+   }
+   );*/
   
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -70,11 +69,9 @@ export const LoginPage = () => {
   
   return (
     <ContainerCSS maxWidth="xs">
-      <TitleGridCSS container>
-        <Typography variant="h4" align="center" color="secondary">
-          Log In
-        </Typography>
-      </TitleGridCSS>
+      <Typography variant="h4" align="center" color="secondary">
+        Log In
+      </Typography>
       <Block>
         <form onSubmit={handleSubmit(onSubmitHandler)} autoComplete="off">
           <Grid container spacing={15}>

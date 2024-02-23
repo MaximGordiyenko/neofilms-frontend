@@ -1,9 +1,9 @@
 import { useLocation } from "react-router-dom";
-import { Box, Grid, styled, Typography } from "@mui/material";
-import { ROUTE } from '../../router/constants.js';
+import { Box, Grid, styled } from "@mui/material";
+import { ROUTE } from '../../constants.js';
 // import { Logo } from "../ui/Logo";
 
-export const Header = () => {
+export const Header = ({ leftContent, rightContent}) => {
   const { pathname } = useLocation();
   
   return (
@@ -16,15 +16,11 @@ export const Header = () => {
       zIndex="1"
       container>
       <Grid item xs={12} sm={4} md={9} lg={9}>
-        <Typography variant="h4" align="center" color="primary">
-          Neo Masterpiece Film Admin Panel
-        </Typography>
+        {leftContent}
       </Grid>
       <Grid item xs={12} sm={4} md={3} lg={3}>
         <Box display="flex">
-          <Typography variant="h4" align="center" color="primary">
-            Logout icon
-          </Typography>
+          {rightContent}
         </Box>
       </Grid>
     </GridCSS>
@@ -34,7 +30,7 @@ export const Header = () => {
 const GridCSS = styled(Grid)(
   ({ theme, opacity }) => ({
     display: opacity ? 'none' : 'flex',
-    position: 'fixed',
+    position: 'static',
     top: 0
   })
 );

@@ -4,7 +4,7 @@ export const ROUTE = {
   admin: 'admin',
   mainSlider: 'main-slider',
   allMovies: 'all-movies',
-  web3project: 'bew3-project',
+  web3project: 'web3-project',
   calendar: 'calendar',
   emailVerify: 'email-verify',
   forgotPassword: 'forgot-password',

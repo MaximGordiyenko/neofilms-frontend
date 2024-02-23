@@ -1,9 +1,21 @@
-import { ContainerCSS } from '../../components/ui/ui.styles.js';
+import { Button, Box } from '@mui/material';
+import { MediaCard } from '../../components/card/MediaCard.jsx';
+import { AdminTabPanel } from '../../App.jsx';
 
-export const CalendarPage = () => {
+export const CalendarPage = ({ tab, cards, onDelete, onAdd, buttonName }) => {
   return (
-    <ContainerCSS maxWidth="lg">
-    
-    </ContainerCSS>
+    <AdminTabPanel value={tab} index={3}>
+      <Box display="flex" alignItems="center" flexDirection="row-reverse" justifyContent="flex-end">
+        {cards?.map(card => (
+          <MediaCard
+            key={card.id}
+            title={card.title}
+            image={card.image}
+            onDelete={() => onDelete(card.id)}
+          />
+        ))}
+        <Button variant="contained" onClick={onAdd}>{buttonName}</Button>
+      </Box>
+    </AdminTabPanel>
   );
 };
