@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
-import { light } from './theme-config.js';
+import { light, dark } from './theme-config.js';
 import './App.css';
 import { Layout } from './components/layouts/Layout.jsx';
 import { LoginPage } from './pages/sign-in/LoginPage.jsx';
@@ -15,6 +15,7 @@ import Box from '@mui/material/Box';
 import { Web3ProjectPage } from './pages/web3-project/Web3ProjectPage.jsx';
 import { CalendarPage } from './pages/calendar/CalendarPage.jsx';
 import { ROUTE } from './constants.js';
+import { SliderPage } from './pages/main-slider/SliderPage.jsx';
 
 const theme = createTheme({
   palette: {}
@@ -87,9 +88,8 @@ export const App = () => {
     <ThemeProvider theme={responsiveFontSizes(themeLight)}>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Layout/>}/>
-          <Route path="" element={<Layout/>}>
           <Route path={ROUTE.login} element={<LoginPage/>}/>
+          <Route element={<Layout/>}>
             <Route
               path={ROUTE.admin}
               element={
@@ -107,10 +107,10 @@ export const App = () => {
                     cards={sliders}
                     onDelete={onDeleteSlide}
                     onAdd={onAddSlide}
+                    onEdit={(id) => console.log(id)}
                     buttonName="Add Slide"
                   />
-                }
-              />
+                }/>
               <Route
                 path={ROUTE.allMovies}
                 element={
@@ -149,6 +149,7 @@ export const App = () => {
               />
               <Route path="*" element={<NoMatch/>}/>
             </Route>
+            <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/:sliderId`} element={<SliderPage/>}/>
           </Route>
           <Route path="*" element={<NoMatch/>}/>
         </Routes>

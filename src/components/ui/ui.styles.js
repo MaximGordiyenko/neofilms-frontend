@@ -5,7 +5,7 @@ import {
 export const ContainerCSS = styled(Container)`
   background: ${({ theme }) => theme.palette.common.white};
   margin: 7% auto;
-  padding: 10px;
+  padding: 30px;
   border-radius: ${({ theme }) => theme.shape.radius};
   position: relative;
 `;

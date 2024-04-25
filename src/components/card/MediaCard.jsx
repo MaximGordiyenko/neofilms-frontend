@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export const MediaCard = ({ title, image, onDelete }) => {
+export const MediaCard = ({ title, image, onDelete, onEdit, sliderId }) => {
   return (
     <Card sx={{ maxWidth: 345, mx: 10 }}>
       <CardContent>
@@ -23,7 +23,7 @@ export const MediaCard = ({ title, image, onDelete }) => {
         <Button variant="contained" color="error" endIcon={<Delete/>} onClick={onDelete}>
           Delete
         </Button>
-        <Button variant="contained" endIcon={<Edit/>}>
+        <Button variant="contained" endIcon={<Edit/>} onClick={onEdit}>
           Edit
         </Button>
       </CardActions>

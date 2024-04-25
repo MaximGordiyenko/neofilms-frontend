@@ -71,7 +71,7 @@ export const light = {
     "contrastThreshold": 3,
     "tonalOffset": 0.2,
     "text": {
-      "primary": "rgba(255, 255, 255, 0.87)",
+      "primary": "#3B415C",
       "secondary": "rgba(255, 255, 255, 0.54)",
       "disabled": "rgba(255, 255, 255, 0.38)",
       "hint": "rgba(255, 255, 255, 0.38)"
