@@ -3,7 +3,7 @@ import { Grid, Typography, Button, Box } from '@mui/material';
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
 import { ROUTE } from '../../constants.js';
 import { Delete, DownloadDone, Add } from '@mui/icons-material';
-import { DropzoneField } from '../../components/file-upload/DropZoneUpload.jsx';
+import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -67,7 +67,7 @@ export const MoviePage = () => {
             <Grid item xs={5.9}>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
                 <Typography variant="h5">Movie Poster</Typography>
-                <DropzoneField name="movie_poster" multiple={false} onInputChange={onInputChange}/>
+                <FileUploader name="movie_poster" multiple={false} onInputChange={onInputChange}/>
               </Grid>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>

@@ -1,10 +1,13 @@
 import { Outlet } from 'react-router-dom';
+
+import { Typography } from '@mui/material';
+import { Logout } from '@mui/icons-material';
+
 import { LayoutContainerCSS } from './layout.styles.js';
+
 import { Header } from '../header/Header.jsx';
 import { MainComponent } from './MainComponent.jsx';
-import { Typography } from '@mui/material';
 import { IconButton } from '../buttons/IconButton.jsx';
-import { Logout } from '@mui/icons-material';
 
 export const Layout = () => {
   

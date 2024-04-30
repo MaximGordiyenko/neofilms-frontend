@@ -1,4 +1,4 @@
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Button, Box } from '@mui/material';
 import { Add } from '@mui/icons-material';
 

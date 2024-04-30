@@ -6,7 +6,7 @@ import { Delete, DownloadDone } from '@mui/icons-material';
 import { ContainerCSS } from '../../components/ui/ui.styles.js';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
-import { DropzoneField } from '../../components/file-upload/DropZoneUpload.jsx';
+import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
 
 import { useDispatch } from 'react-redux';
 import { updateField } from '../../store/sliderPageSlice.jsx';
@@ -35,7 +35,7 @@ export const SliderPage = () => {
   const onSubmit = (data) => {
     console.log(data); // Handle form data submission
   };
-  console.log(watch());
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -61,11 +61,11 @@ export const SliderPage = () => {
             <Grid item xs={5.9}>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
                 <Typography variant="h6">Main Image or Video</Typography>
-                <DropzoneField name="movie" multiple={false} onInputChange={onInputChange} />
+                <FileUploader name="movie" multiple={false} onInputChange={onInputChange} />
               </Grid>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Typography variant="h6">Movie Title (Logo)</Typography>
-                <DropzoneField name="logo_media" multiple={false} onInputChange={onInputChange} />
+                <FileUploader name="logo_media" multiple={false} onInputChange={onInputChange} />
               </Grid>
             </Grid>
             <Grid item xs={5.9} sx={{ background: 'white', ml: 20, mt: 20 }}>

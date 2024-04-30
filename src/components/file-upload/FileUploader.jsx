@@ -1,39 +1,90 @@
-import { Controller } from 'react-hook-form';
-import { useDropzone } from 'react-dropzone';
-import { styled, FormControl } from "@mui/material";
+import { Controller, useFormContext } from "react-hook-form";
+import { useDropzone } from "react-dropzone";
 
-export const FileUpload = ({ control }) => {
-  
-  const { acceptedFiles, getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({
-    accept: 'image/*, video/*'
-  });
-  
-  const files = acceptedFiles.map(file => (
-    <div key={file?.path}>
-      {file?.path} - {file.size} bytes
-    </div>
-  ));
+import { styled, Grid, Typography, Link } from '@mui/material';
+import { UploadFile, Delete, CheckCircle } from '@mui/icons-material';
+import { blue, grey, green } from '@mui/material/colors';
+
+import { updateField } from '../../store/sliderPageSlice.jsx';
+import { useDispatch } from 'react-redux';
+
+import "./styles.css";
+
+export const FileUploader = ({ name, multiple, ...rest }) => {
+  const { control } = useFormContext();
+  const dispatch = useDispatch();
   
   return (
-    <FormControl>
-      <label htmlFor="image">Main Image or Video</label>
-      <Controller
-        name="image-video-slider"
-        control={control}
-        defaultValue={null}
-        render={({ field }) => (
-          <section className="container">
-            <Container {...getRootProps({isFocused, isDragAccept, isDragReject})}>
-              <input {...getInputProps()} />
-              <p>Drag 'n' drop a video file here, or click to select</p>
-            </Container>
-            <aside>
-              <ul>{files}</ul>
-            </aside>
-          </section>
-        )}
-      />
-    </FormControl>
+    <Controller
+      render={({ field: { onChange } }) => (
+        <Dropzone
+          multiple={multiple}
+          onChange={(e) => {
+            onChange(
+              multiple
+                ? e.target.files
+                : e.target.files?.[0] ?? null
+            );
+            dispatch(updateField({ field: name, value: e.target.files?.[0] ?? null }));
+          }
+          }
+          {...rest}
+        />
+      )}
+      name={name}
+      control={control}
+      defaultValue=""
+    />
+  );
+};
+
+const Dropzone = ({ multiple, onChange, ...rest }) => {
+  const { watch } = useFormContext();
+  
+  const { acceptedFiles, getRootProps, getInputProps, isFocused, isDragAccept, isDragReject, open } = useDropzone({
+    accept: {
+      'video/mp4': ['.mp4', '.MP4'],
+      'image/png': ['.png'],
+      'image/jpeg': ['.jpg']
+    },
+    noClick: true,
+    noKeyboard: true,
+    multiple,
+    ...rest
+  });
+  
+  const files = acceptedFiles.map((file, idx) => (
+    <Grid key={`${file.name}-${idx}`} container justifyContent="center" alignItems="center">
+      <Grid item xs={12} sm={12} md={12} lg={1}>
+        <UploadFile sx={{ color: blue[300] }} fontSize="small"/>
+      </Grid>
+      <Grid item xs={12} sm={12} md={12} lg={10}>
+        <Typography sx={{ color: grey[600] }}>{file.name}</Typography>
+        <Typography sx={{ color: grey[500] }}>{file.size}Kb · Complete</Typography>
+      </Grid>
+      <Grid container item xs={12} sm={12} md={12} lg={1} justifyContent="space-between">
+        <Delete sx={{ color: grey[600] }} fontSize="small"/>
+        <CheckCircle sx={{ color: green[800] }} fontSize="small"/>
+      </Grid>
+    </Grid>
+  ));
+
+  return (
+    <section className="upload-container">
+      {
+        files.length ?
+          <aside>{files}</aside>
+          :
+          <Container {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
+            <UploadFile sx={{ color: blue[300] }} fontSize="small"/>
+            <input {...getInputProps({ onChange })} />
+            <Typography>
+              <Link onClick={open}>Click to upload </Link>
+              or drag and drop</Typography>
+            <Typography>MP4, PNG, or JPG (max. 3MB)</Typography>
+          </Container>
+      }
+    </section>
   );
 };
 
@@ -48,12 +99,13 @@ const getColor = (props) => {
     return '#2196f3';
   }
   return '#eeeeee';
-}
+};
 
 const Container = styled('div')`
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 20px;
   border-width: 2px;
@@ -64,4 +116,5 @@ const Container = styled('div')`
   color: #bdbdbd;
   outline: none;
   transition: border .24s ease-in-out;
+  height: 100px;
 `;

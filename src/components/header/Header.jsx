@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { Box, Grid, styled } from "@mui/material";
 import { ROUTE } from '../../constants.js';
-// import { Logo } from "../ui/Logo";
 
 export const Header = ({ leftContent, rightContent }) => {
   const { pathname } = useLocation();
@@ -18,10 +17,8 @@ export const Header = ({ leftContent, rightContent }) => {
       <Grid item xs={12} sm={4} md={9} lg={10}>
         {leftContent}
       </Grid>
-      <Grid item xs={12} sm={4} md={3} lg={2}>
-        <Box display="flex" justify-content="right">
-          {rightContent}
-        </Box>
+      <Grid item xs={12} sm={4} md={3} lg={2} sx={{ display: "flex", justifyContent: "end" }}>
+        {rightContent}
       </Grid>
     </GridCSS>
   );
@@ -34,6 +31,6 @@ const GridCSS = styled(Grid)(
     top: 0,
     background: 'white',
     padding: 20,
-    boxShadow: '0px 3px 15px rgba(100, 100, 100, 0.49)',
+    boxShadow: '0px 3px 15px rgba(100, 100, 100, 0.49)'
   })
 );
