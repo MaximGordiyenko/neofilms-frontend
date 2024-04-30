@@ -3,6 +3,8 @@ import { LayoutContainerCSS } from './layout.styles.js';
 import { Header } from '../header/Header.jsx';
 import { MainComponent } from './MainComponent.jsx';
 import { Typography } from '@mui/material';
+import { IconButton } from '../buttons/IconButton.jsx';
+import { Logout } from '@mui/icons-material';
 
 export const Layout = () => {
   
@@ -10,19 +12,15 @@ export const Layout = () => {
     <LayoutContainerCSS>
       <Header
         leftContent={
-          <Typography variant="h4" align="center" color="primary">
-            Neo Masterpiece Film Admin Panel
+          <Typography variant="h4" align="left" color="secobdary">
+            Neo Masterpiece Film
+            <Typography variant="overline" align="center" color="secobdary"> Admin Panel</Typography>
           </Typography>
         }
         rightContent={
-          <Typography variant="h4" align="center" color="primary">
-            Logout icon
-          </Typography>
+          <IconButton icon={<Logout />}>Logout icon</IconButton>
         }
       />
-      <Typography variant="h4" align="left" color="primary" position="relative">
-        Admin Panel
-      </Typography>
       <MainComponent>
         <Outlet/>
       </MainComponent>
