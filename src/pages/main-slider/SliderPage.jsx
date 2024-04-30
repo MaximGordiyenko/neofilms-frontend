@@ -60,15 +60,17 @@ export const SliderPage = () => {
           <Grid container>
             <Grid item xs={5.9}>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
+                <Typography variant="h6">Main Image or Video</Typography>
                 <DropzoneField name="movie" multiple={false} onInputChange={onInputChange} />
               </Grid>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', p: 30 }}>
+                <Typography variant="h6">Movie Title (Logo)</Typography>
                 <DropzoneField name="logo_media" multiple={false} onInputChange={onInputChange} />
               </Grid>
             </Grid>
             <Grid item xs={5.9} sx={{ background: 'white', ml: 20, mt: 20 }}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20, px: 30 }}>
-                <Typography variant="h5">Additional Data</Typography>
+                <Typography variant="h6">Additional Data</Typography>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20, px: 30 }}>
                 <InputTextAutosize

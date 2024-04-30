@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export const MediaCard = ({ title, image, onDelete, onEdit, sliderId }) => {
+export const MediaCard = ({ title, image, onDelete, onEdit }) => {
   return (
     <Card sx={{ maxWidth: 345, mx: 10 }}>
       <CardContent>

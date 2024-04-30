@@ -16,6 +16,7 @@ import { Web3ProjectPage } from './pages/web3-project/Web3ProjectPage.jsx';
 import { CalendarPage } from './pages/calendar/CalendarPage.jsx';
 import { ROUTE } from './constants.js';
 import { SliderPage } from './pages/main-slider/SliderPage.jsx';
+import { MoviePage } from './pages/all-movies/MoviePage.jsx';
 
 const theme = createTheme({
   palette: {}
@@ -111,6 +112,7 @@ export const App = () => {
                     buttonName="Add Slide"
                   />
                 }/>
+              <Route index element={<AllMoviesPage/>}/>
               <Route
                 path={ROUTE.allMovies}
                 element={
@@ -119,6 +121,7 @@ export const App = () => {
                     cards={movies}
                     onDelete={onDeleteMovie}
                     onAdd={onAddMovie}
+                    onEdit={(id) => console.log(id)}
                     buttonName="Add Movie"
                   />
                 }
@@ -150,6 +153,7 @@ export const App = () => {
               <Route path="*" element={<NoMatch/>}/>
             </Route>
             <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/:sliderId`} element={<SliderPage/>}/>
+            <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/:movieId`} element={<MoviePage/>}/>
           </Route>
           <Route path="*" element={<NoMatch/>}/>
         </Routes>

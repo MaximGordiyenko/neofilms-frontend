@@ -7,8 +7,6 @@ import { MediaCard } from '../../components/card/MediaCard.jsx';
 
 export const MainSliderPage = ({ tab, cards, onDelete, onEdit, onAdd, buttonName }) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  console.log(location);
   
   return (
     <AdminTabPanel value={tab} index={0}>
@@ -20,7 +18,6 @@ export const MainSliderPage = ({ tab, cards, onDelete, onEdit, onAdd, buttonName
             image={card.image}
             onDelete={() => onDelete(card.id)}
             onEdit={() => navigate(card.id)}
-            sliderId={card.id}
           />
         ))}
         <Button variant="contained" endIcon={<Add/>} onClick={onAdd}>{buttonName}</Button>

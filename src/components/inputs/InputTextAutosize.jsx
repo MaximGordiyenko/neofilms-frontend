@@ -27,7 +27,6 @@ export const InputTextAutosize = ({name, label, control, errors, sx, isText = fa
             onChange={(e) => {
               field.onChange(e);
               if (onInputChange) {
-                console.log(e.target.value);
                 onInputChange(e.target.value);
               }
             }}
