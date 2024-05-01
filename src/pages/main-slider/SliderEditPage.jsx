@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { updateField } from '../../store/sliderPageSlice.jsx';
 import { ROUTE } from '../../constants.js';
 
-export const SliderPage = () => {
+export const SliderEditPage = () => {
   const dispatch = useDispatch();
   
   const methods = useForm({

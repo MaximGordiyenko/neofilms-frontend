@@ -15,9 +15,10 @@ import Box from '@mui/material/Box';
 import { Web3ProjectPage } from './pages/web3-project/Web3ProjectPage.jsx';
 import { CalendarPage } from './pages/calendar/CalendarPage.jsx';
 import { ROUTE } from './constants.js';
-import { SliderPage } from './pages/main-slider/SliderPage.jsx';
-import { MoviePage } from './pages/all-movies/MoviePage.jsx';
-import { ProjectPage } from './pages/web3-project/ProjectPage.jsx';
+import { SliderEditPage } from './pages/main-slider/SliderEditPage.jsx';
+import { MovieEditPage } from './pages/all-movies/MovieEditPage.jsx';
+import { ProjectEditPage } from './pages/web3-project/ProjectEditPage.jsx';
+import { CalendarEditPage } from './pages/calendar/CalendarEditPage.jsx';
 
 const theme = createTheme({
   palette: {}
@@ -140,6 +141,7 @@ export const App = () => {
                   />
                 }
               />
+              <Route index element={<CalendarPage/>}/>
               <Route
                 path={ROUTE.calendar}
                 element={
@@ -154,9 +156,10 @@ export const App = () => {
               />
               <Route path="*" element={<NoMatch/>}/>
             </Route>
-            <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/:sliderId`} element={<SliderPage/>}/>
-            <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/:movieId`} element={<MoviePage/>}/>
-            <Route path={`${ROUTE.admin}/${ROUTE.web3project}/:projectId`} element={<ProjectPage/>}/>
+            <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/:sliderId`} element={<SliderEditPage/>}/>
+            <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/:movieId`} element={<MovieEditPage/>}/>
+            <Route path={`${ROUTE.admin}/${ROUTE.web3project}/:projectId`} element={<ProjectEditPage/>}/>
+            <Route path={`${ROUTE.admin}/${ROUTE.calendar}/:calendarId`} element={<CalendarEditPage/>}/>
           </Route>
           <Route path="*" element={<NoMatch/>}/>
         </Routes>

@@ -10,7 +10,7 @@ import { updateField } from '../../store/sliderPageSlice.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 import { Slide } from '../../components/sliders/Slide.jsx';
 
-export const ProjectPage = () => {
+export const ProjectEditPage = () => {
   const dispatch = useDispatch();
   
   const methods = useForm({

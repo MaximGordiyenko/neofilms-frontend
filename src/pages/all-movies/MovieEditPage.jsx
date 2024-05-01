@@ -13,7 +13,7 @@ import { RadioButton } from '../../components/radio/RadioButton.jsx';
 import { useState } from 'react';
 import { IconButton } from '../../components/buttons/IconButton.jsx';
 
-export const MoviePage = () => {
+export const MovieEditPage = () => {
   const [addDirector, setAddDirector] = useState(1);
   const [addWritten, setAddWritten] = useState(1);
   const [addActor, setAddActor] = useState(1);
@@ -35,25 +35,24 @@ export const MoviePage = () => {
     formState: { errors, isSubmitSuccessful, isValid }
   } = methods;
   
-  const onInputChange = (field, value) => dispatch(updateField({ field, value }));
-  
   const onSubmit = (data) => {
     console.log(data); // Handle form data submission
   };
-  console.log(watch());
+  
+  const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <ContainerCSS sx={{ background: 'none' }}>
           <Grid container>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
+            <Grid item xs={12} sm={6} md={12} lg={12}>
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.allMovies}`}/>
             </Grid>
-            <Grid item xs={12} sm={4} md={9} lg={9.5}>
+            <Grid item xs={12} sm={6} md={9} lg={9.5}>
               <Typography variant="h5">New Movie</Typography>
             </Grid>
-            <Grid item xs={12} sm={4} md={9} lg={2.5} display="flex" justifyContent="space-between">
+            <Grid item xs={12} sm={6} md={9} lg={2.5} display="flex" justifyContent="space-between">
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
               }}>
                 Delete
@@ -63,13 +62,13 @@ export const MoviePage = () => {
               </Button>
             </Grid>
           </Grid>
-          <Grid container>
-            <Grid item xs={5.9}>
-              <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
+          <Grid container justifyContent='space-around'>
+            <Grid item xs={6}>
+              <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h5">Movie Poster</Typography>
                 <FileUploader name="movie_poster" multiple={false} onInputChange={onInputChange}/>
               </Grid>
-              <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', p: 30 }}>
+              <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <Typography variant="h5">Movie Information</Typography>
                 </Grid>
@@ -121,13 +120,12 @@ export const MoviePage = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={5.9}>
-              <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
+            <Grid item xs={6}>
+              <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
                 <Typography variant="h5">Directed by</Typography>
                 {[...Array(addDirector)].map((_, index) => (
-                  <Box sx={{ p: 15 }}>
+                  <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
-                      key={index}
                       name={`director_${index}`}
                       label={`Director's name ${index + 1}`}
                       placeholder="John Doe"
@@ -138,12 +136,11 @@ export const MoviePage = () => {
                 ))}
                 <IconButton onClick={() => setAddDirector(addDirector + 1)}>Add Director</IconButton>
               </Grid>
-              <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
+              <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
                 <Typography variant="h5">Written by</Typography>
                 {[...Array(addWritten)].map((_, index) => (
-                  <Box sx={{ p: 15 }}>
+                  <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
-                      key={index}
                       name={`written_${index}`}
                       label={`Written's name ${index + 1}`}
                       placeholder="John Doe"
@@ -154,7 +151,7 @@ export const MoviePage = () => {
                 ))}
                 <IconButton onClick={() => setAddWritten(addWritten + 1)}>Add Written</IconButton>
               </Grid>
-              <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
+              <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
                 <Typography variant="h5">Starring</Typography>
                 {[...Array(addActor)].map((_, index) => (
                   <Box sx={{ p: 15 }}>
