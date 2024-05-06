@@ -1,26 +1,33 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
-import { light, dark } from './theme-config.js';
-import './App.css';
-import { Layout } from './components/layouts/Layout.jsx';
-import { LoginPage } from './pages/sign-in/LoginPage.jsx';
-import { NoMatch } from './NoMatch.jsx';
-import { NavigationTabs } from './components/tabs/NavigationTabs.jsx';
-import { SlidePage } from './pages/main-slider/SlidePage.jsx';
-import { AllMoviesPage } from './pages/all-movies/AllMoviesPage.jsx';
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import placeholder from './assets/slide_placeholder.png';
-import Box from '@mui/material/Box';
-import { Web3ProjectPage } from './pages/web3-project/Web3ProjectPage.jsx';
-import { CalendarPage } from './pages/calendar/CalendarPage.jsx';
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ROUTE } from './constants.js';
-import { SliderEditPage } from './pages/main-slider/SliderEditPage.jsx';
-import { MovieEditPage } from './pages/all-movies/MovieEditPage.jsx';
-import { ProjectEditPage } from './pages/web3-project/ProjectEditPage.jsx';
-import { CalendarEditPage } from './pages/calendar/CalendarEditPage.jsx';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { getSlides, addSlide } from './store/sliderPageSlice.js';
+
+import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
+import Box from '@mui/material/Box';
+
+import { Layout } from './components/layouts/Layout.jsx';
+import { AuthLayout } from './components/layouts/AuthLayout.jsx';
+
+import { NavigationTabs } from './components/tabs/NavigationTabs.jsx';
+import { LoginPage } from './pages/sign-in/LoginPage.jsx';
+import { SlidePage } from './pages/main-slider/SlidePage.jsx';
+import { SliderEditPage } from './pages/main-slider/SliderEditPage.jsx';
+import { AllMoviesPage } from './pages/all-movies/AllMoviesPage.jsx';
+import { MovieEditPage } from './pages/all-movies/MovieEditPage.jsx';
+import { Web3ProjectPage } from './pages/web3-project/Web3ProjectPage.jsx';
+import { ProjectEditPage } from './pages/web3-project/ProjectEditPage.jsx';
+import { CalendarPage } from './pages/calendar/CalendarPage.jsx';
+import { CalendarEditPage } from './pages/calendar/CalendarEditPage.jsx';
+import { NoMatch } from './NoMatch.jsx';
+
+import placeholder from './assets/slide_placeholder.png';
+import { light, dark } from './theme-config.js';
+import './App.css';
 
 const theme = createTheme({
   palette: {}
@@ -57,7 +64,6 @@ export const App = () => {
     dispatch(getSlides());
   }, [dispatch]);
   
-  
   const onAddMovie = () => {
     const newMovie = { id: uuidv4(), title: 'New Movie', image: placeholder };
     setMovie([...movies, newMovie]);
@@ -93,78 +99,90 @@ export const App = () => {
     setCalendar(updatedCalendar);
   };
   
+  const getUserData = () =>
+    new Promise((resolve) =>
+      setTimeout(() => {
+        const user = window.localStorage.getItem("user");
+        resolve(user);
+      }, 3000)
+    );
+  
   const themeLight = createTheme(light);
   return (
     <ThemeProvider theme={responsiveFontSizes(themeLight)}>
       <BrowserRouter>
         <Routes>
-          <Route path={ROUTE.login} element={<LoginPage/>}/>
-          <Route element={<Layout/>}>
-            <Route
-              path={ROUTE.admin}
-              element={
-                <NavigationTabs
-                  tab={tab}
-                  onChangeTab={(event, newValue) => setTab(newValue)}
+          <Route
+            element={<AuthLayout/>}
+            loader={() => <AuthLayout user={getUserData()} />}>
+            <Route path={ROUTE.login} element={<LoginPage/>}/>
+            <Route element={<Layout/>}>
+              <Route
+                path={ROUTE.admin}
+                element={
+                  <NavigationTabs
+                    tab={tab}
+                    onChangeTab={(event, newValue) => setTab(newValue)}
+                  />
+                }>
+                <Route index element={<SlidePage/>}/>
+                <Route
+                  path={ROUTE.mainSlider}
+                  element={
+                    <SlidePage
+                      tab={tab}
+                      cards={data}
+                      onDelete={onDeleteSlide}
+                      onAdd={() => dispatch(addSlide())}
+                      buttonName="Add Slide"
+                    />
+                  }/>
+                <Route index element={<AllMoviesPage/>}/>
+                <Route
+                  path={ROUTE.allMovies}
+                  element={
+                    <AllMoviesPage
+                      tab={tab}
+                      cards={movies}
+                      onDelete={onDeleteMovie}
+                      onAdd={onAddMovie}
+                      buttonName="Add Movie"
+                    />
+                  }
                 />
-              }>
-              <Route index element={<SlidePage/>}/>
-              <Route
-                path={ROUTE.mainSlider}
-                element={
-                  <SlidePage
-                    tab={tab}
-                    cards={data}
-                    onDelete={onDeleteSlide}
-                    onAdd={() => dispatch(addSlide())}
-                    buttonName="Add Slide"
-                  />
-                }/>
-              <Route index element={<AllMoviesPage/>}/>
-              <Route
-                path={ROUTE.allMovies}
-                element={
-                  <AllMoviesPage
-                    tab={tab}
-                    cards={movies}
-                    onDelete={onDeleteMovie}
-                    onAdd={onAddMovie}
-                    buttonName="Add Movie"
-                  />
-                }
-              />
-              <Route index element={<Web3ProjectPage/>}/>
-              <Route
-                path={ROUTE.web3project}
-                element={
-                  <Web3ProjectPage
-                    tab={tab}
-                    cards={projects}
-                    onDelete={onDeleteProject}
-                    onAdd={onAddProject}
-                    buttonName="Add Project"
-                  />
-                }
-              />
-              <Route index element={<CalendarPage/>}/>
-              <Route
-                path={ROUTE.calendar}
-                element={
-                  <CalendarPage
-                    tab={tab}
-                    cards={calendars}
-                    onDelete={onDeleteCalendar}
-                    onAdd={onAddCalendar}
-                    buttonName="Add Event"
-                  />
-                }
-              />
-              <Route path="*" element={<NoMatch/>}/>
+                <Route index element={<Web3ProjectPage/>}/>
+                <Route
+                  path={ROUTE.web3project}
+                  element={
+                    <Web3ProjectPage
+                      tab={tab}
+                      cards={projects}
+                      onDelete={onDeleteProject}
+                      onAdd={onAddProject}
+                      buttonName="Add Project"
+                    />
+                  }
+                />
+                <Route index element={<CalendarPage/>}/>
+                <Route
+                  path={ROUTE.calendar}
+                  element={
+                    <CalendarPage
+                      tab={tab}
+                      cards={calendars}
+                      onDelete={onDeleteCalendar}
+                      onAdd={onAddCalendar}
+                      buttonName="Add Event"
+                    />
+                  }
+                />
+                <Route path="*" element={<NoMatch/>}/>
+              </Route>
+              <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/:sliderId`} element={<SliderEditPage/>}/>
+              <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/:movieId`} element={<MovieEditPage/>}/>
+              <Route path={`${ROUTE.admin}/${ROUTE.web3project}/:projectId`} element={<ProjectEditPage/>}/>
+              <Route path={`${ROUTE.admin}/${ROUTE.calendar}/:calendarId`} element={<CalendarEditPage/>}/>
             </Route>
-            <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/:sliderId`} element={<SliderEditPage/>}/>
-            <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/:movieId`} element={<MovieEditPage/>}/>
-            <Route path={`${ROUTE.admin}/${ROUTE.web3project}/:projectId`} element={<ProjectEditPage/>}/>
-            <Route path={`${ROUTE.admin}/${ROUTE.calendar}/:calendarId`} element={<CalendarEditPage/>}/>
           </Route>
           <Route path="*" element={<NoMatch/>}/>
         </Routes>

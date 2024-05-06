@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { styled } from "@mui/material/styles";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography, Box } from "@mui/material";
 import { ContainerCSS, Block } from "../../components/ui/ui.styles.js";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
-// import { signInAccount } from "../../api/auth";
 import { toast } from "react-toastify";
 import { InputText } from "../../components/inputs/InputText";
-// import { useAuth } from "../../hooks/useAuth.jsx";
-import NeoLogoBG from '../../assets/neoLogoBG.png';
+import { useAuth } from '../../hooks/useAuth.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { adminLogin } from '../../store/api/admin.api.js';
 
 export const LoginPage = () => {
-  // const {setAuth } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
+  
+  const { login } = useAuth();
+  const dispatch = useDispatch();
+  const { data } = useSelector((state) => state?.admin);
   
   const {
     control,
@@ -26,36 +27,6 @@ export const LoginPage = () => {
     reValidateMode: 'onSubmit'
   });
   
-  /* const { refetch } = useQuery('authUser', signInAccount, {
-   enabled: false,
-   retry: 1,
-   onSuccess: (data) => {
-   console.log(data);
-   },
-   onError(error) {
-   console.error(error);
-   }
-   });
-   
-   const { mutate } = useMutation(
-   (data) => signInAccount(data),
-   {
-   onSuccess() {
-   refetch().then(r => console.log('sing in data', r));
-   // setAuth (data.email, data.password, roles, accessToken)
-   toast.success('You successfully logged in');
-   // navigate(`/${ROUTE.landing}`);
-   },
-   onError(error) {
-   if (Array.isArray(error.response.data.error)) {
-   (error).response.data.error.forEach((el) => toast.error(el.message));
-   } else {
-   toast.error(error.response.data.message);
-   }
-   },
-   }
-   );*/
-  
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset();
@@ -63,8 +34,9 @@ export const LoginPage = () => {
     }
   }, [isSubmitSuccessful, reset]);
   
-  const onSubmitHandler = (values) => {
-    // mutate(values);
+  const onSubmit = (values) => {
+    dispatch(adminLogin(values))
+    login(data.login)
   };
   
   return (
@@ -73,11 +45,11 @@ export const LoginPage = () => {
         Log In
       </Typography>
       <Block>
-        <form onSubmit={handleSubmit(onSubmitHandler)} autoComplete="off">
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <Grid container spacing={15}>
             <Grid item xs={12} lg={12}>
               <InputText
-                name="email"
+                name="login"
                 control={control}
                 errors={errors}
                 placeholder="Email"
@@ -104,7 +76,7 @@ export const LoginPage = () => {
               </Button>
             </Grid>
           </Grid>
-        </form>
+        </Box>
       </Block>
     </ContainerCSS>
   );

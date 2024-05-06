@@ -3,6 +3,7 @@ import cors from 'cors';
 import cookieParser from "cookie-parser";
 import 'dotenv/config'
 import slideRouter from './routes/slide.js';
+import adminRouter from './routes/admin.js';
 import { corsOptions } from './config/corsOptions.js';
 import { createDBIfNotExists } from './DB.js';
 
@@ -29,3 +30,4 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(slideRouter);
+app.use(adminRouter);
