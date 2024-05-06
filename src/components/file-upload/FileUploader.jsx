@@ -5,41 +5,42 @@ import { styled, Grid, Typography, Link } from '@mui/material';
 import { UploadFile, Delete, CheckCircle } from '@mui/icons-material';
 import { blue, grey, green } from '@mui/material/colors';
 
-import { updateField } from '../../store/sliderPageSlice.jsx';
+import { updateField } from '../../store/sliderPageSlice.js';
 import { useDispatch } from 'react-redux';
 
 import "./styles.css";
 
-export const FileUploader = ({ name, multiple, ...rest }) => {
+export const FileUploader = ({ name, value, multiple, ...rest }) => {
   const { control } = useFormContext();
   const dispatch = useDispatch();
-  
+
   return (
     <Controller
-      render={({ field: { onChange } }) => (
+      name={name}
+      value={value}
+      control={control}
+      defaultValue=""
+      render={({ field }) => (
         <Dropzone
           multiple={multiple}
           onChange={(e) => {
-            onChange(
+            field.onChange(
               multiple
                 ? e.target.files
                 : e.target.files?.[0] ?? null
             );
             dispatch(updateField({ field: name, value: e.target.files?.[0] ?? null }));
-          }
-          }
+          }}
           {...rest}
         />
       )}
-      name={name}
-      control={control}
-      defaultValue=""
     />
   );
 };
 
 const Dropzone = ({ multiple, onChange, ...rest }) => {
   const { watch } = useFormContext();
+  const dispatch = useDispatch();
   
   const { acceptedFiles, getRootProps, getInputProps, isFocused, isDragAccept, isDragReject, open } = useDropzone({
     accept: {
@@ -63,12 +64,12 @@ const Dropzone = ({ multiple, onChange, ...rest }) => {
         <Typography sx={{ color: grey[500] }}>{file.size}Kb · Complete</Typography>
       </Grid>
       <Grid container item xs={12} sm={12} md={12} lg={1} justifyContent="space-between">
-        <Delete sx={{ color: grey[600] }} fontSize="small"/>
+        <Delete sx={{ color: grey[600] }} fontSize="small" onClick={() =>  dispatch(updateField({ field: name, value: null }))}/>
         <CheckCircle sx={{ color: green[800] }} fontSize="small"/>
       </Grid>
     </Grid>
   ));
-
+  
   return (
     <section className="upload-container">
       {

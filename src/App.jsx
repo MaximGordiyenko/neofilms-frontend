@@ -6,11 +6,11 @@ import { Layout } from './components/layouts/Layout.jsx';
 import { LoginPage } from './pages/sign-in/LoginPage.jsx';
 import { NoMatch } from './NoMatch.jsx';
 import { NavigationTabs } from './components/tabs/NavigationTabs.jsx';
-import { MainSliderPage } from './pages/main-slider/MainSliderPage.jsx';
+import { SlidePage } from './pages/main-slider/SlidePage.jsx';
 import { AllMoviesPage } from './pages/all-movies/AllMoviesPage.jsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import NeoLogoBG from './assets/neoLogoBG.png';
+import placeholder from './assets/slide_placeholder.png';
 import Box from '@mui/material/Box';
 import { Web3ProjectPage } from './pages/web3-project/Web3ProjectPage.jsx';
 import { CalendarPage } from './pages/calendar/CalendarPage.jsx';
@@ -19,6 +19,8 @@ import { SliderEditPage } from './pages/main-slider/SliderEditPage.jsx';
 import { MovieEditPage } from './pages/all-movies/MovieEditPage.jsx';
 import { ProjectEditPage } from './pages/web3-project/ProjectEditPage.jsx';
 import { CalendarEditPage } from './pages/calendar/CalendarEditPage.jsx';
+import { useSelector, useDispatch } from 'react-redux';
+import { getSlides, addSlide } from './store/sliderPageSlice.js';
 
 const theme = createTheme({
   palette: {}
@@ -41,33 +43,38 @@ export const AdminTabPanel = ({ children, value, index, ...other }) => {
 
 export const App = () => {
   const [tab, setTab] = useState(0);
-  const [sliders, setSlider] = useState([{ id: uuidv4(), title: 'Slide 1', image: NeoLogoBG }]);
-  const [movies, setMovie] = useState([{ id: uuidv4(), title: 'Movie 1', image: NeoLogoBG }]);
-  const [projects, setProject] = useState([{ id: uuidv4(), title: 'Project 1', image: NeoLogoBG }]);
-  const [calendars, setCalendar] = useState([{ id: uuidv4(), title: 'Calendar 1', image: NeoLogoBG }]);
+  const [sliders, setSlider] = useState();
+  const [movies, setMovie] = useState([{ id: uuidv4(), title: 'Movie 1', image: placeholder }]);
+  const [projects, setProject] = useState([{ id: uuidv4(), title: 'Project 1', image: placeholder }]);
+  const [calendars, setCalendar] = useState([{ id: uuidv4(), title: 'Calendar 1', image: placeholder }]);
   
-  const onAddSlide = () => {
-    const newSlide = { id: uuidv4(), title: 'New Slide', image: NeoLogoBG };
-    setSlider([...sliders, newSlide]);
-  };
+  const dispatch = useDispatch();
+  
+  const { data } = useSelector((state) => state?.slide);
+  console.log(data);
+  
+  useEffect(() => {
+    dispatch(getSlides());
+  }, [dispatch]);
+  
   
   const onAddMovie = () => {
-    const newMovie = { id: uuidv4(), title: 'New Movie', image: NeoLogoBG };
+    const newMovie = { id: uuidv4(), title: 'New Movie', image: placeholder };
     setMovie([...movies, newMovie]);
   };
   
   const onAddProject = () => {
-    const newProject = { id: uuidv4(), title: 'New Project', image: NeoLogoBG };
+    const newProject = { id: uuidv4(), title: 'New Project', image: placeholder };
     setProject([...projects, newProject]);
   };
   
   const onAddCalendar = () => {
-    const newCalendar = { id: uuidv4(), title: 'New Calendar', image: NeoLogoBG };
+    const newCalendar = { id: uuidv4(), title: 'New Calendar', image: placeholder };
     setCalendar([...calendars, newCalendar]);
   };
   
   const onDeleteSlide = (id) => {
-    const updatedCards = sliders.filter(card => card.id !== id);
+    const updatedCards = sliders?.filter(card => card.id !== id);
     setSlider(updatedCards);
   };
   
@@ -101,16 +108,15 @@ export const App = () => {
                   onChangeTab={(event, newValue) => setTab(newValue)}
                 />
               }>
-              <Route index element={<MainSliderPage/>}/>
+              <Route index element={<SlidePage/>}/>
               <Route
                 path={ROUTE.mainSlider}
                 element={
-                  <MainSliderPage
+                  <SlidePage
                     tab={tab}
-                    cards={sliders}
+                    cards={data}
                     onDelete={onDeleteSlide}
-                    onAdd={onAddSlide}
-                    onEdit={(id) => console.log(id)}
+                    onAdd={() => dispatch(addSlide())}
                     buttonName="Add Slide"
                   />
                 }/>
@@ -123,7 +129,6 @@ export const App = () => {
                     cards={movies}
                     onDelete={onDeleteMovie}
                     onAdd={onAddMovie}
-                    onEdit={(id) => console.log(id)}
                     buttonName="Add Movie"
                   />
                 }

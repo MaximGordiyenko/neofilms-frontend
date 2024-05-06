@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const AllMoviesPage = ({ tab, cards, onDelete, onAdd, buttonName }) => {
   const navigate = useNavigate();
-  
+  console.log(cards);
   return (
     <AdminTabPanel value={tab} index={1}>
       <Box display="flex" alignItems="center">

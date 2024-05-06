@@ -7,7 +7,7 @@ import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { updateField } from '../../store/sliderPageSlice.jsx';
+import { updateField } from '../../store/sliderPageSlice.js';
 import { DataPicker } from '../../components/pickers/DataPicker.jsx';
 import { RadioButton } from '../../components/radio/RadioButton.jsx';
 import { useState } from 'react';

@@ -8,12 +8,22 @@ import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
 import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
 
-import { useDispatch } from 'react-redux';
-import { updateField } from '../../store/sliderPageSlice.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateField, getMediaOfSlide } from '../../store/sliderPageSlice.js';
 import { ROUTE } from '../../constants.js';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export const SliderEditPage = () => {
   const dispatch = useDispatch();
+  const { sliderId } = useParams();
+  
+  useEffect(() => {
+      dispatch(getMediaOfSlide(sliderId));
+  }, [dispatch, sliderId]);
+  
+  const { mediaUrl } = useSelector((state) => state?.slide);
+  console.log(mediaUrl);
   
   const methods = useForm({
     mode: 'onSubmit',
@@ -61,7 +71,7 @@ export const SliderEditPage = () => {
             <Grid item xs={5.9}>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
                 <Typography variant="h6">Main Image or Video</Typography>
-                <FileUploader name="movie" multiple={false} onInputChange={onInputChange} />
+                <FileUploader name="movie" value={mediaUrl} multiple={false} onInputChange={onInputChange} />
               </Grid>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Typography variant="h6">Movie Title (Logo)</Typography>

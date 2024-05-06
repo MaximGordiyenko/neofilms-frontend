@@ -6,9 +6,8 @@ const tableName = 'slide';
 
 const attributes = {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     primaryKey: true,
-    autoIncrement: true,
   },
   movie: {
     type: DataTypes.STRING,

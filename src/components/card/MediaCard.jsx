@@ -1,10 +1,6 @@
-import Card from '@mui/material/Card';
 import { Delete, Edit } from '@mui/icons-material';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { CardMedia, CardContent, Button, Typography, Card, CardActions } from '@mui/material';
+import slide_placeholder from '../../assets/slide_placeholder.png'
 
 export const MediaCard = ({ title, image, onDelete, onEdit }) => {
   return (
@@ -15,8 +11,10 @@ export const MediaCard = ({ title, image, onDelete, onEdit }) => {
         </Typography>
       </CardContent>
       <CardMedia
-        sx={{ height: 140 }}
-        image={image}
+        component="img"
+        height="140"
+        image={image ? image : slide_placeholder}
+        src={image ? image : slide_placeholder}
         title="green iguana"
       />
       <CardActions>

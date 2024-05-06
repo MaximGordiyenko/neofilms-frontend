@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import sliderPageSlice from './sliderPageSlice.jsx';
+import sliderPageSlice from './sliderPageSlice.js';
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
@@ -7,6 +7,6 @@ export const store = configureStore({
       serializableCheck: false,
     }),
   reducer: {
-    slider: sliderPageSlice,
+    slide: sliderPageSlice,
   },
 })
