@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ROUTE } from './constants.js';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getSlides, addSlide } from './store/sliderPageSlice.js';
+import { getSlides } from './store/apis/slide.api.js';
 
 import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 import Box from '@mui/material/Box';
@@ -56,9 +56,9 @@ export const App = () => {
   const [calendars, setCalendar] = useState([{ id: uuidv4(), title: 'Calendar 1', image: placeholder }]);
   
   const dispatch = useDispatch();
-  
   const { data } = useSelector((state) => state?.slide);
-  console.log(data);
+  const { user } = useSelector((state) => state?.admin);
+  console.log(user);
   
   useEffect(() => {
     dispatch(getSlides());
@@ -99,14 +99,6 @@ export const App = () => {
     setCalendar(updatedCalendar);
   };
   
-  const getUserData = () =>
-    new Promise((resolve) =>
-      setTimeout(() => {
-        const user = window.localStorage.getItem("user");
-        resolve(user);
-      }, 3000)
-    );
-  
   const themeLight = createTheme(light);
   return (
     <ThemeProvider theme={responsiveFontSizes(themeLight)}>
@@ -114,7 +106,7 @@ export const App = () => {
         <Routes>
           <Route
             element={<AuthLayout/>}
-            loader={() => <AuthLayout user={getUserData()} />}>
+            loader={() => <AuthLayout user={user.login} />}>
             <Route path={ROUTE.login} element={<LoginPage/>}/>
             <Route element={<Layout/>}>
               <Route

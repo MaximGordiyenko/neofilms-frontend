@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import sliderPageSlice from './sliderPageSlice.js';
-import authSlicer from './reducers/Auth.reducer.js';
+import authSlicer from './reducers/auth.reducer.js';
 import adminSlicer from './reducers/admin.reducer.js';
+import sliderPageSlice from './reducers/slide.reducer.js';
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>

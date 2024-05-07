@@ -1,6 +1,5 @@
 import { Slide } from '../models/slide.model.js';
 import { v4 as uuidv4 } from 'uuid';
-import { getMediaOfSlide } from '../../src/store/sliderPageSlice.js';
 
 export const SlideService = (() => {
   

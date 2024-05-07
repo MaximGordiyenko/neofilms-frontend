@@ -5,7 +5,7 @@ import { styled, Grid, Typography, Link } from '@mui/material';
 import { UploadFile, Delete, CheckCircle } from '@mui/icons-material';
 import { blue, grey, green } from '@mui/material/colors';
 
-import { updateField } from '../../store/sliderPageSlice.js';
+import { updateField } from '../../store/reducers/slide.reducer.js';
 import { useDispatch } from 'react-redux';
 
 import "./styles.css";

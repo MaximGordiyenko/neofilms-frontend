@@ -1,35 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
+import { getSlides, addSlide, updateSlide, getMediaOfSlide } from '../apis/slide.api.js';
 
-export const getSlides = createAsyncThunk('data/getSlides', async () => {
-  try {
-    const response = await axios.get('http://localhost:4001/pages/slides');
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-});
-
-export const addSlide = createAsyncThunk('data/addSlide', async (postData) => {
-  try {
-    const response = await axios.post('http://localhost:4001/pages/slide', postData);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-});
-
-export const updateSlide = createAsyncThunk('data/updateSlide', async (postData) => {
-  const response = await axios.post('http://localhost:4001/pages/slide/:slide_id', postData);
-  return response.data;
-});
-
-export const getMediaOfSlide = createAsyncThunk('data/mediaSlide', async (slide_id) => {
-  const response = await axios.get(`http://localhost:4001/pages/slide/${slide_id}/movie`);
-  return response.data;
-});
-
-const sliderPageSlice = createSlice({
+const slideReducer = createSlice({
   name: 'slide',
   initialState: {
     data: [],
@@ -90,5 +62,5 @@ const sliderPageSlice = createSlice({
   }
 });
 
-export const { updateField } = sliderPageSlice.actions;
-export default sliderPageSlice.reducer;
+export const { updateField } = slideReducer.actions;
+export default slideReducer.reducer;

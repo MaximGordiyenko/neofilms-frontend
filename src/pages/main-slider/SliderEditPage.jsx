@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import { Grid, Button, Typography } from '@mui/material';
@@ -9,10 +10,11 @@ import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
 import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { updateField, getMediaOfSlide } from '../../store/sliderPageSlice.js';
-import { ROUTE } from '../../constants.js';
+import { getMediaOfSlide } from '../../store/apis/slide.api.js';
+import { updateField } from '../../store/reducers/slide.reducer.js';
+
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { ROUTE } from '../../constants.js';
 
 export const SliderEditPage = () => {
   const dispatch = useDispatch();
@@ -23,7 +25,6 @@ export const SliderEditPage = () => {
   }, [dispatch, sliderId]);
   
   const { mediaUrl } = useSelector((state) => state?.slide);
-  console.log(mediaUrl);
   
   const methods = useForm({
     mode: 'onSubmit',

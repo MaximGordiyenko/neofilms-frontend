@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { adminLogin } from '../api/admin.api.js';
+import { adminLogin } from '../apis/admin.api.js';
 
 const adminSlicer = createSlice({
   name: 'admin',
   initialState: {
-    data: [],
+    user: [],
     status: 'idle',
     error: null
   },
@@ -16,7 +16,7 @@ const adminSlicer = createSlice({
       })
       .addCase(adminLogin.fulfilled, (state, { payload }) => {
         state.status = 'succeeded';
-        state.data = payload;
+        state.user = payload;
       })
       .addCase(adminLogin.rejected, (state, action) => {
         state.status = 'failed';
