@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAddress } from '../api/Auth.api.js';
+import { getAddress } from '../apis/auth.api.js';
 
 const authSlicer = createSlice({
   name: 'auth',
@@ -25,5 +25,5 @@ const authSlicer = createSlice({
   }
 });
 
-export const { updateField } = authSlicer.actions;
+export const { } = authSlicer.actions;
 export default authSlicer.reducer;

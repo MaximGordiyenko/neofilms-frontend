@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+
 import { Button, Grid, Typography, Box } from "@mui/material";
-import { ContainerCSS, Block } from "../../components/ui/ui.styles.js";
-import { useNavigate } from "react-router-dom";
-import { useMutation, useQuery } from "react-query";
-import { toast } from "react-toastify";
 import { InputText } from "../../components/inputs/InputText";
+import { ContainerCSS, Block } from "../../components/ui/ui.styles.js";
+
 import { useAuth } from '../../hooks/useAuth.jsx';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { adminLogin } from '../../store/api/admin.api.js';
+import { adminLogin } from '../../store/apis/admin.api.js';
 
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   
   const { login } = useAuth();
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state?.admin);
+  const { user } = useSelector((state) => state?.admin);
   
   const {
     control,
@@ -36,7 +36,7 @@ export const LoginPage = () => {
   
   const onSubmit = (values) => {
     dispatch(adminLogin(values))
-    login(data.login)
+    login(user.login)
   };
   
   return (

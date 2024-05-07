@@ -11,7 +11,7 @@ import { ContainerCSS } from '../../components/ui/ui.styles.js';
 import { DataPicker } from '../../components/pickers/DataPicker.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 
-import { updateField } from '../../store/sliderPageSlice.js';
+import { updateField } from '../../store/reducers/slide.reducer.js';
 
 export const CalendarEditPage = () => {
   const dispatch = useDispatch();

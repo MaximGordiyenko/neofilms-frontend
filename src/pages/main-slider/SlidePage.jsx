@@ -1,26 +1,33 @@
-import { Outlet, useNavigate, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
+
 import { Button, Box } from '@mui/material';
 import { Add } from '@mui/icons-material';
 
-import { AdminTabPanel } from '../../App.jsx';
+import { AdminTabPanel } from '../../components/tabs/AdminTabPanel.jsx';
 import { MediaCard } from '../../components/card/MediaCard.jsx';
 
-export const SlidePage = ({ tab, cards, onDelete, onAdd, buttonName }) => {
-  const navigate = useNavigate();
+import { deleteSlide } from '../../store/apis/slide.api.js';
+import { useDispatch } from 'react-redux';
 
+import slider_placeholder from '../../assets/slide_placeholder.png';
+
+export const SlidePage = ({ tab, cards, onAdd, buttonName }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
   return (
     <AdminTabPanel value={tab} index={0}>
-      <Box display="flex" alignItems="center">
+      <Box display="flex" alignItems="center" overflow="scroll">
         {cards?.map(card => (
           <MediaCard
             key={card.id}
             title={card.logo_text}
-            image={card.logo_media}
-            onDelete={() => onDelete(card.id)}
+            image={slider_placeholder}
+            onDelete={() => dispatch(deleteSlide(card.id))}
             onEdit={() => navigate(card.id)}
           />
         ))}
-        <Button variant="contained" endIcon={<Add/>} onClick={onAdd}>{buttonName}</Button>
+        <Button variant="contained" endIcon={<Add/>} onClick={onAdd} sx={{ minWidth: 200 }}>{buttonName}</Button>
       </Box>
       <Outlet />
     </AdminTabPanel>

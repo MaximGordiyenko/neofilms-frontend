@@ -1,4 +1,5 @@
 import { Slide } from "../models/slide.model.js";
+import { v4 as uuidv4 } from 'uuid';
 
 export const createSlide = async () => {
   try {
@@ -6,12 +7,26 @@ export const createSlide = async () => {
     await Slide.bulkCreate([
       {
         "id": "60cdfea0-787c-4d68-9f6b-4fdfb79537ff",
-        "movie": "https://youtu.be/tfdwcqfuxwA?si=doY7D1wCUGi9kA9o",
-        "logo_media": "https://media.wired.com/photos/598e35fb99d76447c4eb1f28/master/pass/phonepicutres-TA.jpg",
+        "movie": {
+          "lastModified": 1715079981000,
+          "name": "Screenshot 2024-05-07 at 14.06.17.png",
+          "path": "Screenshot 2024-05-07 at 14.06.17.png",
+          "size": 26444,
+          "type": "image/png",
+          "webkitRelativePath": ""
+        },
+        "logo_media": {
+          "lastModified": 1715079981000,
+          "name": "Screenshot 2024-05-07 at 14.06.17.png",
+          "path": "Screenshot 2024-05-07 at 14.06.17.png",
+          "size": 26444,
+          "type": "image/png",
+          "webkitRelativePath": ""
+        },
         "logo_text": "This is next one logo text",
         "additional_text": "This is next one additional logo text",
         "button_text": "Google",
-        "button_link": "https://www.google.com/?client=safari",
+        "button_link": "https://www.google.com/?client=safari"
       }
     ]);
     console.log(`${Slide.name} created 📲.`);

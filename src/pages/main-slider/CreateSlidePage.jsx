@@ -1,43 +1,27 @@
-import { useEffect } from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
+import { v4 as uuidv4 } from 'uuid';
 
-import { Grid, Button, Typography } from '@mui/material';
+import { Grid, Typography, Button } from '@mui/material';
 import { Delete, DownloadDone } from '@mui/icons-material';
 
 import { ContainerCSS } from '../../components/ui/ui.styles.js';
-import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
 import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
+import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { updateSlide, deleteSlide, getSlide } from '../../store/apis/slide.api.js';
-import { updateField } from '../../store/reducers/slide.reducer.js';
-
-import { useParams, useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../constants.js';
 
-export const SliderEditPage = () => {
+import { useDispatch } from 'react-redux';
+import { deleteSlide, addSlide } from '../../store/apis/slide.api.js';
+import { updateField } from '../../store/reducers/slide.reducer.js';
+import { useNavigate } from 'react-router-dom';
+
+export const CreateSlidePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  const { sliderId } = useParams();
-  
-  useEffect(() => {
-    dispatch(getSlide(sliderId));
-  }, [dispatch]);
-  
-  const {
-    additional_text,
-    button_link,
-    button_text,
-    logo_media,
-    logo_text,
-    movie
-  } = useSelector((state) => state?.slide?.slideData);
-  console.log(movie);
-  
   const methods = useForm({
-    mode: 'onSubmit'
+    mode: 'onSubmit',
     // resolver: yupResolver(AccountSchema),
   });
   
@@ -55,11 +39,11 @@ export const SliderEditPage = () => {
   
   const onSubmit = (data) => {
     const slideData = {
-      id: sliderId,
-      ...data
-    };
-    dispatch(updateSlide(slideData));
-    navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
+      id: uuidv4(),
+      ...data,
+    }
+    dispatch(addSlide(slideData));
+    navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`)
   };
   
   return (
@@ -70,16 +54,10 @@ export const SliderEditPage = () => {
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.mainSlider}`}/>
             </Grid>
-            <Grid item xs={12} sm={4} md={9} lg={9.5}>
+            <Grid item xs={12} sm={4} md={9} lg={11.1}>
               <Typography variant="h5">New Slide</Typography>
             </Grid>
-            <Grid item xs={12} sm={4} md={9} lg={2.5} display="flex" justifyContent="space-between">
-              <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
-                dispatch(deleteSlide(sliderId));
-                navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
-              }}>
-                Delete
-              </Button>
+            <Grid item xs={12} sm={4} md={9} lg={0.9} display="flex" justifyContent="space-between">
               <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
                 Save
               </Button>
@@ -89,11 +67,11 @@ export const SliderEditPage = () => {
             <Grid item xs={5.9}>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
                 <Typography variant="h6">Main Image or Video</Typography>
-                <FileUploader name="movie" value={movie} multiple={false} onInputChange={onInputChange}/>
+                <FileUploader name="movie" multiple={false} onInputChange={onInputChange}/>
               </Grid>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Typography variant="h6">Movie Title (Logo)</Typography>
-                <FileUploader name="logo_media" value={logo_media} multiple={false} onInputChange={onInputChange}/>
+                <FileUploader name="logo_media" multiple={false} onInputChange={onInputChange}/>
               </Grid>
             </Grid>
             <Grid item xs={5.9} sx={{ background: 'white', ml: 20, mt: 20 }}>
@@ -105,7 +83,6 @@ export const SliderEditPage = () => {
                   name="logo_text"
                   label="Movie logo (title) alt text"
                   placeholder="The maestro"
-                  value={logo_text}
                   control={control}
                   errors={errors}
                   onInputChange={(value) => onInputChange('logo_text', value)}
@@ -116,7 +93,6 @@ export const SliderEditPage = () => {
                   name="additional_text"
                   label="Additional text"
                   placeholder="The maestro"
-                  value={additional_text}
                   control={control}
                   errors={errors}
                   isText={true}
@@ -130,7 +106,6 @@ export const SliderEditPage = () => {
                   name="button_text"
                   label="Button text"
                   placeholder="The maestro"
-                  value={button_text}
                   control={control}
                   errors={errors}
                   onInputChange={(value) => onInputChange('button_text', value)}
@@ -141,7 +116,6 @@ export const SliderEditPage = () => {
                   name="button_link"
                   label="Button link"
                   placeholder="https://..."
-                  value={button_link}
                   control={control}
                   errors={errors}
                   onInputChange={(value) => onInputChange('button_link', value)}

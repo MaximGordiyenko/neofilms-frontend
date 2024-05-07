@@ -1,38 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
+import { getSlides, addSlide, updateSlide, getMediaOfSlide, deleteSlide, getSlide } from '../apis/slide.api.js';
 
-export const getSlides = createAsyncThunk('data/getSlides', async () => {
-  try {
-    const response = await axios.get('http://localhost:4001/pages/slides');
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-});
-
-export const addSlide = createAsyncThunk('data/addSlide', async (postData) => {
-  try {
-    const response = await axios.post('http://localhost:4001/pages/slide', postData);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-});
-
-export const updateSlide = createAsyncThunk('data/updateSlide', async (postData) => {
-  const response = await axios.post('http://localhost:4001/pages/slide/:slide_id', postData);
-  return response.data;
-});
-
-export const getMediaOfSlide = createAsyncThunk('data/mediaSlide', async (slide_id) => {
-  const response = await axios.get(`http://localhost:4001/pages/slide/${slide_id}/movie`);
-  return response.data;
-});
-
-const sliderPageSlice = createSlice({
+const slideReducer = createSlice({
   name: 'slide',
   initialState: {
     data: [],
+    slideData: {},
     mediaUrl: '',
     status: 'idle',
     error: null
@@ -85,10 +58,31 @@ const sliderPageSlice = createSlice({
       .addCase(getMediaOfSlide.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action?.error.message;
+      })
+      .addCase(getSlide.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getSlide.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.slideData = action.payload;
+      })
+      .addCase(getSlide.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action?.error.message;
+      })
+      .addCase(deleteSlide.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(deleteSlide.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(deleteSlide.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action?.error.message;
       });
     
   }
 });
 
-export const { updateField } = sliderPageSlice.actions;
-export default sliderPageSlice.reducer;
+export const { updateField } = slideReducer.actions;
+export default slideReducer.reducer;
