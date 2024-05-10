@@ -10,10 +10,10 @@ const attributes = {
     primaryKey: true,
   },
   movie: {
-    type: DataTypes.STRING,
+    type: DataTypes.JSON,
   },
   logo_media: {
-    type: DataTypes.STRING,
+    type: DataTypes.JSON,
   },
   logo_text: {
     type: DataTypes.STRING,

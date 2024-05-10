@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getSlides, addSlide, updateSlide, getMediaOfSlide } from '../apis/slide.api.js';
+import { getSlides, addSlide, updateSlide, getMediaOfSlide, deleteSlide, getSlide } from '../apis/slide.api.js';
 
 const slideReducer = createSlice({
   name: 'slide',
   initialState: {
     data: [],
+    slideData: {},
     mediaUrl: '',
     status: 'idle',
     error: null
@@ -55,6 +56,27 @@ const slideReducer = createSlice({
         state.mediaUrl = action.payload;
       })
       .addCase(getMediaOfSlide.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action?.error.message;
+      })
+      .addCase(getSlide.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getSlide.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.slideData = action.payload;
+      })
+      .addCase(getSlide.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action?.error.message;
+      })
+      .addCase(deleteSlide.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(deleteSlide.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(deleteSlide.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action?.error.message;
       });

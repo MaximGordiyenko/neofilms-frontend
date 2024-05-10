@@ -1,18 +1,30 @@
 import { TextField, styled } from '@mui/material';
 import { Controller } from 'react-hook-form';
 
-export const InputTextAutosize = ({name, label, control, errors, sx, isText = false, minRow, maxRow, placeholder, onInputChange}) => {
-
+export const InputTextAutosize = ({
+                                    name,
+                                    value,
+                                    label,
+                                    control,
+                                    errors,
+                                    sx,
+                                    isText = false,
+                                    minRow,
+                                    maxRow,
+                                    placeholder,
+                                    onInputChange
+                                  }) => {
+  
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue=''
+      defaultValue=""
       render={
         ({ field }) =>
           <TextFieldCSS
             {...field}
-            value={field.value || ''}
+            value={field.value || value || ''}
             placeholder={placeholder}
             sx={sx}
             multiline={isText}

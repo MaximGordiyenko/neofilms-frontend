@@ -1,7 +1,7 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
 
-import { styled, Grid, Typography, Link } from '@mui/material';
+import { styled, Grid, Typography, Link, IconButton } from '@mui/material';
 import { UploadFile, Delete, CheckCircle } from '@mui/icons-material';
 import { blue, grey, green } from '@mui/material/colors';
 
@@ -13,15 +13,16 @@ import "./styles.css";
 export const FileUploader = ({ name, value, multiple, ...rest }) => {
   const { control } = useFormContext();
   const dispatch = useDispatch();
-
+  
   return (
     <Controller
       name={name}
-      value={value}
       control={control}
       defaultValue=""
       render={({ field }) => (
         <Dropzone
+          name={name}
+          value={value}
           multiple={multiple}
           onChange={(e) => {
             field.onChange(
@@ -38,9 +39,8 @@ export const FileUploader = ({ name, value, multiple, ...rest }) => {
   );
 };
 
-const Dropzone = ({ multiple, onChange, ...rest }) => {
-  const { watch } = useFormContext();
-  const dispatch = useDispatch();
+const Dropzone = ({ multiple, onChange, name, value, ...rest }) => {
+  const { watch, setValue } = useFormContext();
   
   const { acceptedFiles, getRootProps, getInputProps, isFocused, isDragAccept, isDragReject, open } = useDropzone({
     accept: {
@@ -59,28 +59,29 @@ const Dropzone = ({ multiple, onChange, ...rest }) => {
       <Grid item xs={12} sm={12} md={12} lg={1}>
         <UploadFile sx={{ color: blue[300] }} fontSize="small"/>
       </Grid>
-      <Grid item xs={12} sm={12} md={12} lg={10}>
+      <Grid item xs={12} sm={12} md={12} lg={9.5}>
         <Typography sx={{ color: grey[600] }}>{file.name}</Typography>
         <Typography sx={{ color: grey[500] }}>{file.size}Kb · Complete</Typography>
       </Grid>
-      <Grid container item xs={12} sm={12} md={12} lg={1} justifyContent="space-between">
-        <Delete sx={{ color: grey[600] }} fontSize="small" onClick={() =>  dispatch(updateField({ field: name, value: null }))}/>
-        <CheckCircle sx={{ color: green[800] }} fontSize="small"/>
+      <Grid container item xs={12} sm={12} md={12} lg={1.5} justifyContent="space-between">
+        <IconButton onClick={() => setValue(name, null)}>
+          <Delete sx={{ color: grey[600] }} fontSize="small"/>
+        </IconButton>
+        <CheckCircle sx={{ color: green[800], p: 7 }} fontSize="small"/>
       </Grid>
     </Grid>
   ));
-  
+
   return (
     <section className="upload-container">
       {
-        files.length ?
-          <aside>{files}</aside>
-          :
-          <Container {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
+        watch(name)
+          ? <aside>{files}</aside>
+          : <Container {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
             <UploadFile sx={{ color: blue[300] }} fontSize="small"/>
             <input {...getInputProps({ onChange })} />
             <Typography>
-              <Link onClick={open}>Click to upload </Link>
+              <LinkCSS underline="hover" onClick={open}>Click to upload </LinkCSS>
               or drag and drop</Typography>
             <Typography>MP4, PNG, or JPG (max. 3MB)</Typography>
           </Container>
@@ -119,3 +120,7 @@ const Container = styled('div')`
   transition: border .24s ease-in-out;
   height: 100px;
 `;
+
+const LinkCSS = styled(Link)({
+  cursor: 'pointer',
+});

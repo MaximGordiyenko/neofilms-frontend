@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Box } from '@mui/material';
 
 import { MediaCard } from '../../components/card/MediaCard.jsx';
-import { AdminTabPanel } from '../../App.jsx';
+import { AdminTabPanel } from '../../components/tabs/AdminTabPanel.jsx';
 
 export const CalendarPage = ({ tab, cards, onDelete, onAdd, buttonName }) => {
   const navigate = useNavigate();

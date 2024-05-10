@@ -4,7 +4,7 @@ import slide_placeholder from '../../assets/slide_placeholder.png'
 
 export const MediaCard = ({ title, image, onDelete, onEdit }) => {
   return (
-    <Card sx={{ maxWidth: 345, mx: 10 }}>
+    <Card sx={{ width: 250, mx: 10, overflow: 'initial' }}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="h3" color="primary">
           {title}
