@@ -1,21 +1,29 @@
 import { createContext, useContext, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLocalStorage } from "./useLocalStorage";
 
-const AuthContext = createContext();
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from '../constants.js';
+
+import { useSessionStorage } from "./useSessionStorage.jsx";
+import { toast } from 'react-toastify';
+
+const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children, userData }) => {
-  const [user, setUser] = useLocalStorage("admin", userData);
+  const [user, setUser] = useSessionStorage("admin", userData);
   const navigate = useNavigate();
   
   const login = async (data) => {
-    setUser(data);
-    navigate("/admin/main-slider", { replace: true });
+    if (!data.error) {
+      setUser(data.login);
+      navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`, { replace: true });
+    } else {
+      toast.error(`${data.error}`);
+    }
   };
   
   const logout = () => {
     setUser(null);
-    navigate("/login", { replace: true });
+    navigate(`/${ROUTE.login}`, { replace: true });
   };
   
   const value = useMemo(

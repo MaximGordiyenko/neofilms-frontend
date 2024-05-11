@@ -29,6 +29,9 @@ import placeholder from './assets/slide_placeholder.png';
 import { light, dark } from './theme-config.js';
 import './App.css';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const theme = createTheme({
   palette: {}
 });
@@ -48,9 +51,9 @@ export const App = () => {
     dispatch(getSlides());
   }, [dispatch]);
   
-  const { data } = useSelector((state) => state?.slide);
+  const { data, error } = useSelector((state) => state?.slide);
   const { user } = useSelector((state) => state?.admin);
-  console.log(data);
+  console.log(data, error);
   
   const onAddMovie = () => {
     const newMovie = { id: uuidv4(), title: 'New Movie', image: placeholder };
@@ -88,7 +91,7 @@ export const App = () => {
       <Routes>
         <Route
           element={<AuthLayout/>}
-          loader={() => <AuthLayout user={user.login}/>}>
+          loader={() => <AuthLayout user={user}/>}>
           <Route path={ROUTE.login} element={<LoginPage/>}/>
           <Route element={<Layout/>}>
             <Route
@@ -106,7 +109,7 @@ export const App = () => {
                   <SlidePage
                     tab={tab}
                     cards={data}
-                    onAdd={() => navigate(`${ROUTE.admin}/${ROUTE.mainSlider}/${ROUTE.createSlide}`)}
+                    onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}/${ROUTE.createSlide}`)}
                     buttonName="Add Slide"
                   />
                 }/>
@@ -159,6 +162,14 @@ export const App = () => {
         </Route>
         <Route path="*" element={<NoMatch/>}/>
       </Routes>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={3000}
+        hideProgressBar
+        closeOnClick
+        draggable
+        theme="colored"
+      />
     </ThemeProvider>
   );
 };

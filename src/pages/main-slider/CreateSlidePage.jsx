@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { deleteSlide, addSlide } from '../../store/apis/slide.api.js';
 import { updateField } from '../../store/reducers/slide.reducer.js';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const CreateSlidePage = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,8 @@ export const CreateSlidePage = () => {
       ...data,
     }
     dispatch(addSlide(slideData));
-    navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`)
+    navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
+    toast.success(`${data.logo_text} was added successfuly`);
   };
   
   return (

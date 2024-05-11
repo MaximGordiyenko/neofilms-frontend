@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
+
 import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { loginSchema } from '../../validation/admin.js';
 
 import { Button, Grid, Typography, Box } from "@mui/material";
 import { InputText } from "../../components/inputs/InputText";
@@ -15,8 +18,8 @@ export const LoginPage = () => {
   
   const { login } = useAuth();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state?.admin);
-  
+  const { user, error } = useSelector((state) => state?.admin);
+
   const {
     control,
     formState: { errors, isSubmitSuccessful, isValid },
@@ -24,7 +27,8 @@ export const LoginPage = () => {
     handleSubmit
   } = useForm({
     mode: 'onChange',
-    reValidateMode: 'onSubmit'
+    reValidateMode: 'onSubmit',
+    resolver: yupResolver(loginSchema),
   });
   
   useEffect(() => {
@@ -36,9 +40,9 @@ export const LoginPage = () => {
   
   const onSubmit = (values) => {
     dispatch(adminLogin(values))
-    login(user.login)
+    login(user)
   };
-  
+  console.log(error);
   return (
     <ContainerCSS maxWidth="xs">
       <Typography variant="h4" align="center" color="secondary">
@@ -58,18 +62,18 @@ export const LoginPage = () => {
             <Grid item xs={12} lg={12}>
               <InputText
                 name="password"
+                placeholder="Password"
                 control={control}
                 errors={errors}
                 isIconEye={true}
                 setShowPassword={setShowPassword}
                 showPassword={showPassword}
-                placeholder="Password"
               />
             </Grid>
             <Grid item xs={12} lg={12}>
               <Button
                 fullWidth
-                disabled={!isValid}
+                // disabled={!isValid}
                 variant="contained"
                 type="submit">
                 Sign in

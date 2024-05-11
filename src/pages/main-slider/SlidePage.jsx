@@ -10,6 +10,7 @@ import { deleteSlide } from '../../store/apis/slide.api.js';
 import { useDispatch } from 'react-redux';
 
 import slider_placeholder from '../../assets/slide_placeholder.png';
+import { toast } from 'react-toastify';
 
 export const SlidePage = ({ tab, cards, onAdd, buttonName }) => {
   const navigate = useNavigate();
@@ -23,7 +24,10 @@ export const SlidePage = ({ tab, cards, onAdd, buttonName }) => {
             key={card.id}
             title={card.logo_text}
             image={slider_placeholder}
-            onDelete={() => dispatch(deleteSlide(card.id))}
+            onDelete={() => {
+              dispatch(deleteSlide(card.id));
+              toast.error(`${card.logo_text} was deleted`);
+            }}
             onEdit={() => navigate(card.id)}
           />
         ))}
