@@ -19,10 +19,10 @@ export const SlidePage = ({ tab, cards, onAdd, buttonName }) => {
   return (
     <AdminTabPanel value={tab} index={0}>
       <Box display="flex" alignItems="center" overflow="scroll">
-        {cards?.map(card => (
+        {cards?.map((card, idx) => (
           <MediaCard
             key={card.id}
-            title={card.logo_text}
+            title={`Slider ${idx + 1}`}
             image={slider_placeholder}
             onDelete={() => {
               dispatch(deleteSlide(card.id));

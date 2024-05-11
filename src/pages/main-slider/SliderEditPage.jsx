@@ -34,7 +34,6 @@ export const SliderEditPage = () => {
     logo_text,
     movie
   } = useSelector((state) => state?.slide?.slideData);
-  console.log(movie);
   
   const methods = useForm({
     mode: 'onSubmit'

@@ -5,50 +5,33 @@ import { ROUTE } from '../../constants.js';
 import { Delete, DownloadDone } from '@mui/icons-material';
 import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
-import { FormProvider, useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateField } from '../../store/reducers/movie.reducer.js';
 import { DataPicker } from '../../components/pickers/DataPicker.jsx';
 import { RadioButton } from '../../components/radio/RadioButton.jsx';
-import { useState, useEffect } from 'react';
 import { IconButton } from '../../components/buttons/IconButton.jsx';
-import { useParams } from 'react-router-dom';
-import { getMovie } from '../../store/apis/movie.api.js';
+import { FormProvider, useForm } from 'react-hook-form';
+import { updateField } from '../../store/reducers/movie.reducer.js';
+import { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { addMovie } from '../../store/apis/movie.api.js';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
-export const MovieEditPage = () => {
+export const CreateMoviePage = () => {
+  const [addDirector, setAddDirector] = useState(1);
   const [addWritten, setAddWritten] = useState(1);
   const [addActor, setAddActor] = useState(1);
   
-  const { movieId } = useParams();
   const dispatch = useDispatch();
-  
-  const {
-    title,
-    description,
-    movie_link,
-    release_date,
-    status,
-    directed_by,
-    written_by,
-    starring
-  } = useSelector((state) => state?.movie?.movie);
-  const [directors, setDirectors] = useState(directed_by || []);
-  console.log(directed_by);
-  
-  useEffect(() => {
-    dispatch(getMovie(movieId));
-  }, [dispatch]);
-  
-  const handleAddDirector = () => {
-    setDirectors([...directors, '']);
-  };
-  
-  const handleDirectorNameChange = (index, value) => {
-    const updatedDirectors = [...directors];
-    updatedDirectors[index] = value;
-    setDirectors(updatedDirectors);
-  };
-  
+  const navigate = useNavigate();
+  // const [directorNames, setDirectorNames] = useState(Array.from({ length: addDirector }, () => ''));
+  //
+  // const handleDirectorNameChange = (index, value) => {
+  //   const newDirectorNames = [...directorNames];
+  //   newDirectorNames[index] = value;
+  //   setDirectorNames(newDirectorNames);
+  // };
+  // console.log(directorNames);
   const methods = useForm({
     mode: 'onSubmit'
     // resolver: yupResolver(AccountSchema),
@@ -65,7 +48,40 @@ export const MovieEditPage = () => {
   } = methods;
   
   const onSubmit = (data) => {
-    console.log(data); // Handle form data submission
+    const directed_by = [];
+    const written_by = [];
+    const starring = [];
+    
+    for (const key in data) {
+      if (key.includes("director")) {
+        directed_by.push(data[key]);
+      }
+      if (key.includes("written")) {
+        written_by.push(data[key]);
+      }
+      if (key.includes("actor")) {
+        starring.push(data[key]);
+      }
+    }
+    
+    const movieData = {
+        id: uuidv4(),
+        directed_by,
+        written_by,
+        starring,
+        movie: data.movie,
+        title: data.title,
+        description: data.description,
+        movie_link: data.movie_link,
+        release_date: data.release_date,
+        status: data.status
+      }
+    ;
+    console.log(JSON.stringify(movieData, null, 2));
+    
+    dispatch(addMovie(movieData));
+    navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
+    toast.success(`${data.logo_text} was added successfuly`);
   };
   
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
@@ -78,14 +94,10 @@ export const MovieEditPage = () => {
             <Grid item xs={12} sm={6} md={12} lg={12}>
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.allMovies}`}/>
             </Grid>
-            <Grid item xs={12} sm={6} md={9} lg={9.5}>
+            <Grid item xs={12} sm={6} md={9} lg={11.1}>
               <Typography variant="h5">New Movie</Typography>
             </Grid>
-            <Grid item xs={12} sm={6} md={9} lg={2.5} display="flex" justifyContent="space-between">
-              <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
-              }}>
-                Delete
-              </Button>
+            <Grid item xs={12} sm={6} md={9} lg={0.9} display="flex" justifyContent="space-between">
               <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
                 Save
               </Button>
@@ -95,7 +107,7 @@ export const MovieEditPage = () => {
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h5">Movie Poster</Typography>
-                <FileUploader name="movie_poster" multiple={false} onInputChange={onInputChange}/>
+                <FileUploader name="movie" multiple={false} onInputChange={onInputChange}/>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
@@ -103,7 +115,7 @@ export const MovieEditPage = () => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <InputTextAutosize
-                    name="movie"
+                    name="title"
                     label="Title"
                     placeholder="The maestro"
                     control={control}
@@ -113,7 +125,7 @@ export const MovieEditPage = () => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <InputTextAutosize
-                    name="movie_description"
+                    name="description"
                     label="Description"
                     placeholder="Write something..."
                     control={control}
@@ -126,7 +138,7 @@ export const MovieEditPage = () => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <InputTextAutosize
-                    name="movie_imdb_link"
+                    name="movie_link"
                     label="IMDB Link"
                     placeholder="https://..."
                     control={control}
@@ -136,15 +148,16 @@ export const MovieEditPage = () => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <DataPicker
+                    name="release_date"
                     control={control}
                     errors={errors}
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <RadioButton
+                    name="status"
                     control={control}
                     errors={errors}
-                    name="period"
                   />
                 </Grid>
               </Grid>
@@ -152,20 +165,19 @@ export const MovieEditPage = () => {
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
                 <Typography variant="h5">Directed by</Typography>
-                {directors.map((director, index) => (
+                {[...Array(addDirector)].map((_, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
                       name={`director_${index}`}
-                      value={director}
                       label={`Director's name ${index + 1}`}
                       placeholder="John Doe"
                       control={control}
                       errors={errors}
-                      onInputChange={(value) => handleDirectorNameChange(index, value)}
+                      // onInputChange={(value) => handleDirectorNameChange(index, value)}
                     />
                   </Box>
                 ))}
-                <IconButton onClick={handleAddDirector}>Add Director</IconButton>
+                <IconButton onClick={() => setAddDirector(addDirector + 1)}>Add Director</IconButton>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
                 <Typography variant="h5">Written by</Typography>

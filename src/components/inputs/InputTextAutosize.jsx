@@ -12,7 +12,7 @@ export const InputTextAutosize = ({
                                     minRow,
                                     maxRow,
                                     placeholder,
-                                    onInputChange
+                                    onInputChange,
                                   }) => {
   
   return (

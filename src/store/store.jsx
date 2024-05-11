@@ -1,16 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authSlicer from './reducers/auth.reducer.js';
-import adminSlicer from './reducers/admin.reducer.js';
-import sliderPageSlice from './reducers/slide.reducer.js';
+import auth from './reducers/auth.reducer.js';
+import admin from './reducers/admin.reducer.js';
+import slide from './reducers/slide.reducer.js';
+import movie from './reducers/movie.reducer.js';
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false
     }),
-  reducer: {
-    auth: authSlicer,
-    admin: adminSlicer,
-    slide: sliderPageSlice
-  }
+  reducer: { auth, admin, slide, movie }
 });

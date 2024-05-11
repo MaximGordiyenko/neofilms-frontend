@@ -4,7 +4,7 @@ import { getSlides, addSlide, updateSlide, getMediaOfSlide, deleteSlide, getSlid
 const slideReducer = createSlice({
   name: 'slide',
   initialState: {
-    data: [],
+    slides: [],
     slideData: {},
     mediaUrl: '',
     status: 'idle',
@@ -22,7 +22,7 @@ const slideReducer = createSlice({
       })
       .addCase(getSlides.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.data = action.payload;
+        state.slides = action.payload;
       })
       .addCase(getSlides.rejected, (state, action) => {
         state.status = 'failed';

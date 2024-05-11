@@ -24,14 +24,14 @@ export const RadioButton = ({ control, name }) => {
               value="coming"
               label="Comming soon"
               control={
-                <Radio color="secondary" size="small" />
+                <Radio color="primary" size="small" />
               }
             />
             <FormControlLabel
               value="announced"
               label="To be announced"
               control={
-                <Radio color="secondary" size="small" />
+                <Radio color="primary" size="small" />
               }
             />
           </RadioGroup>

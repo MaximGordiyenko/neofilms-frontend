@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import dayjs from 'dayjs';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { styled } from '@mui/material';
 
-export const DataPicker = ({ control }) => {
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+
+export const DataPicker = ({ name, control }) => {
   const [selectedDate, setSelectedDate] = useState(dayjs());
   
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Controller
-        name="selectedDate"
+        name={name || "release_date"}
         control={control}
         defaultValue={selectedDate}
         render={({ field }) => (
@@ -31,5 +32,5 @@ export const DataPicker = ({ control }) => {
 };
 
 const StyledDatePicker = styled(DatePicker)({
-  width: '100%',
+  width: '100%'
 });

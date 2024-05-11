@@ -1,21 +1,31 @@
 import { useNavigate } from 'react-router-dom';
 import { Button, Box } from '@mui/material';
 
-import { MediaCard } from '../../components/card/MediaCard.jsx';
 import { AdminTabPanel } from '../../components/tabs/AdminTabPanel.jsx';
+import { MovieMediaCard } from '../../components/card/MovieMediaCard.jsx';
 
-export const AllMoviesPage = ({ tab, cards, onDelete, onAdd, buttonName }) => {
+import { toast } from 'react-toastify';
+import { deleteMovie } from '../../store/apis/movie.api.js';
+import { useDispatch } from 'react-redux';
+
+export const AllMoviesPage = ({ tab, cards, onAdd, buttonName }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   
   return (
     <AdminTabPanel value={tab} index={1}>
       <Box display="flex" alignItems="center">
-        {cards?.map(card => (
-          <MediaCard
+        {cards?.map((card, idx) => (
+          <MovieMediaCard
             key={card.id}
-            title={card.title}
             image={card.image}
-            onDelete={() => onDelete(card.id)}
+            status={card.status}
+            title={card.title}
+            description={card.description}
+            onDelete={() => {
+              dispatch(deleteMovie(card.id));
+              toast.error(`Movie ${idx + 1} was deleted`);
+            }}
             onEdit={() => navigate(card.id)}
           />
         ))}

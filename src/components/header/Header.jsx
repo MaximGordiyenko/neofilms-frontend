@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { Box, Grid, styled } from "@mui/material";
+import { Grid, styled } from "@mui/material";
 import { ROUTE } from '../../constants.js';
 
 export const Header = ({ leftContent, rightContent }) => {
@@ -27,7 +27,7 @@ export const Header = ({ leftContent, rightContent }) => {
 const GridCSS = styled(Grid)(
   ({ theme, opacity }) => ({
     display: 'flex',
-    position: 'static',
+    position: 'fixed',
     top: 0,
     background: 'white',
     padding: 20,

@@ -6,6 +6,7 @@ import { ROUTE } from './constants.js';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getSlides } from './store/apis/slide.api.js';
+import { getMovies } from './store/apis/movie.api.js';
 
 import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 
@@ -18,6 +19,7 @@ import { SlidePage } from './pages/main-slider/SlidePage.jsx';
 import { CreateSlidePage } from './pages/main-slider/CreateSlidePage.jsx';
 import { SliderEditPage } from './pages/main-slider/SliderEditPage.jsx';
 import { AllMoviesPage } from './pages/all-movies/AllMoviesPage.jsx';
+import { CreateMoviePage } from './pages/all-movies/CreateMoviePage.jsx';
 import { MovieEditPage } from './pages/all-movies/MovieEditPage.jsx';
 import { Web3ProjectPage } from './pages/web3-project/Web3ProjectPage.jsx';
 import { ProjectEditPage } from './pages/web3-project/ProjectEditPage.jsx';
@@ -43,22 +45,17 @@ export const App = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
-  const [movies, setMovie] = useState([{ id: uuidv4(), title: 'Movie 1', image: placeholder }]);
   const [projects, setProject] = useState([{ id: uuidv4(), title: 'Project 1', image: placeholder }]);
   const [calendars, setCalendar] = useState([{ id: uuidv4(), title: 'Calendar 1', image: placeholder }]);
   
   useEffect(() => {
     dispatch(getSlides());
+    dispatch(getMovies());
   }, [dispatch]);
   
-  const { data, error } = useSelector((state) => state?.slide);
+  const { slides } = useSelector((state) => state?.slide);
+  const { movies } = useSelector((state) => state?.movie);
   const { user } = useSelector((state) => state?.admin);
-  console.log(data, error);
-  
-  const onAddMovie = () => {
-    const newMovie = { id: uuidv4(), title: 'New Movie', image: placeholder };
-    setMovie([...movies, newMovie]);
-  };
   
   const onAddProject = () => {
     const newProject = { id: uuidv4(), title: 'New Project', image: placeholder };
@@ -68,11 +65,6 @@ export const App = () => {
   const onAddCalendar = () => {
     const newCalendar = { id: uuidv4(), title: 'New Calendar', image: placeholder };
     setCalendar([...calendars, newCalendar]);
-  };
-  
-  const onDeleteMovie = (id) => {
-    const updatedMovie = movies.filter(card => card.id !== id);
-    setMovie(updatedMovie);
   };
   
   const onDeleteProject = (id) => {
@@ -108,7 +100,7 @@ export const App = () => {
                 element={
                   <SlidePage
                     tab={tab}
-                    cards={data}
+                    cards={slides}
                     onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}/${ROUTE.createSlide}`)}
                     buttonName="Add Slide"
                   />
@@ -120,8 +112,7 @@ export const App = () => {
                   <AllMoviesPage
                     tab={tab}
                     cards={movies}
-                    onDelete={onDeleteMovie}
-                    onAdd={onAddMovie}
+                    onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.allMovies}/${ROUTE.createMovie}`)}
                     buttonName="Add Movie"
                   />
                 }
@@ -155,6 +146,7 @@ export const App = () => {
             </Route>
             <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/${ROUTE.createSlide}`} element={<CreateSlidePage/>}/>
             <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/:sliderId`} element={<SliderEditPage/>}/>
+            <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/${ROUTE.createMovie}`} element={<CreateMoviePage/>}/>
             <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/:movieId`} element={<MovieEditPage/>}/>
             <Route path={`${ROUTE.admin}/${ROUTE.web3project}/:projectId`} element={<ProjectEditPage/>}/>
             <Route path={`${ROUTE.admin}/${ROUTE.calendar}/:calendarId`} element={<CalendarEditPage/>}/>

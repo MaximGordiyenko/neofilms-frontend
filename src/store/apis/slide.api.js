@@ -48,12 +48,10 @@ export const getSlide = createAsyncThunk('data/getSlide', async (slide_id) => {
 });
 
 export const deleteSlide = createAsyncThunk('data/deleteSlide', async (slide_id) => {
-  console.log(slide_id);
   try {
     const response = await axios.delete(`http://localhost:4001/pages/slide/${slide_id}`);
     return response.data;
   } catch (error) {
     throw error;
   }
-  
 });

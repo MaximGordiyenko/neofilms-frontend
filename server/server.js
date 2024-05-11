@@ -2,8 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from "cookie-parser";
 import 'dotenv/config'
-import slideRouter from './routes/slide.js';
 import adminRouter from './routes/admin.js';
+import slideRouter from './routes/slide.js';
+import movieRouter from './routes/movie.js';
 import { corsOptions } from './config/corsOptions.js';
 import { createDBIfNotExists } from './DB.js';
 
@@ -29,5 +30,6 @@ app.use(express.urlencoded({
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(slideRouter);
 app.use(adminRouter);
+app.use(slideRouter);
+app.use(movieRouter);
