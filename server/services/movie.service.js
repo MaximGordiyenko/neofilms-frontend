@@ -1,5 +1,4 @@
 import { Movie } from '../models/movie.model.js';
-import { Slide } from '../models/slide.model.js';
 
 export const MovieService = (() => {
   

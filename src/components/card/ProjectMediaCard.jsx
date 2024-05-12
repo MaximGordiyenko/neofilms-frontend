@@ -2,7 +2,7 @@ import { CardContent, Typography, CardMedia, CardActions, Button, Card } from '@
 import { Delete, Edit } from '@mui/icons-material';
 import slide_placeholder from '../../assets/slide_placeholder.png';
 
-export const MovieMediaCard = ({ status, title, description, image, onDelete, onEdit }) => {
+export const ProjectMediaCard = ({ image, completion, name, description, onDelete, onEdit }) => {
   return (
     <Card sx={{ width: 250, mx: 10, overflow: 'initial' }}>
       <CardMedia
@@ -14,10 +14,10 @@ export const MovieMediaCard = ({ status, title, description, image, onDelete, on
       />
       <CardContent>
         <Typography gutterBottom variant="body1" color="primary">
-          {status}
+          {completion}
         </Typography>
         <Typography gutterBottom variant="h5" component="h3" color="primary">
-          {title}
+          {name}
         </Typography>
         <Typography gutterBottom variant="body2" color="primary">
           {description}

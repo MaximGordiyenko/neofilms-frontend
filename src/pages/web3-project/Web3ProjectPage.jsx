@@ -1,21 +1,32 @@
 import { Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { MediaCard } from '../../components/card/MediaCard.jsx';
 import { AdminTabPanel } from '../../components/tabs/AdminTabPanel.jsx';
+import { ProjectMediaCard } from '../../components/card/ProjectMediaCard.jsx';
 
-export const Web3ProjectPage = ({ tab, cards, onDelete, onAdd, buttonName }) => {
+import { toast } from 'react-toastify';
+
+import { useDispatch } from 'react-redux';
+import { deleteProject } from '../../store/apis/project.api.js';
+
+export const Web3ProjectPage = ({ tab, cards, onAdd, buttonName }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   
   return (
     <AdminTabPanel value={tab} index={2}>
       <Box display="flex" alignItems="center" flexDirection="row-reverse" justifyContent="flex-end">
         {cards?.map(card => (
-          <MediaCard
+          <ProjectMediaCard
             key={card.id}
-            title={card.title}
             image={card.image}
-            onDelete={() => onDelete(card.id)}
+            name={card.name}
+            completion={card.completion}
+            description={card.description}
+            onDelete={() => {
+              dispatch(deleteProject(card.id));
+              toast.error(`Project ${idx + 1} was deleted`);
+            }}
             onEdit={() => navigate(card.id)}
           />
         ))}

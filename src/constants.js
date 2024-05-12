@@ -7,6 +7,7 @@ export const ROUTE = {
   allMovies: 'all-movies',
   createMovie: 'create-movie',
   web3project: 'web3-project',
+  createProject: 'create-project',
   calendar: 'calendar',
   emailVerify: 'email-verify',
   forgotPassword: 'forgot-password',

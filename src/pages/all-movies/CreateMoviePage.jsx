@@ -24,14 +24,7 @@ export const CreateMoviePage = () => {
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const [directorNames, setDirectorNames] = useState(Array.from({ length: addDirector }, () => ''));
-  //
-  // const handleDirectorNameChange = (index, value) => {
-  //   const newDirectorNames = [...directorNames];
-  //   newDirectorNames[index] = value;
-  //   setDirectorNames(newDirectorNames);
-  // };
-  // console.log(directorNames);
+
   const methods = useForm({
     mode: 'onSubmit'
     // resolver: yupResolver(AccountSchema),
@@ -173,7 +166,6 @@ export const CreateMoviePage = () => {
                       placeholder="John Doe"
                       control={control}
                       errors={errors}
-                      // onInputChange={(value) => handleDirectorNameChange(index, value)}
                     />
                   </Box>
                 ))}

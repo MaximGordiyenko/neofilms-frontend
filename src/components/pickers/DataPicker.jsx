@@ -6,7 +6,7 @@ import { styled } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 
-export const DataPicker = ({ name, control }) => {
+export const DataPicker = ({ name, value, control }) => {
   const [selectedDate, setSelectedDate] = useState(dayjs());
   
   return (

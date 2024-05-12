@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { deleteMovie } from '../../store/apis/movie.api.js';
 import { useDispatch } from 'react-redux';
 
-export const AllMoviesPage = ({ tab, cards, onAdd, buttonName }) => {
+export const MoviesPage = ({ tab, cards, onAdd, buttonName }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   

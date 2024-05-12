@@ -16,11 +16,12 @@ import { useParams } from 'react-router-dom';
 import { getMovie } from '../../store/apis/movie.api.js';
 
 export const MovieEditPage = () => {
-  const [addWritten, setAddWritten] = useState(1);
-  const [addActor, setAddActor] = useState(1);
-  
-  const { movieId } = useParams();
   const dispatch = useDispatch();
+  const { movieId } = useParams();
+  
+  useEffect(() => {
+    dispatch(getMovie(movieId));
+  }, [dispatch]);
   
   const {
     title,
@@ -32,22 +33,30 @@ export const MovieEditPage = () => {
     written_by,
     starring
   } = useSelector((state) => state?.movie?.movie);
+  
   const [directors, setDirectors] = useState(directed_by || []);
-  console.log(directed_by);
+  const [written, setWritten] = useState(written_by || []);
+  const [actors, setActors] = useState(starring || []);
   
-  useEffect(() => {
-    dispatch(getMovie(movieId));
-  }, [dispatch]);
-  
-  const handleAddDirector = () => {
-    setDirectors([...directors, '']);
-  };
-  
-  const handleDirectorNameChange = (index, value) => {
+  const onDirectorChange = (index, value) => {
     const updatedDirectors = [...directors];
     updatedDirectors[index] = value;
     setDirectors(updatedDirectors);
   };
+  
+  const onWrittenChange = (index, value) => {
+    const updatedDirectors = [...written];
+    updatedDirectors[index] = value;
+    setWritten(updatedDirectors);
+  };
+  
+  const onActorsChange = (index, value) => {
+    const updatedDirectors = [...actors];
+    updatedDirectors[index] = value;
+    setActors(updatedDirectors);
+  };
+  
+  const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
   const methods = useForm({
     mode: 'onSubmit'
@@ -65,10 +74,8 @@ export const MovieEditPage = () => {
   } = methods;
   
   const onSubmit = (data) => {
-    console.log(data); // Handle form data submission
+    console.log(data);
   };
-  
-  const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
   return (
     <FormProvider {...methods}>
@@ -95,7 +102,7 @@ export const MovieEditPage = () => {
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h5">Movie Poster</Typography>
-                <FileUploader name="movie_poster" multiple={false} onInputChange={onInputChange}/>
+                <FileUploader name="movie" multiple={false} onInputChange={onInputChange}/>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
@@ -103,9 +110,10 @@ export const MovieEditPage = () => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <InputTextAutosize
-                    name="movie"
+                    name="title"
                     label="Title"
                     placeholder="The maestro"
+                    value={title}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('logo_text', value)}
@@ -113,9 +121,10 @@ export const MovieEditPage = () => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <InputTextAutosize
-                    name="movie_description"
+                    name="description"
                     label="Description"
                     placeholder="Write something..."
+                    value={description}
                     control={control}
                     errors={errors}
                     isText={true}
@@ -126,9 +135,10 @@ export const MovieEditPage = () => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <InputTextAutosize
-                    name="movie_imdb_link"
+                    name="movie_link"
                     label="IMDB Link"
                     placeholder="https://..."
+                    value={movie_link}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('button_link', value)}
@@ -136,6 +146,8 @@ export const MovieEditPage = () => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <DataPicker
+                    name="release_date"
+                    value={release_date}
                     control={control}
                     errors={errors}
                   />
@@ -144,7 +156,8 @@ export const MovieEditPage = () => {
                   <RadioButton
                     control={control}
                     errors={errors}
-                    name="period"
+                    value={status}
+                    name="status"
                   />
                 </Grid>
               </Grid>
@@ -156,20 +169,20 @@ export const MovieEditPage = () => {
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
                       name={`director_${index}`}
-                      value={director}
                       label={`Director's name ${index + 1}`}
                       placeholder="John Doe"
                       control={control}
                       errors={errors}
-                      onInputChange={(value) => handleDirectorNameChange(index, value)}
+                      value={director}
+                      onInputChange={(value) => onDirectorChange(index, value)}
                     />
                   </Box>
                 ))}
-                <IconButton onClick={handleAddDirector}>Add Director</IconButton>
+                <IconButton onClick={() => setDirectors([...directors, ''])}>Add Director</IconButton>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
                 <Typography variant="h5">Written by</Typography>
-                {[...Array(addWritten)].map((_, index) => (
+                {written.map((director, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
                       name={`written_${index}`}
@@ -177,14 +190,16 @@ export const MovieEditPage = () => {
                       placeholder="John Doe"
                       control={control}
                       errors={errors}
+                      value={written}
+                      onInputChange={(value) => onWrittenChange(index, value)}
                     />
                   </Box>
                 ))}
-                <IconButton onClick={() => setAddWritten(addWritten + 1)}>Add Written</IconButton>
+                <IconButton onClick={() => setWritten([...written, ''])}>Add Written</IconButton>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
                 <Typography variant="h5">Starring</Typography>
-                {[...Array(addActor)].map((_, index) => (
+                {actors.map((director, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
                       name={`actor_${index}`}
@@ -192,10 +207,12 @@ export const MovieEditPage = () => {
                       placeholder="John Doe"
                       control={control}
                       errors={errors}
+                      value={actors}
+                      onInputChange={(value) => onActorsChange(index, value)}
                     />
                   </Box>
                 ))}
-                <IconButton onClick={() => setAddActor(addActor + 1)}>Add Actor</IconButton>
+                <IconButton onClick={() => setActors([...actors, ''])}>Add Actor</IconButton>
               </Grid>
             </Grid>
           </Grid>
