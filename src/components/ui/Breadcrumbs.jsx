@@ -12,7 +12,6 @@ export const BreadCrumbs = ({ currentPage }) => {
     [`${ROUTE.admin}/${ROUTE.allMovies}`]: { main: 'All Movies', sub: 'Add Movie' },
     [`${ROUTE.admin}/${ROUTE.web3project}`]: { main: 'Web 3 Project', sub: 'Add Project' },
     [`${ROUTE.admin}/${ROUTE.calendar}`]: { main: 'Calendar', sub: 'Add Event' },
-    // Add more mappings as needed
   };
   
   const { main: mainPageLabel, sub: subPageLabel } = breadcrumbMapping[currentPage] || {};
@@ -21,11 +20,14 @@ export const BreadCrumbs = ({ currentPage }) => {
     event.preventDefault();
     if (currentPage === `${ROUTE.admin}/${ROUTE.mainSlider}`) {
       navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
-    } else if (currentPage === `${ROUTE.admin}/${ROUTE.allMovies}`) {
+    }
+    if (currentPage === `${ROUTE.admin}/${ROUTE.allMovies}`) {
       navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
-    } else if (currentPage === `${ROUTE.admin}/${ROUTE.web3project}`) {
+    }
+    if (currentPage === `${ROUTE.admin}/${ROUTE.web3project}`) {
       navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
-    } else if (currentPage === `${ROUTE.admin}/${ROUTE.calendar}`) {
+    }
+    if (currentPage === `${ROUTE.admin}/${ROUTE.calendar}`) {
       navigate(`/${ROUTE.admin}/${ROUTE.calendar}`);
     }
   };

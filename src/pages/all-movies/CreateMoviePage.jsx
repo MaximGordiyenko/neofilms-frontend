@@ -24,7 +24,7 @@ export const CreateMoviePage = () => {
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  
   const methods = useForm({
     mode: 'onSubmit'
     // resolver: yupResolver(AccountSchema),
@@ -58,19 +58,17 @@ export const CreateMoviePage = () => {
     }
     
     const movieData = {
-        id: uuidv4(),
-        directed_by,
-        written_by,
-        starring,
-        movie: data.movie,
-        title: data.title,
-        description: data.description,
-        movie_link: data.movie_link,
-        release_date: data.release_date,
-        status: data.status
-      }
-    ;
-    console.log(JSON.stringify(movieData, null, 2));
+      id: uuidv4(),
+      directed_by,
+      written_by,
+      starring,
+      movie: data.movie,
+      title: data.title,
+      description: data.description,
+      movie_link: data.movie_link,
+      release_date: data.release_date,
+      status: data.status
+    };
     
     dispatch(addMovie(movieData));
     navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);

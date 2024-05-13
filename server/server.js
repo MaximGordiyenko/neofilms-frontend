@@ -6,6 +6,7 @@ import adminRouter from './routes/admin.js';
 import slideRouter from './routes/slide.js';
 import movieRouter from './routes/movie.js';
 import projectRouter from './routes/project.js';
+import calendarRouter from './routes/calendar.js';
 import { corsOptions } from './config/corsOptions.js';
 import { createDBIfNotExists } from './DB.js';
 
@@ -35,3 +36,4 @@ app.use(adminRouter);
 app.use(slideRouter);
 app.use(movieRouter);
 app.use(projectRouter);
+app.use(calendarRouter);

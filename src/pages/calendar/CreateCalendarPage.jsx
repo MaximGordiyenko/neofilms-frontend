@@ -1,33 +1,25 @@
-import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { addCalendar } from '../../store/apis/calendar.api.js';
+import { updateField } from '../../store/reducers/calendar.reducer.js';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { FormProvider, useForm } from 'react-hook-form';
+import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { useForm, FormProvider } from 'react-hook-form';
 
-import { Grid, Typography, Button } from '@mui/material';
-import { Delete, DownloadDone } from '@mui/icons-material';
-
-import { useParams, useNavigate } from 'react-router-dom';
-import { ROUTE } from '../../constants.js';
-
-import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
 import { ContainerCSS } from '../../components/ui/ui.styles.js';
+import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
 import { DataPicker } from '../../components/pickers/DataPicker.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 
-import { updateField } from '../../store/reducers/calendar.reducer.js';
-import { getCalendar, deleteCalendar } from '../../store/apis/calendar.api.js';
-import { toast } from 'react-toastify';
+import { Grid, Typography, Button } from '@mui/material';
+import { DownloadDone } from '@mui/icons-material';
 
-export const CalendarEditPage = () => {
+import { ROUTE } from '../../constants.js';
+
+export const CreateCalendarPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { calendarId } = useParams();
-  
-  useEffect(() => {
-    dispatch(getCalendar(calendarId));
-  }, [dispatch]);
-  
-  const { name, description, date } = useSelector((state) => state?.calendar?.calendar);
   
   const methods = useForm({
     mode: 'onSubmit'
@@ -47,7 +39,14 @@ export const CalendarEditPage = () => {
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
   const onSubmit = (data) => {
-    console.log(data);
+    const newEventData = {
+      id: uuidv4(),
+      ...data
+    };
+    
+    dispatch(addCalendar(newEventData));
+    navigate(`/${ROUTE.admin}/${ROUTE.calendar}`);
+    toast.success(`${data.name} was added successfuly`);
   };
   
   return (
@@ -58,23 +57,16 @@ export const CalendarEditPage = () => {
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.calendar}`}/>
             </Grid>
-            <Grid item xs={12} sm={4} md={9} lg={9.5}>
+            <Grid item xs={12} sm={4} md={9} lg={11.1}>
               <Typography variant="h5">New Event</Typography>
             </Grid>
-            <Grid item xs={12} sm={4} md={9} lg={2.5} display="flex" justifyContent="space-between">
-              <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
-                dispatch(deleteCalendar(calendarId));
-                navigate(`/${ROUTE.admin}/${ROUTE.calendar}`)
-                toast.error(`Event ${watch().name} was deleted`);
-              }}>
-                Delete
-              </Button>
+            <Grid item xs={12} sm={4} md={9} lg={0.9} display="flex" justifyContent="space-between">
               <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
                 Save
               </Button>
             </Grid>
           </Grid>
-          <Grid container justifyContent='space-around'>
+          <Grid container justifyContent="space-around">
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', mt: 20, p: 30 }}>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -85,7 +77,6 @@ export const CalendarEditPage = () => {
                     name="name"
                     label="Event name"
                     placeholder="Name..."
-                    value={name}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('logo_text', value)}
@@ -95,7 +86,6 @@ export const CalendarEditPage = () => {
                   <DataPicker
                     name="date"
                     label="MM/DD/YYYY"
-                    value={date}
                     control={control}
                     errors={errors}
                   />
@@ -105,10 +95,9 @@ export const CalendarEditPage = () => {
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
                 <InputTextAutosize
-                  name="movie_description"
+                  name="description"
                   label="Description"
                   placeholder="Write something..."
-                  value={description}
                   control={control}
                   errors={errors}
                   isText={true}

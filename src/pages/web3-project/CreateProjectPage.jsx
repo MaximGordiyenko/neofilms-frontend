@@ -102,7 +102,7 @@ export const CreateProjectPage = () => {
                     control={control}
                     errors={errors}
                   />
-                  <Typography variant="caption">{watch('completion')}%</Typography>
+                  <Typography variant="caption">{watch('completion') || 5}%</Typography>
                 </Grid>
               </Grid>
             </Grid>

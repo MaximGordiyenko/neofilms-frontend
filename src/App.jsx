@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { ROUTE } from './constants.js';
@@ -7,6 +6,8 @@ import { ROUTE } from './constants.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSlides } from './store/apis/slide.api.js';
 import { getMovies } from './store/apis/movie.api.js';
+import { getProjects } from './store/apis/project.api.js';
+import { getCalendars } from './store/apis/calendar.api.js';
 
 import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 
@@ -29,16 +30,16 @@ import { CreateProjectPage } from './pages/web3-project/CreateProjectPage.jsx';
 import { ProjectEditPage } from './pages/web3-project/ProjectEditPage.jsx';
 
 import { CalendarPage } from './pages/calendar/CalendarPage.jsx';
+import { CreateCalendarPage } from './pages/calendar/CreateCalendarPage.jsx';
 import { CalendarEditPage } from './pages/calendar/CalendarEditPage.jsx';
+
 import { NoMatch } from './NoMatch.jsx';
 
-import placeholder from './assets/slide_placeholder.png';
 import { light, dark } from './theme-config.js';
 import './App.css';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getProjects } from './store/apis/project.api.js';
 
 const theme = createTheme({
   palette: {}
@@ -50,28 +51,18 @@ export const App = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
-  const [calendars, setCalendar] = useState([{ id: uuidv4(), title: 'Calendar 1', image: placeholder }]);
-  
   useEffect(() => {
     dispatch(getSlides());
     dispatch(getMovies());
     dispatch(getProjects());
+    dispatch(getCalendars());
   }, [dispatch]);
   
   const { user } = useSelector((state) => state?.admin);
   const { slides } = useSelector((state) => state?.slide);
   const { movies } = useSelector((state) => state?.movie);
   const { projects } = useSelector((state) => state?.project);
-  
-  const onAddCalendar = () => {
-    const newCalendar = { id: uuidv4(), title: 'New Calendar', image: placeholder };
-    setCalendar([...calendars, newCalendar]);
-  };
-  
-  const onDeleteCalendar = (id) => {
-    const updatedCalendar = calendars.filter(card => card.id !== id);
-    setCalendar(updatedCalendar);
-  };
+  const { calendars } = useSelector((state) => state?.calendar);
   
   const themeLight = createTheme(light);
   return (
@@ -132,8 +123,7 @@ export const App = () => {
                   <CalendarPage
                     tab={tab}
                     cards={calendars}
-                    onDelete={onDeleteCalendar}
-                    onAdd={onAddCalendar}
+                    onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.calendar}/${ROUTE.createCalendar}`)}
                     buttonName="Add Event"
                   />
                 }
@@ -148,6 +138,7 @@ export const App = () => {
             <Route path={`${ROUTE.admin}/${ROUTE.web3project}/${ROUTE.createProject}`} element={<CreateProjectPage/>}/>
             <Route path={`${ROUTE.admin}/${ROUTE.web3project}/:projectId`} element={<ProjectEditPage/>}/>
             
+            <Route path={`${ROUTE.admin}/${ROUTE.calendar}/${ROUTE.createCalendar}`} element={<CreateCalendarPage/>}/>
             <Route path={`${ROUTE.admin}/${ROUTE.calendar}/:calendarId`} element={<CalendarEditPage/>}/>
           </Route>
         </Route>

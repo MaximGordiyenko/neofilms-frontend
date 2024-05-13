@@ -9,6 +9,7 @@ export const ROUTE = {
   web3project: 'web3-project',
   createProject: 'create-project',
   calendar: 'calendar',
+  createCalendar: 'create-calendar',
   emailVerify: 'email-verify',
   forgotPassword: 'forgot-password',
   notfound: '*',

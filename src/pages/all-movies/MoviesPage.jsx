@@ -9,8 +9,8 @@ import { deleteMovie } from '../../store/apis/movie.api.js';
 import { useDispatch } from 'react-redux';
 
 export const MoviesPage = ({ tab, cards, onAdd, buttonName }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   return (
     <AdminTabPanel value={tab} index={1}>
