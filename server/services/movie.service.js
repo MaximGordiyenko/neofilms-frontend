@@ -36,6 +36,14 @@ export const MovieService = (() => {
     });
   };
   
+  const updateMovie = async (id, movie, title, description, movie_link, release_date, status, directed_by, written_by, starring) => {
+    return await Movie.update({ movie, title, description, movie_link, release_date, status, directed_by, written_by, starring }, {
+      where: {
+        id: id
+      }
+    });
+  };
+  
   const deleteMovieById = async (movie_id) => {
     const deletedCount = await Movie.destroy({
       where: {
@@ -44,11 +52,9 @@ export const MovieService = (() => {
     });
     
     if (deletedCount === 0) {
-      // No slide was deleted (slide with the given ID not found)
       return { success: false, message: 'Slide not found' };
     }
     
-    // Slide deleted successfully
     return { success: true, message: 'Slide deleted successfully' };
   };
   
@@ -56,6 +62,7 @@ export const MovieService = (() => {
     getMovies,
     getMovie,
     createMovie,
+    updateMovie,
     deleteMovieById
   };
 })();

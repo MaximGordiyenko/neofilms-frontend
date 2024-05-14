@@ -4,7 +4,7 @@ import slide_placeholder from '../../assets/slide_placeholder.png';
 
 export const ProjectMediaCard = ({ image, completion, name, description, onDelete, onEdit }) => {
   return (
-    <Card sx={{ width: 250, mx: 10, overflow: 'initial' }}>
+    <Card sx={{ width: 250, mx: 10, overflow: 'initial', background: '#faf5f5' }} raised>
       <CardMedia
         component="img"
         height="140"

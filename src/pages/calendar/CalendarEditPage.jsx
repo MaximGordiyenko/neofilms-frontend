@@ -15,7 +15,7 @@ import { DataPicker } from '../../components/pickers/DataPicker.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 
 import { updateField } from '../../store/reducers/calendar.reducer.js';
-import { getCalendar, deleteCalendar } from '../../store/apis/calendar.api.js';
+import { getCalendar, deleteCalendar, updateCalendar } from '../../store/apis/calendar.api.js';
 import { toast } from 'react-toastify';
 
 export const CalendarEditPage = () => {
@@ -47,7 +47,9 @@ export const CalendarEditPage = () => {
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(updateCalendar({ id: calendarId, data }));
+    navigate(`/${ROUTE.admin}/${ROUTE.calendar}`);
+    toast.success(`"Event" was added successfuly`);
   };
   
   return (
@@ -58,10 +60,10 @@ export const CalendarEditPage = () => {
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.calendar}`}/>
             </Grid>
-            <Grid item xs={12} sm={4} md={9} lg={9.5}>
+            <Grid item xs={4} sm={9} md={9} lg={9.5}>
               <Typography variant="h5">New Event</Typography>
             </Grid>
-            <Grid item xs={12} sm={4} md={9} lg={2.5} display="flex" justifyContent="space-between">
+            <Grid item xs={4} sm={3} md={9} lg={2.5} display="flex" justifyContent="space-between">
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteCalendar(calendarId));
                 navigate(`/${ROUTE.admin}/${ROUTE.calendar}`)
@@ -105,7 +107,7 @@ export const CalendarEditPage = () => {
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
                 <InputTextAutosize
-                  name="movie_description"
+                  name="description"
                   label="Description"
                   placeholder="Write something..."
                   value={description}
@@ -114,6 +116,7 @@ export const CalendarEditPage = () => {
                   isText={true}
                   minRows={1000}
                   maxRows={1000}
+                  maxChars={300}
                   onInputChange={(value) => onInputChange('additional_text', value)}
                 />
               </Grid>

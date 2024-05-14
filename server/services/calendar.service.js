@@ -1,4 +1,5 @@
 import { Calendar } from '../models/calendar.model.js';
+import { Slide } from '../models/slide.model.js';
 
 export const CalendarService = (() => {
   
@@ -19,7 +20,15 @@ export const CalendarService = (() => {
       "id": id,
       "name": name || "This is next one logo text",
       "description": description || "This is next one additional logo text",
-      "date": date || 1715079981000,
+      "date": date || 1715079981000
+    });
+  };
+  
+  const updateEvent = async (id, name, description, date) => {
+    return await Calendar.update({ name, date, description }, {
+      where: {
+        id: id
+      }
     });
   };
   
@@ -43,6 +52,7 @@ export const CalendarService = (() => {
     getCalendars,
     getEvent,
     createCalendar,
+    updateEvent,
     deleteCalendarById
   };
 })();

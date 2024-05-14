@@ -14,7 +14,6 @@ export const getMovie = async (req, res, next) => {
   try {
     const { movie_id } = req.params;
     const [movie] = await MovieService.getMovie(movie_id);
-    console.log('get movie:', movie);
     res.status(200).send(movie);
   } catch (error) {
     next(error);
@@ -24,11 +23,23 @@ export const getMovie = async (req, res, next) => {
 export const addMovie = async (req, res, next) => {
   try {
     const { id, movie, title, description, movie_link, release_date, status, directed_by, written_by, starring } = req.body;
-    
     await MovieService.createMovie(id, movie, title, description, movie_link, release_date, status, directed_by, written_by, starring);
     res.status(200).send({ message: 'data was added' });
   } catch (error) {
     res.status(500).send(error);
+    next(error);
+  }
+};
+
+export const updateMovie = async (req, res, next) => {
+  try {
+    const { movie_id } = req.params;
+    const id = movie_id;
+    const { movie, title, description, movie_link, release_date, status, directed_by, written_by, starring } = req.body;
+    console.log(id, movie, title, description, movie_link, release_date, status, directed_by, written_by, starring);
+    await MovieService.updateMovie(id, movie, title, description, movie_link, release_date, status, directed_by, written_by, starring);
+    res.status(200).send({ message: 'movie was updated' });
+  } catch (error) {
     next(error);
   }
 };

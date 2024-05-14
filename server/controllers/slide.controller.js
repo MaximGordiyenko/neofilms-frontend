@@ -23,8 +23,9 @@ export const addSlide = async (req, res, next) => {
 
 export const updateSlide = async (req, res, next) => {
   try {
-    const { additional_text, button_link, button_text, logo_media, logo_text, movie, id } = req.body;
-    console.log(additional_text, button_link, button_text, logo_media, logo_text, movie, id);
+    const { slide_id } = req.params;
+    const id = slide_id;
+    const { additional_text, button_link, button_text, logo_media, logo_text, movie } = req.body;
     await SlideService.updateSlide(additional_text, button_link, button_text, logo_media, logo_text, movie, id);
     res.status(200).send({ message: 'data was updated' });
   } catch (error) {

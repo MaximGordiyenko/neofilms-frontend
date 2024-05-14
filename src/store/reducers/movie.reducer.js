@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getMovies, addMovie, getMovie, deleteMovie } from '../apis/movie.api.js';
+import { getMovies, addMovie, getMovie, deleteMovie, updateMovie } from '../apis/movie.api.js';
 
 const movieReducer = createSlice({
   name: 'movie',
@@ -34,6 +34,16 @@ const movieReducer = createSlice({
         state.status = 'succeeded';
       })
       .addCase(addMovie.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action?.error.message;
+      })
+      .addCase(updateMovie.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateMovie.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(updateMovie.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action?.error.message;
       })

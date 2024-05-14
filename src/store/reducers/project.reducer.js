@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getProjects, addProject, getProject, deleteProject } from '../apis/project.api.js';
+import { getProjects, addProject, getProject, deleteProject, updateProject } from '../apis/project.api.js';
 
 const projectReducer = createSlice({
   name: 'movie',
@@ -34,6 +34,16 @@ const projectReducer = createSlice({
         state.status = 'succeeded';
       })
       .addCase(addProject.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action?.error.message;
+      })
+      .addCase(updateProject.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateProject.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(updateProject.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action?.error.message;
       })

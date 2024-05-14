@@ -27,7 +27,15 @@ export const ProjectService = (() => {
       },
       "name": name || "This is next one logo text",
       "description": description || "This is next one additional logo text",
-      "completion": completion || 33,
+      "completion": completion || 33
+    });
+  };
+  
+  const updateProject = async (id, movie, name, description, completion) => {
+    return await Project.update({ movie, name, description, completion }, {
+      where: {
+        id: id
+      }
     });
   };
   
@@ -39,11 +47,9 @@ export const ProjectService = (() => {
     });
     
     if (deletedCount === 0) {
-      // No slide was deleted (slide with the given ID not found)
       return { success: false, message: 'Project not found' };
     }
     
-    // Slide deleted successfully
     return { success: true, message: 'Project deleted successfully' };
   };
   
@@ -51,6 +57,7 @@ export const ProjectService = (() => {
     getProjects,
     getProject,
     createProject,
+    updateProject,
     deleteProjectById
   };
 })();

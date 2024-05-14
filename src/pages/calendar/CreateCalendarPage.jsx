@@ -46,7 +46,7 @@ export const CreateCalendarPage = () => {
     
     dispatch(addCalendar(newEventData));
     navigate(`/${ROUTE.admin}/${ROUTE.calendar}`);
-    toast.success(`${data.name} was added successfuly`);
+    toast.success(`"Event" was added successfuly`);
   };
   
   return (
@@ -57,10 +57,10 @@ export const CreateCalendarPage = () => {
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.calendar}`}/>
             </Grid>
-            <Grid item xs={12} sm={4} md={9} lg={11.1}>
+            <Grid item xs={9} sm={10} md={11} lg={11.1}>
               <Typography variant="h5">New Event</Typography>
             </Grid>
-            <Grid item xs={12} sm={4} md={9} lg={0.9} display="flex" justifyContent="space-between">
+            <Grid item xs={3} sm={2} md={1} lg={0.9} display="flex" justifyContent="space-between">
               <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
                 Save
               </Button>

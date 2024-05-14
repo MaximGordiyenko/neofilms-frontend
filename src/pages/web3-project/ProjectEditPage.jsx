@@ -1,19 +1,25 @@
-import { Grid, Typography, Button } from '@mui/material';
-import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
-import { ROUTE } from '../../constants.js';
-import { Delete, DownloadDone } from '@mui/icons-material';
-import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
-import { FormProvider, useForm } from 'react-hook-form';
-import { ContainerCSS } from '../../components/ui/ui.styles.js';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateField } from '../../store/reducers/slide.reducer.js';
-import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
-import { Slide } from '../../components/sliders/Slide.jsx';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getProject } from '../../store/apis/project.api.js';
+import { toast } from 'react-toastify';
+import { FormProvider, useForm } from 'react-hook-form';
+
+import { Grid, Typography, Button } from '@mui/material';
+import { Delete, DownloadDone } from '@mui/icons-material';
+
+import { Slide } from '../../components/sliders/Slide.jsx';
+import { ContainerCSS } from '../../components/ui/ui.styles.js';
+import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
+import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
+import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { updateField } from '../../store/reducers/project.reducer.js';
+import { getProject, deleteProject, updateProject } from '../../store/apis/project.api.js';
+
+import { useParams, useNavigate } from 'react-router-dom';
+import { ROUTE } from '../../constants.js';
 
 export const ProjectEditPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { projectId } = useParams();
   
@@ -41,7 +47,9 @@ export const ProjectEditPage = () => {
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
   const onSubmit = (data) => {
-    console.log(data); // Handle form data submission
+    dispatch(updateProject({ id: projectId, data }));
+    navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
+    toast.success(`"Project" was added successfuly`);
   };
   
   return (
@@ -52,11 +60,14 @@ export const ProjectEditPage = () => {
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.web3project}`}/>
             </Grid>
-            <Grid item xs={12} sm={4} md={9} lg={9.5}>
+            <Grid item xs={4} sm={9} md={9} lg={9.5}>
               <Typography variant="h5">New Project</Typography>
             </Grid>
-            <Grid item xs={12} sm={4} md={9} lg={2.5} display="flex" justifyContent="space-between">
+            <Grid item xs={4} sm={3} md={9} lg={2.5} display="flex" justifyContent="space-between">
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
+                dispatch(deleteProject(projectId));
+                navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
+                toast.error(`Event ${watch().name} was deleted`);
               }}>
                 Delete
               </Button>
@@ -67,13 +78,13 @@ export const ProjectEditPage = () => {
           </Grid>
           <Grid container justifyContent="space-around">
             <Grid item xs={6}>
-              <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
+              <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h6">Project Image</Typography>
                 <FileUploader name="movie" multiple={false} onInputChange={onInputChange}/>
               </Grid>
             </Grid>
             <Grid item xs={6}>
-              <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
+              <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
                 <Typography variant="h6">Project Details</Typography>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <InputTextAutosize
@@ -97,6 +108,7 @@ export const ProjectEditPage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
+                    maxChars={300}
                     onInputChange={(value) => onInputChange('additional_text', value)}
                   />
                 </Grid>

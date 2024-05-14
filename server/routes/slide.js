@@ -9,7 +9,7 @@ router.get('/pages/slide/:slide_id/movie', getMediaOfSlide);
 router.get('/pages/slide/:slide_id', getSlide);
 
 router.post('/pages/slide/create', addSlide);
-router.post('/pages/slide/update', updateSlide);
+router.post('/pages/slide/:slide_id', updateSlide);
 
 router.delete('/pages/slide/:slide_id', deleteSlideById);
 

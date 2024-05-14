@@ -10,20 +10,25 @@ export const getCalendars = createAsyncThunk('data/getCalendars', async () => {
   }
 });
 
-
-export const addCalendar = createAsyncThunk('data/addCalendar', async (postData) => {
+export const addCalendar = createAsyncThunk('data/addCalendar', async (data, thunkAPI) => {
   try {
-    const response = await axios.post('http://localhost:4001/pages/event/create', postData);
-    return response.data;
+    const response = await axios.post('http://localhost:4001/pages/event/create', data);
+    if (response.status === 200) {
+      thunkAPI.dispatch(getCalendars());
+      return response.data;
+    }
   } catch (error) {
     throw error;
   }
 });
 
-export const updateCalendar = createAsyncThunk('data/updateCalendar', async (data) => {
+export const updateCalendar = createAsyncThunk('data/updateCalendar', async ({ id, data, thunkAPI }) => {
   try {
-    const response = await axios.post(`http://localhost:4001/pages/event/update`, data);
-    return response.data;
+    const response = await axios.post(`http://localhost:4001/pages/event/${id}`, data);
+    if (response.status === 200) {
+      thunkAPI.dispatch(getCalendars());
+      return response.data;
+    }
   } catch (error) {
     throw error;
   }
@@ -38,10 +43,13 @@ export const getCalendar = createAsyncThunk('data/getCalendar', async (event_id)
   }
 });
 
-export const deleteCalendar = createAsyncThunk('data/deleteCalendar', async (event_id) => {
+export const deleteCalendar = createAsyncThunk('data/deleteCalendar', async (event_id, thunkAPI) => {
   try {
     const response = await axios.delete(`http://localhost:4001/pages/event/${event_id}`);
-    return response.data;
+    if (response.status === 200) {
+      thunkAPI.dispatch(getCalendars());
+      return response.data;
+    }
   } catch (error) {
     throw error;
   }
