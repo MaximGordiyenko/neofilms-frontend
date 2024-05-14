@@ -1,9 +1,8 @@
 import { useLocation } from "react-router-dom";
-import { Box, Grid, styled, Typography } from "@mui/material";
-import { ROUTE } from '../../router/constants.js';
-// import { Logo } from "../ui/Logo";
+import { Grid, styled } from "@mui/material";
+import { ROUTE } from '../../constants.js';
 
-export const Header = () => {
+export const Header = ({ leftContent, rightContent }) => {
   const { pathname } = useLocation();
   
   return (
@@ -15,17 +14,11 @@ export const Header = () => {
       alignItems="center"
       zIndex="1"
       container>
-      <Grid item xs={12} sm={4} md={9} lg={9}>
-        <Typography variant="h4" align="center" color="primary">
-          Neo Masterpiece Film Admin Panel
-        </Typography>
+      <Grid item xs={12} sm={4} md={9} lg={10}>
+        {leftContent}
       </Grid>
-      <Grid item xs={12} sm={4} md={3} lg={3}>
-        <Box display="flex">
-          <Typography variant="h4" align="center" color="primary">
-            Logout icon
-          </Typography>
-        </Box>
+      <Grid item xs={12} sm={4} md={3} lg={2} sx={{ display: "flex", justifyContent: "end" }}>
+        {rightContent}
       </Grid>
     </GridCSS>
   );
@@ -33,8 +26,11 @@ export const Header = () => {
 
 const GridCSS = styled(Grid)(
   ({ theme, opacity }) => ({
-    display: opacity ? 'none' : 'flex',
+    display: 'flex',
     position: 'fixed',
-    top: 0
+    top: 0,
+    background: 'white',
+    padding: 20,
+    boxShadow: '0px 3px 15px rgba(100, 100, 100, 0.49)'
   })
 );

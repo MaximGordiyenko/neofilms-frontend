@@ -1,61 +1,35 @@
 import { useEffect, useState } from "react";
+
 import { useForm } from "react-hook-form";
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import { SignInSchema } from "../../validation/authorization";
-import { Box, Button, Divider, Grid, Typography } from "@mui/material";
-import { ContainerCSS, Block, InputLabelCSS, LinkCss, TitleGridCSS } from "../../components/ui/ui.styles.js";
-import { useNavigate } from "react-router-dom";
-import { useMutation, useQuery } from "react-query";
-// import { signInAccount } from "../../api/auth";
-import { toast } from "react-toastify";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { loginSchema } from '../../validation/admin.js';
+
+import { Button, Grid, Typography, Box } from "@mui/material";
 import { InputText } from "../../components/inputs/InputText";
-// import { useAuth } from "../../hooks/useAuth.jsx";
+import { ContainerCSS, Block } from "../../components/ui/ui.styles.js";
+
+import { useAuth } from '../../hooks/useAuth.jsx';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { adminLogin } from '../../store/apis/admin.api.js';
 
 export const LoginPage = () => {
-  // const {setAuth } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
   
+  const { login } = useAuth();
+  const dispatch = useDispatch();
+  const { user, error } = useSelector((state) => state?.admin);
+
   const {
     control,
     formState: { errors, isSubmitSuccessful, isValid },
     reset,
-    handleSubmit,
+    handleSubmit
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onSubmit',
-    // resolver: yupResolver(SignInSchema),
+    resolver: yupResolver(loginSchema),
   });
-  
- /* const { refetch } = useQuery('authUser', signInAccount, {
-    enabled: false,
-    retry: 1,
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError(error) {
-      console.error(error);
-    }
-  });
-  
-  const { mutate } = useMutation(
-    (data) => signInAccount(data),
-    {
-      onSuccess() {
-        refetch().then(r => console.log('sing in data', r));
-        // setAuth (data.email, data.password, roles, accessToken)
-        toast.success('You successfully logged in');
-        // navigate(`/${ROUTE.landing}`);
-      },
-      onError(error) {
-        if (Array.isArray(error.response.data.error)) {
-          (error).response.data.error.forEach((el) => toast.error(el.message));
-        } else {
-          toast.error(error.response.data.message);
-        }
-      },
-    }
-  );*/
   
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -64,23 +38,22 @@ export const LoginPage = () => {
     }
   }, [isSubmitSuccessful, reset]);
   
-  const onSubmitHandler = (values) => {
-    // mutate(values);
+  const onSubmit = (values) => {
+    dispatch(adminLogin(values))
+    login(user)
   };
-  
+  console.log(error);
   return (
     <ContainerCSS maxWidth="xs">
-      <TitleGridCSS container>
-        <Typography variant="h4" align="center" color="secondary">
-          Log In
-        </Typography>
-      </TitleGridCSS>
+      <Typography variant="h4" align="center" color="secondary">
+        Log In
+      </Typography>
       <Block>
-        <form onSubmit={handleSubmit(onSubmitHandler)} autoComplete="off">
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <Grid container spacing={15}>
             <Grid item xs={12} lg={12}>
               <InputText
-                name="email"
+                name="login"
                 control={control}
                 errors={errors}
                 placeholder="Email"
@@ -89,25 +62,25 @@ export const LoginPage = () => {
             <Grid item xs={12} lg={12}>
               <InputText
                 name="password"
+                placeholder="Password"
                 control={control}
                 errors={errors}
                 isIconEye={true}
                 setShowPassword={setShowPassword}
                 showPassword={showPassword}
-                placeholder="Password"
               />
             </Grid>
             <Grid item xs={12} lg={12}>
               <Button
                 fullWidth
-                disabled={!isValid}
+                // disabled={!isValid}
                 variant="contained"
                 type="submit">
                 Sign in
               </Button>
             </Grid>
           </Grid>
-        </form>
+        </Box>
       </Block>
     </ContainerCSS>
   );

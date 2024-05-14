@@ -1,9 +1,36 @@
-import { ContainerCSS } from '../../components/ui/ui.styles.js';
+import { useNavigate } from 'react-router-dom';
+import { Button, Box } from '@mui/material';
 
-export const CalendarPage = () => {
+import { AdminTabPanel } from '../../components/tabs/AdminTabPanel.jsx';
+import { CalendarMediaCard } from '../../components/card/CalendarMediaCard.jsx';
+
+import { toast } from 'react-toastify';
+
+import { useDispatch } from 'react-redux';
+import { deleteCalendar } from '../../store/apis/calendar.api.js';
+
+export const CalendarPage = ({ tab, cards, onAdd, buttonName }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
   return (
-    <ContainerCSS maxWidth="lg">
-    
-    </ContainerCSS>
+    <AdminTabPanel value={tab} index={3}>
+      <Box display="flex" alignItems="center" flexDirection="row-reverse" justifyContent="flex-end">
+        {cards?.map(card => (
+          <CalendarMediaCard
+            key={card.id}
+            date={card.date}
+            name={card.name}
+            description={card.description}
+            onDelete={() => {
+              dispatch(deleteCalendar(card.id));
+              toast.error(`Event ${idx + 1} was deleted`);
+            }}
+            onEdit={() => navigate(card.id)}
+          />
+        ))}
+        <Button variant="contained" onClick={onAdd}>{buttonName}</Button>
+      </Box>
+    </AdminTabPanel>
   );
 };
