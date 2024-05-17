@@ -2,11 +2,18 @@
   "name": "neo-film",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "proxy": "http://localhost:8000",
+  "options": {
+    "allowedHosts": [
+      "localhost"
+    ],
+    "proxy": "http://localhost:8000"
+  },
   "scripts": {
+    "start": "react-scripts start",
     "front:dev": "vite",
     "build": "vite build --mode production",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint --fix --ext .js,.jsx src",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -28,6 +35,7 @@
     "react-query": "^3.39.3",
     "react-redux": "^9.1.1",
     "react-router-dom": "^6.22.1",
+    "react-scripts": "^5.0.1",
     "react-toastify": "^10.0.5",
     "uuid": "^9.0.1",
     "yup": "^1.4.0"
@@ -36,7 +44,7 @@
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.56.0",
+    "eslint": "^9.2.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
