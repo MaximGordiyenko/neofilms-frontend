@@ -12,14 +12,19 @@ import { useAuth } from '../../hooks/useAuth.jsx';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { adminLogin } from '../../store/apis/admin.api.js';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '../../constants';
+import { useSessionStorage } from '../../hooks/useSessionStorage';
 
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   
-  const { login } = useAuth();
   const dispatch = useDispatch();
-  const { user, error } = useSelector((state) => state?.admin);
-
+  const navigate = useNavigate();
+  
+  const { status, loading, error } = useSelector((state) => state.admin);
+  
+  console.log(status, loading, error);
   const {
     control,
     formState: { errors, isSubmitSuccessful, isValid },
@@ -28,7 +33,7 @@ export const LoginPage = () => {
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onSubmit',
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(loginSchema)
   });
   
   useEffect(() => {
@@ -39,10 +44,15 @@ export const LoginPage = () => {
   }, [isSubmitSuccessful, reset]);
   
   const onSubmit = (values) => {
-    dispatch(adminLogin(values))
-    login(user)
+    dispatch(adminLogin(values));
   };
-  console.log(error);
+  
+  useEffect(() => {
+    if (status === 200) {
+      navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`, { replace: true });
+    }
+  }, [status, navigate]);
+  
   return (
     <ContainerCSS maxWidth="xs">
       <Typography variant="h4" align="center" color="secondary">

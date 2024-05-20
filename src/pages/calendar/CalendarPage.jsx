@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Box } from '@mui/material';
 
@@ -7,11 +8,15 @@ import { CalendarMediaCard } from '../../components/card/CalendarMediaCard.jsx';
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
-import { deleteCalendar } from '../../store/apis/calendar.api.js';
+import { deleteCalendar, getCalendars } from '../../store/apis/calendar.api.js';
 
 export const CalendarPage = ({ tab, cards, onAdd, buttonName }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    dispatch(getCalendars());
+  }, [dispatch]);
   
   return (
     <AdminTabPanel value={tab} index={3}>

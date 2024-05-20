@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { baseApi } from './base.js';
 
 export const getSlides = createAsyncThunk('data/getSlides', async () => {
   try {
-    const response = await axios.get('/pages/slides');
+    const response = await baseApi.get('/pages/slides');
     return response.data;
   } catch (error) {
     throw error;
@@ -12,7 +12,7 @@ export const getSlides = createAsyncThunk('data/getSlides', async () => {
 
 export const getSlide = createAsyncThunk('data/getSlide', async (slide_id) => {
   try {
-    const response = await axios.get(`/pages/slide/${slide_id}`);
+    const response = await baseApi.get(`/pages/slide/${slide_id}`);
     return response.data;
   } catch (error) {
     throw error;
@@ -21,7 +21,7 @@ export const getSlide = createAsyncThunk('data/getSlide', async (slide_id) => {
 
 export const addSlide = createAsyncThunk('data/addSlide', async (data, thunkAPI) => {
   try {
-    const response = await axios.post('/pages/slide/create', data);
+    const response = await baseApi.post('/pages/slide/create', data);
     if (response.status === 200) {
       thunkAPI.dispatch(getSlides());
       return response.data;
@@ -33,7 +33,7 @@ export const addSlide = createAsyncThunk('data/addSlide', async (data, thunkAPI)
 
 export const updateSlide = createAsyncThunk('data/updateSlide', async ({ id, data, thunkAPI }) => {
   try {
-    const response = await axios.post(`/pages/slide/${id}`, data);
+    const response = await baseApi.post(`/pages/slide/${id}`, data);
     if (response.status === 200) {
       thunkAPI.dispatch(getSlides());
       return response.data;
@@ -45,7 +45,7 @@ export const updateSlide = createAsyncThunk('data/updateSlide', async ({ id, dat
 
 export const deleteSlide = createAsyncThunk('data/deleteSlide', async (slide_id, thunkAPI) => {
   try {
-    const response = await axios.delete(`/pages/slide/${slide_id}`);
+    const response = await baseApi.delete(`/pages/slide/${slide_id}`);
     if (response.status === 200) {
       thunkAPI.dispatch(getSlides());
       return response.data;
@@ -57,7 +57,7 @@ export const deleteSlide = createAsyncThunk('data/deleteSlide', async (slide_id,
 
 export const getMediaOfSlide = createAsyncThunk('data/mediaSlide', async (slide_id) => {
   try {
-    const response = await axios.get(`/pages/slide/${slide_id}/movie`);
+    const response = await baseApi.get(`/pages/slide/${slide_id}/movie`);
     return response.data;
   } catch (error) {
     throw error;

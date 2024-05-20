@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { Button, Box } from '@mui/material';
 import { Add } from '@mui/icons-material';
@@ -6,15 +8,18 @@ import { Add } from '@mui/icons-material';
 import { AdminTabPanel } from '../../components/tabs/AdminTabPanel.jsx';
 import { MediaCard } from '../../components/card/MediaCard.jsx';
 
-import { deleteSlide } from '../../store/apis/slide.api.js';
 import { useDispatch } from 'react-redux';
+import { deleteSlide, getSlides } from '../../store/apis/slide.api.js';
 
 import slider_placeholder from '../../assets/slide_placeholder.png';
-import { toast } from 'react-toastify';
 
 export const SlidePage = ({ tab, cards, onAdd, buttonName }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getSlides());
+  }, [dispatch]);
   
   return (
     <AdminTabPanel value={tab} index={0}>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:4001';
+const BASE_URL = 'http://localhost:8000';
 
 export const baseApi = axios.create({
   baseURL: BASE_URL,
@@ -8,4 +8,4 @@ export const baseApi = axios.create({
 });
 
 // https://stackoverflow.com/questions/45578844/how-to-set-header-and-options-in-axios
-baseApi.defaults.headers.common['Content-Type'] = 'application/json';
+// baseApi.defaults.headers.common['Content-Type'] = 'application/json';

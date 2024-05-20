@@ -1,16 +1,21 @@
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Button, Box } from '@mui/material';
 
 import { AdminTabPanel } from '../../components/tabs/AdminTabPanel.jsx';
 import { MovieMediaCard } from '../../components/card/MovieMediaCard.jsx';
 
-import { toast } from 'react-toastify';
-import { deleteMovie } from '../../store/apis/movie.api.js';
 import { useDispatch } from 'react-redux';
+import { deleteMovie, getMovies } from '../../store/apis/movie.api.js';
 
 export const MoviesPage = ({ tab, cards, onAdd, buttonName }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    dispatch(getMovies());
+  }, [dispatch]);
   
   return (
     <AdminTabPanel value={tab} index={1}>

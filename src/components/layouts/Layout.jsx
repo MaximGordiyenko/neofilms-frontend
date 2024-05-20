@@ -1,4 +1,4 @@
-import { Outlet, useOutlet, Navigate } from 'react-router-dom';
+import { useOutlet } from 'react-router-dom';
 
 import { Typography } from '@mui/material';
 import { Logout } from '@mui/icons-material';
@@ -8,15 +8,9 @@ import { LayoutContainerCSS } from './layout.styles.js';
 import { Header } from '../header/Header.jsx';
 import { MainComponent } from './MainComponent.jsx';
 import { IconButton } from '../buttons/IconButton.jsx';
-import { useAuth } from '../../hooks/useAuth.jsx';
 
 export const Layout = () => {
-  const { user, logout } = useAuth();
   const outlet = useOutlet();
-  
-  if (!user) {
-    return <Navigate to="/login" />;
-  }
   
   return (
     <LayoutContainerCSS>
@@ -28,7 +22,7 @@ export const Layout = () => {
           </Typography>
         }
         rightContent={
-          <IconButton icon={<Logout />} onClick={logout}>Logout icon</IconButton>
+          <IconButton icon={<Logout />} onClick={() => {}}>Logout icon</IconButton>
         }
       />
       <MainComponent>

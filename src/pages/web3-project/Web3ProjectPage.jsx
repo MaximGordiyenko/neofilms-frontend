@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,11 +8,15 @@ import { ProjectMediaCard } from '../../components/card/ProjectMediaCard.jsx';
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
-import { deleteProject } from '../../store/apis/project.api.js';
+import { deleteProject, getProjects } from '../../store/apis/project.api.js';
 
 export const Web3ProjectPage = ({ tab, cards, onAdd, buttonName }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getProjects());
+  }, [dispatch]);
   
   return (
     <AdminTabPanel value={tab} index={2}>

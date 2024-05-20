@@ -1,26 +1,39 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { adminLogin } from '../apis/admin.api.js';
+import { adminLogin, adminCheck } from '../apis/admin.api.js';
 
 const adminSlicer = createSlice({
   name: 'admin',
   initialState: {
-    user: [],
-    status: 'idle',
+    status: null,
+    loading: false,
     error: null
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(adminLogin.pending, (state) => {
-        state.status = 'loading';
+        state.loading = true;
+        state.error = null;
       })
-      .addCase(adminLogin.fulfilled, (state, { payload }) => {
-        state.status = 'succeeded';
-        state.user = payload;
+      .addCase(adminLogin.fulfilled, (state, action) => {
+        state.loading = false;
+        state.status = action.payload;
       })
       .addCase(adminLogin.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action?.error.message;
+        state.loading = false;
+        state.status = action.payload;
+      })
+      .addCase(adminCheck.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(adminCheck.fulfilled, (state, action) => {
+        state.loading = false;
+        state.status = action.payload;
+      })
+      .addCase(adminCheck.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   }
 });
