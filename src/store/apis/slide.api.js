@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const getSlides = createAsyncThunk('data/getSlides', async () => {
   try {
-    const response = await axios.get('/pages/slides');
+    const response = await axios.get('/pages/slides', { withCredentials: "include" });
     return response.data;
   } catch (error) {
     throw error;
@@ -12,7 +12,7 @@ export const getSlides = createAsyncThunk('data/getSlides', async () => {
 
 export const getSlide = createAsyncThunk('data/getSlide', async (slide_id) => {
   try {
-    const response = await axios.get(`/pages/slide/${slide_id}`);
+    const response = await axios.get(`/pages/slide/${slide_id}`, { withCredentials: "include" });
     return response.data;
   } catch (error) {
     throw error;
@@ -21,7 +21,7 @@ export const getSlide = createAsyncThunk('data/getSlide', async (slide_id) => {
 
 export const addSlide = createAsyncThunk('data/addSlide', async (data, thunkAPI) => {
   try {
-    const response = await axios.post('/pages/slide/create', data);
+    const response = await axios.post('/pages/slide/create', data, { withCredentials: "include" });
     if (response.status === 200) {
       thunkAPI.dispatch(getSlides());
       return response.data;
@@ -33,7 +33,7 @@ export const addSlide = createAsyncThunk('data/addSlide', async (data, thunkAPI)
 
 export const updateSlide = createAsyncThunk('data/updateSlide', async ({ id, data, thunkAPI }) => {
   try {
-    const response = await axios.post(`/pages/slide/${id}`, data);
+    const response = await axios.post(`/pages/slide/${id}`, data, { withCredentials: "include" });
     if (response.status === 200) {
       thunkAPI.dispatch(getSlides());
       return response.data;
@@ -45,7 +45,7 @@ export const updateSlide = createAsyncThunk('data/updateSlide', async ({ id, dat
 
 export const deleteSlide = createAsyncThunk('data/deleteSlide', async (slide_id, thunkAPI) => {
   try {
-    const response = await axios.delete(`/pages/slide/${slide_id}`);
+    const response = await axios.delete(`/pages/slide/${slide_id}`, { withCredentials: "include" });
     if (response.status === 200) {
       thunkAPI.dispatch(getSlides());
       return response.data;
@@ -57,7 +57,7 @@ export const deleteSlide = createAsyncThunk('data/deleteSlide', async (slide_id,
 
 export const getMediaOfSlide = createAsyncThunk('data/mediaSlide', async (slide_id) => {
   try {
-    const response = await axios.get(`/pages/slide/${slide_id}/movie`);
+    const response = await axios.get(`/pages/slide/${slide_id}/movie`, { withCredentials: "include" });
     return response.data;
   } catch (error) {
     throw error;

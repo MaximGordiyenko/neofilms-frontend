@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const getAddress = createAsyncThunk('data/getAddress', async (address) => {
   try {
-    const response = await axios.get(`/auth/data?address=${address}`);
+    const response = await axios.get(`/auth/data?address=${address}`, { withCredentials: "include" });
     return response.data;
   } catch (error) {
     throw error;

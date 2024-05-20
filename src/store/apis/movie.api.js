@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const getMovies = createAsyncThunk('data/getMovies', async () => {
   try {
-    const response = await axios.get('/pages/movies');
+    const response = await axios.get('/pages/movies', { withCredentials: "include" });
     return response.data;
   } catch (error) {
     throw error;
@@ -12,7 +12,7 @@ export const getMovies = createAsyncThunk('data/getMovies', async () => {
 
 export const getMovie = createAsyncThunk('data/getMovie', async (movie_id) => {
   try {
-    const response = await axios.get(`/pages/movie/${movie_id}`);
+    const response = await axios.get(`/pages/movie/${movie_id}`, { withCredentials: "include" });
     return response.data;
   } catch (error) {
     throw error;
@@ -21,7 +21,7 @@ export const getMovie = createAsyncThunk('data/getMovie', async (movie_id) => {
 
 export const addMovie = createAsyncThunk('data/addMovie', async (data, thunkAPI) => {
   try {
-    const response = await axios.post('/pages/movie/create', data);
+    const response = await axios.post('/pages/movie/create', data, { withCredentials: "include" });
     if (response.status === 200) {
       thunkAPI.dispatch(getMovies());
       return response.data;
@@ -33,7 +33,7 @@ export const addMovie = createAsyncThunk('data/addMovie', async (data, thunkAPI)
 
 export const updateMovie = createAsyncThunk('data/updateMovie', async ({ id, data, thunkAPI }) => {
   try {
-    const response = await axios.post(`/pages/movie/${id}`, data);
+    const response = await axios.post(`/pages/movie/${id}`, data, { withCredentials: "include" });
     if (response.status === 200) {
       thunkAPI.dispatch(getMovie());
       return response.data;
@@ -45,7 +45,7 @@ export const updateMovie = createAsyncThunk('data/updateMovie', async ({ id, dat
 
 export const deleteMovie = createAsyncThunk('data/deleteMovie', async (movie_id, thunkAPI) => {
   try {
-    const response = await axios.delete(`/pages/movie/${movie_id}`);
+    const response = await axios.delete(`/pages/movie/${movie_id}`, { withCredentials: "include" });
     if (response.status === 200) {
       thunkAPI.dispatch(getMovies());
       return response.data;
