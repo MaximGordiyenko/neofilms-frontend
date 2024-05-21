@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { baseApi } from './base.js';
+import axios from 'axios';
 
 export const getCalendars = createAsyncThunk('data/getCalendars', async () => {
   try {
-    const response = await baseApi.get('/pages/events');
+    const response = await axios.get('/pages/events', { withCredentials: "include" });
     return response.data;
   } catch (error) {
     throw error;
@@ -12,7 +12,7 @@ export const getCalendars = createAsyncThunk('data/getCalendars', async () => {
 
 export const addCalendar = createAsyncThunk('data/addCalendar', async (data, thunkAPI) => {
   try {
-    const response = await baseApi.post('/pages/event/create', data);
+    const response = await axios.post('/pages/event/create', data, { withCredentials: "include" });
     if (response.status === 200) {
       thunkAPI.dispatch(getCalendars());
       return response.data;
@@ -24,7 +24,7 @@ export const addCalendar = createAsyncThunk('data/addCalendar', async (data, thu
 
 export const updateCalendar = createAsyncThunk('data/updateCalendar', async ({ id, data, thunkAPI }) => {
   try {
-    const response = await baseApi.post(`/pages/event/${id}`, data);
+    const response = await axios.post(`/pages/event/${id}`, data, { withCredentials: "include" });
     if (response.status === 200) {
       thunkAPI.dispatch(getCalendars());
       return response.data;
@@ -36,7 +36,7 @@ export const updateCalendar = createAsyncThunk('data/updateCalendar', async ({ i
 
 export const getCalendar = createAsyncThunk('data/getCalendar', async (event_id) => {
   try {
-    const response = await baseApi.get(`/pages/event/${event_id}`);
+    const response = await axios.get(`/pages/event/${event_id}`, { withCredentials: "include" });
     return response.data;
   } catch (error) {
     throw error;
@@ -45,7 +45,7 @@ export const getCalendar = createAsyncThunk('data/getCalendar', async (event_id)
 
 export const deleteCalendar = createAsyncThunk('data/deleteCalendar', async (event_id, thunkAPI) => {
   try {
-    const response = await baseApi.delete(`/pages/event/${event_id}`);
+    const response = await axios.delete(`/pages/event/${event_id}`, { withCredentials: "include" });
     if (response.status === 200) {
       thunkAPI.dispatch(getCalendars());
       return response.data;

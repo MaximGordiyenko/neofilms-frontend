@@ -9,7 +9,7 @@ export const adminLogin = createAsyncThunk('data/adminLogin', async (data) => {
 
 export const adminCheck = createAsyncThunk('data/adminCheck', async () => {
   try {
-    const response = await axios.get(`/admin/check`);
+    const response = await axios.get(`/admin/check`, { withCredentials: "include" });
     console.log(response);
     return response.status;
   } catch (error) {
