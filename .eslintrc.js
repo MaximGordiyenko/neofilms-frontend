@@ -12,10 +12,10 @@ module.exports = {
     },
   },
   extends: [
-    'react-app',
-    'react-app/jest',
-    'plugin:react/recommended',
-    'plugin:prettier/recommended',
+    // 'react-app',
+    // 'react-app/jest',
+    // 'plugin:react/recommended',
+    // 'plugin:prettier/recommended',
   ],
   plugins: ['react', 'react-hooks'],
   rules: {

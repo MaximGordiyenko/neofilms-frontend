@@ -20,6 +20,12 @@ export async function addSlide(_formData) {
 		});
 }
 
+export async function getSlide(slideId) {
+	return await axios.get(`/api/pages/slide/${slideId}`, {
+			withCredentials: true
+		});
+}
+
 // FormData:
 // movie: ${movie}
 // logo_media: ${logoMedia}

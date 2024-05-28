@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import * as authApi from '../../../api/auth';
 
 export const getAddress = createAsyncThunk('data/getAddress', async (address) => {
   try {
-    const response = await axios.get(`/auth/data?address=${address}`, { withCredentials: "include" });
+    const response = await authApi.getData(address);
     return response.data;
   } catch (error) {
     throw error;

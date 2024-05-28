@@ -30,6 +30,12 @@ export async function addCasting(_formData) {
 		});
 }
 
+export async function getCasting(castingId) {
+	return await axios.get(`/api/pages/casting/${castingId}`, {
+			withCredentials: true
+		});
+}
+
 // FormData:
 // image: ${image}
 // title: ${title}

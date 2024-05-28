@@ -1,15 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import * as adminApi from '../../../api/admin';
 
 export const adminLogin = createAsyncThunk('data/adminLogin', async (data) => {
-  const response = await axios.post(`/admin/login`, data, { withCredentials: "include" });
+  const response = await adminApi.login(data.login, data.password);
   console.log(response);
   return response.status;
 });
 
 export const adminCheck = createAsyncThunk('data/adminCheck', async () => {
   try {
-    const response = await axios.get(`/admin/check`, { withCredentials: "include" });
+    const response = await adminApi.check();
     console.log(response);
     return response.status;
   } catch (error) {

@@ -18,6 +18,12 @@ export async function addProject(_formData) {
 		});
 }
 
+export async function getProject(projectId) {
+	return await axios.get(`/api/pages/project/${projectId}`, {
+			withCredentials: true
+		});
+}
+
 // FormData:
 // image: ${image}
 // name: ${name}

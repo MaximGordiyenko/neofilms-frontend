@@ -11,6 +11,12 @@ export async function addEvent(name, date, description) {
 		});
 }
 
+export async function getEvent(eventId) {
+	return await axios.get(`/api/pages/event/${eventId}`, {
+			withCredentials: true
+		});
+}
+
 export async function editEvent(eventId, name, date, description) {
 	return await axios.post(`/api/pages/event/${eventId}`, {
 			name: name,

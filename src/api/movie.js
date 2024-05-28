@@ -23,6 +23,12 @@ export async function addMovie(_formData) {
 		});
 }
 
+export async function getMovie(movieId) {
+	return await axios.get(`/api/pages/movie/${movieId}`, {
+			withCredentials: true
+		});
+}
+
 // FormData:
 // poster: ${poster}
 // title: ${title}
