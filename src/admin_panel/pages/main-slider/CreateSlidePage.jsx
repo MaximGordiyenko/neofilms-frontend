@@ -9,7 +9,7 @@ import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
 import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 
-import { ROUTE } from '../../constants.js';
+import { ROUTE } from '../../../constants.js';
 
 import { useDispatch } from 'react-redux';
 import { deleteSlide, addSlide } from '../../store/apis/slide.api.js';

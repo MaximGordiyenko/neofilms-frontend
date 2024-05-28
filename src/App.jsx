@@ -1,44 +1,32 @@
 import { useState, useEffect } from 'react';
-
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { ROUTE } from './constants.js';
-
 import { useSelector, useDispatch } from 'react-redux';
-
 import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
-
-import { Layout } from './components/layouts/Layout.jsx';
-
-import { NavigationTabs } from './components/tabs/NavigationTabs.jsx';
-import { LoginPage } from './pages/sign-in/LoginPage.jsx';
-
-import { SlidePage } from './pages/main-slider/SlidePage.jsx';
-import { CreateSlidePage } from './pages/main-slider/CreateSlidePage.jsx';
-import { SliderEditPage } from './pages/main-slider/SliderEditPage.jsx';
-
-import { MoviesPage } from './pages/all-movies/MoviesPage.jsx';
-import { CreateMoviePage } from './pages/all-movies/CreateMoviePage.jsx';
-import { MovieEditPage } from './pages/all-movies/MovieEditPage.jsx';
-
-import { Web3ProjectPage } from './pages/web3-project/Web3ProjectPage.jsx';
-import { CreateProjectPage } from './pages/web3-project/CreateProjectPage.jsx';
-import { ProjectEditPage } from './pages/web3-project/ProjectEditPage.jsx';
-
-import { CalendarPage } from './pages/calendar/CalendarPage.jsx';
-import { CreateCalendarPage } from './pages/calendar/CreateCalendarPage.jsx';
-import { CalendarEditPage } from './pages/calendar/CalendarEditPage.jsx';
-
+import { Layout } from './admin_panel/components/layouts/Layout.jsx';
+import { NavigationTabs } from './admin_panel/components/tabs/NavigationTabs.jsx';
+import { LoginPage } from './admin_panel/pages/sign-in/LoginPage.jsx';
+import { SlidePage } from './admin_panel/pages/main-slider/SlidePage.jsx';
+import { CreateSlidePage } from './admin_panel/pages/main-slider/CreateSlidePage.jsx';
+import { SliderEditPage } from './admin_panel/pages/main-slider/SliderEditPage.jsx';
+import { MoviesPage } from './admin_panel/pages/all-movies/MoviesPage.jsx';
+import { CreateMoviePage } from './admin_panel/pages/all-movies/CreateMoviePage.jsx';
+import { MovieEditPage } from './admin_panel/pages/all-movies/MovieEditPage.jsx';
+import { Web3ProjectPage } from './admin_panel/pages/web3-project/Web3ProjectPage.jsx';
+import { CreateProjectPage } from './admin_panel/pages/web3-project/CreateProjectPage.jsx';
+import { ProjectEditPage } from './admin_panel/pages/web3-project/ProjectEditPage.jsx';
+import { CalendarPage } from './admin_panel/pages/calendar/CalendarPage.jsx';
+import { CreateCalendarPage } from './admin_panel/pages/calendar/CreateCalendarPage.jsx';
+import { CalendarEditPage } from './admin_panel/pages/calendar/CalendarEditPage.jsx';
 import { NoMatch } from './NoMatch.jsx';
-
 import { light, dark } from './theme-config.js';
 import './App.css';
-
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { OnlyAdmin } from './pages/sign-in/OnlyAdmin';
-import { PrivateRoute } from './pages/sign-in/PrivateRoute';
-import { adminCheck } from './store/apis/admin.api';
-import { useSessionStorage } from './hooks/useSessionStorage';
+import { OnlyAdmin } from './admin_panel/pages/sign-in/OnlyAdmin';
+import { PrivateRoute } from './admin_panel/pages/sign-in/PrivateRoute';
+import { adminCheck } from './admin_panel/store/apis/admin.api';
+import { useSessionStorage } from './admin_panel/hooks/useSessionStorage';
 
 const theme = createTheme({
   palette: {}

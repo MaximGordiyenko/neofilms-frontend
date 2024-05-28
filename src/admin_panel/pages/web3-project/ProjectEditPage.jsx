@@ -16,7 +16,7 @@ import { updateField } from '../../store/reducers/project.reducer.js';
 import { getProject, deleteProject, updateProject } from '../../store/apis/project.api.js';
 
 import { useParams, useNavigate } from 'react-router-dom';
-import { ROUTE } from '../../constants.js';
+import { ROUTE } from '../../../constants.js';
 
 export const ProjectEditPage = () => {
   const navigate = useNavigate();

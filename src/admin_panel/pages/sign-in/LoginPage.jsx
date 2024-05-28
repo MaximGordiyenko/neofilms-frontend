@@ -13,7 +13,7 @@ import { useAuth } from '../../hooks/useAuth.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { adminLogin } from '../../store/apis/admin.api.js';
 import { useNavigate } from 'react-router-dom';
-import { ROUTE } from '../../constants';
+import { ROUTE } from '../../../constants.js';
 import { useSessionStorage } from '../../hooks/useSessionStorage';
 
 export const LoginPage = () => {

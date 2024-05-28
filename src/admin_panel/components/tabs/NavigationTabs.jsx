@@ -1,7 +1,7 @@
 import { Outlet, Link } from 'react-router-dom';
 import { ContainerCSS } from '../ui/ui.styles.js';
 import { Tabs, Tab, Box } from '@mui/material';
-import { ROUTE } from '../../constants.js';
+import { ROUTE } from '../../../constants.js';
 
 export const NavigationTabs = ({tab, onChangeTab}) => {
   return (

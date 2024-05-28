@@ -2,7 +2,7 @@ import { Breadcrumbs, Typography, Link, Stack } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 import { useNavigate } from 'react-router-dom';
-import { ROUTE } from '../../constants.js';
+import { ROUTE } from '../../../constants.js';
 
 export const BreadCrumbs = ({ currentPage }) => {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { Grid, styled } from "@mui/material";
-import { ROUTE } from '../../constants.js';
+import { ROUTE } from '../../../constants.js';
 
 export const Header = ({ leftContent, rightContent }) => {
   const { pathname } = useLocation();

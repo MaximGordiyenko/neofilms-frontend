@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo, useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { ROUTE } from '../constants.js';
+import { ROUTE } from '../../constants.js';
 
 import { useSessionStorage } from "./useSessionStorage.jsx";
 import { toast } from 'react-toastify';

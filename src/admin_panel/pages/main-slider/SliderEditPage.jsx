@@ -14,7 +14,7 @@ import { updateSlide, deleteSlide, getSlide } from '../../store/apis/slide.api.j
 import { updateField } from '../../store/reducers/slide.reducer.js';
 
 import { useParams, useNavigate } from 'react-router-dom';
-import { ROUTE } from '../../constants.js';
+import { ROUTE } from '../../../constants.js';
 import { toast } from 'react-toastify';
 
 export const SliderEditPage = () => {
