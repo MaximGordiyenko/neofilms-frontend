@@ -1,0 +1,63 @@
+import axios from 'axios';
+import FormData from 'form-data';
+
+
+// FormData:
+// poster: ${poster}
+// title: ${title}
+// description: ${description}
+// movie_link: ${movieLink}
+// release_date: ${releaseDate}
+// status: ${status}
+// directed_by: ${directedBy}
+// written_by: ${writtenBy}
+// starring: ${starring}
+export async function addMovie(_formData) {
+	const formData = new FormData();
+	for (const key in _formData) {
+		formData.append(key, _formData[key]);
+	}
+	
+	return await axios.post(`/api/pages/movie`, formData, {
+			withCredentials: true
+		});
+}
+
+// FormData:
+// poster: ${poster}
+// title: ${title}
+// description: ${description}
+// movie_link: ${movieLink}
+// release_date: ${releaseDate}
+// status: ${status}
+// directed_by: ${directedBy}
+// written_by: ${writtenBy}
+// starring: ${starring}
+export async function editMovie(movieId, _formData) {
+	const formData = new FormData();
+	for (const key in _formData) {
+		formData.append(key, _formData[key]);
+	}
+	
+	return await axios.post(`/api/pages/movie/${movieId}`, formData, {
+			withCredentials: true
+		});
+}
+
+export async function deleteMovie(movieId) {
+	return await axios.delete(`/api/pages/movie/${movieId}`, {
+			withCredentials: true
+		});
+}
+
+export async function getMovies() {
+	return await axios.get(`/api/pages/movies`, {
+			withCredentials: true
+		});
+}
+
+export async function getPoster(movieId) {
+	return await axios.get(`/api/pages/movie/${movieId}/poster`, {
+			withCredentials: true
+		});
+}
