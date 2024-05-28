@@ -1,0 +1,87 @@
+.navbar-wrapper{
+  display: flex;
+  z-index: 22;
+  position: fixed;
+  filter: blur(20%);
+  .nav-inner-content{
+    border-radius: 10px;
+    padding: 10px 30px;
+    box-sizing: border-box;
+    align-items: center;
+    display: flex;
+    height: 40px;
+    background: rgba(250, 250, 250, 0.20);
+    backdrop-filter: blur(20px);
+    z-index: 222;
+    .navigation-container{
+      display: flex;
+      .tab-btn{
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+        .dropdown-content {
+          display: flex;
+          flex-direction: column;
+          text-align: left;
+          gap: 10px;
+          bottom: 40px;
+          position: absolute;
+          min-width: 100px;
+          backdrop-filter: blur(40px);
+          padding: 10px;
+          box-sizing: border-box;
+          background: rgba(250, 250, 250, 0.10);          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          z-index: 222;
+          border-radius: 5px;
+          a {
+            color: var(--white); /* Default color for inactive links in dropdown */
+            text-decoration: none;
+            display: block;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: 14px;
+          }
+          .nav-title.active-link{
+            opacity: 1;
+          }
+        }
+        .active-link {
+          margin: 0;
+          font-family: actay_wide, 'sans-serif';
+          opacity: 1;
+          color: white; /* Change color for active links */
+        }
+        .nav-title{
+          text-decoration: none;
+          text-transform: uppercase;
+          opacity: 0.5;
+          color: var(--white); /* Default color for inactive links */
+          padding: 5px;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          &:focus,
+          &:after,
+          &.active {
+            margin: 0;
+            font-family: actay_wide, 'sans-serif';
+            opacity: 1;
+            color: white; /* Change color for active links */
+          }
+          p{
+            padding: 2px;
+            box-sizing: border-box;
+            margin: 0 0 0 3px;
+            background: var(--white);
+            font-size: 8px;
+            color: var(--dark);
+          }
+          img{
+            margin-left: 3px;
+          }
+        }
+      }
+    }
+  }
+}

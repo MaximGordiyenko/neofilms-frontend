@@ -1,15 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>NEO-Films</title>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon%203.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <title>NEO Masterpiece Films — Film in Web3</title>
+  <script>
+    document.onreadystatechange = function () {
+      if (document.readyState !== "complete") {
+        document.querySelector(
+                "body").style.visibility = "hidden";
+        document.querySelector(
+                ".holder").style.visibility = "visible";
+      } else {
+        document.querySelector(
+                ".holder").style.display = "none";
+        document.querySelector(
+                "body").style.visibility = "visible";
+      }
+    };
+  </script>
+  <style>
+    @font-face {
+      font-family: 'ActayWide-Bold';
+      src: url('%PUBLIC_URL%/ActayWide-Bold.otf') format('opentype');
+      font-weight: bold;
+      font-style: normal;
+      font-display: swap;
+    }
+    .holder {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      z-index: 2222;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      opacity: 1;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .loader-gif{
+      z-index: 222;
+      width: 200px;
+      height: 200px;
+    }
+    .holder-hide{
+      display: none!important;
+    }
+    .loader-text{
+      color: #fafafa;
+      opacity: 0.5;
+      font-size: 25em;
+      font-family: 'ActayWide-Bold', sans-serif;
+    }
+    .loader-img{
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <div class="holder">
+    <img src="%PUBLIC_URL%/Preloader.gif" class="loader-gif"/>
+  </div>
+</body>
 </html>
+

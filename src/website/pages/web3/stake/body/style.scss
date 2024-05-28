@@ -1,0 +1,100 @@
+.staking-body-wrapper{
+  width: 100%;
+  height: 100%;
+  background: url("../../../../assets/images/BG_Staking_Bottom.jpg") center no-repeat;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px 40px 150px;
+  box-sizing: border-box;
+  .card-container{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1360px;
+    width: 100%;
+    .card-box{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 520px;
+      padding: 20px;
+      box-sizing: border-box;
+      border-radius: 20px;
+      background: var(--card-dark);
+      .card-title{
+        display: flex;
+        justify-content: space-between;
+        text-transform: uppercase;
+        font-size: 14px;
+        font-family: actay, "sans-serif";
+        color: var(--white);
+        opacity: 0.5;
+        margin-bottom: 10px;
+      }
+      .stat-box{
+        div{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          color: var(--white);
+          font-family: actay, "sans-serif";
+          font-size: 16px;
+          border-bottom: 1px solid #fafafa50;
+        }
+      }
+      .unclaimed-box{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--white);
+        font-family: actay, "sans-serif";
+        font-size: 16px;
+        margin: 20px 0;
+        p{
+          background: rgba(255, 255, 255, 0.05);
+          padding: 10px 15px;
+          margin: 0;
+          border-radius: 5px;
+        }
+      }
+      .btn-box-staking{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        .btn-box{
+          width: 100%;
+          img{
+            width: 285px !important;
+          }
+        }
+      }
+    }
+  }
+  .bottomLine{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .staking-body-wrapper{
+    .card-container{
+      flex-direction: column;
+      gap: 10px;
+      .card-box{
+        .btn-box-staking{
+          .btn-box{
+            .btn-body{
+              .arr-mob{
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

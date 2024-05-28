@@ -1,0 +1,36 @@
+.cast-box-wrapper {
+  width: 100%;
+  background: url("../../../assets/images/home-bodyCell-bg.svg") center no-repeat;
+  height: 100%;
+  display: flex;
+  gap: 22px;
+  max-width: 1360px;
+  margin-top: -3vh;
+  .cast-cards-box {
+    display: flex;
+    box-sizing: border-box;
+    height: 800px;
+    max-width: 1140px;
+    width: 100%;
+    gap: 0 10px;
+    padding: 50px 0 50px 0;
+    justify-content: space-between;
+  }
+  .cast-card {
+    width: 100%;
+    background-size: cover;
+    height: 210px;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 430px) {
+.cast-box-wrapper {
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+}

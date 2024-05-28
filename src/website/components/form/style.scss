@@ -1,0 +1,277 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  position: relative;
+  .inputs-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    .name-box,
+    .discord-address,
+    .project-name,
+    .budget-box{
+      width: 262px;
+      display: flex;
+      flex-direction: column;
+      .custom-input-box,
+      .btn-wrapper{
+        display: flex;
+        align-items: center;
+        width: 262px;
+        height: 34px;
+        input{
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          color: var(--white);
+          font-family: actay, "sans-serif";
+        }
+        img{
+          height: 34px;
+        }
+      }
+      select {
+        border: none;
+        background: rgba(250, 250, 250, 0.10);
+        .start-option {
+          font-family: actay, "sans-serif";
+          color: var(--white);
+        }
+      }
+    }
+    label {
+      margin-bottom: 8px;
+      font-family: actay, "sans-serif";
+      color: var(--white);
+    }
+    input, select{
+      border: none;
+      background: rgba(250, 250, 250, 0.10);
+      .start-option{
+        font-family: actay, "sans-serif";
+        color: var(--white);
+      }
+    }
+  }
+  .error-message{
+    color: red;
+    backdrop-filter: blur(20%);
+    animation: fadeIn 1s ease-in-out;
+  }
+  .button-form-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    .hr-line-form{
+      height: 1px;
+      background: var(--white);
+      width: -webkit-fill-available;
+      max-width: 54%;
+    }
+    .submit-btn{
+      background: transparent;
+      border: none;
+      width: 210px!important;
+      height: 35px;
+      position: relative;
+      cursor: pointer;
+      &:disabled {
+        opacity: 0.2;
+        color: #7f8c8d; // Text color for disabled state
+      }
+      span{
+        font-family: actay_wide, "sans-serif";
+        color: var(--white);
+        text-transform: uppercase;
+      }
+      .background-btn-form{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 35px;
+      }
+    }
+    //.button-bg-container{
+    //  position: relative;
+    //  max-width: 210px;
+    //  width: 100%;
+    //  background: transparent;
+    //  display: flex;
+    //  flex-direction: column;
+    //  align-items: center;
+    //  justify-content: center;
+    //  cursor: pointer;
+    //  z-index: 222;
+    //  .background-btn-form{
+    //    position: absolute;
+    //    width: 100%;
+    //    max-height: 35px;
+    //  }
+    //}
+  }
+  .success {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 3vh;
+    right: 37.2%;
+    width: 433px;
+    background: #00FF84;
+    border-radius: 10px;
+    padding: 20px 30px 20px 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: fadeIn .5s ease-in-out;
+    p{
+      margin: 0 0 0 15px;
+    }
+  }
+  .success.fade-in {
+    opacity: 1;
+  }
+  .success.fade-out {
+    animation: fadeOut .5s ease-in-out forwards;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  .error-span, .submit-span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(20%);
+    color: var(--white);
+    font-family: actay_wide, "sans-serif";
+    position: absolute;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    bottom: -60px;
+    width: 100%;
+  }
+  .success-message {
+    background: rgba(250, 250, 250, 0.20);
+    animation: fadeIn 1s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(20%);
+    color: var(--white);
+    font-family: actay_wide, "sans-serif";
+    position: absolute;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    bottom: -60px;
+    width: 100%;
+  }
+  label {
+    margin-bottom: 8px;
+    font-family: actay, "sans-serif";
+    color: var(--white);
+  }
+  textarea {
+    color: var(--white);
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .textarea-label{
+    margin-top: 30px;
+  }
+  .textarea-form{
+    height: 180px;
+    background: rgba(250, 250, 250, 0.10);
+    resize: none;
+    border: none;
+    clip-path: polygon(3% 0, 100% 0, 100% 92%, 97% 100%, 0% 100%, 0 7%);
+  }
+  .fade-in,
+  .fade-out {
+    transition: opacity 0.5s ease-in-out;
+  }
+}
+
+@media (max-width: 430px) {
+  .form-container{
+    .inputs-container{
+      width: 100%;
+      .name-box,
+      .discord-address,
+      .project-name,
+      .budget-box{
+        max-width: 390px;
+        width: 100%;
+        .custom-input-box{
+          width: 100%;
+          input{
+            opacity: 1;
+            color: var(--white);
+          }
+          input::placeholder{
+            opacity: 1;
+            color: var(--white);
+          }
+        }
+        .btn-wrapper{
+          width: 100%;
+          .custom-dropdown{
+            width: 100%;
+          }
+        }
+      }
+    }
+    .textarea-label{
+      margin-top: 10px;
+    }
+    .textarea-form{
+      color: var(--white);
+    }::placeholder{
+    color: var(--white);
+         }
+    .button-form-box{
+      .hr-line-form{
+        width: 100%;
+        max-width: 23%;
+      }
+      .btn-box{
+        .btn-body{
+          img{
+            display: none;
+          }
+        }
+      }
+    }
+    .success{
+      max-width: 390px;
+      right: auto;
+      left: 4.6%;
+    }
+  }
+}

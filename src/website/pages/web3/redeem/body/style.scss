@@ -1,0 +1,90 @@
+.redeem-body-wrapper{
+  width: 100%;
+  height: 100vh;
+  background: url("../../../../assets/images/BG_Rewards_Bottom.jpg") center no-repeat;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  padding: 0 155px;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  .form-box-redeem{
+    display: flex;
+    flex-direction: column;
+    max-width: 440px;
+    align-items: center;
+    gap: 40px;
+    h4{
+      font-family: actay_wide, "sans-serif";
+      color: var(--white);
+      font-size: 36px;
+      margin: 0;
+    }
+    p{
+      margin: 0;
+      font-size: 20px;
+      font-family: actay, "sans-serif";
+      color: var(--white);
+    }
+    .custom-dropdown{
+      width: 100%;
+      .selected-option{
+        width: 100%;
+        border-radius: 5px;
+      }
+    }
+    .form-btn-box{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      .hr{
+        width: -webkit-fill-available;
+        height: 1px;
+        background: var(--white-darkened);
+      }
+    }
+    .coupons{
+      text-transform: uppercase;
+      font-family: actay, "sans-serif";
+      color: var(--white-darkened);
+    }
+  }
+  .bottom-redeem-line{
+    position: absolute;
+    bottom: -2px;
+    width: 100vw;
+    left: 0;
+  }
+  .coin{
+    max-width: 555px;
+    max-height: 555px;
+  }
+}
+
+@media (max-width: 430px) {
+  .redeem-body-wrapper{
+    flex-direction: column;
+    height: 100%;
+    padding: 70px 20px;
+    box-sizing: border-box;
+    .coin{
+      margin-top: 50px;
+      max-width: 350px;
+      max-height: 350px;
+    }
+    .form-box-redeem{
+      .form-btn-box{
+        .filled-button-box{
+          max-width: 250px!important;
+          width: 100%;
+          .btn-body{
+            .arr-mob{
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

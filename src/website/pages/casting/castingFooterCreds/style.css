@@ -1,0 +1,26 @@
+@media (max-width: 430px) {
+    .f-hp-form-description{
+        height: 100%;
+        flex-direction: column;
+        padding: 0 20px;
+        .footer-form-container{
+            max-width: 390px;
+            width: 100%;
+            flex-direction: column;
+            .f-hp-body-text{
+                max-width: 390px;
+                width: 100%;
+            }
+            .form-box{
+                width: 100%;
+            }
+        }
+    }
+    .footer-creds .fc-logo-box .copyrights-fc {
+        padding-top: 40px;
+        font-size: 12px;
+    }
+    .footer-creds .sponsors .proud {
+        font-size: 12px;
+    }
+}

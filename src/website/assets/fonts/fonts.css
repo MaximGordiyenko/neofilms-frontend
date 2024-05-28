@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'ActayRegular', 'sans-serif';
+    font-style: normal;
+    src: url('./Actay-Regular.otf');
+    src: local('ActayRegular'), url('./Actay-Regular.otf') format('truetype');
+}
+@font-face {
+    font-family: 'ActayRegularItalic', 'sans-serif';
+    font-style: italic;
+    src: url('./Actay-RegularItalic.otf');
+    src: local('ActayRegularItalic'), url('./Actay-RegularItalic.otf') format('truetype');
+}
+@font-face {
+    font-family: 'ActayCondensedThinItalic', 'sans-serif';
+    font-style: italic;
+    src: url('./ActayCondensed-Thin.otf');
+    src: local('ActayCondensedThinItalic'), url('./ActayCondensed-ThinItalic.otf') format('truetype');
+}
+@font-face {
+    font-family: 'ActayCondensedThinItalic', 'sans-serif';
+    font-style: italic;
+    src: url('./ActayCondensed-Thin.otf');
+    src: local('ActayCondensedThin'), url('./ActayCondensed-Thin.otf') format('truetype');
+}
+@font-face {
+    font-family: 'ActayWideBold', 'sans-serif';
+    font-style: normal;
+    src: url('./ActayWide-Bold.otf');
+    src: local('ActayWideBold'), url('./ActayWide-Bold.otf') format('truetype');
+}
+@font-face {
+    font-family: 'ActayWideBoldItalic', 'sans-serif';
+    font-style: italic;
+    src: url('./ActayWide-BoldItalic.otf');
+    src: local('ActayWideBoldItalic'), url('./ActayWide-BoldItalic.otf') format('truetype');
+}

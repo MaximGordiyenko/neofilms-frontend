@@ -1,0 +1,72 @@
+import Header from '../../../../components/header/Header';
+import wallet from '../../../../assets/images/wallet connect.svg';
+import refresh from '../../../../assets/images/Linear/Arrows/Refresh.svg';
+import './style.scss';
+import { Navbar } from '../../../../components/navbar/Navbar';
+import menuMobile from '../../../../assets/images/burger-menu.svg';
+import { MobMenu } from '../../../../components/mobileMenu/MobMenu';
+import { useState } from 'react';
+export const HeaderStaking = () => {
+  const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
+  const isMobile = window.innerWidth <= 430;
+
+  const handleOpenMobMenu = () => {
+    setIsMobMenuOpen((prev) => !prev);
+  };
+  return (
+    <div className={'staking-header-wrapper'}>
+      <Header />
+      {isMobile ? (
+        <div className={'mobile-title-box'}>
+          <div className={'balance-mob-text'}>
+            <span>Your Balance:</span>
+            <div className={'balance-count'}>0.00 NEOBux</div>
+            <button className={'reload-btn'}>
+              <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'} />
+            </button>
+          </div>
+          <h2 className={'staking-title'}>
+            neo <br />
+            staking
+          </h2>
+          <div className={'balance-mob-box'}>
+            <button className={'button-balance'}>
+              <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'} />
+              <span>WalletConnect</span>
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className={'title-box'}>
+          <h2 className={'staking-title'}>neo staking</h2>
+          <div className={'balance-box'}>
+            <button className={'button-balance'}>
+              <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'} />
+              <span>WalletConnect</span>
+            </button>
+            <div className={'balance-text'}>
+              <span>Your Balance:</span>
+              <div className={'balance-count'}>0.00 NEOBux</div>
+              <button className={'reload-btn'}>
+                <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {isMobile ? (
+        <div className={'menu-mob-wrapper'}>
+          <img
+            src={menuMobile}
+            className={'sidebar-mob-btn'}
+            onClick={handleOpenMobMenu}
+            alt={'menuMob-hp'}
+          />
+        </div>
+      ) : (
+        <Navbar />
+      )}
+      {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen} />}
+    </div>
+  );
+};

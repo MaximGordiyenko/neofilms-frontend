@@ -1,7 +1,27 @@
-import { useState, useEffect } from 'react';
-import { Route, Routes, useNavigate } from "react-router-dom";
-import { ROUTE } from './constants.js';
+// sharing imports
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+
+// user frontend imports
+import './App.scss';
+import { HomePage } from './website/pages/home/HomePage';
+import { Live } from './website/pages/live/Live';
+import { AllMovies } from './website/pages/allMovies/AllMovies';
+import FilmDetails from './website/pages/filmDetails/FilmDetails';
+import { AboutPage } from './website/pages/about/AboutPage';
+import { UnderConstruction } from './website/pages/underConstruction/SoonPage';
+import { News } from './website/pages/news/News';
+import { Services } from './website/pages/services/Services';
+import { NeoNft } from './website/pages/web3/neoNFT/NeoNft';
+import { NeoStaking } from './website/pages/web3/stake/Stake';
+import { Redeem } from './website/pages/web3/redeem/Redeem';
+import { Contact } from './website/pages/contact/Contact';
+import { Casting } from './website/pages/casting/Casting';
+import { CastFilmPage } from './website/pages/castFilmDetails/CastFilmPage';
+
+// admin panel imports
+import { useState, useEffect } from 'react';
+import { ROUTE } from './constants.js';
 import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 import { Layout } from './admin_panel/components/layouts/Layout.jsx';
 import { NavigationTabs } from './admin_panel/components/tabs/NavigationTabs.jsx';
@@ -20,7 +40,6 @@ import { CreateCalendarPage } from './admin_panel/pages/calendar/CreateCalendarP
 import { CalendarEditPage } from './admin_panel/pages/calendar/CalendarEditPage.jsx';
 import { NoMatch } from './NoMatch.jsx';
 import { light, dark } from './theme-config.js';
-import './App.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { OnlyAdmin } from './admin_panel/pages/sign-in/OnlyAdmin';
@@ -62,6 +81,26 @@ export const App = () => {
   return (
     <ThemeProvider theme={responsiveFontSizes(themeLight)}>
       <Routes>
+        {/* user frontend routes */}
+        <Route path={'/'} element={<HomePage />} />
+        <Route path={'/live'} element={<Live />} />
+        <Route path={'/about'} element={<AboutPage />} />
+        <Route path={'/all_movies'} element={<AllMovies />} />
+        <Route path={'/soon'} element={<UnderConstruction />} />
+        <Route path={'/news'} element={<News />} />
+        <Route path={'/shop'} element={<UnderConstruction />} />
+        <Route path={'/services'} element={<Services />} />
+        {/*<Route path={'/web3'} element={<UnderConstruction />} />*/}
+        <Route path={'/web3/neo-nft'} element={<NeoNft />} />
+        <Route path={'/web3/stake'} element={<NeoStaking />} />
+        <Route path={'/casting'} element={<Casting />} />
+        <Route path={'/web3/redeem'} element={<Redeem />} />
+        <Route path={'/contacts'} element={<Contact />} />
+        <Route path={'/film-details/:moviePath'} element={<FilmDetails />} />
+        <Route path={'/casting/:path'} element={<CastFilmPage />} />
+
+
+        {/* admin panel routes */}
         <Route path={ROUTE.login} element={<LoginPage/>}/>
         <Route element={<Layout/>}>
           <Route

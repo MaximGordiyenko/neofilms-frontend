@@ -1,0 +1,310 @@
+.modal-content {
+    padding: 0;
+    height: 424px;
+    position: relative;
+}
+
+.detail-content-box {
+    height: 100%;
+}
+
+.detail-modal-title .detail-modal-header {
+    display: flex;
+    align-items: center;
+    width: 555px;
+    color: #FAFAFA;
+    font-size: 36px;
+    font-family: actay_wide, sans-serif;
+    font-weight: 700;
+    word-wrap: break-word;
+    padding: 50px;
+    opacity: 1;
+}
+
+.detail-modal-title .detail-modal-header .modal-icon:hover {
+    cursor: pointer;
+}
+
+.detail-modal-title .detail-modal-header .modal-icon {
+    margin-left: auto;
+}
+
+.detail-modal-body {
+    width: 555px;
+    gap: 40px;
+    display: flex;
+}
+
+.detail-modal-border::after {
+
+    position: absolute;
+    content: "";
+    margin: 30px 0;
+    display: block;
+    width: 555px;
+    height: 1px;
+    background: rgba(250, 250, 250, 0.10);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.detail-button-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.detail-upload-btn {
+    width: 40%;
+    padding-top: 60px;
+    display: flex;
+    align-items: center;
+    padding-left: 40px;
+    position: relative;
+    height: 50px;
+}
+
+.modal-text {
+    color: #FAFAFA;
+    font-size: 16px;
+    font-family: Actay, sans-serif;
+    font-weight: 400;
+    line-height: 19px;
+    word-wrap: break-word;
+}
+
+.modal-file-name {
+    opacity: 0.50;
+    color: #FAFAFA;
+    font-size: 16px;
+    font-family: Actay, sans-serif;
+    font-weight: 400;
+    line-height: 19.2px;
+    word-wrap: break-word;
+    position: absolute;
+    bottom: 0;
+}
+
+.detail-form-button-box {
+    width: 100%;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0 10px;
+}
+
+.modal-form-icon {
+    margin-left: 10px;
+}
+
+.hr-line {
+    position: absolute;
+    top: 50%;
+    left: 37.5%;
+    height: 1px;
+    background: #FAFAFA;
+    transform: translateX(-50%);
+    width: -webkit-fill-available;
+    max-width: 54%;
+}
+
+.modal-images {
+    position: absolute;
+    bottom: 20px;
+    left: 62%;
+    transform: translateX(-50%);
+    z-index: 999;
+}
+
+.submitting-wrong {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 3vh;
+    right: 37.2%;
+    width: 433px;
+    background: #ff0000;
+    border-radius: 10px;
+    padding: 20px 30px 20px 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: fadeIn 3s ease-in-out;
+}
+
+.submitting-wrong p {
+    margin: 0 0 0 15px;
+}
+
+.submitting-wrong.fade-in {
+    opacity: 1;
+}
+
+.submitting-wrong.fade-out {
+    animation: fadeOut .5s ease-in-out forwards;
+}
+
+.success {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 3vh;
+    right: 37.2%;
+    width: 433px;
+    background: #00FF84;
+    border-radius: 10px;
+    padding: 20px 30px 20px 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: fadeIn 3s ease-in-out;
+}
+
+.success p {
+    margin: 0 0 0 15px;
+}
+
+.detail-upload-btn button {
+    width: 130px;
+    margin-left: auto;
+    min-height: 24px;
+}
+
+.detail-form-button-box button {
+    width: 40%;
+    position: relative;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+
+@media (max-width: 430px){
+    .detail-modal-title .detail-modal-header .modal-icon {
+        display: none;
+    }
+    .modal-form-icon, .hr-line {
+        display: none;
+    }
+    .modal-content{
+        max-width: 430px;
+        width: 100%;
+        height: auto;
+    }
+    .detail-content-box{
+        height: 650px;
+        width: calc(100% - 17px);
+        .detail-modal-title{
+            .detail-modal-header{
+                width: calc(100% - 40px);
+                font-size: 24px;
+                padding: 30px 20px 50px 20px;
+                text-align: center;
+            }
+        }
+        .detail-modal-body{
+            flex-direction: column;
+            .input-box{
+                width: 50%;
+                display: block;
+                .input{
+                    height: 34px;
+                    padding-left: 20px;
+                }
+            }
+        }
+    }
+    .detail-button-box{
+        padding-top: 55px;
+        display: block;
+        .detail-upload-btn{
+            padding-top:20px;
+            width: calc(100% - 50px);
+            display: flex;
+            justify-content: space-between;
+            .btn-box{
+                border: 0.5px solid #FAFAFA;
+                border-radius: 8px;
+                height: 30px;
+                img{
+                    display: none;
+                }
+            }
+            .modal-text{
+                width: 50%;
+            }
+        }
+    }
+    .btn-box .button-border {
+        padding-bottom: 10px;
+        height: 25px;
+    }
+    .detail-form-button-box{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        top: 570px;
+        .btn-box{
+            border: 0.5px solid #FAFAFA;
+            border-radius: 8px;
+            width: calc(100% - 40px);
+            padding: 0;
+            img{
+                display: none;
+            }
+        }
+    }
+    .modal-images{
+        position: relative;
+        display: flex;
+        align-items: center;
+        align-self: center;
+        justify-content: center;
+        flex-direction: row;
+        .submitting-wrong{
+            width: calc(100% - 40px);
+        }
+        .success{
+            width: calc(100% - 40px);
+        }
+    }
+}
+.modal-close-button{
+    width: 100%;
+    max-height: 14px;
+    padding: 30px 20px 30px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: #FAFAFA;
+    font-family: actay_wide,sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 14.4px;
+    letter-spacing: 2.5px;
+    opacity: 0.5;
+
+}
+
+

@@ -1,0 +1,29 @@
+@import 'website/assets/fonts/fonts.css';
+
+@font-face {
+  font-family: 'actay';
+  src: url('./website/assets/fonts/Actay-Regular.otf') format('woff');
+  /*src: url('../public/fonts/Actay/ActayCondensed-ThinItalic.otf') format('woff');*/
+}
+
+@font-face {
+  font-family: 'actay_wide';
+  src: url('./website/assets/fonts/ActayWide-Bold.otf') format('woff');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #0E0E0E;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
