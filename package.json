@@ -2,12 +2,12 @@
   "name": "neo-film",
   "private": true,
   "version": "0.1.0",
-  "proxy": "http://localhost:8000",
+  "proxy": "http://57.151.104.191:8888",
   "options": {
     "allowedHosts": [
-      "localhost"
+      "57.151.104.191"
     ],
-    "proxy": "http://localhost:8000"
+    "proxy": "http://57.151.104.191:8888"
   },
   "scripts": {
     "start": "react-scripts start",
