@@ -43,8 +43,6 @@ import { light, dark } from './theme-config.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PrivateRoute } from './admin_panel/pages/sign-in/PrivateRoute';
-import { adminCheck } from './admin_panel/store/apis/admin.api';
-import { useSessionStorage } from './admin_panel/hooks/useSessionStorage';
 import OnlyAdmin from './utils/OnlyAdmin';
 
 const theme = createTheme({

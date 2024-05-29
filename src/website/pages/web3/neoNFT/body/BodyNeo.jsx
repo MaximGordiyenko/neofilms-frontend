@@ -1,6 +1,6 @@
 import './style.scss';
 import lowerLine from '../../../../assets/images/down_block-placeholder.svg';
-import { NeoNftCards } from './ cards/NeoNftCards';
+import { NeoNftCards } from './cards/NeoNftCards';
 
 export const BodyNeo = () => {
   return (
