@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import * as slideApi from '../../../api/slide';
 
 export const getSlides = createAsyncThunk('data/getSlides', async () => {

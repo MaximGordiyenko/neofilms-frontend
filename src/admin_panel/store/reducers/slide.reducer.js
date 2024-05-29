@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getSlides, addSlide, updateSlide, getMediaOfSlide, deleteSlide, getSlide } from '../apis/slide.api.js';
+import { getSlides, addSlide, updateSlide, getMediaOfSlide, deleteSlide, getSlide } from '../thunk/slide.api.js';
 
 const slideReducer = createSlice({
   name: 'slide',

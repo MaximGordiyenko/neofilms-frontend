@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getProjects, addProject, getProject, deleteProject, updateProject } from '../apis/project.api.js';
+import { getProjects, addProject, getProject, deleteProject, updateProject } from '../thunk/project.api.js';
 
 const projectReducer = createSlice({
   name: 'movie',

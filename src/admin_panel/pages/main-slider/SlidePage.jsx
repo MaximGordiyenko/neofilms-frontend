@@ -9,9 +9,7 @@ import { AdminTabPanel } from '../../components/tabs/AdminTabPanel.jsx';
 import { MediaCard } from '../../components/card/MediaCard.jsx';
 
 import { useDispatch } from 'react-redux';
-import { deleteSlide, getSlides } from '../../store/apis/slide.api.js';
-
-import slider_placeholder from '../../assets/slide_placeholder.png';
+import { deleteSlide, getSlides } from '../../store/thunk/slide.api.js';
 
 export const SlidePage = ({ tab, cards, onAdd, buttonName }) => {
   const navigate = useNavigate();
@@ -28,7 +26,7 @@ export const SlidePage = ({ tab, cards, onAdd, buttonName }) => {
           <MediaCard
             key={card.id}
             title={`Slider ${idx + 1}`}
-            image={slider_placeholder}
+            image={`/api/pages/slide/${card?.id}/logo`}
             onDelete={() => {
               dispatch(deleteSlide(card.id));
               toast.error(`${card.logo_text} was deleted`);

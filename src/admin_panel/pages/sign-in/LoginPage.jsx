@@ -8,13 +8,11 @@ import { Button, Grid, Typography, Box } from "@mui/material";
 import { InputText } from "../../components/inputs/InputText";
 import { ContainerCSS, Block } from "../../components/ui/ui.styles.js";
 
-import { useAuth } from '../../hooks/useAuth.jsx';
-
 import { useDispatch, useSelector } from 'react-redux';
-import { adminLogin } from '../../store/apis/admin.api.js';
+import { adminLogin } from '../../store/thunk/admin.api.js';
+
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants.js';
-import { useSessionStorage } from '../../hooks/useSessionStorage';
 
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,9 +20,8 @@ export const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  const { status, loading, error } = useSelector((state) => state.admin);
+  const { status } = useSelector((state) => state.admin);
   
-  console.log(status, loading, error);
   const {
     control,
     formState: { errors, isSubmitSuccessful, isValid },

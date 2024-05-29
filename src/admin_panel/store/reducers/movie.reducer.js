@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getMovies, addMovie, getMovie, deleteMovie, updateMovie } from '../apis/movie.api.js';
+import { getMovies, addMovie, getMovie, deleteMovie, updateMovie } from '../thunk/movie.api.js';
 
 const movieReducer = createSlice({
   name: 'movie',

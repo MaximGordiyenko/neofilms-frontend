@@ -20,7 +20,7 @@ import { Casting } from './website/pages/casting/Casting';
 import { CastFilmPage } from './website/pages/castFilmDetails/CastFilmPage';
 
 // admin panel imports
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ROUTE } from './constants.js';
 import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 import { Layout } from './admin_panel/components/layouts/Layout.jsx';
@@ -42,51 +42,50 @@ import { NoMatch } from './NoMatch.jsx';
 import { light, dark } from './theme-config.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { PrivateRoute } from './admin_panel/pages/sign-in/PrivateRoute';
 import OnlyAdmin from './utils/OnlyAdmin';
+import { CreateCastingPage } from './admin_panel/pages/casting/CreateCastingPage';
+import { CastingEditPage } from './admin_panel/pages/casting/CastingEditPage';
+import { CastingPage } from './admin_panel/pages/casting/CastingPage';
 
 const theme = createTheme({
   palette: {}
 });
 
 export const App = () => {
+  const themeLight = createTheme(light);
   const [tab, setTab] = useState(0);
   
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   
-  const { status, loading, error } = useSelector((state) => state.admin);
   const { slides } = useSelector((state) => state?.slide);
   const { movies } = useSelector((state) => state?.movie);
   const { projects } = useSelector((state) => state?.project);
   const { calendars } = useSelector((state) => state?.calendar);
-  console.log(status, loading, error);
-  const themeLight = createTheme(light);
-  const [isLogged, setIsLogged] = useState(false);
+  const { castings } = useSelector((state) => state?.casting);
   
   return (
     <ThemeProvider theme={responsiveFontSizes(themeLight)}>
       <Routes>
         {/* user frontend routes */}
-        <Route path={'/'} element={<HomePage />} />
-        <Route path={'/live'} element={<Live />} />
-        <Route path={'/about'} element={<AboutPage />} />
-        <Route path={'/all_movies'} element={<AllMovies />} />
-        <Route path={'/soon'} element={<UnderConstruction />} />
-        <Route path={'/news'} element={<News />} />
-        <Route path={'/shop'} element={<UnderConstruction />} />
-        <Route path={'/services'} element={<Services />} />
+        <Route path={'/'} element={<HomePage/>}/>
+        <Route path={'/live'} element={<Live/>}/>
+        <Route path={'/about'} element={<AboutPage/>}/>
+        <Route path={'/all_movies'} element={<AllMovies/>}/>
+        <Route path={'/soon'} element={<UnderConstruction/>}/>
+        <Route path={'/news'} element={<News/>}/>
+        <Route path={'/shop'} element={<UnderConstruction/>}/>
+        <Route path={'/services'} element={<Services/>}/>
         {/*<Route path={'/web3'} element={<UnderConstruction />} />*/}
-        <Route path={'/web3/neo-nft'} element={<NeoNft />} />
-        <Route path={'/web3/stake'} element={<NeoStaking />} />
-        <Route path={'/casting'} element={<Casting />} />
-        <Route path={'/web3/redeem'} element={<Redeem />} />
-        <Route path={'/contacts'} element={<Contact />} />
-        <Route path={'/film-details/:moviePath'} element={<FilmDetails />} />
-        <Route path={'/casting/:path'} element={<CastFilmPage />} />
-
-
+        <Route path={'/web3/neo-nft'} element={<NeoNft/>}/>
+        <Route path={'/web3/stake'} element={<NeoStaking/>}/>
+        <Route path={'/casting'} element={<Casting/>}/>
+        <Route path={'/web3/redeem'} element={<Redeem/>}/>
+        <Route path={'/contacts'} element={<Contact/>}/>
+        <Route path={'/film-details/:moviePath'} element={<FilmDetails/>}/>
+        <Route path={'/casting/:path'} element={<CastFilmPage/>}/>
+        
         {/* admin panel routes */}
+        <Route path={`/${ROUTE.admin}/${ROUTE.login}`} element={<LoginPage/>}/>
         <Route element={<Layout/>}>
           <Route
             path={ROUTE.admin}
@@ -96,60 +95,103 @@ export const App = () => {
                 onChangeTab={(event, newValue) => setTab(newValue)}
               />
             }>
-            <Route path={ROUTE.login} element={<LoginPage/>}/>
-            {/*<Route index element={<SlidePage/>}/>*/}
-            <Route index element={<PrivateRoute element={SlidePage} isAuthenticated={isLogged} />} />
-            <Route path={ROUTE.mainSlider} element={ <OnlyAdmin element={
-                <SlidePage
-                  tab={tab}
-                  cards={slides}
-                  onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}/${ROUTE.createSlide}`)}
-                  buttonName="Add Slide"
-                />
-              }/>
+            <Route index element={<SlidePage/>}/>
+            <Route path={ROUTE.mainSlider} element={<OnlyAdmin element={
+              <SlidePage
+                tab={tab}
+                cards={slides}
+                onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}/${ROUTE.createSlide}`)}
+                buttonName="Add Slide"
+              />
+            }/>
             }/>
             <Route index element={<MoviesPage/>}/>
-            <Route path={ROUTE.allMovies} element={ <OnlyAdmin element={
-                <MoviesPage
-                  tab={tab}
-                  cards={movies}
-                  onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.allMovies}/${ROUTE.createMovie}`)}
-                  buttonName="Add Movie"
-                />
-              }/>
+            <Route path={ROUTE.allMovies} element={<OnlyAdmin element={
+              <MoviesPage
+                tab={tab}
+                cards={movies}
+                onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.allMovies}/${ROUTE.createMovie}`)}
+                buttonName="Add Movie"
+              />
+            }/>
             }/>
             <Route index element={<Web3ProjectPage/>}/>
-            <Route path={ROUTE.web3project} element={ <OnlyAdmin element={
-                <Web3ProjectPage
-                  tab={tab}
-                  cards={projects}
-                  onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.web3project}/${ROUTE.createProject}`)}
-                  buttonName="Add Project"
-                />
-              }/>
+            <Route path={ROUTE.web3project} element={<OnlyAdmin element={
+              <Web3ProjectPage
+                tab={tab}
+                cards={projects}
+                onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.web3project}/${ROUTE.createProject}`)}
+                buttonName="Add Project"
+              />
+            }/>
             }/>
             <Route index element={<CalendarPage/>}/>
-            <Route path={ROUTE.calendar} element={ <OnlyAdmin element={
-                <CalendarPage
-                  tab={tab}
-                  cards={calendars}
-                  onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.calendar}/${ROUTE.createCalendar}`)}
-                  buttonName="Add Event"
-                />
-              }/>
+            <Route path={ROUTE.calendar} element={<OnlyAdmin element={
+              <CalendarPage
+                tab={tab}
+                cards={calendars}
+                onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.calendar}/${ROUTE.createCalendar}`)}
+                buttonName="Add Event"
+              />
             }/>
+            }/>
+            <Route index element={<CastingPage/>}/>
+            <Route
+              path={ROUTE.casting}
+              element={
+                <CastingPage
+                  tab={tab}
+                  cards={castings}
+                  onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.casting}/${ROUTE.createCasting}`)}
+                  buttonName="Add Casting"
+                />
+              }
+            />
           </Route>
-          <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/${ROUTE.createSlide}`} element={ <OnlyAdmin element={<CreateSlidePage/>}/>} />
-          <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/:sliderId`} element={ <OnlyAdmin element={<SliderEditPage/>}/>} />
+          <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/${ROUTE.createSlide}`}
+                 element={<OnlyAdmin
+                   element={<CreateSlidePage/>}/>}
+          />
+          <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/:sliderId`}
+                 element={<OnlyAdmin
+                   element={<SliderEditPage/>}/>}
+          />
           
-          <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/${ROUTE.createMovie}`} element={ <OnlyAdmin element={<CreateMoviePage/>}/>} />
-          <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/:movieId`} element={ <OnlyAdmin element={<MovieEditPage/>}/>} />
+          <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/${ROUTE.createMovie}`}
+                 element={<OnlyAdmin
+                   element={<CreateMoviePage/>}/>}
+          />
+          <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/:movieId`}
+                 element={<OnlyAdmin
+                   element={<MovieEditPage/>}/>}
+          />
           
-          <Route path={`${ROUTE.admin}/${ROUTE.web3project}/${ROUTE.createProject}`} element={ <OnlyAdmin element={<CreateProjectPage/>}/>} />
-          <Route path={`${ROUTE.admin}/${ROUTE.web3project}/:projectId`} element={ <OnlyAdmin element={<ProjectEditPage/>}/>} />
+          <Route path={`${ROUTE.admin}/${ROUTE.web3project}/${ROUTE.createProject}`}
+                 element={<OnlyAdmin
+                   element={<CreateProjectPage/>}/>}
+          />
+          <Route path={`${ROUTE.admin}/${ROUTE.web3project}/:projectId`}
+                 element={<OnlyAdmin
+                   element={<ProjectEditPage/>}/>}
+          />
           
-          <Route path={`${ROUTE.admin}/${ROUTE.calendar}/${ROUTE.createCalendar}`} element={ <OnlyAdmin element={<CreateCalendarPage/>}/>} />
-          <Route path={`${ROUTE.admin}/${ROUTE.calendar}/:calendarId`} element={ <OnlyAdmin element={<CalendarEditPage/>}/>} />
+          <Route path={`${ROUTE.admin}/${ROUTE.calendar}/${ROUTE.createCalendar}`}
+                 element={<OnlyAdmin
+                   element={<CreateCalendarPage/>}/>}
+          />
+          <Route path={`${ROUTE.admin}/${ROUTE.calendar}/:calendarId`}
+                 element={<OnlyAdmin
+                   element={<CalendarEditPage/>}/>}
+          />
+          
+          <Route path={`${ROUTE.admin}/${ROUTE.casting}/${ROUTE.createCasting}`}
+                 element={<OnlyAdmin
+                   element={<CreateCastingPage/>}/>}
+          />
+          <Route path={`${ROUTE.admin}/${ROUTE.casting}/:castingId`}
+                 element={<OnlyAdmin
+                   element={<CastingEditPage/>}/>}
+          />
         </Route>
         <Route path="*" element={<NoMatch/>}/>
       </Routes>

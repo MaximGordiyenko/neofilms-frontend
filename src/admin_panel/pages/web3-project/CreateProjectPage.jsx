@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { updateField } from '../../store/reducers/project.reducer.js';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { addProject } from '../../store/apis/project.api.js';
+import { addProject } from '../../store/thunk/project.api.js';
 import { v4 as uuidv4 } from 'uuid';
 
 export const CreateProjectPage = () => {
@@ -67,7 +67,7 @@ export const CreateProjectPage = () => {
             <Grid item xs={5.9}>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
                 <Typography variant="h6">Project Image</Typography>
-                <FileUploader name="movie" multiple={false} onInputChange={onInputChange}/>
+                <FileUploader name="image" multiple={false} onInputChange={onInputChange}/>
               </Grid>
             </Grid>
             <Grid item xs={5.9}>

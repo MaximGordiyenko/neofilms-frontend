@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getCalendars, addCalendar, updateCalendar, deleteCalendar, getCalendar } from '../apis/calendar.api.js';
+import { getCalendars, addCalendar, updateCalendar, deleteCalendar, getCalendar } from '../thunk/calendar.api.js';
 
 const calendarReducer = createSlice({
   name: 'calendar',

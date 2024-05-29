@@ -12,7 +12,7 @@ import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx
 import { ROUTE } from '../../../constants.js';
 
 import { useDispatch } from 'react-redux';
-import { deleteSlide, addSlide } from '../../store/apis/slide.api.js';
+import { addSlide } from '../../store/thunk/slide.api.js';
 import { updateField } from '../../store/reducers/slide.reducer.js';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';

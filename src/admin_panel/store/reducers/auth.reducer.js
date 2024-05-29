@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAddress } from '../apis/auth.api.js';
+import { getAddress } from '../thunk/auth.api.js';
 
 const authSlicer = createSlice({
   name: 'auth',

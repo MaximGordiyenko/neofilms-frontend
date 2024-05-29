@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addCalendar } from '../../store/apis/calendar.api.js';
+import { addCalendar } from '../../store/thunk/calendar.api.js';
 import { updateField } from '../../store/reducers/calendar.reducer.js';
 
 import { v4 as uuidv4 } from 'uuid';

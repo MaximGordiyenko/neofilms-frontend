@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import * as adminApi from '../../../api/admin';
 
 export const adminLogin = createAsyncThunk('data/adminLogin', async (data) => {

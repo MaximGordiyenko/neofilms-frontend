@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { adminLogin, adminCheck } from '../apis/admin.api.js';
+import { adminLogin, adminCheck } from '../thunk/admin.api.js';
 
 const adminSlicer = createSlice({
   name: 'admin',

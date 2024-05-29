@@ -5,7 +5,7 @@ import { ROUTE } from '../../constants.js';
 
 import { useSessionStorage } from "./useSessionStorage.jsx";
 import { toast } from 'react-toastify';
-import { adminLogin, adminCheck } from '../store/apis/admin.api';
+import { adminLogin, adminCheck } from '../store/thunk/admin.api';
 import { useDispatch } from 'react-redux';
 
 const AuthContext = createContext(null);

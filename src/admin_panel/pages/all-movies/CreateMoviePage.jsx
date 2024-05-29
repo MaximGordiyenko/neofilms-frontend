@@ -1,21 +1,25 @@
-import { ContainerCSS } from '../../components/ui/ui.styles.js';
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
+import { FormProvider, useForm } from 'react-hook-form';
+
 import { Grid, Typography, Button, Box } from '@mui/material';
+import { DownloadDone } from '@mui/icons-material';
+
+import { ContainerCSS } from '../../components/ui/ui.styles.js';
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
-import { ROUTE } from '../../../constants.js';
-import { Delete, DownloadDone } from '@mui/icons-material';
-import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
-import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 import { DataPicker } from '../../components/pickers/DataPicker.jsx';
 import { RadioButton } from '../../components/radio/RadioButton.jsx';
 import { IconButton } from '../../components/buttons/IconButton.jsx';
-import { FormProvider, useForm } from 'react-hook-form';
-import { updateField } from '../../store/reducers/movie.reducer.js';
-import { useState, useCallback } from 'react';
+import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
+import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
+
 import { useDispatch } from 'react-redux';
-import { addMovie } from '../../store/apis/movie.api.js';
-import { toast } from 'react-toastify';
+import { addMovie } from '../../store/thunk/movie.api.js';
+import { updateField } from '../../store/reducers/movie.reducer.js';
+
 import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
+import { ROUTE } from '../../../constants.js';
 
 export const CreateMoviePage = () => {
   const [addDirector, setAddDirector] = useState(1);
@@ -46,30 +50,30 @@ export const CreateMoviePage = () => {
     const starring = [];
     
     for (const key in data) {
-      if (key.includes("director")) {
+      if (key.includes("directed_by")) {
         directed_by.push(data[key]);
       }
-      if (key.includes("written")) {
+      if (key.includes("written_by")) {
         written_by.push(data[key]);
       }
-      if (key.includes("actor")) {
+      if (key.includes("starring")) {
         starring.push(data[key]);
       }
     }
     
     const movieData = {
       id: uuidv4(),
-      directed_by,
-      written_by,
-      starring,
-      movie: data.movie,
+      poster: data.poster,
       title: data.title,
       description: data.description,
       movie_link: data.movie_link,
-      release_date: data.release_date,
-      status: data.status
+      release_date: data?.release_date.unix() * 1000,
+      status: data.status,
+      directed_by: directed_by,
+      written_by: written_by,
+      starring: starring,
     };
-    
+    console.log(movieData);
     dispatch(addMovie(movieData));
     navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
     toast.success(`${data.logo_text} was added successfuly`);
@@ -98,7 +102,7 @@ export const CreateMoviePage = () => {
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h5">Movie Poster</Typography>
-                <FileUploader name="movie" multiple={false} onInputChange={onInputChange}/>
+                <FileUploader name="poster" multiple={false} onInputChange={onInputChange}/>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
@@ -159,7 +163,7 @@ export const CreateMoviePage = () => {
                 {[...Array(addDirector)].map((_, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
-                      name={`director_${index}`}
+                      name={`directed_by_${index}`}
                       label={`Director's name ${index + 1}`}
                       placeholder="John Doe"
                       control={control}
@@ -174,7 +178,7 @@ export const CreateMoviePage = () => {
                 {[...Array(addWritten)].map((_, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
-                      name={`written_${index}`}
+                      name={`written_by_${index}`}
                       label={`Written's name ${index + 1}`}
                       placeholder="John Doe"
                       control={control}
@@ -189,7 +193,7 @@ export const CreateMoviePage = () => {
                 {[...Array(addActor)].map((_, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
-                      name={`actor_${index}`}
+                      name={`starring_${index}`}
                       label={`Actor's name ${index + 1}`}
                       placeholder="John Doe"
                       control={control}

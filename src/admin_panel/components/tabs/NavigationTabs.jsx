@@ -12,6 +12,7 @@ export const NavigationTabs = ({tab, onChangeTab}) => {
           <Tab label="All Movies" component={Link} to={ROUTE.allMovies}/>
           <Tab label="Web3 Projects" component={Link} to={ROUTE.web3project}/>
           <Tab label="Calendar" component={Link} to={ROUTE.calendar}/>
+          <Tab label="Casting" component={Link} to={ROUTE.casting}/>
         </Tabs>
       </Box>
       <Outlet />

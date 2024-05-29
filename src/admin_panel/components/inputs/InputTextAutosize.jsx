@@ -1,6 +1,5 @@
-import { TextField, styled } from '@mui/material';
 import { Controller } from 'react-hook-form';
-import { useState } from 'react';
+import { TextFieldCSS } from './ui.styles';
 
 export const InputTextAutosize = ({
                                     name, value, label, control, errors, sx,
@@ -45,31 +44,3 @@ export const InputTextAutosize = ({
     />
   );
 };
-
-const TextFieldCSS = styled(TextField)`
-  .MuiInputBase-root.Mui-focused {
-    .MuiOutlinedInput-notchedOutline {
-      border: 1px solid ${({ theme }) => theme.palette.grey[`400`]};
-    }
-    
-    .MuiFormHelperText-root {
-     color: blue;
-      .error-chars {
-        color: red;
-      }
-    }
-    
-    .MuiInputBase-input {
-      font-size: 1.3em;
-    }
-    
-    textarea {
-      min-height: 100px;
-    }
-  }
-  
-  .MuiFormLabel-root.Mui-focused {
-    color: ${({ theme }) => theme.palette.grey[`600`]};
-    font-size: 0.87rem;
-  }
-`;

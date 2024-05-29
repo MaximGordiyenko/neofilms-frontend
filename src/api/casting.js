@@ -70,7 +70,7 @@ export async function deleteCasting(castingId) {
 		});
 }
 
-export async function getCasting() {
+export async function getCastings() {
 	return await axios.get(`/api/pages/castings`, {
 			withCredentials: true
 		});

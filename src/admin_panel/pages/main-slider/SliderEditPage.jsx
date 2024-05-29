@@ -10,7 +10,7 @@ import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
 import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { updateSlide, deleteSlide, getSlide } from '../../store/apis/slide.api.js';
+import { updateSlide, deleteSlide, getSlide } from '../../store/thunk/slide.api.js';
 import { updateField } from '../../store/reducers/slide.reducer.js';
 
 import { useParams, useNavigate } from 'react-router-dom';
@@ -22,6 +22,7 @@ export const SliderEditPage = () => {
   const navigate = useNavigate();
   
   const { sliderId } = useParams();
+  console.log(sliderId)
   
   useEffect(() => {
     dispatch(getSlide(sliderId));

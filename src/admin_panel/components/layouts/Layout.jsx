@@ -22,7 +22,11 @@ export const Layout = () => {
           </Typography>
         }
         rightContent={
-          <IconButton icon={<Logout />} onClick={() => {}}>Logout icon</IconButton>
+          <IconButton
+            icon={<Logout/>}
+            onClick={() => dispatch(adminLogout())}>
+            Logout icon
+          </IconButton>
         }
       />
       <MainComponent>

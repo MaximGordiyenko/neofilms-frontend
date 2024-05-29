@@ -1,36 +1,35 @@
 import { useEffect } from 'react';
-import { Button, Box } from '@mui/material';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { Button, Box } from '@mui/material';
 
 import { AdminTabPanel } from '../../components/tabs/AdminTabPanel.jsx';
 import { MediaCard } from '../../components/card/MediaCard';
 
-import { toast } from 'react-toastify';
-
 import { useDispatch } from 'react-redux';
-import { deleteProject, getProjects } from '../../store/thunk/project.api.js';
+import { getCastings, deleteCasting } from '../../store/thunk/casting.api';
 
-export const Web3ProjectPage = ({ tab, cards, onAdd, buttonName }) => {
-  const navigate = useNavigate();
+export const CastingPage = ({ tab, cards, onAdd, buttonName }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   useEffect(() => {
-    dispatch(getProjects());
+    dispatch(getCastings());
   }, [dispatch]);
   
   return (
-    <AdminTabPanel value={tab} index={2}>
-      <Box display="flex" alignItems="center" flexDirection="row-reverse" justifyContent="flex-end">
+    <AdminTabPanel value={tab} index={4}>
+      <Box display="flex" alignItems="center">
         {cards?.map((card, idx) => (
           <MediaCard
             key={card.id}
-            image={`/api/pages/project/${card?.id}/image`}
-            name={card.name}
-            completion={card.completion}
+            image={`/api/pages/casting/${card?.id}/image`}
+            role={card.role}
+            title={card.title}
             description={card.description}
             onDelete={() => {
-              dispatch(deleteProject(card.id));
-              toast.error(`Project ${idx + 1} was deleted`);
+              dispatch(deleteCasting(card.id));
+              toast.error(`Casting ${idx + 1} was deleted`);
             }}
             onEdit={() => navigate(card.id)}
           />

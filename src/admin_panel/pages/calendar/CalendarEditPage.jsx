@@ -15,7 +15,7 @@ import { DataPicker } from '../../components/pickers/DataPicker.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 
 import { updateField } from '../../store/reducers/calendar.reducer.js';
-import { getCalendar, deleteCalendar, updateCalendar } from '../../store/apis/calendar.api.js';
+import { getCalendar, deleteCalendar, updateCalendar } from '../../store/thunk/calendar.api.js';
 import { toast } from 'react-toastify';
 
 export const CalendarEditPage = () => {

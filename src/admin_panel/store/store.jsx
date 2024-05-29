@@ -5,11 +5,12 @@ import slide from './reducers/slide.reducer.js';
 import movie from './reducers/movie.reducer.js';
 import project from './reducers/project.reducer.js';
 import calendar from './reducers/calendar.reducer.js';
+import casting from './reducers/casting.reducer.js';
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false
     }),
-  reducer: { auth, admin, slide, movie, project, calendar }
+  reducer: { auth, admin, slide, movie, project, calendar, casting}
 });

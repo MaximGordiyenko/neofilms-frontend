@@ -12,6 +12,7 @@ export const BreadCrumbs = ({ currentPage }) => {
     [`${ROUTE.admin}/${ROUTE.allMovies}`]: { main: 'All Movies', sub: 'Add Movie' },
     [`${ROUTE.admin}/${ROUTE.web3project}`]: { main: 'Web 3 Project', sub: 'Add Project' },
     [`${ROUTE.admin}/${ROUTE.calendar}`]: { main: 'Calendar', sub: 'Add Event' },
+    [`${ROUTE.admin}/${ROUTE.casting}`]: { main: 'Casting', sub: 'Add Casting' },
   };
   
   const { main: mainPageLabel, sub: subPageLabel } = breadcrumbMapping[currentPage] || {};
@@ -29,6 +30,9 @@ export const BreadCrumbs = ({ currentPage }) => {
     }
     if (currentPage === `${ROUTE.admin}/${ROUTE.calendar}`) {
       navigate(`/${ROUTE.admin}/${ROUTE.calendar}`);
+    }
+    if (currentPage === `${ROUTE.admin}/${ROUTE.casting}`) {
+      navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
     }
   };
   

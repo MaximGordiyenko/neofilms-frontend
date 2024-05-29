@@ -17,7 +17,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants.js';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getMovie, updateMovie, deleteMovie } from '../../store/apis/movie.api.js';
+import { getMovie, updateMovie, deleteMovie } from '../../store/thunk/movie.api.js';
 import { updateField } from '../../store/reducers/movie.reducer.js';
 
 export const MovieEditPage = () => {
@@ -30,7 +30,6 @@ export const MovieEditPage = () => {
   }, [dispatch, getMovie]);
   
   const {
-    movie,
     title,
     description,
     movie_link,
@@ -85,17 +84,16 @@ export const MovieEditPage = () => {
       title: data.title || title,
       description: data.description || description,
       movie_link: data.movie_link || movie_link,
-      release_date: data.release_date || release_date,
+      release_date: data?.release_date.unix() * 1000 || release_date.unix() * 1000,
       status: data.status || status,
       directed_by: directors,
       written_by: writers,
       starring: actors,
-      movie: movie
     };
-    
-    dispatch(updateMovie({ id: movieId, data: movieDate }));
-    navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
-    toast.success(`"Movie" was added successfuly`);
+    console.log(movieDate);
+    // dispatch(updateMovie({ id: movieId, data: movieDate }));
+    // navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
+    // toast.success(`"Movie" was added successfuly`);
   };
   
   return (
@@ -125,7 +123,7 @@ export const MovieEditPage = () => {
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h5">Movie Poster</Typography>
-                <FileUploader name="movie" value={movie} multiple={false} onInputChange={onInputChange}/>
+                <FileUploader name="poster" value="" multiple={false} onInputChange={onInputChange}/>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>

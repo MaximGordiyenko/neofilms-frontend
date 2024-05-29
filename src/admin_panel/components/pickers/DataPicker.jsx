@@ -7,7 +7,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 
 export const DataPicker = ({ name, value, label, control }) => {
-  const [selectedDate, setSelectedDate] = useState(value ? dayjs(value) : null);
+  const initialDate = value ? dayjs(value) : null;
+  const [selectedDate, setSelectedDate] = useState(initialDate);
   
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -19,6 +20,7 @@ export const DataPicker = ({ name, value, label, control }) => {
           <StyledDatePicker
             {...field}
             label={label}
+            reduceAnimations={true}
             value={field.value || selectedDate}
             onChange={(date) => {
               field.onChange(date);
@@ -26,11 +28,36 @@ export const DataPicker = ({ name, value, label, control }) => {
             }}
           />
         )}
+        renderInput={(params) => <TextField {...params} InputLabelProps={{ shrink: true }} />}
       />
     </LocalizationProvider>
   );
 };
 
-const StyledDatePicker = styled(DatePicker)({
-  width: '100%'
-});
+
+export const StyledDatePicker = styled(DatePicker)(
+  ({ theme }) => ({
+    width: '100%',
+    "& .MuiInputBase-root.Mui-focused": {
+      "& .MuiOutlinedInput-notchedOutline": {
+        border: `1px solid ${theme.palette.grey[400]}`
+      }
+    },
+    "& .MuiFormHelperText-root": {
+      color: "blue",
+      "& .error-chars": {
+        color: "red"
+      }
+    },
+    "& .MuiInputBase-input": {
+      fontSize: "1.3em"
+    },
+    "& textarea": {
+      minHeight: "100px"
+    },
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: `${theme.palette.grey[600]}`,
+      fontSize: "0.87rem"
+    }
+  })
+);

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import FormData from 'form-data';
 
-
 // FormData:
 // movie: ${movie}
 // logo_media: ${logoMedia}

@@ -8,8 +8,6 @@ import { blue, grey, green } from '@mui/material/colors';
 import { updateField } from '../../store/reducers/slide.reducer.js';
 import { useDispatch } from 'react-redux';
 
-import "./styles.css";
-
 export const FileUploader = ({ name, value, multiple, ...rest }) => {
   const { control } = useFormContext();
   const dispatch = useDispatch();
@@ -71,9 +69,9 @@ const Dropzone = ({ multiple, onChange, name, value, ...rest }) => {
       </Grid>
     </Grid>
   ));
-
+  
   return (
-    <section className="upload-container">
+    <section>
       {
         watch(name)
           ? <aside>{files}</aside>
@@ -121,6 +119,8 @@ const Container = styled('div')`
   height: 100px;
 `;
 
-const LinkCSS = styled(Link)({
-  cursor: 'pointer',
-});
+export const LinkCSS = styled(Link)(
+  ({ theme }) => ({
+    cursor: 'pointer'
+  })
+);

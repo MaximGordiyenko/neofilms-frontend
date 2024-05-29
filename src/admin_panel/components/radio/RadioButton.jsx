@@ -3,7 +3,7 @@ import { Radio, FormControlLabel, FormControl, RadioGroup } from '@mui/material'
 import { Controller } from 'react-hook-form';
 
 export const RadioButton = ({ control, name }) => {
-  const [value, setValue] = useState("coming");
+  const [value, setValue] = useState("coming_soon");
   
   return (
     <FormControl>
@@ -21,14 +21,14 @@ export const RadioButton = ({ control, name }) => {
               setValue(value);
             }}>
             <FormControlLabel
-              value="coming"
+              value="coming_soon"
               label="Comming soon"
               control={
                 <Radio color="primary" size="small" />
               }
             />
             <FormControlLabel
-              value="announced"
+              value="to_be_announced"
               label="To be announced"
               control={
                 <Radio color="primary" size="small" />
