@@ -19,8 +19,10 @@ import { ROUTE } from '../../../constants';
 import { useDispatch } from 'react-redux';
 import { updateField } from '../../store/reducers/project.reducer';
 import { addCasting } from '../../store/thunk/casting.api';
+import { SimpleFileUploader } from '../../components/file-upload/SimpleFileUploader';
 
 export const CreateCastingPage = () => {
+  const [imageUpload, setImageUpload] = useState([]);
   const [roles, setRoles] = useState([
     { id: 1, name: 'test', description: 'hello world' }
   ]);
@@ -53,6 +55,7 @@ export const CreateCastingPage = () => {
     const newCasting = {
       id: uuidv4(),
       ...data,
+      image: imageUpload,
       audition_dates: {
         from: data.audition_dates.from.unix() * 1000,
         to: data.audition_dates.to.unix() * 1000
@@ -102,7 +105,12 @@ export const CreateCastingPage = () => {
                   <Typography variant="h5" color={'primary'}>Main Image</Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                  <FileUploader name="image" multiple={false} onInputChange={onInputChange}/>
+                  <SimpleFileUploader
+                    name="image"
+                    multiple={false}
+                    fileUpload={imageUpload}
+                    setFileUpload={setImageUpload}
+                  />
                 </Grid>
               </Grid>
               <Grid container item xs={12} lg={12} sx={{ background: 'white', p: 30 }}>

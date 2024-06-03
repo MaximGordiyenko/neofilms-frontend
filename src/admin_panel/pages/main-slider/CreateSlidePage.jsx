@@ -1,5 +1,6 @@
-import { FormProvider, useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import { Grid, Typography, Button } from '@mui/material';
 import { Delete, DownloadDone } from '@mui/icons-material';
@@ -16,8 +17,12 @@ import { addSlide } from '../../store/thunk/slide.api.js';
 import { updateField } from '../../store/reducers/slide.reducer.js';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { SimpleFileUploader } from '../../components/file-upload/SimpleFileUploader';
 
 export const CreateSlidePage = () => {
+  const [movieUpload, setMovieUpload] = useState([]);
+  const [logoUpload, setLogoUpload] = useState([]);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -42,12 +47,16 @@ export const CreateSlidePage = () => {
     const slideData = {
       id: uuidv4(),
       ...data,
+      movie: movieUpload,
+      logo_media: logoUpload,
+      
     }
+    console.log(slideData);
     dispatch(addSlide(slideData));
-    navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
-    toast.success(`${data.logo_text} was added successfuly`);
+    // navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
+    // toast.success(`${data.logo_text} was added successfuly`);
   };
-  
+  console.log(movieUpload);
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -69,11 +78,21 @@ export const CreateSlidePage = () => {
             <Grid item xs={5.9}>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
                 <Typography variant="h6">Main Image or Video</Typography>
-                <FileUploader name="movie" multiple={false} onInputChange={onInputChange}/>
+                <SimpleFileUploader
+                  name="movie"
+                  multiple={false}
+                  fileUpload={movieUpload}
+                  setFileUpload={setMovieUpload}
+                />
               </Grid>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Typography variant="h6">Movie Title (Logo)</Typography>
-                <FileUploader name="logo_media" multiple={false} onInputChange={onInputChange}/>
+                <SimpleFileUploader
+                  name="logo_media"
+                  multiple={false}
+                  fileUpload={logoUpload}
+                  setFileUpload={setLogoUpload}
+                />
               </Grid>
             </Grid>
             <Grid item xs={5.9} sx={{ background: 'white', ml: 20, mt: 20 }}>

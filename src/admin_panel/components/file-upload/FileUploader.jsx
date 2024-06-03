@@ -23,6 +23,7 @@ export const FileUploader = ({ name, value, multiple, ...rest }) => {
           value={value}
           multiple={multiple}
           onChange={(e) => {
+            console.log("File input change event:", e);
             field.onChange(
               multiple
                 ? e.target.files
