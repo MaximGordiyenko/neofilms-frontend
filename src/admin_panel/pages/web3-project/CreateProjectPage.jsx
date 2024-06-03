@@ -13,8 +13,12 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { addProject } from '../../store/thunk/project.api.js';
 import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
+import { SimpleFileUploader } from '../../components/file-upload/SimpleFileUploader';
 
 export const CreateProjectPage = () => {
+  const [imageUpload, setImageUpload] = useState([]);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -40,6 +44,7 @@ export const CreateProjectPage = () => {
     const newProject = {
       id: uuidv4(),
       ...data,
+      image: imageUpload,
     }
     dispatch(addProject(newProject));
     navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
@@ -67,7 +72,13 @@ export const CreateProjectPage = () => {
             <Grid item xs={5.9}>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
                 <Typography variant="h6">Project Image</Typography>
-                <FileUploader name="image" multiple={false} onInputChange={onInputChange}/>
+                {/*<FileUploader name="image" multiple={false} onInputChange={onInputChange}/>*/}
+                <SimpleFileUploader
+                  name="image"
+                  multiple={false}
+                  fileUpload={imageUpload}
+                  setFileUpload={setImageUpload}
+                />
               </Grid>
             </Grid>
             <Grid item xs={5.9}>

@@ -20,8 +20,10 @@ import { updateField } from '../../store/reducers/movie.reducer.js';
 
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants.js';
+import { SimpleFileUploader } from '../../components/file-upload/SimpleFileUploader';
 
 export const CreateMoviePage = () => {
+  const [posterUpload, setPosterUpload] = useState([]);
   const [addDirector, setAddDirector] = useState(1);
   const [addWritten, setAddWritten] = useState(1);
   const [addActor, setAddActor] = useState(1);
@@ -63,7 +65,7 @@ export const CreateMoviePage = () => {
     
     const movieData = {
       id: uuidv4(),
-      poster: data.poster,
+      poster: posterUpload,
       title: data.title,
       description: data.description,
       movie_link: data.movie_link,
@@ -102,7 +104,12 @@ export const CreateMoviePage = () => {
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h5">Movie Poster</Typography>
-                <FileUploader name="poster" multiple={false} onInputChange={onInputChange}/>
+                <SimpleFileUploader
+                  name="poster"
+                  multiple={false}
+                  fileUpload={posterUpload}
+                  setFileUpload={setPosterUpload}
+                />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
