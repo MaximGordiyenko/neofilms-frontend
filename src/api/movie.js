@@ -14,7 +14,15 @@ import FormData from 'form-data';
 export async function addMovie(_formData) {
 	const formData = new FormData();
 	for (const key in _formData) {
-		formData.append(key, _formData[key]);
+		switch (key) {
+			case 'directed_by':
+			case 'written_by':
+			case 'starring':
+				formData.append(key, JSON.stringify(_formData[key]));
+				break;
+			default:
+				formData.append(key, _formData[key]);
+		}
 	}
 	
 	return await axios.post(`/api/pages/movie`, formData, {
@@ -41,7 +49,15 @@ export async function getMovie(movieId) {
 export async function editMovie(movieId, _formData) {
 	const formData = new FormData();
 	for (const key in _formData) {
-		formData.append(key, _formData[key]);
+		switch (key) {
+			case 'directed_by':
+			case 'written_by':
+			case 'starring':
+				formData.append(key, JSON.stringify(_formData[key]));
+				break;
+			default:
+				formData.append(key, _formData[key]);
+		}
 	}
 	
 	return await axios.post(`/api/pages/movie/${movieId}`, formData, {

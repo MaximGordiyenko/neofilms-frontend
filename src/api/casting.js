@@ -22,7 +22,16 @@ import FormData from 'form-data';
 export async function addCasting(_formData) {
 	const formData = new FormData();
 	for (const key in _formData) {
-		formData.append(key, _formData[key]);
+		switch (key) {
+			case 'audition_dates':
+			case 'callback_dates':
+			case 'shoot_dates':
+			case 'roles':
+				formData.append(key, JSON.stringify(_formData[key]));
+				break;
+			default:
+				formData.append(key, _formData[key]);
+		}
 	}
 	
 	return await axios.post(`/api/pages/casting`, formData, {
@@ -56,7 +65,16 @@ export async function getCasting(castingId) {
 export async function editCasting(castingId, _formData) {
 	const formData = new FormData();
 	for (const key in _formData) {
-		formData.append(key, _formData[key]);
+		switch (key) {
+			case 'audition_dates':
+			case 'callback_dates':
+			case 'shoot_dates':
+			case 'roles':
+				formData.append(key, JSON.stringify(_formData[key]));
+				break;
+			default:
+				formData.append(key, _formData[key]);
+		}
 	}
 	
 	return await axios.post(`/api/pages/casting/${castingId}`, formData, {
