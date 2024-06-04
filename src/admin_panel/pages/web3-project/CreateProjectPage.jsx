@@ -44,7 +44,7 @@ export const CreateProjectPage = () => {
     const newProject = {
       id: uuidv4(),
       ...data,
-      image: imageUpload,
+      image: imageUpload[0],
     }
     dispatch(addProject(newProject));
     navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);

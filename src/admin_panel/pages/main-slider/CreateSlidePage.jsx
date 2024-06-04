@@ -47,14 +47,14 @@ export const CreateSlidePage = () => {
     const slideData = {
       id: uuidv4(),
       ...data,
-      movie: movieUpload,
-      logo_media: logoUpload,
+      movie: movieUpload[0],
+      logo_media: logoUpload[0],
       
     }
     console.log(slideData);
     dispatch(addSlide(slideData));
-    // navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
-    // toast.success(`${data.logo_text} was added successfuly`);
+    navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
+    toast.success(`${data.logo_text} was added successfuly`);
   };
   console.log(movieUpload);
   return (

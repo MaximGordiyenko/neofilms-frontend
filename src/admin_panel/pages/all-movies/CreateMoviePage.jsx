@@ -65,7 +65,8 @@ export const CreateMoviePage = () => {
     
     const movieData = {
       id: uuidv4(),
-      poster: posterUpload,
+      ...data,
+      poster: posterUpload[0],
       title: data.title,
       description: data.description,
       movie_link: data.movie_link,

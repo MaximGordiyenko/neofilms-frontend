@@ -55,7 +55,7 @@ export const CreateCastingPage = () => {
     const newCasting = {
       id: uuidv4(),
       ...data,
-      image: imageUpload,
+      image: imageUpload[0],
       audition_dates: {
         from: data.audition_dates.from.unix() * 1000,
         to: data.audition_dates.to.unix() * 1000
@@ -73,8 +73,8 @@ export const CreateCastingPage = () => {
     };
     console.log(newCasting);
     dispatch(addCasting(newCasting));
-    // navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
-    // toast.success(`${data.logo_text} was added successfuly`);
+    navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
+    toast.success(`${data.logo_text} was added successfuly`);
   };
   
   return (
