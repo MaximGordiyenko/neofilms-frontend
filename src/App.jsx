@@ -46,6 +46,7 @@ import OnlyAdmin from './utils/OnlyAdmin';
 import { CreateCastingPage } from './admin_panel/pages/casting/CreateCastingPage';
 import { CastingEditPage } from './admin_panel/pages/casting/CastingEditPage';
 import { CastingPage } from './admin_panel/pages/casting/CastingPage';
+import { adminLogout } from './admin_panel/store/thunk/admin.api';
 
 const theme = createTheme({
   palette: {}
@@ -54,6 +55,7 @@ const theme = createTheme({
 export const App = () => {
   const themeLight = createTheme(light);
   const [tab, setTab] = useState(0);
+  const dispatch = useDispatch();
   
   const navigate = useNavigate();
   
@@ -62,6 +64,11 @@ export const App = () => {
   const { projects } = useSelector((state) => state?.project);
   const { calendars } = useSelector((state) => state?.calendar);
   const { castings } = useSelector((state) => state?.casting);
+  
+  const logout = () => {
+    dispatch(adminLogout());
+    navigate(`/${ROUTE.admin}/${ROUTE.logout}`)
+  }
   
   return (
     <ThemeProvider theme={responsiveFontSizes(themeLight)}>
@@ -86,7 +93,7 @@ export const App = () => {
         
         {/* admin panel routes */}
         <Route path={`/${ROUTE.admin}/${ROUTE.login}`} element={<LoginPage/>}/>
-        <Route element={<Layout/>}>
+        <Route element={<Layout logout={logout}/>}>
           <Route
             path={ROUTE.admin}
             element={

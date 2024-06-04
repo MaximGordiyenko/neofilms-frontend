@@ -9,12 +9,12 @@ export const InputTextAutosize = ({
     <Controller
       name={name}
       control={control}
-      defaultValue=""
+      defaultValue={value || ""}
       render={
         ({ field }) =>
           <TextFieldCSS
             {...field}
-            value={field.value || value || ''}
+            value={field.value}
             placeholder={placeholder}
             sx={sx}
             multiline={isText}

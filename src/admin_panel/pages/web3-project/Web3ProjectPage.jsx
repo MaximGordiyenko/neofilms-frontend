@@ -20,7 +20,7 @@ export const Web3ProjectPage = ({ tab, cards, onAdd, buttonName }) => {
   
   return (
     <AdminTabPanel value={tab} index={2}>
-      <Box display="flex" alignItems="center" flexDirection="row-reverse" justifyContent="flex-end">
+      <Box display="flex" alignItems="center" flexDirection="row-reverse" justifyContent="flex-end" overflow="scroll" py={60} px={5}>
         {cards?.map((card, idx) => (
           <MediaCard
             key={card.id}
@@ -35,7 +35,7 @@ export const Web3ProjectPage = ({ tab, cards, onAdd, buttonName }) => {
             onEdit={() => navigate(card.id)}
           />
         ))}
-        <Button variant="contained" onClick={onAdd}>{buttonName}</Button>
+        <Button variant="contained" sx={{ minWidth: 150 }} onClick={onAdd}>{buttonName}</Button>
       </Box>
     </AdminTabPanel>
   );

@@ -10,7 +10,6 @@ import { BreadCrumbs } from '../../components/ui/Breadcrumbs';
 import { Checkbox } from '../../components/checkbox/Checkbox';
 import { DataPicker } from '../../components/pickers/DataPicker';
 import { IconButton } from '../../components/buttons/IconButton.jsx';
-import { FileUploader } from '../../components/file-upload/FileUploader';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize';
 
 import { useNavigate } from 'react-router-dom';
@@ -71,7 +70,6 @@ export const CreateCastingPage = () => {
       deadline: data.deadline.unix() * 1000,
       rate_of_pay_per_day: Number(data.rate_of_pay_per_day)
     };
-    console.log(newCasting);
     dispatch(addCasting(newCasting));
     navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
     toast.success(`${data.logo_text} was added successfuly`);

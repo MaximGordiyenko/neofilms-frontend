@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import { Grid, Button, Typography } from '@mui/material';
@@ -16,13 +16,17 @@ import { updateField } from '../../store/reducers/slide.reducer.js';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants.js';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
+import { SimpleFileUploader } from '../../components/file-upload/SimpleFileUploader';
 
 export const SliderEditPage = () => {
+  const [movieUpload, setMovieUpload] = useState([]);
+  const [logoUpload, setLogoUpload] = useState([]);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
   const { sliderId } = useParams();
-  console.log(sliderId)
   
   useEffect(() => {
     dispatch(getSlide(sliderId));
@@ -43,19 +47,22 @@ export const SliderEditPage = () => {
   });
   
   const {
-    watch,
-    reset,
     control,
     handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors, isSubmitSuccessful, isValid }
+    formState: { errors }
   } = methods;
   
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
   const onSubmit = (data) => {
-    dispatch(updateSlide({ id: sliderId, data }));
+    const slideData = {
+      ...data,
+      movie: movieUpload[0],
+      logo_media: logoUpload[0]
+      
+    };
+    console.log(slideData);
+    dispatch(updateSlide({ id: sliderId, slideData }));
     navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
     toast.success(`"Slider" was updated successfuly`);
   };
@@ -88,11 +95,21 @@ export const SliderEditPage = () => {
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
                 <Typography variant="h6">Main Image or Video</Typography>
-                <FileUploader name="movie" value={movie} multiple={false} onInputChange={onInputChange}/>
+                <SimpleFileUploader
+                  name="movie"
+                  multiple={false}
+                  fileUpload={movieUpload}
+                  setFileUpload={setMovieUpload}
+                />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Typography variant="h6">Movie Title (Logo)</Typography>
-                <FileUploader name="logo_media" value={logo_media} multiple={false} onInputChange={onInputChange}/>
+                <SimpleFileUploader
+                  name="logo_media"
+                  multiple={false}
+                  fileUpload={logoUpload}
+                  setFileUpload={setLogoUpload}
+                />
               </Grid>
             </Grid>
             <Grid item xs={6}>

@@ -51,7 +51,7 @@ export const LoginPage = () => {
   }, [status, navigate]);
   
   return (
-    <ContainerCSS maxWidth="xs">
+    <ContainerCSS maxWidth="xs" path>
       <Typography variant="h4" align="center" color="secondary">
         Log In
       </Typography>

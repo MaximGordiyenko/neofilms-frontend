@@ -1,6 +1,7 @@
 export const ROUTE = {
   landing: '',
   login: 'login',
+  logout: 'logout',
   admin: 'admin',
   mainSlider: 'main-slide',
   createSlide: 'create-slide',

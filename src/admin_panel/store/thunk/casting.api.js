@@ -12,7 +12,7 @@ export const getCasting = createAsyncThunk('data/getCasting', async (casting_id)
 });
 
 export const addCasting = createAsyncThunk('data/addCasting', async (data, thunkAPI) => {
-  const response = await castingApi.addCasting();
+  const response = await castingApi.addCasting(data);
   if (response.status === 200) {
     thunkAPI.dispatch(getCastings());
     return response.data;

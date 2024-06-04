@@ -76,7 +76,6 @@ export const CreateMoviePage = () => {
       written_by: written_by,
       starring: starring,
     };
-    console.log(movieData);
     dispatch(addMovie(movieData));
     navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
     toast.success(`${data.logo_text} was added successfuly`);

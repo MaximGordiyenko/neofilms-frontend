@@ -19,7 +19,7 @@ export const MoviesPage = ({ tab, cards, onAdd, buttonName }) => {
   
   return (
     <AdminTabPanel value={tab} index={1}>
-      <Box display="flex" alignItems="center">
+      <Box display="flex" alignItems="center" overflow="scroll" py={60} px={5}>
         {cards?.map((card, idx) => (
           <MediaCard
             key={card.id}
@@ -34,7 +34,7 @@ export const MoviesPage = ({ tab, cards, onAdd, buttonName }) => {
             onEdit={() => navigate(card.id)}
           />
         ))}
-        <Button variant="contained" onClick={onAdd}>{buttonName}</Button>
+        <Button variant="contained" sx={{ minWidth: 150 }} onClick={onAdd}>{buttonName}</Button>
       </Box>
     </AdminTabPanel>
   );

@@ -3,11 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { Grid, Typography, Button } from '@mui/material';
-import { Delete, DownloadDone } from '@mui/icons-material';
+import { DownloadDone } from '@mui/icons-material';
 
 import { ContainerCSS } from '../../components/ui/ui.styles.js';
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
-import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 
 import { ROUTE } from '../../../constants.js';
@@ -27,18 +26,14 @@ export const CreateSlidePage = () => {
   const navigate = useNavigate();
   
   const methods = useForm({
-    mode: 'onSubmit',
+    mode: 'onSubmit'
     // resolver: yupResolver(AccountSchema),
   });
   
   const {
-    watch,
-    reset,
     control,
     handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors, isSubmitSuccessful, isValid }
+    formState: { errors }
   } = methods;
   
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
@@ -48,15 +43,13 @@ export const CreateSlidePage = () => {
       id: uuidv4(),
       ...data,
       movie: movieUpload[0],
-      logo_media: logoUpload[0],
-      
-    }
-    console.log(slideData);
+      logo_media: logoUpload[0]
+    };
     dispatch(addSlide(slideData));
     navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
     toast.success(`${data.logo_text} was added successfuly`);
   };
-  console.log(movieUpload);
+  
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
