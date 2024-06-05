@@ -10,7 +10,7 @@ const CastFilmCard = ({ ...rest }) => {
   const navigate = useNavigate();
 
   const navigateToDetails = () => {
-    navigate(`/casting${rest.path}`);
+    navigate(`/cast-film-details/${rest.id}`);
     window.scrollTo(0, 0);
   };
   return (
@@ -36,14 +36,6 @@ const CastFilmCard = ({ ...rest }) => {
       <Button text={'explore roles'} style={{ width: '150px' }} onClick={navigateToDetails} />
     </div>
   );
-};
-
-CastFilmCard.propTypes = {
-  img: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  buttonText: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
-  movieDes: PropTypes.string,
 };
 
 export default CastFilmCard;

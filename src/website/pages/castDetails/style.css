@@ -1,0 +1,16 @@
+.casting-detail {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  .bg-cast-det{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 80vh;
+  }
+  .footer-creds{
+    position: absolute;
+    bottom: 0;
+  }
+}

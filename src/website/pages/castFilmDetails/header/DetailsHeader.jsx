@@ -6,34 +6,87 @@ import Icon from '../../../assets/images/IMDb.png';
 import menuMobile from '../../../assets/images/burger-menu.svg';
 import { Navbar } from '../../../components/navbar/Navbar';
 import { MobMenu } from '../../../components/mobileMenu/MobMenu';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
+
 export const CastDetHeader = () => {
-  const { path } = useParams(); // Get the dynamic parameter
-  const film = FILM_CARDS.find((film) => film.path === `/${path}`);
-  const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
+  const { casting_id } = useParams();
+  const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
+  const [casting, setCasting] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [getImage, setImage] = useState(null);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (!casting_id) {
+      setError('Film not found');
+      setLoading(false);
+      return;
+    }
+
+    let isMounted = true;
+
+    const fetchCastingDetail = async () => {
+      try {
+        const [detailsResponse, imageResponse] = await axios.all([
+          axios.get(`http://57.151.104.191:8888/api/pages/casting/${casting_id}`),
+          axios.get(`http://57.151.104.191:8888/api/pages/casting/${casting_id}/image`, {
+            responseType: 'blob'
+          })
+        ])
+        if (isMounted) {
+          setCasting(detailsResponse.data);
+          const imageBlob = imageResponse.data;
+          const imageUrl = URL.createObjectURL(imageBlob);
+          setImage(imageUrl);
+        }
+      } catch (error) {
+        if (isMounted) {
+          setError('Failed to fetch film details or poster');
+        }            }
+      finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchCastingDetail();
+    return () => {
+      isMounted = false;
+    };
+  }, [casting_id]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!casting) {
+    return <p>No details available.</p>;
+  }
   return (
     <div className="detail-header">
       <Header />
       <div
         className="background-header"
         style={{
-          backgroundImage: `url(${film.backgroundImg})`,
+          backgroundImage: `url(${getImage})`,
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
         }}
       />
       <div className="detail-header-content">
-        <p className="detail-text">{film.date}</p>
-        <h2 className="detail-title">{film.title}</h2>
+        <p className="detail-text">{casting.date}</p>
+        <h2 className="detail-title">{casting.title}</h2>
         <div className="text">
           <b className="detail-title-text">
-            {film.filmAbout} <img className="header-icon" src={Icon} alt="IMDb Icon" />
+            {casting.filmAbout} <img className="header-icon" src={Icon} alt="IMDb Icon" />
           </b>
         </div>
       </div>

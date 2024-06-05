@@ -1,11 +1,10 @@
 .info-box{
-
-    padding:80px 0px;
+    padding: 80px 0;
+    box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     .details-box{
-        padding-left: 40px;
         width: 427px;
         height: auto;
         flex-direction: column;
@@ -15,7 +14,6 @@
     }
     .data-box{
         width: 427px;
-        padding:0px 40px 0px 40px;
     }
     .rate-box{
         width: 427px;
@@ -37,7 +35,6 @@
 
 }
 .production-info{
-    padding: 50px 0px 0px 30px;
     width: 894px;
     color: #FAFAFA;
     font-size: 36px;

@@ -1,0 +1,40 @@
+.film-card {
+    width: 100%;
+    max-width: 438px;
+    max-height: 640px;
+    border-radius: 8px;
+    background: var(--card-dark);
+    overflow: hidden;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    .film-card__header{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .film-card-title{
+            margin: 0;
+        }
+        .film-card-date{
+            margin: 0;
+        }
+    }
+    .film-card-image{
+        width: 100%;
+    }
+    .btn-box{
+        bottom: 20px;
+        align-self: center;
+        position: absolute;
+    }
+}
+.film-card.hovered{
+    cursor: pointer;
+    height: 694px;
+    max-height: 100%;
+}

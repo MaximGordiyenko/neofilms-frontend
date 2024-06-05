@@ -43,6 +43,7 @@ import { light, dark } from './theme-config.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import OnlyAdmin from './utils/OnlyAdmin';
+import CastingDetails from "./website/pages/castDetails/CastingDetails";
 import { CreateCastingPage } from './admin_panel/pages/casting/CreateCastingPage';
 import { CastingEditPage } from './admin_panel/pages/casting/CastingEditPage';
 import { CastingPage } from './admin_panel/pages/casting/CastingPage';
@@ -58,7 +59,7 @@ export const App = () => {
   const dispatch = useDispatch();
   
   const navigate = useNavigate();
-  
+
   const { slides } = useSelector((state) => state?.slide);
   const { movies } = useSelector((state) => state?.movie);
   const { projects } = useSelector((state) => state?.project);
@@ -88,9 +89,8 @@ export const App = () => {
         <Route path={'/casting'} element={<Casting/>}/>
         <Route path={'/web3/redeem'} element={<Redeem/>}/>
         <Route path={'/contacts'} element={<Contact/>}/>
-        <Route path={'/film-details/:moviePath'} element={<FilmDetails/>}/>
-        <Route path={'/casting/:path'} element={<CastFilmPage/>}/>
-        
+        <Route path={'/film-details/:id'} element={<FilmDetails/>}/>
+        <Route path={'/cast-film-details/:casting_id'} element={<CastFilmPage />} />
         {/* admin panel routes */}
         <Route path={`/${ROUTE.admin}/${ROUTE.login}`} element={<LoginPage/>}/>
         <Route element={<Layout logout={logout}/>}>
@@ -190,7 +190,7 @@ export const App = () => {
                  element={<OnlyAdmin
                    element={<CalendarEditPage/>}/>}
           />
-          
+
           <Route path={`${ROUTE.admin}/${ROUTE.casting}/${ROUTE.createCasting}`}
                  element={<OnlyAdmin
                    element={<CreateCastingPage/>}/>}
