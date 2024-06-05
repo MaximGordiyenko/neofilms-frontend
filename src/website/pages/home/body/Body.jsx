@@ -66,7 +66,7 @@ export const Body = () => {
           </h3>
           <div className={'button-box'}>
             <img src={dots} alt={'hp-b-dots'} />
-            <div className={'hr-line'} />
+            <div className={'hr-line-body'} />
             <Button text={'other news'} width={'210px'} />
           </div>
         </div>

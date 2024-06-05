@@ -5,7 +5,6 @@ import '../../pages/casting/castFilms/style.scss';
 import './style.css';
 
 export const ArtistFilmCard = ({ actor_name, bio, onApplyClick }) => {
-  // Додано onApplyClick
   return (
     <div className={'actor-card-wrapper'}>
       <div className={'card-title'}>
@@ -13,7 +12,6 @@ export const ArtistFilmCard = ({ actor_name, bio, onApplyClick }) => {
         <p className="actor-bio">{bio}</p>
       </div>
       <Button text={'Apply'} style={{ width: '150px' }} onClick={onApplyClick} />{' '}
-      {/* Додано обробник onClick */}
     </div>
   );
 };
@@ -21,5 +19,5 @@ export const ArtistFilmCard = ({ actor_name, bio, onApplyClick }) => {
 ArtistFilmCard.propTypes = {
   actor_name: PropTypes.string.isRequired,
   bio: PropTypes.string,
-  onApplyClick: PropTypes.func.isRequired, // Додано onApplyClick до PropTypes
+  onApplyClick: PropTypes.func.isRequired,
 };

@@ -1,54 +1,102 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { FILM_CARDS } from '../../constants/filmsConstants';
+import axios from 'axios';
 import Header from '../../components/header/Header';
 import './style.scss';
-import { Button } from '../../components/button/Button';
 import { FooterCreds } from '../../components/credsFooter/FooterCreds';
 import blackStroke from '../../assets/images/footer-hp-placeholder.svg';
 
 const FilmDetails = () => {
-  const { moviePath } = useParams();
-  const film = FILM_CARDS.find((card) => card.path === `/${moviePath}`);
+    const { id } = useParams();
+    const [film, setFilm] = useState(null);
+    const [poster, setPoster] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    useEffect(() => {
+        if (!id) {
+            setError('Film not found');
+            setLoading(false);
+            return;
+        }
 
-  if (!film) {
-    // Handle the case where the film is not found
-    return <div>Film not found</div>;
-  }
+        let isMounted = true;
 
-  const { title, date, createdBy, starring, movieDes, backgroundImg } = film;
-  return (
-    <div className={'movie-details-wrapper'}>
-      <div className={'bg-details-box'} style={{ backgroundImage: `url(${backgroundImg})` }}>
-        <Header />
-        <div className={'title-details-box'}>
-          <h2>{title}</h2>
-          {/*<Button text={'watch trailer'} />*/}
+        const fetchFilmDetails = async () => {
+            try {
+                const [filmResponse, posterResponse] = await axios.all([
+                    axios.get(`http://57.151.104.191:8888/api/pages/movie/${id}`),
+                    axios.get(`http://57.151.104.191:8888/api/pages/movie/${id}/poster`, {
+                        responseType: 'blob'
+                    })
+                ]);
+
+                if (isMounted) {
+                    setFilm(filmResponse.data);
+                    const posterBlob = posterResponse.data;
+                    const posterUrl = URL.createObjectURL(posterBlob);
+                    setPoster(posterUrl);
+                }
+            } catch (err) {
+                if (isMounted) {
+                    setError('Failed to fetch film details or poster');
+                }
+            } finally {
+                if (isMounted) {
+                    setLoading(false);
+                }
+            }
+        };
+
+        fetchFilmDetails();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [id]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
+
+    if (!film) {
+        return <div>Film not found</div>;
+    }
+
+    const { title, starring } = film;
+    console.log(film, 'film')
+    return (
+        <div className="movie-details-wrapper">
+            <div className="bg-details-box" style={{ backgroundImage: `url(${poster || film.backgroundImg})` }}>
+                <Header />
+                <div className="title-details-box">
+                    <h2>{title}</h2>
+                </div>
+            </div>
+            <div className="movie-details-desc">
+                <div className="announcement">
+                    <span>release date</span>
+                    <h2>{film.release_date}</h2>
+                </div>
+                <div className="desc-text">
+                    {starring && (
+                        <>
+                            <span>starring</span>
+                            {starring.map((actor, index) => (
+                                <h3 key={index}>{actor}</h3>
+                            ))}
+                        </>
+                    )}
+                    <p>{film.description}</p>
+                </div>
+            </div>
+            <img src={blackStroke} alt="black-stroke-details" className="stroke-placeholder-det" />
+            <FooterCreds />
         </div>
-      </div>
-      <div className={'movie-details-desc'}>
-        <div className={'announcement'}>
-          <span>release date</span>
-          <h2>{date}</h2>
-          {/*<span>created by </span>*/}
-          {/*<h2>{createdBy}</h2>*/}
-        </div>
-        <div className={'desc-text'}>
-          {starring && (
-            <>
-              <span>starring</span>
-              {starring.map((actor, index) => (
-                <h3 key={index}>{actor}</h3>
-              ))}
-            </>
-          )}
-          <p>{movieDes}</p>
-        </div>
-      </div>
-      <img src={blackStroke} alt={'black-stroke-details'} className={'stroke-placeholder-det'} />
-      <FooterCreds />
-    </div>
-  );
+    );
 };
 
 export default FilmDetails;
