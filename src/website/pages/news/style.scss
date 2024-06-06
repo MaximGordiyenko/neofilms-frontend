@@ -18,6 +18,7 @@
     box-sizing: border-box;
     background: url("../../assets/images/news-bg.jpg") center no-repeat;
     background-size: cover;
+    gap: 40px;
     .header{
       padding: 0;
     }
@@ -25,6 +26,7 @@
       max-width: 50%;
       width: 100%;
       display: flex;
+      position: relative;
       .news-title-text{
         font-family: actay_wide, "sans-serif";
         font-size: 64px;
@@ -34,8 +36,9 @@
         color: var(--white);
       }
       .news-ball{
-        right: 0;
-        top: 0;
+        position: absolute;
+        bottom: 17px;
+        left: 520px;
       }
     }
   }

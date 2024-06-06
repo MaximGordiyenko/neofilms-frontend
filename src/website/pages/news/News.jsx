@@ -11,6 +11,7 @@ import { NewsPageCards } from './newsCards/NewsPageCards';
 import { Button } from '../../components/button/Button';
 import { FilledButton } from '../../components/button/FilledButton';
 import lowerStroke from '../../assets/images/footer-hp-placeholder.svg';
+import {Flex} from "../../components/customDiv/Flex";
 
 export const News = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
@@ -21,7 +22,7 @@ export const News = () => {
   };
   return (
     <div className={'news-wrapper'}>
-      <div className={'news-header'}>
+      <Flex flexDirection="column" className={'news-header'}>
         <Header />
         <div className={'title-news-box'}>
           <h2 className={'news-title-text'}>
@@ -29,7 +30,7 @@ export const News = () => {
           </h2>
           <img src={ball} alt={'news-title-ball'} className={'news-ball'} />
         </div>
-      </div>
+      </Flex>
       <div className={'news-page-cards-box'}>
         <NewsPageCards />
       </div>

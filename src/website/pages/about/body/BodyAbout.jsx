@@ -7,6 +7,8 @@ import topLine from '../../../assets/images/homepageline.svg';
 import botLine from '../../../assets/images/homepagesec_line.svg';
 import newsletterImg from '../../../assets/images/newsletter-img.svg';
 import { Button } from '../../../components/button/Button';
+import {Input} from "../../../components/input/Input";
+import {ClipInput} from "../../../components/input/ClipInput";
 
 export const BodyAbout = () => {
   return (
@@ -72,7 +74,7 @@ export const BodyAbout = () => {
               blended with the best in Hollywood!
             </p>
             <div className={'inner-input-box'}>
-              <input placeholder={'Enter your Email address'} className={'email-input'} />
+              <ClipInput placeholder={'Enter your Email address'} className={'email-input'} />
               <Button text={'subscribe'} />
             </div>
           </div>

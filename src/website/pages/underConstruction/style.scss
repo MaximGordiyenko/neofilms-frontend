@@ -21,15 +21,18 @@
     justify-content: center;
     .soon-title{
       position: relative;
-      max-width: 50%;
+      max-width: 59%;
       width: 100%;
       font-size: 64px;
       font-family: actay_wide, "sans-serif";
       color: var(--white);
       text-transform: uppercase;
       line-height: 95.40px;
-      h2{
+      .soon-title-text{
         margin: 0;
+        color: var(--white);
+        font-weight: 700;
+        font-family: actay_wide, 'sans-serif';
       }
       .under-construction{
         right: -7vw;

@@ -133,9 +133,12 @@
         .inner-input-box{
           display: flex;
           justify-content: space-between;
+          gap: 20px;
+          .input-box-clip{
+
+          }
           .email-input{
             background: rgba(250, 250, 250, 0.20);
-            border-radius: 10px;
             border: none;
             height: 35px;
             box-sizing: border-box;
@@ -147,7 +150,11 @@
             color: var(--white);
           }
           .btn-box{
-            width: 215px;
+            height: 40px;
+            width: 225px;
+            .btn-body{
+              height: 35px;
+            }
           }
         }
       }

@@ -1,4 +1,4 @@
-.input-box{
+.input-box, .input-box-clip{
     width: 40%;
     height: 61px;
     flex: 1 1 0;
@@ -34,6 +34,18 @@
         word-wrap: break-word;
         border: none;
         border-radius: 10px;
+    }
+}
+.input-box-clip{
+    height: auto;
+    .input-layout{
+        input{
+            height: 100%;
+            border-radius: 0;
+            padding: 0 5px;
+            outline: none;
+            opacity: 1;
+        }
     }
 }
 
