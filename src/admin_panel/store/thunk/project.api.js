@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import * as projectApi from '../../../api/project';
 
 export const getProjects = createAsyncThunk('data/getProjects', async () => {
@@ -25,7 +24,6 @@ export const addProject = createAsyncThunk('data/addProject', async (data, thunk
 
 export const updateProject = createAsyncThunk('data/updateProject', async ({ id, data, thunkAPI }) => {
   try {
-    console.log({id, data});
     const response = await projectApi.editProject(id, data);
     if (response.status === 200) {
       thunkAPI.dispatch(getProjects());
@@ -52,6 +50,15 @@ export const deleteProject = createAsyncThunk('data/deleteProject', async (proje
       thunkAPI.dispatch(getProjects());
       return response.data;
     }
+  } catch (error) {
+    throw error;
+  }
+});
+
+export const getProjectMedia = createAsyncThunk('data/logoSlide', async (slide_id) => {
+  try {
+    const response = await projectApi.getImage(slide_id);
+    return response.data;
   } catch (error) {
     throw error;
   }

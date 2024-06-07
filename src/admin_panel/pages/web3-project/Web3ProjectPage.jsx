@@ -8,7 +8,7 @@ import { MediaCard } from '../../components/card/MediaCard';
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
-import { deleteProject, getProjects } from '../../store/thunk/project.api.js';
+import { deleteProject, getProjects, getProjectMedia } from '../../store/thunk/project.api.js';
 
 export const Web3ProjectPage = ({ tab, cards, onAdd, buttonName }) => {
   const navigate = useNavigate();

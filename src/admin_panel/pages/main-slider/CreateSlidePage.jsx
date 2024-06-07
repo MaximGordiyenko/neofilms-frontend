@@ -16,7 +16,7 @@ import { addSlide } from '../../store/thunk/slide.api.js';
 import { updateField } from '../../store/reducers/slide.reducer.js';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { SimpleFileUploader } from '../../components/file-upload/SimpleFileUploader';
+import { FileUploader } from '../../components/file-upload/FileUploader';
 
 export const CreateSlidePage = () => {
   const [movieUpload, setMovieUpload] = useState([]);
@@ -30,11 +30,7 @@ export const CreateSlidePage = () => {
     // resolver: yupResolver(AccountSchema),
   });
   
-  const {
-    control,
-    handleSubmit,
-    formState: { errors }
-  } = methods;
+  const { control, handleSubmit, formState: { errors } } = methods;
   
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
@@ -59,7 +55,7 @@ export const CreateSlidePage = () => {
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.mainSlider}`}/>
             </Grid>
             <Grid item xs={12} sm={4} md={9} lg={11.1}>
-              <Typography variant="h5">New Slide</Typography>
+              <Typography variant="h5" color="primary">New Slide</Typography>
             </Grid>
             <Grid item xs={12} sm={4} md={9} lg={0.9} display="flex" justifyContent="space-between">
               <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
@@ -71,7 +67,7 @@ export const CreateSlidePage = () => {
             <Grid item xs={5.9}>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
                 <Typography variant="h6">Main Image or Video</Typography>
-                <SimpleFileUploader
+                <FileUploader
                   name="movie"
                   multiple={false}
                   fileUpload={movieUpload}
@@ -80,7 +76,7 @@ export const CreateSlidePage = () => {
               </Grid>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Typography variant="h6">Movie Title (Logo)</Typography>
-                <SimpleFileUploader
+                <FileUploader
                   name="logo_media"
                   multiple={false}
                   fileUpload={logoUpload}

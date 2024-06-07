@@ -43,7 +43,6 @@ import { light, dark } from './theme-config.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import OnlyAdmin from './utils/OnlyAdmin';
-import CastingDetails from "./website/pages/castDetails/CastingDetails";
 import { CreateCastingPage } from './admin_panel/pages/casting/CreateCastingPage';
 import { CastingEditPage } from './admin_panel/pages/casting/CastingEditPage';
 import { CastingPage } from './admin_panel/pages/casting/CastingPage';
@@ -68,7 +67,7 @@ export const App = () => {
   
   const logout = () => {
     dispatch(adminLogout());
-    navigate(`/${ROUTE.admin}/${ROUTE.logout}`)
+    navigate(`/${ROUTE.admin}/${ROUTE.login}`)
   }
   
   return (

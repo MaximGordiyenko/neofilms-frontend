@@ -7,8 +7,8 @@ import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
 import { IconButton } from '../../components/buttons/IconButton.jsx';
 import { DataPicker } from '../../components/pickers/DataPicker.jsx';
 import { RadioButton } from '../../components/radio/RadioButton.jsx';
-import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
+import { FileUploader } from '../../components/file-upload/FileUploader';
 
 import { Grid, Typography, Button, Box } from '@mui/material';
 import { Delete, DownloadDone } from '@mui/icons-material';
@@ -21,13 +21,16 @@ import { getMovie, updateMovie, deleteMovie } from '../../store/thunk/movie.api.
 import { updateField } from '../../store/reducers/movie.reducer.js';
 
 export const MovieEditPage = () => {
+  const [posterUpload, setPosterUpload] = useState([{ name: 'mock.png', size: 0 }]);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { movieId } = useParams();
   
+  const { movieId } = useParams();
+  console.log(movieId);
   useEffect(() => {
     dispatch(getMovie(movieId));
-  }, [dispatch, getMovie]);
+  }, [dispatch]);
   
   const {
     title,
@@ -69,18 +72,11 @@ export const MovieEditPage = () => {
     // resolver: yupResolver(AccountSchema),
   });
   
-  const {
-    watch,
-    reset,
-    control,
-    handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors, isSubmitSuccessful, isValid }
-  } = methods;
+  const { control, handleSubmit, formState: { errors } } = methods;
   
   const onSubmit = (data) => {
     const movieDate = {
+      poster: posterUpload[0],
       title: data.title || title,
       description: data.description || description,
       movie_link: data.movie_link || movie_link,
@@ -91,9 +87,9 @@ export const MovieEditPage = () => {
       starring: actors,
     };
     console.log(movieDate);
-    // dispatch(updateMovie({ id: movieId, data: movieDate }));
-    // navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
-    // toast.success(`"Movie" was added successfuly`);
+    dispatch(updateMovie({ id: movieId, data: movieDate }));
+    navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
+    toast.success(`"Movie" was added successfuly`);
   };
   
   return (
@@ -105,7 +101,7 @@ export const MovieEditPage = () => {
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.allMovies}`}/>
             </Grid>
             <Grid item xs={4} sm={9} md={9} lg={9.5}>
-              <Typography variant="h5">New Movie</Typography>
+              <Typography variant="h5" color="primary">New Movie</Typography>
             </Grid>
             <Grid item xs={4} sm={3} md={9} lg={2.5} display="flex" justifyContent="space-between">
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
@@ -122,12 +118,17 @@ export const MovieEditPage = () => {
           <Grid container justifyContent="space-around">
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
-                <Typography variant="h5">Movie Poster</Typography>
-                <FileUploader name="poster" value="" multiple={false} onInputChange={onInputChange}/>
+                <Typography variant="h5" color="primary">Movie Poster</Typography>
+                <FileUploader
+                  name="poster"
+                  multiple={false}
+                  fileUpload={posterUpload}
+                  setFileUpload={setPosterUpload}
+                />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
-                  <Typography variant="h5">Movie Information</Typography>
+                  <Typography variant="h5" color="primary">Movie Information</Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <InputTextAutosize
@@ -185,7 +186,7 @@ export const MovieEditPage = () => {
             </Grid>
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
-                <Typography variant="h5">Directed by</Typography>
+                <Typography variant="h5" color="primary">Directed by</Typography>
                 {directors.map((director, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
@@ -202,7 +203,7 @@ export const MovieEditPage = () => {
                 <IconButton onClick={() => setDirectors([...directors, ''])}>Add Director</IconButton>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
-                <Typography variant="h5">Written by</Typography>
+                <Typography variant="h5" color="primary">Written by</Typography>
                 {writers.map((writer, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize

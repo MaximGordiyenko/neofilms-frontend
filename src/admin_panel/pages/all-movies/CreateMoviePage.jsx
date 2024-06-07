@@ -11,8 +11,8 @@ import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
 import { DataPicker } from '../../components/pickers/DataPicker.jsx';
 import { RadioButton } from '../../components/radio/RadioButton.jsx';
 import { IconButton } from '../../components/buttons/IconButton.jsx';
-import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
+import { FileUploader } from '../../components/file-upload/FileUploader';
 
 import { useDispatch } from 'react-redux';
 import { addMovie } from '../../store/thunk/movie.api.js';
@@ -20,7 +20,6 @@ import { updateField } from '../../store/reducers/movie.reducer.js';
 
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants.js';
-import { SimpleFileUploader } from '../../components/file-upload/SimpleFileUploader';
 
 export const CreateMoviePage = () => {
   const [posterUpload, setPosterUpload] = useState([]);
@@ -92,7 +91,7 @@ export const CreateMoviePage = () => {
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.allMovies}`}/>
             </Grid>
             <Grid item xs={12} sm={6} md={9} lg={11.1}>
-              <Typography variant="h5">New Movie</Typography>
+              <Typography variant="h5" color="primary">New Movie</Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={9} lg={0.9} display="flex" justifyContent="space-between">
               <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
@@ -103,8 +102,8 @@ export const CreateMoviePage = () => {
           <Grid container justifyContent="space-around">
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
-                <Typography variant="h5">Movie Poster</Typography>
-                <SimpleFileUploader
+                <Typography variant="h5" color="primary">Movie Poster</Typography>
+                <FileUploader
                   name="poster"
                   multiple={false}
                   fileUpload={posterUpload}
@@ -113,7 +112,7 @@ export const CreateMoviePage = () => {
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
-                  <Typography variant="h5">Movie Information</Typography>
+                  <Typography variant="h5" color="primary">Movie Information</Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <InputTextAutosize
@@ -166,7 +165,7 @@ export const CreateMoviePage = () => {
             </Grid>
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
-                <Typography variant="h5">Directed by</Typography>
+                <Typography variant="h5" color="primary">Directed by</Typography>
                 {[...Array(addDirector)].map((_, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
@@ -181,7 +180,7 @@ export const CreateMoviePage = () => {
                 <IconButton onClick={() => setAddDirector(addDirector + 1)}>Add Director</IconButton>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
-                <Typography variant="h5">Written by</Typography>
+                <Typography variant="h5" color="primary">Written by</Typography>
                 {[...Array(addWritten)].map((_, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
@@ -196,7 +195,7 @@ export const CreateMoviePage = () => {
                 <IconButton onClick={() => setAddWritten(addWritten + 1)}>Add Written</IconButton>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
-                <Typography variant="h5">Starring</Typography>
+                <Typography variant="h5" color="primary">Starring</Typography>
                 {[...Array(addActor)].map((_, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize

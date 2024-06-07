@@ -1,5 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getSlides, addSlide, updateSlide, getMediaOfSlide, deleteSlide, getSlide } from '../thunk/slide.api.js';
+import {
+  getSlides,
+  addSlide,
+  updateSlide,
+  getMediaOfSlide,
+  deleteSlide,
+  getSlide,
+  getLogoOfSlide
+} from '../thunk/slide.api.js';
 
 const slideReducer = createSlice({
   name: 'slide',
@@ -56,6 +64,17 @@ const slideReducer = createSlice({
         state.mediaUrl = action.payload;
       })
       .addCase(getMediaOfSlide.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action?.error.message;
+      })
+      .addCase(getLogoOfSlide.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getLogoOfSlide.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.mediaUrl = action.payload;
+      })
+      .addCase(getLogoOfSlide.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action?.error.message;
       })

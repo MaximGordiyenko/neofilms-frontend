@@ -15,7 +15,7 @@ export const MoviesPage = ({ tab, cards, onAdd, buttonName }) => {
   
   useEffect(() => {
     dispatch(getMovies());
-  }, [dispatch]);
+  }, [dispatch, getMovies]);
   
   return (
     <AdminTabPanel value={tab} index={1}>

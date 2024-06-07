@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import * as movieApi from '../../../api/movie';
+import { getPoster } from '../../../api/movie';
 
 export const getMovies = createAsyncThunk('data/getMovies', async () => {
   try {
@@ -51,6 +51,15 @@ export const deleteMovie = createAsyncThunk('data/deleteMovie', async (movie_id,
       thunkAPI.dispatch(getMovies());
       return response.data;
     }
+  } catch (error) {
+    throw error;
+  }
+});
+
+export const getMoviePoster = createAsyncThunk('data/mediaSlide', async (movie_id) => {
+  try {
+    const response = await movieApi.getPoster(movie_id);
+    return response.data;
   } catch (error) {
     throw error;
   }

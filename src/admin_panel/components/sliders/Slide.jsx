@@ -1,12 +1,12 @@
 import { Controller } from 'react-hook-form';
 import { Slider } from '@mui/material';
 
-export const Slide = ({ name, control, defaultValue = 0 }) => {
+export const Slide = ({ name, value, control }) => {
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue={defaultValue}
+      defaultValue={value || 0}
       render={({ field }) => (
         <Slider
           {...field}

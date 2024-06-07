@@ -24,7 +24,7 @@ export const Layout = ({logout}) => {
           <IconButton
             icon={<Logout/>}
             onClick={logout}>
-            Logout icon
+            Log out
           </IconButton>
         }
       />

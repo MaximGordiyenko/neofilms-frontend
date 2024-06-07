@@ -22,7 +22,7 @@ export const SlidePage = ({ tab, cards, onAdd, buttonName }) => {
   return (
     <AdminTabPanel value={tab} index={0}>
       <Box display="flex" alignItems="center" overflow="scroll" py={60} px={5}>
-        {cards?.map((card, idx) => (
+        {cards?.map((card) => (
           <MediaCard
             key={card.id}
             title={card.logo_text}

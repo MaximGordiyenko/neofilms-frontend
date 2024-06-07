@@ -25,7 +25,7 @@ export const CalendarEditPage = () => {
   
   useEffect(() => {
     dispatch(getCalendar(calendarId));
-  }, [dispatch]);
+  }, [dispatch, getCalendar]);
   
   const { name, description, date } = useSelector((state) => state?.calendar?.calendar);
   
@@ -34,15 +34,7 @@ export const CalendarEditPage = () => {
     // resolver: yupResolver(AccountSchema),
   });
   
-  const {
-    watch,
-    reset,
-    control,
-    handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors, isSubmitSuccessful, isValid }
-  } = methods;
+  const { watch, control, handleSubmit, formState: { errors } } = methods;
   
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   

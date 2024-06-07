@@ -58,7 +58,7 @@ export const CreateCalendarPage = () => {
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.calendar}`}/>
             </Grid>
             <Grid item xs={9} sm={10} md={11} lg={11.1}>
-              <Typography variant="h5">New Event</Typography>
+              <Typography variant="h5" color="primary">New Event</Typography>
             </Grid>
             <Grid item xs={3} sm={2} md={1} lg={0.9} display="flex" justifyContent="space-between">
               <Button variant="contained" endIcon={<DownloadDone/>} type="submit">

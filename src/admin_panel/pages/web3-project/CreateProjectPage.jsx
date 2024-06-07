@@ -1,20 +1,23 @@
-import { ContainerCSS } from '../../components/ui/ui.styles.js';
-import { Grid, Typography, Button } from '@mui/material';
-import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
-import { ROUTE } from '../../../constants.js';
-import { DownloadDone } from '@mui/icons-material';
-import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
-import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
-import { Slide } from '../../components/sliders/Slide.jsx';
-import { FormProvider, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { updateField } from '../../store/reducers/project.reducer.js';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import { addProject } from '../../store/thunk/project.api.js';
-import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
-import { SimpleFileUploader } from '../../components/file-upload/SimpleFileUploader';
+import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
+import { FormProvider, useForm } from 'react-hook-form';
+
+import { Grid, Typography, Button } from '@mui/material';
+import { DownloadDone } from '@mui/icons-material';
+
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '../../../constants.js';
+
+import { Slide } from '../../components/sliders/Slide.jsx';
+import { ContainerCSS } from '../../components/ui/ui.styles.js';
+import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
+import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
+import { FileUploader } from '../../components/file-upload/FileUploader';
+
+import { useDispatch } from 'react-redux';
+import { addProject } from '../../store/thunk/project.api.js';
+import { updateField } from '../../store/reducers/project.reducer.js';
 
 export const CreateProjectPage = () => {
   const [imageUpload, setImageUpload] = useState([]);
@@ -27,15 +30,7 @@ export const CreateProjectPage = () => {
     // resolver: yupResolver(AccountSchema),
   });
   
-  const {
-    watch,
-    reset,
-    control,
-    handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors, isSubmitSuccessful, isValid }
-  } = methods;
+  const { watch, control, handleSubmit, formState: { errors} } = methods;
   
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
@@ -60,7 +55,7 @@ export const CreateProjectPage = () => {
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.web3project}`}/>
             </Grid>
             <Grid item xs={12} sm={4} md={9} lg={11.1}>
-              <Typography variant="h5">New Project</Typography>
+              <Typography variant="h5" color="primary">New Project</Typography>
             </Grid>
             <Grid item xs={12} sm={4} md={9} lg={0.9} display="flex" justifyContent="space-between">
               <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
@@ -73,7 +68,7 @@ export const CreateProjectPage = () => {
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
                 <Typography variant="h6">Project Image</Typography>
                 {/*<FileUploader name="image" multiple={false} onInputChange={onInputChange}/>*/}
-                <SimpleFileUploader
+                <FileUploader
                   name="image"
                   multiple={false}
                   fileUpload={imageUpload}
