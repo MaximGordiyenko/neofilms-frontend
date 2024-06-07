@@ -6,6 +6,9 @@
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    .header{
+        padding: 0;
+    }
     .background-header{
         position: absolute;
         top: 0;

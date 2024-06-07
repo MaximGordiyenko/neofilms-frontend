@@ -23,6 +23,9 @@
     max-width: 1130px;
     .form-title-services{
       max-width: 440px;
+      gap: 40px;
+      display: flex;
+      flex-direction: column;
       .idea{
         color: #00ff84;
         font-family: actay, "sans-serif";
@@ -30,11 +33,12 @@
       }
       .title-box-service-f{
         display: flex;
-        h5{
+        .serv-title{
           font-family: actay_wide, "sans-serif";
           color: var(--white);
           font-size: 36px;
           margin: 0;
+          line-height: 45px;
         }
       }
       p{
@@ -42,6 +46,7 @@
         font-family: actay, "sans-serif";
         color: var(--white);
         font-size: 20px;
+        margin: 0;
       }
     }
     .form-container{

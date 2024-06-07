@@ -11,7 +11,7 @@ export const ServicesFooter = () => {
         <div className={'form-title-services'}>
           <span className={'idea'}>Have an idea</span>
           <div className={'title-box-service-f'}>
-            <h5>Let&apos;s Create Something Huge!</h5>
+            <h5 className="serv-title">Let&apos;s Create Something Huge!</h5>
             <img src={img1} alt={'img-1-service-f'} className={'img-1-service-f'} />
           </div>
           <p>

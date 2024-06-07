@@ -35,7 +35,8 @@ export const News = () => {
         <NewsPageCards />
       </div>
       <div className={'pagination-btn'}>
-        <FilledButton btnText={'show older'} />
+        <FilledButton btnText={'' +
+          ' older'} />
       </div>
       {isMobile ? (
         <div className={'menu-mob-wrapper'}>

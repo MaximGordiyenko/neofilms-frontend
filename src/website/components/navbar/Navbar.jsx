@@ -16,7 +16,7 @@ export const Navbar = () => {
       const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
       const maxNavbarHeight = 25;
       const minNavbarHeight = 5;
-      const scrollRange = window.innerHeight * 0.8;
+      const scrollRange = window.innerHeight * 0.21;
       if (scrollPosition >= documentHeight - scrollRange) {
         const newHeight = Math.min(
           maxNavbarHeight,

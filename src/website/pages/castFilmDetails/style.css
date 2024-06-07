@@ -1,4 +1,4 @@
-.modal-content {
+.cast-content {
     padding: 50px;
     height: 424px;
     position: relative;
@@ -29,21 +29,15 @@
             }
         }
         .detail-form-button-box{
-            padding: 0;
-            width: 100%;
-            position: relative;
-            .hr-line {
-                position: absolute;
-                top: 50%;
-                left: 35.7%;
-                height: 1px;
-                background: #FAFAFA;
-                transform: translateX(-50%);
-                width: -webkit-fill-available;
-                max-width: 53.5%;
-            }
-            .modal-form-icon{
-                margin: 0;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            .btn-box{
+                .btn-body{
+                    .arr-mob{
+                        display: none;
+                    }
+                }
             }
         }
     }
@@ -105,15 +99,6 @@
     font-size: 16px;
     font-family: Actay, sans-serif;
     font-weight: 400;
-}
-
-.detail-form-button-box {
-    width: 100%;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 10px;
 }
 
 .modal-form-icon {
@@ -180,11 +165,6 @@
     min-height: 24px;
 }
 
-.detail-form-button-box button {
-    width: 40%;
-    position: relative;
-}
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -206,19 +186,88 @@
 
 
 @media (max-width: 430px){
+    .details-cast-wrapper{
+        .modal.open{
+            .modal-content{
+                max-width: 350px;
+                height: auto;
+                .modal-body{
+                    .detail-content-box{
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 50px;
+                        .detail-modal-title{
+                            text-align: center;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            h5{
+                                width: 100%;
+                                text-align: center;
+                                padding: 0;
+                                align-self: center;
+                            }
+                        }
+                        .detail-body-box{
+                            display: flex;
+                            flex-direction: column;
+                            margin: 0;
+                            .user-creds{
+                                gap: 40px;
+                                flex-direction: column;
+                                .input-box-clip{
+                                    .input-layout{
+                                        width: 100%;
+                                        input{
+                                            max-width: 100%;
+                                            height: 40px;
+                                        }
+                                    }
+                                }
+                            }
+                            .detail-button-box{
+                                .detail-upload-btn{
+                                    width: 100% !important;
+                                    max-width: 100%;
+                                    justify-content: space-between;
+                                    .div{
+                                        flex-direction: column;
+                                    }
+                                    .btn-box{
+                                        margin: 0;
+                                    }
+                                }
+                            }
+                            .detail-form-button-box{
+                                width: 100%;
+                                display: flex;
+                                flex-direction: column!important;
+                                height: 100%;
+                                padding: 0;
+                                gap: 10px;
+                                .modal-close-button{
+                                    padding: 0;
+                                }
+                                .btn-box{
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     .detail-modal-title .detail-modal-header .modal-icon {
         display: none;
     }
     .modal-form-icon, .hr-line {
         display: none;
     }
-    .modal-content{
-        max-width: 430px;
-        width: 100%;
-        height: auto;
-    }
     .detail-content-box{
-        height: 650px;
         width: calc(100% - 17px);
         .detail-modal-title{
             .detail-modal-header{
@@ -241,11 +290,9 @@
         }
     }
     .detail-button-box{
-        padding-top: 55px;
         display: block;
         .detail-upload-btn{
             padding-top:20px;
-            width: calc(100% - 50px);
             display: flex;
             justify-content: space-between;
             .btn-box{
@@ -255,29 +302,6 @@
                 img{
                     display: none;
                 }
-            }
-            .modal-text{
-                width: 50%;
-            }
-        }
-    }
-    .btn-box .button-border {
-        padding-bottom: 10px;
-        height: 25px;
-    }
-    .detail-form-button-box{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        top: 570px;
-        .btn-box{
-            border: 0.5px solid #FAFAFA;
-            border-radius: 8px;
-            width: calc(100% - 40px);
-            padding: 0;
-            img{
-                display: none;
             }
         }
     }
@@ -299,7 +323,6 @@
 .modal-close-button{
     width: 100%;
     max-height: 14px;
-    padding: 30px 20px 30px 20px;
     display: flex;
     justify-content: center;
     align-items: center;

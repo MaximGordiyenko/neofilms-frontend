@@ -16,8 +16,8 @@
     width: 100%;
     padding: 30px 40px;
     box-sizing: border-box;
-    background: url("../../assets/images/news-bg.jpg") center no-repeat;
-    background-size: cover;
+    background: url("../../assets/images/news-bg.jpg") bottom no-repeat;
+    background-size: contain;
     gap: 40px;
     .header{
       padding: 0;
@@ -47,15 +47,16 @@
   .news-page-cards-box{
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
     padding: 30px 40px;
     box-sizing: border-box;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+
   }
   .pagination-btn{
     .filled-button-box{
       width: 425px;
-      margin: 180px 0 120px;
+      margin: 20px 0 120px;
     }
   }
   .lower-news-stroke{

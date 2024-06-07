@@ -14,6 +14,7 @@ import errimg from '../../assets/images/submit-error.svg';
 import axios from "axios";
 import {FooterCreds} from "../../components/credsFooter/FooterCreds";
 import {Flex} from "../../components/customDiv/Flex";
+import {ClipInput} from "../../components/input/ClipInput";
 
 export const CastFilmPage = () => {
   const { casting_id } = useParams();
@@ -166,7 +167,7 @@ export const CastFilmPage = () => {
 
   const modalContent = (
     <div className="detail-content-box">
-      <Flex className="detail-modal-title" flexDirection="row" justifyContent="space-between">
+      <Flex className="detail-modal-title" flexDirection="row" justifyContent='center' alignItems="center">
         <h5 className="detail-modal-header">
           Apply for the role
         </h5>
@@ -175,15 +176,19 @@ export const CastFilmPage = () => {
         )}
       </Flex>
       <Flex className="detail-body-box" flexDirection="column">
-        <Flex justifyContent="space-between" className="user-creds">
-          <Input
+        <Flex
+          justifyContent="space-between"
+          className="user-creds"
+          flexDirection={isMobile ? 'column' : 'row'}
+        >
+          <ClipInput
             label="Name"
             placeholder="Dave?"
             name="userName"
             value={formData.userName}
             onChange={handleInputChange}
           />
-          <Input
+          <ClipInput
             label="Your Email"
             placeholder="dave@gmail.com?"
             name="userEmail"
@@ -212,7 +217,7 @@ export const CastFilmPage = () => {
               </>
             )}
           </div>
-          <Flex className="detail-upload-btn" alignItems="center">
+          <Flex className="detail-upload-btn" alignItems="center" justifyContent="space-between">
             <Flex flexDirection="column">
               <p className="modal-text">Acting resume</p>
               <p className="modal-file-name">{resumeFileName.substring(0,15)}</p>
@@ -241,7 +246,7 @@ export const CastFilmPage = () => {
           <Button text={'Apply'} onClick={handleSubmit}/>
           {isMobile && (
             <div onClick={closeModal} className="modal-close-button">
-              Close
+              Cancel
             </div>
           )}
         </div>

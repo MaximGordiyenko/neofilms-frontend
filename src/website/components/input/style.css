@@ -38,6 +38,7 @@
 }
 .input-box-clip{
     height: auto;
+    max-height: none;
     .input-layout{
         input{
             height: 100%;
@@ -47,6 +48,9 @@
             opacity: 1;
         }
     }
+}
+input{
+    padding: 0!important;
 }
 
 

@@ -5,7 +5,7 @@ import React from "react";
 import {Flex} from "../customDiv/Flex";
 export const ClipInput = ({ placeholder, onChange, value, label, name }) => {
   return (
-    <Flex className="input-box-clip" flexDirection="column">
+    <Flex className="input-box-clip" flexDirection="column" style={{width:'100%', padding:'0'}}>
       {label && <label className="label">{label}</label>}
       <Flex className="input-layout" alignItems="center">
         <img src={clipleft} alt={'inp-clip-l'}/>
