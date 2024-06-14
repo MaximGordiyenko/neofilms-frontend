@@ -1,0 +1,119 @@
+.news-wrapper{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  .lower-bg-news{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+  }
+  .news-header{
+    width: 100%;
+    padding: 30px 40px;
+    box-sizing: border-box;
+    background: url("../../assets/images/news-bg.jpg") center no-repeat;
+    background-size: cover;
+    .header{
+      padding: 0;
+    }
+    .title-news-box{
+      max-width: 50%;
+      width: 100%;
+      display: flex;
+      .news-title-text{
+        font-family: actay_wide, "sans-serif";
+        font-size: 64px;
+        line-height: 70px;
+        text-transform: uppercase;
+        position: relative;
+        color: var(--white);
+      }
+      .news-ball{
+        right: 0;
+        top: 0;
+      }
+    }
+  }
+  .navbar-wrapper{
+  }
+  .news-page-cards-box{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px 40px;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+  .pagination-btn{
+    .filled-button-box{
+      width: 425px;
+      margin: 180px 0 120px;
+    }
+  }
+  .lower-news-stroke{
+    position: absolute;
+    bottom: 198px;
+    width: 100vw;
+  }
+}
+
+@media (max-width: 430px) {
+  .news-wrapper{
+    .news-header{
+      height: 100vh;
+      .title-news-box{
+        margin-top: 50%;
+        font-family: actay_wide, "sans-serif";
+        width: 100%;
+        max-width: 350px;
+        .news-title-text{
+          font-size: 38px;
+          line-height: normal;
+        }
+        .news-ball{
+          display: none;
+        }
+      }
+    }
+    .news-page-cards-box{
+      .news_page-card{
+        max-width: 390px;
+        .other-cards{
+          max-width: 390px;
+          img{
+            max-width: 350px;
+          }
+          .btn-box{
+            .btn-body{
+              .arr-mob{
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    .pagination-btn{
+      max-width: 350px;
+      .filled-button-box{
+        max-width: 350px;
+      }
+    }
+    .menu-mob-wrapper{
+      position: fixed;
+      z-index: 22;
+      right: 4vw;
+      bottom: 3vh;
+      backdrop-filter: blur(20px);
+      padding: 20px;
+      box-sizing: border-box;
+      background: rgba(250, 250, 250, 0.20);
+      border-radius: 10px;
+    }
+  }
+}

@@ -1,0 +1,64 @@
+.neo-nft-header{
+  width: 100%;
+  height: 100vh;
+  background: url("../../../../assets/images/neonft.jpg") center no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 40px;
+  box-sizing: border-box;
+  .header{
+    padding: 0;
+  }
+  .neo-nft-title{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    h2{
+      line-height: 112px;
+      letter-spacing: 10.24px;
+      text-align: center;
+      font-size: 128px;
+      font-family: actay_wide, "sans-serif";
+      color: var(--white);
+      margin-bottom: 50px;
+    }
+    p{
+      font-family: actay, "sans-serif";
+      font-size: 20px;
+      color: var(--white);
+      max-width: 70%;
+      text-align: center;
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 430px) {
+  .neo-nft-header{
+    padding: 30px 20px;
+    .neo-nft-title{
+      h2{
+        font-size: 38px;
+        line-height: normal;
+        letter-spacing: 3px;
+      }
+      p{
+        font-size: 14px;
+      }
+    }
+    .menu-mob-wrapper{
+      position: fixed;
+      z-index: 22;
+      right: 4vw;
+      bottom: 3vh;
+      backdrop-filter: blur(20px);
+      padding: 20px;
+      box-sizing: border-box;
+      background: rgba(250, 250, 250, 0.20);
+      border-radius: 10px;
+    }
+  }
+}

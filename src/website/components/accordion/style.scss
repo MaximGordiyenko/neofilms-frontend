@@ -1,0 +1,40 @@
+.accordion {
+  width: 100%;
+}
+
+.accordion-panel {
+  border-bottom: 1px solid #353535;
+  margin-bottom: 8px;
+
+  .panel-header {
+    padding: 30px 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    h3 {
+      text-align: left;
+      margin: 0;
+      font-family: actay_wide, "sans-serif";
+      color: var(--white);
+      font-size: 20px;
+    }
+    .arrow-icon {
+      font-size: 12px;
+      margin-left: auto; // Move the arrow to the right side of the header
+
+      &.rotate {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .panel-content {
+    padding: 0 0 30px;
+    box-sizing: border-box;
+    font-family: actay, "sans-serif";
+    color: var(--white);
+    font-size: 16px;
+    opacity: 0.7;
+    line-height: 24px;
+  }
+}

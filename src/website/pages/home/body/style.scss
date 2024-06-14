@@ -1,0 +1,275 @@
+.hp-body-wrapper{
+  width: 100%;
+  padding: 150px 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 0;
+  background: url('../../../assets/images/image 52 (1).jpg') center top no-repeat;
+  background-size: cover;
+  .bg-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .background-body{
+      width: 100vw;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .what_is_neo{
+      box-sizing: border-box;
+      display: flex;
+      max-width: 1140px;
+      width: 100%;
+      flex-direction: column;
+      gap: 70px 0;
+      padding: 100px 0;
+      z-index: 3;
+      .neo-body-text{
+        display: flex;
+        gap: 70px;
+        .neo-description{
+          .sub-title-body{
+            font-family: actay, 'sans-serif';
+            color: #00FF84;
+          }
+          .title-body-text{
+            color: var(--white);
+            font-size: 40px;
+            font-family: actay_wide, "sans-serif";
+            position: relative;
+            .hand{
+              position: absolute;
+              right: 0;
+              bottom: 0;
+            }
+          }
+        }
+        .neo-text{
+          max-width: 60%;
+          opacity: 0.70;
+          color: var(--white);
+          font-size: 24px;
+          font-family: actay, "sans-serif";
+          font-weight: 400;
+          line-height: 36px;
+        }
+      }
+    }
+    .top-body-dots{
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+  }
+  .main-hp-body-title{
+    width: 100%;
+    max-width: 1140px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .box-title-name{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      .title-text{
+        display: flex;
+        align-items: center;
+        font-size: 36px;
+        color: var(--white);
+        font-family: actay_wide, "sans-serif";
+        max-width: 25%;
+        text-transform: capitalize;
+      }
+      .button-box{
+        width: 60%;
+        display: flex;
+        align-items: center;
+        .hr-line-body{
+          height: 1px;
+          background: var(--white);
+          width: inherit;
+        }
+        .btn-box{
+        }
+      }
+    }
+    .hp-cards-body-box{
+      display: flex;
+      gap: 0 20px;
+      max-width: 1140px;
+      .background-news-img{
+        width: 100%;
+      }
+      .news-card{
+        position: relative;
+        .news-content{
+          left: 15px;
+          bottom: 15px;
+          position: absolute;
+          width: 320px;
+          height: auto;
+          background: var(--dark);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          padding: 20px;
+          box-sizing: border-box;
+          .card-title{
+            color: var(--white);
+            font-size: 24px;
+            font-family: actay_wide, "sans-serif";
+          }
+          .desc-box{
+            color: var(--white);
+            font-size: 16px;
+            font-family: actay, "sans-serif";
+          }
+          .upper-card-text{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: actay, "sans-serif";
+            color: var(--white);
+            opacity: 0.5;
+            text-transform: uppercase;
+            .card-news-date{
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  .hp-b-lower-line{
+    position: absolute;
+    bottom: -5px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .hp-body-wrapper{
+    padding: 150px 15px;
+    box-sizing: border-box;
+    .bg-wrapper{
+      max-width: 430px;
+      width: 100%;
+      .what_is_neo{
+        gap: 50px 0;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        .neo-body-text{
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+          .neo-description{
+            gap: 30px;
+            span{
+              margin-bottom: 30px!important;
+            }
+            .mob-text-wrapper{
+              display: flex;
+              justify-content: space-between;
+              margin: 30px 0;
+              .mob-text-box{
+                p{
+                  font-family: actay_wide, "sans-serif";
+                  color: var(--white);
+                  margin: 0;
+                  font-size: 24px;
+                }
+              }
+            }
+          }
+          .neo-text{
+            align-self: flex-start;
+            margin: 0 0 0 0;
+            line-height: 30px;
+            font-size: 20px;
+            width: 100%;
+            max-width: 390px;
+          }
+        }
+      }
+    }
+    .main-hp-body-title{
+      max-width: 430px;
+      width: 100%;
+      padding: 0;
+      box-sizing: border-box;
+      .box-title-name{
+        max-width: 430px;
+        width: 100%;
+        .title-text{
+          max-width: 430px;
+          width: 100%;
+          text-align: center;
+          img{
+            display: none;
+          }
+        }
+        .button-box{
+          display: none;
+        }
+      }
+      .hp-cards-body-box{
+        display: flex;
+        flex-direction: column;
+        gap: 30px 0;
+        background: transparent;
+        .news-card{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .background-news-img{
+            width: 100%;
+          }
+          .news-content{
+            background: var(--black) !important;
+            max-width: 390px;
+            width: 100%;
+            position: relative;
+            left: 0;
+            bottom: 0;
+            background: transparent;
+            box-sizing: border-box;
+            border-radius: 0 0 10px 10px;
+            .upper-card-text{
+              opacity: 0.7;
+            }
+          }
+        }
+        .btn-mob-wrapper{
+          //background: url("../../../assets/images/buttonSvg.svg") center no-repeat;
+          background-size: cover;
+          height: 15px;
+          padding: 20px 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          .btn-box{
+            width: 100%;
+            .button-border{
+            }
+            .btn-body{
+              .arr-mob{
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+.footer-creds{
+  display: flex;
+  width: 100%;
+  height: 200px;
+  padding: 50px 40px;
+  box-sizing: border-box;
+  background: #0E0E0E;
+  z-index: 2;
+  .fc-logo-box{
+    gap: 0 40px;
+    display: flex;
+    .copyrights-fc{
+      font-family: actay, "sans-serif";
+      font-size: 16px;
+      color: var(--white);
+      opacity: 0.5;
+    }
+  }
+  .f-c-hr{
+    height: 100%;
+    width: 1px;
+    background: var(--white);
+    opacity: 0.5;
+    margin: 0 30px;
+  }
+  .sponsors{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .proud{
+      font-family: actay, "sans-serif";
+      font-size: 16px;
+      color: var(--white);
+      opacity: 0.5;
+      margin-bottom: 20px;
+    }
+    .sponsors-box-fc{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0 40px;
+      img{
+        opacity: 0.5;
+      }
+    }
+  }
+  .other-logos{
+    display: flex;
+  }
+  .socials{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 430px) {
+  .footer-creds{
+    height: 100%;
+    flex-direction: column;
+    .fc-logo-box{
+      flex-direction: column;
+      align-items: center;
+      img{
+        width: 140px;
+      }
+      .copyrights-fc{
+        text-align: center;
+      }
+    }
+    .f-c-hr{
+      align-self: center;
+      width: 50%;
+      height: 1px;
+      margin: 30px 0;
+    }
+    .sponsors{
+      align-items: center;
+      .sponsors-box-fc{
+        gap: 20px;
+        flex-direction: column;
+      }
+    }
+    .other-logos{
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .socials{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 20px;
+    }
+  }
+}

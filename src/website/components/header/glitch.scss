@@ -1,0 +1,178 @@
+.header{
+  ul.glitch  {
+    max-width: 100%;
+    margin: 0 auto;
+    color: #fff;
+    text-align: left;
+    position: relative;
+    padding: 10px 0;
+    word-spacing: 2em;
+    display: flex;
+    flex-direction: column;
+  }
+
+  ul.glitch li {
+    font-size: 2.5em;
+    line-height: initial;
+    display: inline-block;
+    mix-blend-mode: screen;
+  }
+
+  ul.glitch li img {
+    text-transform: uppercase;
+    margin: 5px 5px 0 0;
+    padding: 5px 2px 0 #fff;
+    position: relative;
+    color: #fff;
+    text-decoration: none;
+    text-shadow:  -2px 0 1px rgba(255,255,255,0.6), 2px 0 1px rgba(255,255,255,0.6);
+  }
+
+  ul.glitch li img.selected {
+    color: #fff;
+    font-weight: bold;
+  }
+
+  ul.glitch li img.loaded {
+    display:block;
+  }
+  ul.glitch li img.loaded:after {
+    display:block;
+    box-shadow: 1px 1px 0 #f00, -1px -1px 0 #0f0;
+    -webkit-animation-fill-mode: forward; /* Safari 4.0 - 8.0 */
+    animation-fill-mode: forward;
+    top: 0%; right: 0%; width: 0%; height: 0%;
+    display: block;
+    content: "";
+    position: absolute;
+    background: #fff;
+    animation: glitch 1.2s 1;
+  }
+
+  ul.glitch li img.loaded:before {
+    display:block;
+    box-shadow: 1px 1px 0 #f00, -1px -1px 0 #0f0;
+    -webkit-animation-fill-mode: forward; /* Safari 4.0 - 8.0 */
+    animation-fill-mode: forward;
+    top: 0%; right: 0%; width: 0%; height: 0%;
+    content: "";
+    position: absolute;
+    background: #fff;
+    animation: glitch 1.6s 1;
+  }
+
+  ul.glitch li img:hover {
+    animation: glitch2 0.82s infinite;
+  }
+
+
+  ul.glitch li img:hover:after {
+    box-shadow: 1px 1px 0 #f00, -1px -1px 0 #0f0;
+    -webkit-animation-fill-mode: forward; /* Safari 4.0 - 8.0 */
+    animation-fill-mode: forward;
+    top: 0%; right: 0%; width: 0%; height: 0%;
+    display: block;
+    content: "";
+    position: absolute;
+    background: #fff;
+    animation: glitch 1.2s infinite;
+  }
+  ul.glitch li img:after {
+    box-shadow: 1px 1px 0 #f00, -1px -1px 0 #0f0;
+    -webkit-animation-fill-mode: forward; /* Safari 4.0 - 8.0 */
+    animation-fill-mode: forward;
+    top: 0%; right: 0%; width: 0%; height: 0%;
+    display: block;
+    content: "";
+    position: absolute;
+    background: #fff;
+    animation: glitch 1.2s 1;
+  }
+
+  ul.glitch li img:before {
+    box-shadow: 1px 1px 0 #f00, -1px -1px 0 #0f0;
+    -webkit-animation-fill-mode: forward; /* Safari 4.0 - 8.0 */
+    animation-fill-mode: forward;
+    top: 0%; right: 0%; width: 0%; height: 0%;
+    display: block;
+    content: "";
+    position: absolute;
+    background: #fff;
+    animation: glitch 1.6s 1;
+    background: repeating-linear-gradient( -45deg, #fff, #fff 1px, transparent 1px, transparent 2px);
+  }
+
+  ul.glitch li img:hover:before {
+    box-shadow: 1px 1px 0 #f00, -1px -1px 0 #0f0;
+    -webkit-animation-fill-mode: forward; /* Safari 4.0 - 8.0 */
+    animation-fill-mode: forward;
+    width: 0%;
+    height: 0%;
+    top:  0%;
+    right: 0%;
+    display: block;
+    content: "";
+    position: absolute;
+    background: #fff;
+    animation: glitch 0.5s infinite alternate;
+  }
+}
+
+@keyframes glitch2 {
+  0% { text-shadow: 0 0 0 #fff; color:transparent;}
+  1% { text-shadow: 0 0 0 #fff; }
+  2% { text-shadow: 15px 15px 0 #f00; }
+  3% {
+    color:transparent;
+  }
+  4% { text-shadow: 0 0 0 #fff; color:white;
+  }
+  50% { text-shadow: 0 0 0 #f0f; background: none; }
+  51% { text-shadow: -15px -15px 0 #0f0;
+    background: repeating-linear-gradient( 45deg, #fff, #fff 2px, transparent 2px, transparent 4px);
+  }
+  55% {
+    text-shadow: 0 0 0 #f0f;
+    background: none;
+  }
+  88% {
+    text-shadow: 0 0 0 #f0f;
+    background: none;
+    text-shadow:  -2px 0 1px rgba(255,255,255,0.6), 2px 0 1px rgba(255,255,255,0.6);
+  }
+  90% { text-shadow: -15px -15px 0 #f0f;
+    background: none;
+  }
+  91% { text-shadow: 0 0 0 #f0f;
+    background: repeating-linear-gradient( -45deg, #0ff, #0ff 1px, transparent 1px, transparent 2px);
+  }
+  95% {
+    text-shadow: 0 0 0 #f0f;
+    background: none;
+  }
+  100% {
+    text-shadow: 0 0 0 #f0f;
+  }
+
+}
+
+
+
+@keyframes glitch {
+
+  0% { opacity: 0; top: 0%; right: 0%; width: 0%; height: 0%; }
+  1% { opacity: 1; top: 0%; right: 0%; width: 100%; height: 100%; }
+  3% { opacity: 0; top: 0%; right: 0%; width: 0%; height: 0%; }
+
+  40% { opacity: 0; top: 0%; left: 0%; width: 0%; height: 0%; }
+  41% { opacity: 1; top: 0%; left: 0%; width: 100%; height: 100%; }
+  44% { opacity: 0; top: 0%; left: 0%; width: 0%; height: 0%; }
+
+  50% { opacity: 0; top: 0%; right: 0%; width: 0%; height: 0%; }
+  51% { opacity: 1; top: 0%; right: 0%; width: 100%; height: 100%; }
+  53% { opacity: 0; top: 0%; right: 0%; width: 0%; height: 0%; }
+
+  93% { opacity: 0; top: 0%; left: 0%; width: 0%; height: 0%; }
+  94% { opacity: 1; top: 0%; left: 0%; width: 100%; height: 100%; }
+  95% { opacity: 0; top: 0%; left: 0%; width: 0%; height: 0%; }
+}

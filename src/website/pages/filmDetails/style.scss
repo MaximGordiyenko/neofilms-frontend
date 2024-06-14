@@ -1,0 +1,120 @@
+.movie-details-wrapper{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  .bg-details-box{
+    height: 65vh;
+    padding: 50px 1vw;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .title-details-box{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px;
+      box-sizing: border-box;
+      h2{
+        color: var(--white);
+        font-family: actay_wide, "sans-serif";
+        text-transform: uppercase;
+        font-size: 96px;
+        margin: 0;
+      }
+    }
+  }
+  .stroke-placeholder-det{
+    position: absolute;
+    bottom: 200px;
+    z-index: 2;
+    width: 100%;
+  }
+  .movie-details-desc{
+    width: 100%;
+    height: 100vh;
+    padding: 50px 50px 50px;
+    box-sizing: border-box;
+    background: url("../../assets/images/image 37.png") center no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    .gradient{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 0;
+    }
+    .announcement{
+      display: flex;
+      flex-direction: column;
+      z-index: 2;
+      span{
+        color: var(--white);
+        opacity: 0.7;
+        font-family: actay, "sans-serif";
+        font-size: 16px;
+        text-transform: uppercase;
+      }
+      h2{
+        font-size: 36px;
+        color: var(--white);
+        font-family: actay_wide, "sans-serif";
+      }
+    }
+    .desc-text{
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      z-index: 2;
+      span{
+        text-transform: uppercase;
+        font-family: actay, "sans-serif";
+        color: var(--white);
+        opacity: 0.7;
+      }
+      p{
+        font-size: 24px;
+        font-family: actay, "sans-serif";
+        color: var(--white);
+        opacity: 0.7;
+        margin-top: 8vh;
+        line-height: 36px;
+      }
+      h3{
+        text-transform: capitalize;
+        font-family: actay_wide, "sans-serif";
+        color: var(--white);
+        font-size: 36px;
+        margin: 20px 0 0;
+      }
+    }
+  }
+}
+@media (max-width: 430px) {
+  .movie-details-wrapper{
+    max-width: 430px;
+    width: 100%;
+    .bg-details-box{
+      .title-details-box{
+        flex-direction: column;
+        h2{
+          font-size: 34px;
+        }
+      }
+    }
+    .movie-details-desc{
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+      .desc-text{
+        display: flex;
+        width: 100%;
+      }
+    }
+  }
+}

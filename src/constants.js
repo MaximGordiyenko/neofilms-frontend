@@ -1,6 +1,7 @@
 export const ROUTE = {
   landing: '',
   login: 'login',
+  logout: 'logout',
   admin: 'admin',
   mainSlider: 'main-slide',
   createSlide: 'create-slide',
@@ -10,6 +11,8 @@ export const ROUTE = {
   createProject: 'create-project',
   calendar: 'calendar',
   createCalendar: 'create-calendar',
+  casting: 'casting',
+  createCasting: 'create-casting',
   emailVerify: 'email-verify',
   forgotPassword: 'forgot-password',
   notfound: '*',
