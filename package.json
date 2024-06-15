@@ -2,7 +2,6 @@
   "name": "neo-film",
   "private": true,
   "version": "0.1.0",
-  "proxy": "http://57.151.104.191:8888",
   "options": {
     "allowedHosts": [
       "57.151.104.191"

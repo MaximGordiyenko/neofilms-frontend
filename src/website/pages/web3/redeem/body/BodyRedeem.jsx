@@ -5,6 +5,7 @@ import CustomDropdown from '../../../../components/dropdown/CustomDropdown';
 import { Button } from '../../../../components/button/Button';
 import dots from '../../../../assets/images/thripleDots.svg';
 import { MobButton } from '../../../../components/button/MobButton';
+import mobileLine from '../../../../assets/images/cast-footer-geometry.png';
 export const BodyRedeem = () => {
   const isMobile = window.innerWidth <= 430;
 
@@ -34,7 +35,7 @@ export const BodyRedeem = () => {
           </a>
         </div>
         <img src={coin} alt={'redeem-coin'} className={'coin'}/>
-        <img src={bottomLine} alt={'bottom-redeem'} className={'bottom-redeem-line'}/>
+        <img src={isMobile ? mobileLine : bottomLine} alt={'bottom-redeem'} className={'bottom-redeem-line'}/>
       </div>
     </div>
   );

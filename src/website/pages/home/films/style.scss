@@ -103,6 +103,11 @@
         .film-card-wrapper{
           width: 320px;
           max-height: 650px;
+          &:hover {
+            height: 100%;
+            max-height: 650px; // Keep the height static in mobile view
+            background-color: initial; // Remove hover background color in mobile view
+          }
           .film-card-title{
             font-size: 12px;
           }

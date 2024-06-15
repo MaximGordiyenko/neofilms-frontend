@@ -44,10 +44,15 @@
   .neo-nft-header{
     padding: 30px 20px;
     .neo-nft-title{
+      width: 100%;
+      max-width: 430px;
+      padding: 0 20px;
+      box-sizing: border-box;
       h2{
         font-size: 38px;
         line-height: normal;
         letter-spacing: 3px;
+        margin-bottom: 30px;
       }
       p{
         font-size: 14px;

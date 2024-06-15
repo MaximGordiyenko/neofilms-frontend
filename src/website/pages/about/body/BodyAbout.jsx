@@ -1,6 +1,8 @@
 import './style.scss';
 import bodySymbols from '../../../assets/images/symbols-about-body.svg';
 import faqImg from '../../../assets/images/img-question-about.svg';
+import mobDividerUp from '../../../assets/images/Frame 1724.png';
+import mobDividerDown from '../../../assets/images/Frame 1726.png';
 import Accordion from '../../../components/accordion/Accrodion';
 import { ACCORDION_PANELS } from '../../../constants/aboutConstants';
 import topLine from '../../../assets/images/homepageline.svg';
@@ -11,6 +13,7 @@ import {Input} from "../../../components/input/Input";
 import {ClipInput} from "../../../components/input/ClipInput";
 
 export const BodyAbout = () => {
+  const isMobile = window.innerWidth <= 430;
   return (
     <div className={'about-body-wrapper'}>
       <div className={'body-intro'}>
@@ -55,7 +58,7 @@ export const BodyAbout = () => {
         <Accordion panels={ACCORDION_PANELS} />
       </div>
       <div className={'join-newsletter-about'}>
-        <img src={topLine} alt={'dots-about-top'} className={'dots-about-top'} />
+        <img src={isMobile ? mobDividerUp : topLine} alt={'dots-about-top'} className={'dots-about-top'} />
         <div className={'inner-newsletter-content'}>
           <div className={'title-box'}>
             <span className={'news-span-about'}>Stay in tune</span>
@@ -79,7 +82,7 @@ export const BodyAbout = () => {
             </div>
           </div>
         </div>
-        <img src={botLine} alt={'bot-line-about'} className={'bot-line-about'} />
+        <img src={isMobile ? mobDividerDown : botLine} alt={'bot-line-about'} className={'bot-line-about'} />
       </div>
     </div>
   );

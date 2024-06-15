@@ -69,7 +69,9 @@
 @media (max-width: 430px) {
   .news-wrapper{
     .news-header{
-      height: 100vh;
+      height: 50vh;
+      background: url("../../assets/images/news-bg.jpg") bottom no-repeat;
+      background-size: cover;
       .title-news-box{
         margin-top: 50%;
         font-family: actay_wide, "sans-serif";
@@ -106,6 +108,7 @@
       max-width: 350px;
       .filled-button-box{
         max-width: 350px;
+        margin: 30px 0 140px;
       }
     }
     .menu-mob-wrapper{

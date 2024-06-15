@@ -75,10 +75,15 @@
     height: 100%;
     padding: 70px 20px;
     box-sizing: border-box;
-    .coin{
-      margin-top: 50px;
-      max-width: 350px;
-      max-height: 350px;
+    background: url("../../../../assets/images/Stake_Bottom_BG.png") bottom no-repeat;
+    background-size: contain;
+    .content-box-redeem{
+      flex-direction: column;
+      .coin{
+        margin-top: 50px;
+        max-width: 350px;
+        max-height: 350px;
+      }
     }
     .form-box-redeem{
       .form-btn-box{

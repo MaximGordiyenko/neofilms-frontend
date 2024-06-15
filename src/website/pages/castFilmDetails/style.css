@@ -191,6 +191,9 @@
             .modal-content{
                 max-width: 350px;
                 height: auto;
+                background: rgba(255, 255, 255, 0.05);
+                backdrop-filter: blur(100px);
+                padding: 40px 20px 0;
                 .modal-body{
                     .detail-content-box{
                         width: 100%;
@@ -208,7 +211,9 @@
                                 width: 100%;
                                 text-align: center;
                                 padding: 0;
+                                margin: 0;
                                 align-self: center;
+                                text-transform: uppercase;
                             }
                         }
                         .detail-body-box{
@@ -247,7 +252,7 @@
                                 flex-direction: column!important;
                                 height: 100%;
                                 padding: 0;
-                                gap: 10px;
+                                gap: 30px;
                                 .modal-close-button{
                                     padding: 0;
                                 }

@@ -20,9 +20,9 @@ export const UnderConstruction = () => {
       <Header />
       <div className={'soon-page-inner-box'}>
         <div className={'soon-title'}>
-          <Text as="h2" className="soon-title-text">
+          <h2 className="soon-title-text">
             This page <br /> is under construction
-          </Text>
+          </h2>
           <img src={satelite} alt={'under-construction'} className={'under-construction'} />
         </div>
         {isMobile ? (

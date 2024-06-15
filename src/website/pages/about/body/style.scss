@@ -171,10 +171,14 @@
 
 @media (max-width: 430px) {
   .about-body-wrapper{
-    padding: 150px 20px 150px;
+    padding: 10px 20px 150px;
     .body-intro{
+      background: url("../../../assets/images/About_Grid.png") bottom no-repeat;
+      background-size: contain;
+
       .about-body-text{
         font-size: 24px;
+        margin: 0;
       }
     }
     .ellipseBg{
@@ -183,6 +187,7 @@
     .postIntro-text{
       flex-direction: column;
       margin: 160px 0 80px;
+      display: none;
       .left-text-box{
         .title-l-text{
           font-size: 24px;
@@ -202,10 +207,11 @@
     }
     .faq-box{
       flex-direction: column;
+      margin-top: 100px;
       .title-faq{
         h3{
           font-size: 50px;
-          margin-bottom: 180px;
+          margin-bottom: 20px;
         }
         .faq-img{
           display: none;
@@ -218,21 +224,44 @@
       width: 100%;
       .inner-newsletter-content{
         flex-direction: column;
+        .title-box{
+          .about-title-box{
+            .title-newsletter{
+              font-size: 24px;
+            }
+            .newsletterImg-about{
+              width: 48px;
+            }
+          }
+        }
         .input-box-about{
           max-width: 390px;
           width: 100%;
           .inner-input-box{
             flex-direction: column;
+            .input-box-clip{
+              .input-layout{
+                input{
+                  width: 100%;
+                  height: 35px;
+                }
+              }
+            }
             .email-input{
               font-size: 12px;
             }
             .btn-box{
-              width: 100%a;
+              width: 100%;
               margin-top: 10px;
               .arr-mob{
                 display: none;
               }
             }
+          }
+          .join-text{
+            font-size: 16px;
+            line-height: 25px;
+            margin: 40px 0;
           }
         }
       }

@@ -86,10 +86,16 @@
 
 @media (max-width: 430px) {
   .staking-body-wrapper{
+    background: url("../../../../assets/images/Stake_Bottom_BG.png") bottom no-repeat;
+    background-size: contain;
     .card-container{
       flex-direction: column;
       gap: 10px;
       .card-box{
+        height: 100%;
+        .card-title{
+          margin-bottom: 20px;
+        }
         .btn-box-staking{
           .btn-box{
             .btn-body{

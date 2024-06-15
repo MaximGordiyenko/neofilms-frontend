@@ -61,9 +61,46 @@
   .header-contact-wrapper{
     height: 100%;
     .header-contact{
+      margin-top: 13vh;
       .form-wrapper{
         gap: 40px;
         flex-direction: column;
+        .contact-description{
+          .form-title-contact{
+            .form-des-title{
+              font-size: 24px;
+            }
+          }
+        }
+        .form-container{
+          .inputs-container{
+            gap: 30px;
+            div{
+              .custom-input-box{
+                input::placeholder{
+                  opacity: 0.4;
+                }
+              }
+            }
+          }
+          .textarea-label{
+            margin-top: 30px;
+          }
+          .textarea-form{
+            font-family: actay, 'sans-serif';
+            padding: 10px;
+          }
+          .textarea-form::placeholder{
+            opacity: 0.4;
+          }
+          .button-form-box{
+            .submit-btn{
+              .background-btn-form{
+                max-width: 180px;
+              }
+            }
+          }
+        }
       }
     }
     .menu-mob-wrapper{

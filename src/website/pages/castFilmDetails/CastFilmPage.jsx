@@ -18,7 +18,7 @@ import {ClipInput} from "../../components/input/ClipInput";
 
 export const CastFilmPage = () => {
   const { casting_id } = useParams();
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [headshotFile, setHeadshotFile] = useState(null);
   const [resumeFile, setResumeFile] = useState(null);
   const [headshotFileName, setHeadshotFileName] = useState('');
@@ -200,7 +200,7 @@ export const CastFilmPage = () => {
           <div className="detail-upload-btn">
             <Flex flexDirection="column">
               <p className="modal-text">Headshot</p>
-              <p className="modal-file-name">{headshotFileName}</p>
+              {headshotFile && <p className="modal-file-name">{headshotFileName}</p>}
             </Flex>
             {headshotFile ? (
               <Button text={'Delete'} onClick={deleteHeadshot}/>
@@ -220,7 +220,7 @@ export const CastFilmPage = () => {
           <Flex className="detail-upload-btn" alignItems="center" justifyContent="space-between">
             <Flex flexDirection="column">
               <p className="modal-text">Acting resume</p>
-              <p className="modal-file-name">{resumeFileName.substring(0,15)}</p>
+              { resumeFile && <p className="modal-file-name">{resumeFileName.substring(0,15)}</p>}
             </Flex>
             {resumeFile ? (
               <>
