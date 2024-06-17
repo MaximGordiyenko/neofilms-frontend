@@ -8,7 +8,7 @@ import { Header } from '../header/Header.jsx';
 import { MainComponent } from './MainComponent.jsx';
 import { IconButton } from '../buttons/IconButton.jsx';
 
-export const Layout = ({logout}) => {
+export const Layout = ({ logout }) => {
   const outlet = useOutlet();
   
   return (

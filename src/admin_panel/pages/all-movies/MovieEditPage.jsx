@@ -86,7 +86,6 @@ export const MovieEditPage = () => {
       written_by: writers,
       starring: actors,
     };
-    console.log(movieDate);
     dispatch(updateMovie({ id: movieId, data: movieDate }));
     navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
     toast.success(`"Movie" was added successfuly`);
