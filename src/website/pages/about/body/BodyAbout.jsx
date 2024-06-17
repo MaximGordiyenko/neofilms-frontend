@@ -32,22 +32,13 @@ export const BodyAbout = () => {
       <div className={'postIntro-text'}>
         <img src={bodySymbols} alt={'post-text-symbols'} className={'post-text-symbols'} />
         <div className={'left-text-box'}>
-          <h4 className={'title-l-text'}>Fermentum Aliquet Faucibus Porta Nisi</h4>
+          <h4 className={'title-l-text'}>Neo Masterpiece Films is a production company that will leverage Blockchain technology</h4>
           <p className={'l-text'}>
-            Neo Masterpiece Films is a production company that will leverage Blockchain technology
-            as a disruptive tool to forever change filmmaking by providing everyone with actual
-            value, usefulness, and ownership. We will construct a community that will prove to be
-            vital to the film industry moving forward.
+            ...as a disruptive tool to forever change filmmaking by providing everyone with actual value, usefulness, and ownership. We will construct a community that will prove to be vital to the film industry moving forward.
           </p>
         </div>
         <p className={'right-text'}>
-          Our team has over two decades of experience in the film industry. Our team has experience
-          working on projects currently on Freeform, Hulu, and Amazon Prime. Most recently awarded
-          multiple accolades from San Francisco Indie film festival, Los Angeles International Film
-          Festival, and many more. Our Team has one decade of experience in marketing and
-          application development along with a heightened emphasis on Web3 Technologies, NFTs, and
-          blockchain development. Technologies including Binance, Solana, Node.js, AWS, Flutter
-          ..etc
+          Our team has over two decades of experience in the film industry. Our team has experience working on projects currently on Freeform, Hulu, and Amazon Prime. Most recently awarded multiple accolades from San Francisco Indie film festival, Los Angeles International Film Festival, and many more. Our Team has one decade of experience in marketing and application development along with a heightened emphasis on Web3 Technologies, NFTs, and blockchain development. Technologies including Binance, Solana, Node.js, AWS, Flutter ..etc
         </p>
       </div>
       <div className={'faq-box'}>
