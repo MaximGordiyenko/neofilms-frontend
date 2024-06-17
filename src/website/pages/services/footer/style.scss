@@ -23,6 +23,9 @@
     max-width: 1130px;
     .form-title-services{
       max-width: 440px;
+      gap: 40px;
+      display: flex;
+      flex-direction: column;
       .idea{
         color: #00ff84;
         font-family: actay, "sans-serif";
@@ -30,11 +33,12 @@
       }
       .title-box-service-f{
         display: flex;
-        h5{
+        .serv-title{
           font-family: actay_wide, "sans-serif";
           color: var(--white);
           font-size: 36px;
           margin: 0;
+          line-height: 45px;
         }
       }
       p{
@@ -42,6 +46,7 @@
         font-family: actay, "sans-serif";
         color: var(--white);
         font-size: 20px;
+        margin: 0;
       }
     }
     .form-container{
@@ -60,7 +65,7 @@
   .services-footer-wrapper{
     max-width: 430px;
     width: 100%;
-    padding: 100px 20px;
+    padding: 80px 20px;
     .form-box-services{
       flex-direction: column;
       .form-title-services{
@@ -79,6 +84,29 @@
       }
       .form-container{
         margin: 40px 0 0 0;
+        .inputs-container{
+          gap: 30px;
+          div{
+            .custom-input-box{
+              input::placeholder{
+                opacity: 0.4;
+              }
+              input{
+                 border-radius: 0;
+              }
+            }
+          }
+        }
+        .textarea-label{
+          margin-top: 30px;
+        }
+        .textarea-form{
+          font-family: actay, 'sans-serif';
+          padding: 10px;
+        }
+        .textarea-form::placeholder{
+          opacity: 0.4;
+        }
       }
     }
   }

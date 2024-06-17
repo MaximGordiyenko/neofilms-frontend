@@ -7,6 +7,8 @@ import { FilledButton } from '../../components/button/FilledButton';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import mobLine from '../../assets/images/cast-footer-geometry.png'
+import {useMediaQuery} from "@mui/material";
 
 export const AllMovies = () => {
     const [films, setFilms] = useState([]);
@@ -14,6 +16,7 @@ export const AllMovies = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [cardsPerPage, setCardsPerPage] = useState(5);
 
+    const isMobile = useMediaQuery('(max-width: 430px)');
     useEffect(() => {
         const fetchMovies = async () => {
             try {
@@ -68,6 +71,9 @@ export const AllMovies = () => {
                         </Link>
                     ))
                 )}
+                {
+                    isMobile && <img src={mobLine} alt="" className="mob-line"/>
+                }
             </div>
             <div className={'lower-bg-am-box'}>
                 <img className={'bg-wrapper-am'} src={bg} alt={'bg-wrapper-am'} />

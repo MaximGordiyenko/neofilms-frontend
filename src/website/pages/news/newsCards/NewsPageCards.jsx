@@ -2,9 +2,12 @@ import './style.scss';
 import { NEWS_CARDS } from '../../../constants/newsConstants';
 import { Button } from '../../../components/button/Button';
 import { FilledButton } from '../../../components/button/FilledButton';
+import {Flex} from "../../../components/customDiv/Flex";
+import {useMediaQuery} from "@mui/material";
 export const NewsPageCards = () => {
+  const isMobile = useMediaQuery('(max-width: 430px)');
   return (
-    <>
+    <div className="cards-news-wrapper">
       {NEWS_CARDS.map((item, i) => {
         return (
           <div className={'news_page-card'} key={i}>
@@ -41,6 +44,6 @@ export const NewsPageCards = () => {
           </div>
         );
       })}
-    </>
+    </div>
   );
 };

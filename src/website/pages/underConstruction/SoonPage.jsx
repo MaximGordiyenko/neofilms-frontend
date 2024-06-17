@@ -6,6 +6,7 @@ import { MobMenu } from '../../components/mobileMenu/MobMenu';
 import { useState } from 'react';
 import menuMobile from '../../assets/images/burger-menu.svg';
 import { Navbar } from '../../components/navbar/Navbar';
+import {Text} from "../../components/text/Text";
 export const UnderConstruction = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
@@ -13,12 +14,13 @@ export const UnderConstruction = () => {
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
+
   return (
     <div className={'soon-page-wrapper'}>
       <Header />
       <div className={'soon-page-inner-box'}>
         <div className={'soon-title'}>
-          <h2>
+          <h2 className="soon-title-text">
             This page <br /> is under construction
           </h2>
           <img src={satelite} alt={'under-construction'} className={'under-construction'} />

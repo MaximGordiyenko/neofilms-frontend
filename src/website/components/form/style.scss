@@ -36,6 +36,7 @@
           box-sizing: border-box;
           color: var(--white);
           font-family: actay, "sans-serif";
+          outline: none;
         }
         img{
           height: 34px;
@@ -258,12 +259,16 @@
     .button-form-box{
       .hr-line-form{
         width: 100%;
-        max-width: 23%;
+        max-width: 29.5%;
       }
       .btn-box{
+        max-width: 205px;
         .btn-body{
           img{
             display: none;
+          }
+          .background-btn-form{
+            width: 205px;
           }
         }
       }

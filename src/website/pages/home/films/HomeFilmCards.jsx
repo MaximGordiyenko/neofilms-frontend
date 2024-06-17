@@ -33,7 +33,10 @@ export const HomeFilmCards = ({ img, title, date, description, movieLink, id }) 
             </div>
             <img src={img} alt={`${title} poster`} className="film-card-image" />
             {
-                isHovered && <Button text='Details' onClick={navigateToDetails} className="film-card-details"/>
+                isHovered && !isMobile && <Button text='Details' onClick={navigateToDetails} className="film-card-details"/>
+            }
+            {
+                isMobile && <Button text='Details' onClick={navigateToDetails} className="film-card-details"/>
             }
         </div>
     );

@@ -201,7 +201,7 @@ const Form = () => {
           className={'submit-btn'}
           onClick={handleBtnPressed}
           disabled={!isFilled}>
-          <img src={bgBorder} alt={'bg-form-btn-border'} className={'background-btn-form'} />
+          <img src={bgBorder} alt={'bg-form-btn-border'} className='background-btn-form' />
           <span>submit</span>
         </button>
       </div>
