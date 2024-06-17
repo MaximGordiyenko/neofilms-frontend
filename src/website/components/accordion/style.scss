@@ -21,7 +21,6 @@
     .arrow-icon {
       font-size: 12px;
       margin-left: auto; // Move the arrow to the right side of the header
-
       &.rotate {
         transform: rotate(180deg);
       }
@@ -34,7 +33,23 @@
     font-family: actay, "sans-serif";
     color: var(--white);
     font-size: 16px;
-    opacity: 0.7;
     line-height: 24px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    &.active{
+      max-height: 100%; /* Your desired max height when active */
+      opacity: 0.7;
+    }
+    .content-text{
+      font-family: actay, 'sans-serif';
+      line-height: 24px;
+      padding: 0;
+    }
+    li.content-text {
+      list-style-position: inside;
+
+    }
   }
 }

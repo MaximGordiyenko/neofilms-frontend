@@ -11,24 +11,22 @@ export const MobMenu = ({ onClose, isOpen }) => {
 
   useEffect(() => {
     if (!isOpen) {
-      // If the menu is closing, add a delay to allow the animation to complete before resetting initialActive
       setClosing(true);
       setTimeout(() => {
         setClosing(false);
         setInitialActive(location.pathname);
-      }, 300); // Adjust the duration to match the animation duration
+      }, 300);
     }
   }, [isOpen, location.pathname]);
 
   const handleLinkClick = (path, hasDropdown) => {
     if (hasDropdown) {
-      // Toggle the display of the web3 dropdown without closing the menu
       setInitialActive(path);
     } else {
-      // Close the menu and set the initialActive when a link without a dropdown is clicked
       setInitialActive(path);
       setClosing(true);
-      onClose(); // Close the menu
+      onClose();
+      window.scrollTo({ top: 0});
     }
   };
 
@@ -65,6 +63,7 @@ export const MobMenu = ({ onClose, isOpen }) => {
                           onClick={() => {
                             setInitialActive(dropdownItem.path);
                             onClose(); // Close the menu when a link in web3 list is clicked
+                            window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
                           }}>
                           {dropdownItem.title}
                         </Link>

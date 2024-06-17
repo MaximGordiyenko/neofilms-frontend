@@ -21,8 +21,8 @@ export const Navbar = () => {
         const newHeight = Math.min(
           maxNavbarHeight,
           minNavbarHeight +
-            ((scrollPosition - (documentHeight - scrollRange)) / scrollRange) *
-              (maxNavbarHeight - minNavbarHeight),
+          ((scrollPosition - (documentHeight - scrollRange)) / scrollRange) *
+          (maxNavbarHeight - minNavbarHeight),
         );
         setNavbarHeight(newHeight);
       } else {
@@ -34,6 +34,12 @@ export const Navbar = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [location.pathname, navbarHeight]);
+
+  const handleLinkClick = (path) => {
+    setInitialActive(path);
+    setIsWeb3DropdownVisible(false);
+    window.scrollTo({ top: 0});
+  };
 
   return (
     <div className="navbar-wrapper" style={{ bottom: `${navbarHeight}vh` }}>
@@ -51,8 +57,7 @@ export const Navbar = () => {
                         if (item.title === 'web3') {
                           setIsWeb3DropdownVisible(!isWeb3DropdownVisible);
                         } else {
-                          setInitialActive(item.path);
-                          setIsWeb3DropdownVisible(false);
+                          handleLinkClick(item.path);
                         }
                       }}>
                       <Link
@@ -62,8 +67,7 @@ export const Navbar = () => {
                           if (item.title === 'web3') {
                             setIsWeb3DropdownVisible(!isWeb3DropdownVisible);
                           } else {
-                            setInitialActive(item.path);
-                            setIsWeb3DropdownVisible(false);
+                            handleLinkClick(item.path);
                           }
                         }}>
                         {item.title} {item.icon && <img src={item.icon} />}
@@ -77,10 +81,7 @@ export const Navbar = () => {
                               className={`nav-title ${
                                 location.pathname === dropdownItem.path ? 'active-link' : ''
                               }`}
-                              onClick={() => {
-                                setInitialActive(dropdownItem.path);
-                                setIsWeb3DropdownVisible(false);
-                              }}>
+                              onClick={() => handleLinkClick(dropdownItem.path)}>
                               {dropdownItem.title}
                             </Link>
                           ))}
@@ -92,10 +93,7 @@ export const Navbar = () => {
                   <Link
                     to={item.path}
                     className={`nav-title ${isActive ? 'active-link' : ''}`}
-                    onClick={() => {
-                      setInitialActive(item.path);
-                      setIsWeb3DropdownVisible(false);
-                    }}
+                    onClick={() => handleLinkClick(item.path)}
                     style={isActive ? { color: '#FFFFFF', opacity: 1 } : {}}>
                     {item.title} {item.icon && <img src={item.icon} />}
                   </Link>
