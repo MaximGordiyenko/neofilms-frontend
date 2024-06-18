@@ -38,7 +38,7 @@ export const CastFilms = () => {
         {loading ? (
             <p>Loading...</p>
         ) : (
-            castings.slice(0,3).map((casting, index) => {
+            castings.slice(-3).map((casting, index) => {
               console.log(casting, 'cast')
               return(
                   <CastFilmCards
