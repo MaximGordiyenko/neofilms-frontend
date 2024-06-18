@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import dayjs from 'dayjs';
-import { styled, TextField } from '@mui/material';
+import { styled } from '@mui/material';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
@@ -20,6 +20,7 @@ export const DataPicker = ({ name, value, label, control }) => {
           <StyledDatePicker
             {...field}
             label={label}
+            autoFocus={true}
             reduceAnimations={true}
             value={field.value || selectedDate}
             onChange={(date) => {
@@ -28,7 +29,13 @@ export const DataPicker = ({ name, value, label, control }) => {
             }}
           />
         )}
-        renderInput={(params) => <TextField {...params} InputLabelProps={{ shrink: true }} />}
+        slotProps={{
+          textField: {
+            InputLabelProps: {
+              shrink: false
+            }
+          }
+        }}
       />
     </LocalizationProvider>
   );
@@ -57,6 +64,12 @@ export const StyledDatePicker = styled(DatePicker)(
     },
     "& .MuiFormLabel-root.Mui-focused": {
       color: `${theme.palette.grey[600]}`,
+      fontSize: "0.87rem"
+    },
+    "& .MuiFormLabel-root": {
+      color: `${theme.palette.grey[600]}`,
+      background:'white',
+      padding: 2,
       fontSize: "0.87rem"
     }
   })

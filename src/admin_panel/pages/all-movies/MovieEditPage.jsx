@@ -168,6 +168,7 @@ export const MovieEditPage = () => {
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <DataPicker
                     name="release_date"
+                    label="Release date"
                     value={release_date}
                     control={control}
                     errors={errors}
