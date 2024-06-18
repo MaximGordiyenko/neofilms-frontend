@@ -11,6 +11,7 @@ import downDots from '../../assets/images/image 18.svg';
 import mobMenu from '../../assets/images/sidebar-menu-mob.svg';
 import { MobMenu } from '../../components/mobileMenu/MobMenu';
 import { Navbar } from '../../components/navbar/Navbar';
+
 export const Live = () => {
   const location = useLocation();
   const [initialActive, setInitialActive] = useState(location.pathname);
@@ -24,18 +25,21 @@ export const Live = () => {
   useEffect(() => {
     setInitialActive(location.pathname);
   }, [location.pathname]);
+
   return (
     <div className={'live-wrapper'}>
-      <div className={'live-inner-content'}>
-        <img src={upperDots} alt={'up-dots'} className={'live-up-dots'} />
-        <Header />
-        {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} />}
-        <img src={downDots} alt={'up-dots'} className={'live-down-dots'} />
-      </div>
-      <div className={'live-title-box'}>
-        <h2 className={'live-title'}>Livestream Media Hub</h2>
-        <div className={'live-soon'}>
-          <h4 className={'soon-span'}>coming soon</h4>
+      <div className="inner-content-live">
+        <div className={'live-inner-content'}>
+          <img src={upperDots} alt={'up-dots'} className={'live-up-dots'}/>
+          <Header/>
+          {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen}/>}
+          <img src={downDots} alt={'up-dots'} className={'live-down-dots'}/>
+        </div>
+        <div className={'live-title-box'}>
+          <h2 className={'live-title'}>Livestream Media Hub</h2>
+          <div className={'live-soon'}>
+            <h4 className={'soon-span'}>coming soon</h4>
+          </div>
         </div>
       </div>
       {isMobile ? (
@@ -46,9 +50,9 @@ export const Live = () => {
           onClick={handleOpenMobMenu}
         />
       ) : (
-        <Navbar />
+        <Navbar/>
       )}
-      <FooterCreds />
+      <FooterCreds/>
     </div>
   );
 };

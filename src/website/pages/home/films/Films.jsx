@@ -64,7 +64,7 @@ export const Films = () => {
                 <p>Loading...</p>
                 :
                 <div className={'film-cards-box'}>
-                    {films && films.slice(0, 3).map((film) => (
+                    {films && films.slice(-3).map((film) => (
                         <HomeFilmCards
                             key={film.id}
                             img={film.posterUrl}
@@ -76,7 +76,6 @@ export const Films = () => {
                             id={film.id}
                         />
                     ))}
-
                 </div>
         }
         <Button onClick={handleNav} text={'explore full library'} style={{width: '100%'}}/>

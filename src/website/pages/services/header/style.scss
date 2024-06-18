@@ -31,6 +31,10 @@
     flex-direction: column;
     align-items: center;
     align-self: center;
+    gap: 50px;
+    .services-crown{
+      width: 84px;
+    }
     .services-header-title{
       font-size: 96px;
       font-family: actay_wide, "sans-serif";
@@ -50,14 +54,27 @@
 
 @media (max-width: 430px) {
   .services-wrapper{
+    padding: 40px 30px 0;
     .inner-content{
       .services-header-title{
         font-size: 26px;
       }
+      .rendered-logoBox{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        .logo {
+          width: 100px;
+          height: auto;
+          flex: 1 0 30%;
+          max-width: 100px;
+        }
+      }
     }
     .menu-mob-wrapper{
       position: fixed;
-      z-index: 22;
+      z-index: 999;
       right: 4vw;
       bottom: 3vh;
       backdrop-filter: blur(20px);

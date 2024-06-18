@@ -5,7 +5,7 @@
   background-size: cover;
   align-items: center;
   position: relative;
-  padding: 150px 0 150px 0;
+  padding: 0 0 150px 0;
   justify-content: center;
   box-sizing: border-box;
   .linear-f-bg-bottom{
@@ -19,7 +19,7 @@
     max-width: 1140px;
     width: 100%;
     gap: 70px 0;
-    padding: 100px 0;
+    padding: 0 0 100px;
     justify-content: space-between;
     z-index: 3;
     .f-hp-body-text{
@@ -79,9 +79,52 @@
       .f-hp-body-text{
         max-width: 390px;
         width: 100%;
+        .form-description{
+          .f-hp-description-form{
+            .title-footer-text{
+              font-size: 24px;
+            }
+          }
+        }
+        .footer-hp-text{
+          font-size: 12px;
+          line-height: 18px;
+        }
       }
       .form-box{
         width: 100%;
+        .form-container{
+          .inputs-container{
+            gap: 30px;
+            div{
+              .btn-wrapper{
+                .custom-dropdown{
+                  .options-list{
+                    backdrop-filter: blur(10px);
+                  }
+                }
+              }
+              .custom-input-box{
+                input::placeholder{
+                  opacity: 0.4;
+                }
+                input{
+                  border-radius: 0;
+                }
+              }
+            }
+          }
+          .textarea-label{
+            margin-top: 30px;
+          }
+          .textarea-form{
+            font-family: actay, 'sans-serif';
+            padding: 10px;
+          }
+          .textarea-form::placeholder{
+            opacity: 0.4;
+          }
+        }
       }
     }
   }

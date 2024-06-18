@@ -5,7 +5,7 @@
   align-items: center;
   box-sizing: border-box;
   width: 100%;
-  background: url("../../../../assets/images/stakingheadbg.jpg") center no-repeat;
+  background: url("../../../../assets/images/Staking_BG.jpg") bottom no-repeat;
   background-size: cover;
   .header{
     padding: 0;
@@ -97,6 +97,9 @@
     padding: 20px;
     .mobile-title-box{
       margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
       .staking-title{
         font-size: 38px;
         font-family: actay_wide, "sans-serif";
@@ -189,9 +192,11 @@
           color: var(--white);
           height: 48px;
           box-sizing: border-box;
+          margin-right: -30px;
         }
         .reload-btn{
           cursor: pointer;
+          width: 48px;
           height: 48px;
           box-sizing: border-box;
           padding: 20px;

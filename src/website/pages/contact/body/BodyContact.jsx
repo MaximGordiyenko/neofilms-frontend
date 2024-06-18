@@ -1,5 +1,6 @@
 import topFrame from '../../../assets/images/top-frame-map.svg';
 import mapImg from '../../../assets/images/map.jpg';
+import mapMob from '../../../assets/images/mapMObile.png'
 import botLine from '../../../assets/images/footer-hp-placeholder.svg';
 import './style.scss';
 import { Button } from '../../../components/button/Button';
@@ -18,10 +19,10 @@ export const BodyContact = () => {
           </div>
         )}
         <div className={'map-box'}>
-          <img className={'top-line'} src={topFrame} alt={'top-map-frame'} />
-          <img src={mapImg} alt={'contact-map'} className={'contact-map'} />
+          {!isMobile && <img className={'top-line'} src={topFrame} alt={'top-map-frame'} />}
+          <img src={isMobile ? mapMob : mapImg} alt={'contact-map'} className={'contact-map'} />
         </div>
-        <img src={botLine} className={'bottom-line'} />
+        {!isMobile && <img src={botLine} className={'bottom-line'} />}
       </div>
     </div>
   );

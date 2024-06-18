@@ -1,7 +1,7 @@
 .cast-body{
   min-height: 70vh;
   width: 100%;
-  background: url("../../../assets/images/BG_Casting_footer.jpg") center no-repeat;
+  background: url("../../../assets/images/castingBodyBg.jpg") top no-repeat;
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -11,5 +11,14 @@
   .cast-body{
     width: 100%;
     padding-bottom: 40px;
+    position: relative;
+    background: url("../../../assets/images/castingBodyBg.jpg") bottom no-repeat;
+    background-size: contain;
+    .cast-mob-line{
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
   }
 }
