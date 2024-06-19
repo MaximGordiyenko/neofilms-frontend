@@ -3,7 +3,6 @@ import './style.scss';
 import arrow from '../../assets/images/accordion-arr.svg';
 import {useSpring, animated} from "react-spring";
 
-
 export const AccordionPanel = ({ index, title, content, content2, content3, content4,isActive, onPanelClick }) => {
   const springProps = useSpring({
     maxHeight: isActive ? '1000px' : '0',
@@ -26,4 +25,3 @@ export const AccordionPanel = ({ index, title, content, content2, content3, cont
     </div>
   );
 };
-

@@ -13,9 +13,9 @@ export const DataPicker = ({ name, value, label, control }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Controller
-        name={name || "release_date"}
+        name={name || "some_date"}
         control={control}
-        defaultValue=""
+        defaultValue={0}
         render={({ field }) => (
           <StyledDatePicker
             {...field}

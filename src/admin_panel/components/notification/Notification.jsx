@@ -6,7 +6,7 @@ export const Notification = ({ message, onClick }) => {
     <Grid container justifyContent="space-between" backgroundColor="#FFF4E5">
       <Grid item container lg={11} alignItems='center'>
         <Box component="img" src={alert} alt="alert" p={8}/>
-        <Typography variant="subtitle2" fontFamaly="Roboto">{message}</Typography>
+        <Typography variant="subtitle2">{message}</Typography>
       </Grid>
       <Grid item lg={0.8}>
         <Button onClick={onClick}>Okey</Button>
