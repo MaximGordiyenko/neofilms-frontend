@@ -29,7 +29,7 @@ export const CastingPage = ({ tab, cards, onAdd, buttonName }) => {
       />
       : null
     }
-      <Box display="flex" alignItems="center" justifyContent="flex-end" overflow="scroll" py={60} px={5}>
+      <Box display="flex" alignItems="center" overflow="scroll" py={60} px={5}>
         {cards?.map((card, idx) => (
           <MediaCard
             key={card.id}

@@ -102,7 +102,7 @@ export const MovieEditPage = () => {
             <Grid item xs={4} sm={9} md={9} lg={9.5}>
               <Typography variant="h5" color="primary">New Movie</Typography>
             </Grid>
-            <Grid item xs={4} sm={3} md={9} lg={2.5} display="flex" justifyContent="space-between">
+            <Grid item container xs={4} sm={3} md={9} lg={2.5} justifyContent="space-between">
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteMovie(movieId));
                 navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);

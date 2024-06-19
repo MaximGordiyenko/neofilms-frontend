@@ -7,7 +7,7 @@ import { Grid, Typography, Button, styled, Container } from '@mui/material';
 import { DownloadDone, Remove } from '@mui/icons-material';
 
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs';
-import { Checkbox } from '../../components/checkbox/Checkbox';
+import { NeoCheckbox } from '../../components/checkbox/NeoCheckbox';
 import { DataPicker } from '../../components/pickers/DataPicker';
 import { IconButton } from '../../components/buttons/IconButton.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize';
@@ -35,13 +35,9 @@ export const CreateCastingPage = () => {
   });
   
   const {
-    watch,
-    reset,
     control,
     handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors, isSubmitSuccessful, isValid }
+    formState: { errors }
   } = methods;
   
   const addNewRole = () => {
