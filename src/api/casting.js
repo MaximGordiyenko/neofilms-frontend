@@ -19,6 +19,7 @@ import FormData from 'form-data';
 // rate_of_pay_per_day: ${rateOfPayPerDay}
 // location: ${location}
 // roles: ${roles}
+// eco_cast_self_tape: ${ecoCastSelfTape}
 export async function addCasting(_formData) {
 	const formData = new FormData();
 	for (const key in _formData) {
@@ -62,6 +63,7 @@ export async function getCasting(castingId) {
 // rate_of_pay_per_day: ${rateOfPayPerDay}
 // location: ${location}
 // roles: ${roles}
+// eco_cast_self_tape: ${ecoCastSelfTape}
 export async function editCasting(castingId, _formData) {
 	const formData = new FormData();
 	for (const key in _formData) {
