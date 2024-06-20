@@ -1,5 +1,5 @@
 // sharing imports
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 // user frontend imports
@@ -65,8 +65,8 @@ export const App = () => {
   const { calendars } = useSelector((state) => state?.calendar);
   const { castings } = useSelector((state) => state?.casting);
   
-  const logout = () => {
-    dispatch(adminLogout());
+  const logout = async () => {
+    await dispatch(adminLogout());
     navigate(`/${ROUTE.admin}/${ROUTE.login}`)
   }
   

@@ -14,7 +14,13 @@
   justify-content: center;
   align-items: center;
 }
-
+.mobile{
+  width: 100%;
+  max-width: 350px;
+  background: var(--secondary-black);
+  border-radius: 10px;
+  padding: 30px 20px;
+}
 .modal-content {
   background-color: #fff;
   width: 700px;

@@ -12,7 +12,7 @@ export const Header = ({ leftContent, rightContent }) => {
       direction="row"
       justifyContent="space-around"
       alignItems="center"
-      zIndex="1"
+      zIndex="2"
       container>
       <Grid item xs={12} sm={4} md={9} lg={10}>
         {leftContent}

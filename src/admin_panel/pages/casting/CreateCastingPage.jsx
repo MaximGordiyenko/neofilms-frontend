@@ -7,7 +7,7 @@ import { Grid, Typography, Button, styled, Container } from '@mui/material';
 import { DownloadDone, Remove } from '@mui/icons-material';
 
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs';
-import { Checkbox } from '../../components/checkbox/Checkbox';
+import { NeoCheckbox } from '../../components/checkbox/NeoCheckbox';
 import { DataPicker } from '../../components/pickers/DataPicker';
 import { IconButton } from '../../components/buttons/IconButton.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize';
@@ -35,13 +35,9 @@ export const CreateCastingPage = () => {
   });
   
   const {
-    watch,
-    reset,
     control,
     handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors, isSubmitSuccessful, isValid }
+    formState: { errors }
   } = methods;
   
   const addNewRole = () => {
@@ -208,7 +204,7 @@ export const CreateCastingPage = () => {
                   <Grid item xs={12} sm={12} md={5} lg={5.5}>
                     <DataPicker
                       name="audition_dates.from"
-                      label="MM/DD/YYYY"
+                      label="Audition dates"
                       control={control}
                       errors={errors}
                     />
@@ -217,7 +213,7 @@ export const CreateCastingPage = () => {
                   <Grid item xs={12} sm={12} md={5} lg={5.5}>
                     <DataPicker
                       name="audition_dates.to"
-                      label="MM/DD/YYYY"
+                      label="Audition dates"
                       control={control}
                       errors={errors}
                     />
@@ -227,7 +223,7 @@ export const CreateCastingPage = () => {
                   <Grid item xs={12} sm={12} md={12} lg={5.5}>
                     <DataPicker
                       name="callback_dates.from"
-                      label="MM/DD/YYYY"
+                      label="Callback dates"
                       control={control}
                       errors={errors}
                     />
@@ -236,7 +232,7 @@ export const CreateCastingPage = () => {
                   <Grid item xs={12} sm={12} md={12} lg={5.5}>
                     <DataPicker
                       name="callback_dates.to"
-                      label="MM/DD/YYYY"
+                      label="Callback dates"
                       control={control}
                       errors={errors}
                     />
@@ -246,7 +242,7 @@ export const CreateCastingPage = () => {
                   <Grid item xs={12} sm={12} md={12} lg={5.5}>
                     <DataPicker
                       name="shoot_dates.from"
-                      label="MM/DD/YYYY"
+                      label="Shoot dates"
                       control={control}
                       errors={errors}
                     />
@@ -255,7 +251,7 @@ export const CreateCastingPage = () => {
                   <Grid item xs={12} sm={12} md={12} lg={5.5}>
                     <DataPicker
                       name="shoot_dates.to"
-                      label="MM/DD/YYYY"
+                      label="Shoot dates"
                       control={control}
                       errors={errors}
                     />
@@ -264,7 +260,7 @@ export const CreateCastingPage = () => {
                 <Grid item xs={12} sm={12} md={12} lg={12} pb={20}>
                   <DataPicker
                     name="deadline"
-                    label="MM/DD/YYYY"
+                    label="Deadline"
                     control={control}
                     errors={errors}
                   />

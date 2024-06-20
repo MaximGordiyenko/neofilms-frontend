@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,18 +9,28 @@ import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
 import { deleteProject, getProjects, getProjectMedia } from '../../store/thunk/project.api.js';
+import { Notification } from '../../components/notification/Notification';
 
 export const Web3ProjectPage = ({ tab, cards, onAdd, buttonName }) => {
+  const [isNotify, setIsNotify] = useState(true);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
   useEffect(() => {
     dispatch(getProjects());
-  }, [dispatch]);
+  }, [dispatch, getProjects]);
   
   return (
     <AdminTabPanel value={tab} index={2}>
-      <Box display="flex" alignItems="center" flexDirection="row-reverse" justifyContent="flex-end" overflow="scroll" py={60} px={5}>
+      {isNotify ?
+        <Notification
+          message={`Please pay attention that you can add only ${5 - cards.length} Projects total`}
+          onClick={() => setIsNotify(false)}
+        />
+        : null
+      }
+      <Box display="flex" alignItems="center" overflow="scroll" py={60} px={5}>
         {cards?.map((card, idx) => (
           <MediaCard
             key={card.id}

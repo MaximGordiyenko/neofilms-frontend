@@ -16,11 +16,11 @@ export const CalendarPage = ({ tab, cards, onAdd, buttonName }) => {
   
   useEffect(() => {
     dispatch(getCalendars());
-  }, [dispatch]);
+  }, [dispatch, getCalendars]);
   
   return (
     <AdminTabPanel value={tab} index={3}>
-      <Box display="flex" alignItems="center" flexDirection="row-reverse" justifyContent="flex-end" overflow="scroll" py={60} px={5}>
+      <Box display="flex" alignItems="center" overflow="scroll" py={60} px={5}>
         {cards?.map(card => (
           <MediaCard
             key={card.id}

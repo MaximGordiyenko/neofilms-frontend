@@ -15,9 +15,3 @@ export const CustomModal = ({ isOpen, onClose, title, content }) => {
     </div>
   );
 };
-
-CustomModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  content: PropTypes.node.isRequired,
-};

@@ -86,7 +86,6 @@ export const MovieEditPage = () => {
       written_by: writers,
       starring: actors,
     };
-    console.log(movieDate);
     dispatch(updateMovie({ id: movieId, data: movieDate }));
     navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
     toast.success(`"Movie" was added successfuly`);
@@ -103,7 +102,7 @@ export const MovieEditPage = () => {
             <Grid item xs={4} sm={9} md={9} lg={9.5}>
               <Typography variant="h5" color="primary">New Movie</Typography>
             </Grid>
-            <Grid item xs={4} sm={3} md={9} lg={2.5} display="flex" justifyContent="space-between">
+            <Grid item container xs={4} sm={3} md={9} lg={2.5} justifyContent="space-between">
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteMovie(movieId));
                 navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
@@ -169,6 +168,7 @@ export const MovieEditPage = () => {
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <DataPicker
                     name="release_date"
+                    label="Release date"
                     value={release_date}
                     control={control}
                     errors={errors}

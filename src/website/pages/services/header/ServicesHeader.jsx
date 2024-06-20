@@ -10,7 +10,8 @@ import amazon from '../../../assets/images/amazon-logo.svg';
 import hbo from '../../../assets/images/hbo.svg';
 import downDots from '../../../assets/images/image 18.svg';
 import upperDots from '../../../assets/images/image 16.svg';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import {MobMenu} from "../../../components/mobileMenu/MobMenu";
 
 const logos = [freeform, disney, hulu, amazon, hbo];
 export const ServicesHeader = () => {
@@ -41,6 +42,7 @@ export const ServicesHeader = () => {
         </h2>
         {renderedLogoBox()}
       </div>
+      {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen} />}
       {isMobile ? (
         <div className={'menu-mob-wrapper'}>
           <img

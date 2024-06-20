@@ -3,8 +3,8 @@
   height: 100vh;
   padding: 30px 0 0;
   box-sizing: border-box;
-  background: url("../../assets/images/livestreams-bg.jpg") center no-repeat;
-  background-size: cover;
+  background: url("../../assets/images/image 60.png") bottom no-repeat;
+  background-size: contain;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -122,44 +122,60 @@
 }
 @media (max-width: 430px) {
   .live-wrapper{
+    background: url("../../assets/images/image 60.png") top no-repeat;
     position: relative;
     height: 100%;
     padding: 0;
-    .live-inner-content{
-      padding: 50px 20px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
+    justify-content: flex-start;
+    .inner-content-live{
       height: 100vh;
-      position: relative;
-      .live-up-dots, .live-down-dots{
-        display: none;
+      .live-inner-content{
+        padding: 50px 20px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        position: relative;
+        .live-up-dots, .live-down-dots{
+          display: none;
+        }
+        .header{
+          position: absolute;
+          top: 30px;
+          left: 0;
+          width: 100%;
+          padding: 0;
+        }
       }
       .live-title-box{
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-top: 50%;
+        max-width: 326px;
         .live-title{
           text-align: center;
           font-size: 38px;
           width: 100%;
+          line-height: 34px;
         }
         .live-soon{
           max-width: 270px;
           width: 100%;
           align-self: center;
           height: 37px;
-          margin-top: 20px;
-          padding: 10px 20px;
-          span{
+          margin-top: 30px;
+          padding: 5px 20px 5px;
+          h4{
+            line-height: 24px;
+            margin: 0;
             font-size: 24px;
           }
         }
       }
     }
     .mob-menu-live{
-      position: absolute;
+      position: fixed;
       bottom: 11vh;
       right: 20px;
     }
