@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useEffect, useState, useRef } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import { Grid, Button, Typography } from '@mui/material';
 import { Delete, DownloadDone } from '@mui/icons-material';
 
 import { ContainerCSS } from '../../components/ui/ui.styles.js';
-import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
 import { FileUploader } from '../../components/file-upload/FileUploader';
+import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { updateSlide, deleteSlide, getSlide } from '../../store/thunk/slide.api.js';
@@ -15,12 +16,11 @@ import { updateField } from '../../store/reducers/slide.reducer.js';
 
 import { useParams, useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants.js';
-import { toast } from 'react-toastify';
 
 export const SliderEditPage = () => {
   const [movieUpload, setMovieUpload] = useState([{ name: 'mock.png', size: 0 }]);
   const [logoUpload, setLogoUpload] = useState([{ name: 'mock.png', size: 0 }]);
-
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -35,9 +35,9 @@ export const SliderEditPage = () => {
     button_link,
     button_text,
     logo_text,
-    logo_media,
+    logo_media
   } = useSelector((state) => state?.slide?.slide);
-
+  
   const methods = useForm({
     mode: 'onSubmit'
     // resolver: yupResolver(AccountSchema),
@@ -54,9 +54,8 @@ export const SliderEditPage = () => {
       button_link: data.button_link,
       button_text: data.button_text,
       additional_text: data.additional_text,
-      logo_text: data.logo_text,
+      logo_text: data.logo_text
     };
-    console.log(slideData);
     dispatch(updateSlide({ id: sliderId, data: slideData }));
     navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
     toast.success(`"Slider" was updated successfuly`);
@@ -133,7 +132,7 @@ export const SliderEditPage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
-                    maxChars={300}
+                    maxChars={100}
                     onInputChange={(value) => onInputChange('additional_text', value)}
                   />
                 </Grid>

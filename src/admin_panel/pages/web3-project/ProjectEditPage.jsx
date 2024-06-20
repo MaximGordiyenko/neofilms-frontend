@@ -13,12 +13,7 @@ import { FileUploader } from '../../components/file-upload/FileUploader';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { updateField } from '../../store/reducers/project.reducer.js';
-import {
-  getProject,
-  deleteProject,
-  updateProject,
-  getProjectMedia
-} from '../../store/thunk/project.api.js';
+import { getProject, deleteProject, updateProject } from '../../store/thunk/project.api.js';
 
 import { useParams, useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants.js';
@@ -33,7 +28,7 @@ export const ProjectEditPage = () => {
   
   useEffect(() => {
     dispatch(getProject(projectId));
-  }, [dispatch, getProject]);
+  }, [dispatch, projectId]);
 
   const { name, description, completion } = useSelector((state) => state?.project?.project);
   
@@ -130,7 +125,6 @@ export const ProjectEditPage = () => {
                     control={control}
                     errors={errors}
                   />
-                  <Typography variant="caption">{watch()?.completion || completion}%</Typography>
                 </Grid>
               </Grid>
             </Grid>

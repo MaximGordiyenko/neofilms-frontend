@@ -1,26 +1,40 @@
 import { Controller } from 'react-hook-form';
-import { Slider } from '@mui/material';
+import { Slider, Typography } from '@mui/material';
+import { useState, useEffect } from 'react';
 
-export const Slide = ({ name, value, control }) => {
+export const Slide = ({ name, value = 0, control }) => {
+  const [data, setData] = useState(value);
+  
+  useEffect(() => {
+    setData(value);
+  }, [value]);
+
   return (
-    <Controller
-      name={name}
-      control={control}
-      defaultValue={value || 0}
-      render={({ field }) => (
-        <Slider
-          {...field}
-          min={0}
-          step={1}
-          max={100}
-          value={field.value}
-          onChange={(e, newValue) => field.onChange(newValue)}
-          getAriaValueText={(value) => `${value}`}
-          valueLabelFormat={(value) => `${value}`}
-          valueLabelDisplay="auto"
-          aria-labelledby="non-linear-slider"
-        />
-      )}
-    />
+    <>
+      <Typography variant="h6">Completion</Typography>
+      <Controller
+        name={name}
+        control={control}
+        defaultValue={data}
+        render={({ field }) => (
+          <Slider
+            {...field}
+            min={0}
+            step={1}
+            max={100}
+            value={data}
+            onChange={(e, newValue) => {
+              field.onChange(newValue);
+              setData(newValue);
+            }}
+            getAriaValueText={(value) => `${value}`}
+            valueLabelFormat={(value) => `${value}`}
+            valueLabelDisplay="auto"
+            aria-labelledby="non-linear-slider"
+          />
+        )}
+      />
+      <Typography variant="caption">{data}%</Typography>
+    </>
   );
 };

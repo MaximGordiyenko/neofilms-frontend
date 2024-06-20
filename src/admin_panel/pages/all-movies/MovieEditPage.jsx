@@ -27,10 +27,10 @@ export const MovieEditPage = () => {
   const navigate = useNavigate();
   
   const { movieId } = useParams();
-  console.log(movieId);
+  
   useEffect(() => {
     dispatch(getMovie(movieId));
-  }, [dispatch]);
+  }, [dispatch, movieId]);
   
   const {
     title,
@@ -46,6 +46,12 @@ export const MovieEditPage = () => {
   const [directors, setDirectors] = useState(directed_by || []);
   const [writers, setWriters] = useState(written_by || []);
   const [actors, setActors] = useState(starring || []);
+  
+  useEffect(() => {
+    setDirectors(directed_by);
+    setWriters(written_by);
+    setActors(starring);
+  }, [directed_by, written_by, actors]);
   
   const onDirectorChange = (index, value) => {
     const updatedDirectors = [...directors];
@@ -84,7 +90,7 @@ export const MovieEditPage = () => {
       status: data.status || status,
       directed_by: directors,
       written_by: writers,
-      starring: actors,
+      starring: actors
     };
     dispatch(updateMovie({ id: movieId, data: movieDate }));
     navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
@@ -151,6 +157,7 @@ export const MovieEditPage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
+                    maxChars={800}
                     onInputChange={(value) => onInputChange('description', value)}
                   />
                 </Grid>
@@ -176,10 +183,10 @@ export const MovieEditPage = () => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <RadioButton
+                    name="status"
                     control={control}
                     errors={errors}
                     value={status}
-                    name="status"
                   />
                 </Grid>
               </Grid>
@@ -187,7 +194,7 @@ export const MovieEditPage = () => {
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
                 <Typography variant="h5" color="primary">Directed by</Typography>
-                {directors.map((director, index) => (
+                {directors?.map((director, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
                       name={`director_${index}`}
@@ -204,7 +211,7 @@ export const MovieEditPage = () => {
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
                 <Typography variant="h5" color="primary">Written by</Typography>
-                {writers.map((writer, index) => (
+                {writers?.map((writer, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
                       name={`written_${index}`}
@@ -221,7 +228,7 @@ export const MovieEditPage = () => {
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', ml: 20, mt: 20, p: 30 }}>
                 <Typography variant="h5">Starring</Typography>
-                {actors.map((actor, index) => (
+                {actors?.map((actor, index) => (
                   <Box sx={{ p: 15 }} key={index}>
                     <InputTextAutosize
                       name={`actor_${index}`}

@@ -27,13 +27,9 @@ export const CreateCalendarPage = () => {
   });
   
   const {
-    watch,
-    reset,
     control,
     handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors, isSubmitSuccessful, isValid }
+    formState: { errors }
   } = methods;
   
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
@@ -43,7 +39,6 @@ export const CreateCalendarPage = () => {
       id: uuidv4(),
       ...data
     };
-    
     dispatch(addCalendar(newEventData));
     navigate(`/${ROUTE.admin}/${ROUTE.calendar}`);
     toast.success(`"Event" was added successfuly`);
@@ -85,7 +80,7 @@ export const CreateCalendarPage = () => {
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ mt: 20 }}>
                   <DataPicker
                     name="date"
-                    label="MM/DD/YYYY"
+                    label="Event date"
                     control={control}
                     errors={errors}
                   />
@@ -103,6 +98,7 @@ export const CreateCalendarPage = () => {
                   isText={true}
                   minRows={1000}
                   maxRows={1000}
+                  maxChars={100}
                   onInputChange={(value) => onInputChange('additional_text', value)}
                 />
               </Grid>
