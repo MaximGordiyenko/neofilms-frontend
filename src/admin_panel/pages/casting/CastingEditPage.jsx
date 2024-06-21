@@ -15,10 +15,10 @@ import { IconButton } from '../../components/buttons/IconButton';
 import { DataPicker } from '../../components/pickers/DataPicker';
 import { FileUploader } from '../../components/file-upload/FileUploader';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize';
+import { NeoCheckbox } from '../../components/checkbox/NeoCheckbox';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCasting, getCasting, deleteCasting } from '../../store/thunk/casting.api';
-import { NeoCheckbox } from '../../components/checkbox/NeoCheckbox';
 import { updateField } from '../../store/reducers/movie.reducer';
 
 export const CastingEditPage = () => {
@@ -34,7 +34,7 @@ export const CastingEditPage = () => {
   
   useEffect(() => {
     dispatch(getCasting(castingId));
-  }, [dispatch]);
+  }, [dispatch, castingId]);
   
   const {
     title,
@@ -53,7 +53,7 @@ export const CastingEditPage = () => {
     rate_of_pay_per_day,
     location
   } = useSelector((state) => state?.casting?.casting || {});
-  
+
   const addNewRole = () => {
     setRoles([...roles, { id: roles.length + 1, name: '', description: '' }]);
   };
@@ -172,6 +172,7 @@ export const CastingEditPage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
+                    maxChars={100}
                     onInputChange={(value) => onInputChange('subtitle', value)}
                   />
                 </Grid>
@@ -186,6 +187,7 @@ export const CastingEditPage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
+                    maxChars={100}
                     onInputChange={(value) => onInputChange('additional_info', value)}
                   />
                 </Grid>
@@ -200,6 +202,7 @@ export const CastingEditPage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
+                    maxChars={100}
                     onInputChange={(value) => onInputChange('plot', value)}
                   />
                 </Grid>
@@ -380,6 +383,7 @@ export const CastingEditPage = () => {
                       isText={true}
                       minRows={1000}
                       maxRows={1000}
+                      maxChars={100}
                       onInputChange={(value) => onInputChange(`description_${role.id}`, value)}
                     />
                   </Grid>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { Grid, Typography, Button } from '@mui/material';
@@ -8,15 +9,14 @@ import { DownloadDone } from '@mui/icons-material';
 import { ContainerCSS } from '../../components/ui/ui.styles.js';
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
+import { FileUploader } from '../../components/file-upload/FileUploader';
 
+import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants.js';
 
 import { useDispatch } from 'react-redux';
 import { addSlide } from '../../store/thunk/slide.api.js';
 import { updateField } from '../../store/reducers/slide.reducer.js';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { FileUploader } from '../../components/file-upload/FileUploader';
 
 export const CreateSlidePage = () => {
   const [movieUpload, setMovieUpload] = useState([]);
@@ -108,6 +108,7 @@ export const CreateSlidePage = () => {
                   isText={true}
                   minRows={1000}
                   maxRows={1000}
+                  maxChars={100}
                   onInputChange={(value) => onInputChange('additional_text', value)}
                 />
               </Grid>

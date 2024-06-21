@@ -21,11 +21,12 @@ import { toast } from 'react-toastify';
 export const CalendarEditPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const { calendarId } = useParams();
   
   useEffect(() => {
     dispatch(getCalendar(calendarId));
-  }, [dispatch, getCalendar]);
+  }, [dispatch, calendarId]);
   
   const { name, description, date } = useSelector((state) => state?.calendar?.calendar);
   

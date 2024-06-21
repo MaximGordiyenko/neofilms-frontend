@@ -36,13 +36,9 @@ export const CreateMoviePage = () => {
   });
   
   const {
-    watch,
-    reset,
     control,
     handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors, isSubmitSuccessful, isValid }
+    formState: { errors }
   } = methods;
   
   const onSubmit = (data) => {
@@ -73,7 +69,7 @@ export const CreateMoviePage = () => {
       status: data.status,
       directed_by: directed_by,
       written_by: written_by,
-      starring: starring,
+      starring: starring
     };
     dispatch(addMovie(movieData));
     navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
@@ -134,6 +130,7 @@ export const CreateMoviePage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
+                    maxChars={800}
                     onInputChange={(value) => onInputChange('additional_text', value)}
                   />
                 </Grid>

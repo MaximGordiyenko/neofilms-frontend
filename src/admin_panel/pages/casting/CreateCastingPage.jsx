@@ -131,6 +131,7 @@ export const CreateCastingPage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
+                    maxChars={100}
                     onInputChange={(value) => onInputChange('subtitle', value)}
                   />
                 </Grid>
@@ -144,6 +145,7 @@ export const CreateCastingPage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
+                    maxChars={100}
                     onInputChange={(value) => onInputChange('additional_info', value)}
                   />
                 </Grid>
@@ -157,6 +159,7 @@ export const CreateCastingPage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
+                    maxChars={100}
                     onInputChange={(value) => onInputChange('plot', value)}
                   />
                 </Grid>
@@ -214,11 +217,19 @@ export const CreateCastingPage = () => {
                     <DataPicker
                       name="audition_dates.to"
                       label="Audition dates"
+                      palceholder="MM/DD/YYYY"
                       control={control}
                       errors={errors}
                     />
                   </Grid>
                 </GroupGridCSS>
+                <Grid item xs={12} sm={12} md={12} lg={12} mb={15}>
+                  <NeoCheckbox
+                    name="eco_cast_self_tape"
+                    label="Eco Cast Self-Tape"
+                    control={control}
+                  />
+                </Grid>
                 <GroupGridCSS item container xs={12} sm={12} md={12} lg={12}>
                   <Grid item xs={12} sm={12} md={12} lg={5.5}>
                     <DataPicker
@@ -314,6 +325,7 @@ export const CreateCastingPage = () => {
                       isText={true}
                       minRows={1000}
                       maxRows={1000}
+                      maxChars={100}
                       onInputChange={(value) => onInputChange(`description_${role.id}`, value)}
                     />
                   </Grid>

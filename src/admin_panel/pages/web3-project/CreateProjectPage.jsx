@@ -35,7 +35,6 @@ export const CreateProjectPage = () => {
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
   const onSubmit = (data) => {
-    console.log(data);
     const newProject = {
       id: uuidv4(),
       ...data,
@@ -67,7 +66,6 @@ export const CreateProjectPage = () => {
             <Grid item xs={5.9}>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
                 <Typography variant="h6">Project Image</Typography>
-                {/*<FileUploader name="image" multiple={false} onInputChange={onInputChange}/>*/}
                 <FileUploader
                   name="image"
                   multiple={false}
@@ -99,6 +97,7 @@ export const CreateProjectPage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
+                    maxChars={300}
                     onInputChange={(value) => onInputChange('additional_text', value)}
                   />
                 </Grid>
@@ -108,7 +107,6 @@ export const CreateProjectPage = () => {
                     control={control}
                     errors={errors}
                   />
-                  <Typography variant="caption">{watch('completion') || 5}%</Typography>
                 </Grid>
               </Grid>
             </Grid>
