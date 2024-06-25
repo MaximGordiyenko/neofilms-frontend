@@ -1,4 +1,5 @@
 import axios from 'axios';
+import FormData from 'form-data';
 
 
 export async function getPools() {
@@ -13,14 +14,26 @@ export async function getPool(poolId) {
 		});
 }
 
-// Body: {
-//     "nft_address": "{{pool_nft_address}}",
-//     "time_unit": {{pool_time_unit}},
-//     "rewards_per_time_unit": "{{pool_rewards_per_time_unit}}",
-//     "max_staking_period": {{pool_max_staking_period}}
-// }
-export async function addPool(body) {
-	return (await axios.post(`/api/staking/pool`, body, {
+export async function getPoolImage(poolId) {
+	return await axios.get(`/api/staking/pool/${poolId}/image`, {
+			withCredentials: true
+		});
+}
+
+// FormData:
+// type: ${type}
+// image: ${image}
+// nft_address: ${nftAddress}
+// time_unit: ${timeUnit}
+// rewards_per_time_unit: ${rewardsPerTimeUnit}
+// max_staking_period: ${maxStakingPeriod}
+export async function addPool(_formData) {
+	const formData = new FormData();
+	for (const key in _formData) {
+		formData.append(key, _formData[key]);
+	}
+	
+	return (await axios.post(`/api/staking/pool`, formData, {
 			withCredentials: true
 		})).txHash;
 }
