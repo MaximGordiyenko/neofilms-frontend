@@ -20,6 +20,12 @@ export async function getPoolImage(poolId) {
 		});
 }
 
+export async function getPoolInfo(poolId) {
+	return await axios.get(`/api/staking/pool/${poolId}/info`, {
+			withCredentials: true
+		});
+}
+
 // FormData:
 // type: ${type}
 // image: ${image}
