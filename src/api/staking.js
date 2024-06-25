@@ -14,10 +14,8 @@ export async function getPool(poolId) {
 		});
 }
 
-export async function getPoolImage(poolId) {
-	return await axios.get(`/api/staking/pool/${poolId}/image`, {
-			withCredentials: true
-		});
+export function getPoolImage(poolId) {
+	return `/api/staking/pool/${poolId}/image`;
 }
 
 export async function getPoolInfo(poolId) {

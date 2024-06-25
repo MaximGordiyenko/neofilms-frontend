@@ -96,10 +96,8 @@ export async function getCastings() {
 		});
 }
 
-export async function getImage(castingId) {
-	return await axios.get(`/api/pages/casting/${castingId}/image`, {
-			withCredentials: true
-		});
+export function getImage(castingId) {
+	return `/api/pages/casting/${castingId}/image`;
 }
 
 // FormData:
