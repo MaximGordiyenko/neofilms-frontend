@@ -41,10 +41,22 @@ export async function getStakingList() {
 		});
 }
 
+export async function getTokens(poolId) {
+	return await axios.get(`/api/staking/tokens/${poolId}`, {
+			withCredentials: true
+		});
+}
+
 export async function approveNft(poolId, tokenId) {
 	return await axios.post(`/api/staking/approve/${poolId}`, {
 			token_id: tokenId,
 		}, {
+			withCredentials: true
+		});
+}
+
+export async function approveAll(poolId) {
+	return await axios.get(`/api/staking/approve-all/${poolId}`, {
 			withCredentials: true
 		});
 }
@@ -58,7 +70,7 @@ export async function stake(poolId, tokenIds) {
 }
 
 export async function unstake(poolId, tokenIds) {
-	return await axios.post(`/api/staking/stake/${poolId}`, {
+	return await axios.post(`/api/staking/unstake/${poolId}`, {
 			token_ids: tokenIds,
 		}, {
 			withCredentials: true
@@ -72,7 +84,7 @@ export async function claimRewards(poolId) {
 }
 
 export async function availableRewards(poolId) {
-	return await axios.get(`/api/staking/rewards/${poolId}`, {
+	return (await axios.get(`/api/staking/rewards/${poolId}`, {
 			withCredentials: true
-		});
+		})).amount;
 }
