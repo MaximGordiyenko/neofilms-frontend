@@ -14,18 +14,19 @@ export async function purchase(poolId) {
 }
 
 export async function mint(poolId, address, amount) {
-	return await axios.post(`/api/reward/mint/${poolId}`, {
+	return (await axios.post(`/api/reward/mint/${poolId}`, {
 			address: address,
 			amount: amount,
 		}, {
 			withCredentials: true
-		});
+		})).txHash;
 }
 
-export async function update(poolId, address, amount) {
+export async function update(poolId, baseUri, treasury, price) {
 	return await axios.post(`/api/reward/update/${poolId}`, {
-			address: address,
-			amount: amount,
+			base_uri: baseUri,
+			treasury: treasury,
+			price: price,
 		}, {
 			withCredentials: true
 		});
