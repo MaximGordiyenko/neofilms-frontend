@@ -6,6 +6,9 @@ import { Navbar } from '../../../../components/navbar/Navbar';
 import menuMobile from '../../../../assets/images/burger-menu.svg';
 import { MobMenu } from '../../../../components/mobileMenu/MobMenu';
 import { useState } from 'react';
+import { getAccount, signData } from '../../../../../utils/MetaMask';
+import * as authApi from '../../../../../api/auth';
+
 export const HeaderStaking = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
@@ -13,6 +16,15 @@ export const HeaderStaking = () => {
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
+
+  const login = async () => {
+      const account = await getAccount();
+      const data = (await authApi.getData(account)).data.data;
+      const sign = await signData(data);
+      await authApi.login(account, sign);
+  }
+
+
   return (
     <div className={'staking-header-wrapper'}>
       <Header />
@@ -30,7 +42,10 @@ export const HeaderStaking = () => {
             staking
           </h2>
           <div className={'balance-mob-box'}>
-            <button className={'button-balance'}>
+            <button
+              className={'button-balance'}
+              onClick={login}
+            >
               <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'} />
               <span>WalletConnect</span>
             </button>
@@ -40,7 +55,10 @@ export const HeaderStaking = () => {
         <div className={'title-box'}>
           <h2 className={'staking-title'}>neo staking</h2>
           <div className={'balance-box'}>
-            <button className={'button-balance'}>
+            <button
+              className={'button-balance'}
+              onClick={login}
+            >
               <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'} />
               <span>WalletConnect</span>
             </button>

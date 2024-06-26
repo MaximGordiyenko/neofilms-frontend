@@ -7,14 +7,13 @@ import { Button } from '../../../components/button/Button';
 import Checkbox from '../../../components/checkbox/Checkbox';
 import { MobButton } from '../../../components/button/MobButton';
 export const NeoStaking = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(localStorage.getItem('agreed') !== 'true');
   const [agreed, setAgreed] = useState(false);
 
-  useEffect(() => {
-    setIsOpen(true);
-  }, []);
-
-  const closeModal = () => setIsOpen(false);
+  const closeModal = () => {
+    setIsOpen(false);
+    localStorage.setItem('agreed', 'true');
+  };
   function toggleCheckbox(checkbox) {
     checkbox.classList.toggle('selected');
   }
