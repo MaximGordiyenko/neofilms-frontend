@@ -1,45 +1,52 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import dayjs from 'dayjs';
-import { styled, TextField } from '@mui/material';
+import { styled } from '@mui/material';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 
 export const DataPicker = ({ name, value, label, control }) => {
-  const initialDate = value ? dayjs(value) : null;
+  const initialDate = value ? dayjs(value) : dayjs('MM/DD/YYYY');
   const [selectedDate, setSelectedDate] = useState(initialDate);
+  
+  useEffect(() => {
+    setSelectedDate(value ? dayjs(value) : dayjs('MM/DD/YYYY'));
+  }, [value]);
   
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Controller
-        name={name || "release_date"}
+        name={name || "some_date"}
         control={control}
-        defaultValue=""
+        defaultValue={selectedDate}
         render={({ field }) => (
-          <StyledDatePicker
+          <DatePickerCSS
             {...field}
             label={label}
             reduceAnimations={true}
-            value={field.value || selectedDate}
+            value={selectedDate}
             onChange={(date) => {
               field.onChange(date);
               setSelectedDate(date);
             }}
           />
         )}
-        renderInput={(params) => <TextField {...params} InputLabelProps={{ shrink: true }} />}
       />
     </LocalizationProvider>
   );
 };
 
 
-export const StyledDatePicker = styled(DatePicker)(
+export const DatePickerCSS = styled(DatePicker)(
   ({ theme }) => ({
     width: '100%',
-    "& .MuiInputBase-root.Mui-focused": {
+    "& .MuiInputBase-root": {
+      color: theme.palette.grey[800],
       "& .MuiOutlinedInput-notchedOutline": {
+        border: `1px solid ${theme.palette.grey[400]}`
+      },
+      "& .MuiOutlinedInput-root.Mui-error ": {
         border: `1px solid ${theme.palette.grey[400]}`
       }
     },
@@ -58,6 +65,12 @@ export const StyledDatePicker = styled(DatePicker)(
     "& .MuiFormLabel-root.Mui-focused": {
       color: `${theme.palette.grey[600]}`,
       fontSize: "0.87rem"
-    }
+    },
+    "& .MuiFormLabel-root": {
+      color: `${theme.palette.grey[600]}`,
+      background: 'white',
+      padding: 2,
+      fontSize: "0.87rem"
+    },
   })
 );

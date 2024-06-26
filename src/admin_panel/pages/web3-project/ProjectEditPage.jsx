@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -8,8 +8,8 @@ import { Delete, DownloadDone } from '@mui/icons-material';
 import { Slide } from '../../components/sliders/Slide.jsx';
 import { ContainerCSS } from '../../components/ui/ui.styles.js';
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
-import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
+import { FileUploader } from '../../components/file-upload/FileUploader';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { updateField } from '../../store/reducers/project.reducer.js';
@@ -19,35 +19,36 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants.js';
 
 export const ProjectEditPage = () => {
+  const [imageUpload, setImageUpload] = useState([{ name: 'mock.png', size: 0 }]);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   const { projectId } = useParams();
   
   useEffect(() => {
     dispatch(getProject(projectId));
-  }, [dispatch]);
-  
-  const { name, description, movie, completion } = useSelector((state) => state?.project?.project);
+  }, [dispatch, projectId]);
+
+  const { name, description, completion } = useSelector((state) => state?.project?.project);
   
   const methods = useForm({
     mode: 'onSubmit'
     // resolver: yupResolver(AccountSchema),
   });
   
-  const {
-    watch,
-    reset,
-    control,
-    handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors, isSubmitSuccessful, isValid }
-  } = methods;
+  const { watch, control, handleSubmit, formState: { errors } } = methods;
   
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
   const onSubmit = (data) => {
-    dispatch(updateProject({ id: projectId, data }));
+    const projectData = {
+      image: imageUpload[0],
+      name: data.name,
+      description: data.description,
+      completion: data.completion
+    };
+    dispatch(updateProject({ id: projectId, data: projectData }));
     navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
     toast.success(`"Project" was added successfuly`);
   };
@@ -61,7 +62,7 @@ export const ProjectEditPage = () => {
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.web3project}`}/>
             </Grid>
             <Grid item xs={4} sm={9} md={9} lg={9.5}>
-              <Typography variant="h5">New Project</Typography>
+              <Typography variant="h5" color="primary">New Project</Typography>
             </Grid>
             <Grid item xs={4} sm={3} md={9} lg={2.5} display="flex" justifyContent="space-between">
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
@@ -80,7 +81,12 @@ export const ProjectEditPage = () => {
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h6">Project Image</Typography>
-                <FileUploader name="movie" multiple={false} onInputChange={onInputChange}/>
+                <FileUploader
+                  name="image"
+                  multiple={false}
+                  fileUpload={imageUpload}
+                  setFileUpload={setImageUpload}
+                />
               </Grid>
             </Grid>
             <Grid item xs={6}>
@@ -119,7 +125,6 @@ export const ProjectEditPage = () => {
                     control={control}
                     errors={errors}
                   />
-                  <Typography variant="caption">{watch()?.completion || completion}%</Typography>
                 </Grid>
               </Grid>
             </Grid>

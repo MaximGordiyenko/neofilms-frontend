@@ -1,8 +1,8 @@
 import { Container, Grid, styled } from "@mui/material";
 
 export const ContainerCSS = styled(Container)(
-  ({ theme, step }) => ({
-  background: theme.palette.grey[100],
+  ({ theme, step, path }) => ({
+  background: path && theme.palette.grey[100],
   margin: `${step ? 4 : 10}% auto`,
   padding: 30,
   borderRadius: 10,

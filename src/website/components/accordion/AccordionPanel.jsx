@@ -27,3 +27,4 @@ export const AccordionPanel = ({ index, title, content, content2, content3, cont
   );
 };
 
+export default AccordionPanel;

@@ -7,10 +7,9 @@ import { Grid, Typography, Button, styled, Container } from '@mui/material';
 import { DownloadDone, Remove } from '@mui/icons-material';
 
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs';
-import { Checkbox } from '../../components/checkbox/Checkbox';
+import { NeoCheckbox } from '../../components/checkbox/NeoCheckbox';
 import { DataPicker } from '../../components/pickers/DataPicker';
 import { IconButton } from '../../components/buttons/IconButton.jsx';
-import { FileUploader } from '../../components/file-upload/FileUploader';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize';
 
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +18,7 @@ import { ROUTE } from '../../../constants';
 import { useDispatch } from 'react-redux';
 import { updateField } from '../../store/reducers/project.reducer';
 import { addCasting } from '../../store/thunk/casting.api';
-import { SimpleFileUploader } from '../../components/file-upload/SimpleFileUploader';
+import { FileUploader } from '../../components/file-upload/FileUploader';
 
 export const CreateCastingPage = () => {
   const [imageUpload, setImageUpload] = useState([]);
@@ -36,13 +35,9 @@ export const CreateCastingPage = () => {
   });
   
   const {
-    watch,
-    reset,
     control,
     handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors, isSubmitSuccessful, isValid }
+    formState: { errors }
   } = methods;
   
   const addNewRole = () => {
@@ -71,10 +66,9 @@ export const CreateCastingPage = () => {
       deadline: data.deadline.unix() * 1000,
       rate_of_pay_per_day: Number(data.rate_of_pay_per_day)
     };
-    console.log(newCasting);
     dispatch(addCasting(newCasting));
-    // navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
-    // toast.success(`${data.logo_text} was added successfuly`);
+    navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
+    toast.success(`${data.logo_text} was added successfuly`);
   };
   
   return (
@@ -105,7 +99,7 @@ export const CreateCastingPage = () => {
                   <Typography variant="h5" color={'primary'}>Main Image</Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                  <SimpleFileUploader
+                  <FileUploader
                     name="image"
                     multiple={false}
                     fileUpload={imageUpload}
@@ -137,6 +131,7 @@ export const CreateCastingPage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
+                    maxChars={100}
                     onInputChange={(value) => onInputChange('subtitle', value)}
                   />
                 </Grid>
@@ -150,6 +145,7 @@ export const CreateCastingPage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
+                    maxChars={100}
                     onInputChange={(value) => onInputChange('additional_info', value)}
                   />
                 </Grid>
@@ -163,6 +159,7 @@ export const CreateCastingPage = () => {
                     isText={true}
                     minRows={1000}
                     maxRows={1000}
+                    maxChars={100}
                     onInputChange={(value) => onInputChange('plot', value)}
                   />
                 </Grid>
@@ -210,7 +207,7 @@ export const CreateCastingPage = () => {
                   <Grid item xs={12} sm={12} md={5} lg={5.5}>
                     <DataPicker
                       name="audition_dates.from"
-                      label="MM/DD/YYYY"
+                      label="Audition dates"
                       control={control}
                       errors={errors}
                     />
@@ -219,17 +216,25 @@ export const CreateCastingPage = () => {
                   <Grid item xs={12} sm={12} md={5} lg={5.5}>
                     <DataPicker
                       name="audition_dates.to"
-                      label="MM/DD/YYYY"
+                      label="Audition dates"
+                      palceholder="MM/DD/YYYY"
                       control={control}
                       errors={errors}
                     />
                   </Grid>
                 </GroupGridCSS>
+                <Grid item xs={12} sm={12} md={12} lg={12} mb={15}>
+                  <NeoCheckbox
+                    name="eco_cast_self_tape"
+                    label="Eco Cast Self-Tape"
+                    control={control}
+                  />
+                </Grid>
                 <GroupGridCSS item container xs={12} sm={12} md={12} lg={12}>
                   <Grid item xs={12} sm={12} md={12} lg={5.5}>
                     <DataPicker
                       name="callback_dates.from"
-                      label="MM/DD/YYYY"
+                      label="Callback dates"
                       control={control}
                       errors={errors}
                     />
@@ -238,7 +243,7 @@ export const CreateCastingPage = () => {
                   <Grid item xs={12} sm={12} md={12} lg={5.5}>
                     <DataPicker
                       name="callback_dates.to"
-                      label="MM/DD/YYYY"
+                      label="Callback dates"
                       control={control}
                       errors={errors}
                     />
@@ -248,7 +253,7 @@ export const CreateCastingPage = () => {
                   <Grid item xs={12} sm={12} md={12} lg={5.5}>
                     <DataPicker
                       name="shoot_dates.from"
-                      label="MM/DD/YYYY"
+                      label="Shoot dates"
                       control={control}
                       errors={errors}
                     />
@@ -257,7 +262,7 @@ export const CreateCastingPage = () => {
                   <Grid item xs={12} sm={12} md={12} lg={5.5}>
                     <DataPicker
                       name="shoot_dates.to"
-                      label="MM/DD/YYYY"
+                      label="Shoot dates"
                       control={control}
                       errors={errors}
                     />
@@ -266,7 +271,7 @@ export const CreateCastingPage = () => {
                 <Grid item xs={12} sm={12} md={12} lg={12} pb={20}>
                   <DataPicker
                     name="deadline"
-                    label="MM/DD/YYYY"
+                    label="Deadline"
                     control={control}
                     errors={errors}
                   />
@@ -320,6 +325,7 @@ export const CreateCastingPage = () => {
                       isText={true}
                       minRows={1000}
                       maxRows={1000}
+                      maxChars={100}
                       onInputChange={(value) => onInputChange(`description_${role.id}`, value)}
                     />
                   </Grid>

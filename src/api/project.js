@@ -52,8 +52,6 @@ export async function getProjects() {
 		});
 }
 
-export async function getImage(projectId) {
-	return await axios.get(`/api/pages/project/${projectId}/image`, {
-			withCredentials: true
-		});
+export function getImage(projectId) {
+	return `/api/pages/project/${projectId}/image`;
 }

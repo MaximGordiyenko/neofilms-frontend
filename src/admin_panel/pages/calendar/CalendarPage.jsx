@@ -16,11 +16,11 @@ export const CalendarPage = ({ tab, cards, onAdd, buttonName }) => {
   
   useEffect(() => {
     dispatch(getCalendars());
-  }, [dispatch]);
+  }, [dispatch, getCalendars]);
   
   return (
     <AdminTabPanel value={tab} index={3}>
-      <Box display="flex" alignItems="center" flexDirection="row-reverse" justifyContent="flex-end">
+      <Box display="flex" alignItems="center" overflow="scroll" py={60} px={5}>
         {cards?.map(card => (
           <MediaCard
             key={card.id}
@@ -34,7 +34,7 @@ export const CalendarPage = ({ tab, cards, onAdd, buttonName }) => {
             onEdit={() => navigate(card.id)}
           />
         ))}
-        <Button variant="contained" onClick={onAdd}>{buttonName}</Button>
+        <Button variant="contained" sx={{ minWidth: 150 }} onClick={onAdd}>{buttonName}</Button>
       </Box>
     </AdminTabPanel>
   );

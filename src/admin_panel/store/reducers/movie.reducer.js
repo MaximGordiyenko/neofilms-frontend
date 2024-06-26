@@ -6,6 +6,7 @@ const movieReducer = createSlice({
   initialState: {
     movies: [],
     movie: {},
+    mediaUrl: '',
     status: 'idle',
     error: null
   },

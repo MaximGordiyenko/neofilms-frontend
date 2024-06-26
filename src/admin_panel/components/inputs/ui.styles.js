@@ -9,7 +9,7 @@ export const TextFieldCSS = styled(TextField)(
       }
     },
     "& .MuiFormHelperText-root": {
-      color: "blue",
+      color: theme.palette.grey[600],
       "& .error-chars": {
         color: "red"
       }

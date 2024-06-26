@@ -1,11 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getProjects, addProject, getProject, deleteProject, updateProject } from '../thunk/project.api.js';
+import {
+  getProjects,
+  addProject,
+  getProject,
+  deleteProject,
+  updateProject,
+  getProjectMedia
+} from '../thunk/project.api.js';
 
 const projectReducer = createSlice({
   name: 'movie',
   initialState: {
     projects: [],
     project: {},
+    mediaUrl: '',
     status: 'idle',
     error: null
   },
@@ -65,6 +73,17 @@ const projectReducer = createSlice({
         state.status = 'succeeded';
       })
       .addCase(deleteProject.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action?.error.message;
+      })
+      .addCase(getProjectMedia.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getProjectMedia.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.mediaUrl = action.payload;
+      })
+      .addCase(getProjectMedia.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action?.error.message;
       });

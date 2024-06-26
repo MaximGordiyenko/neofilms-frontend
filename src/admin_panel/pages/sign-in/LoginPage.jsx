@@ -51,7 +51,7 @@ export const LoginPage = () => {
   }, [status, navigate]);
   
   return (
-    <ContainerCSS maxWidth="xs">
+    <ContainerCSS maxWidth="xs" path>
       <Typography variant="h4" align="center" color="secondary">
         Log In
       </Typography>
@@ -59,6 +59,7 @@ export const LoginPage = () => {
         <Box component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <Grid container spacing={15}>
             <Grid item xs={12} lg={12}>
+              admin@admin.com
               <InputText
                 name="login"
                 control={control}
@@ -67,6 +68,7 @@ export const LoginPage = () => {
               />
             </Grid>
             <Grid item xs={12} lg={12}>
+              Admin@1234
               <InputText
                 name="password"
                 placeholder="Password"

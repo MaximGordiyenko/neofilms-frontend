@@ -1,23 +1,22 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { Grid, Typography, Button } from '@mui/material';
-import { Delete, DownloadDone } from '@mui/icons-material';
+import { DownloadDone } from '@mui/icons-material';
 
 import { ContainerCSS } from '../../components/ui/ui.styles.js';
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs.jsx';
-import { FileUploader } from '../../components/file-upload/FileUploader.jsx';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx';
+import { FileUploader } from '../../components/file-upload/FileUploader';
 
+import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants.js';
 
 import { useDispatch } from 'react-redux';
 import { addSlide } from '../../store/thunk/slide.api.js';
 import { updateField } from '../../store/reducers/slide.reducer.js';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { SimpleFileUploader } from '../../components/file-upload/SimpleFileUploader';
 
 export const CreateSlidePage = () => {
   const [movieUpload, setMovieUpload] = useState([]);
@@ -27,19 +26,11 @@ export const CreateSlidePage = () => {
   const navigate = useNavigate();
   
   const methods = useForm({
-    mode: 'onSubmit',
+    mode: 'onSubmit'
     // resolver: yupResolver(AccountSchema),
   });
   
-  const {
-    watch,
-    reset,
-    control,
-    handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors, isSubmitSuccessful, isValid }
-  } = methods;
+  const { control, handleSubmit, formState: { errors } } = methods;
   
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
@@ -47,16 +38,14 @@ export const CreateSlidePage = () => {
     const slideData = {
       id: uuidv4(),
       ...data,
-      movie: movieUpload,
-      logo_media: logoUpload,
-      
-    }
-    console.log(slideData);
+      movie: movieUpload[0],
+      logo_media: logoUpload[0]
+    };
     dispatch(addSlide(slideData));
-    // navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
-    // toast.success(`${data.logo_text} was added successfuly`);
+    navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
+    toast.success(`${data.logo_text} was added successfuly`);
   };
-  console.log(movieUpload);
+  
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -66,7 +55,7 @@ export const CreateSlidePage = () => {
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.mainSlider}`}/>
             </Grid>
             <Grid item xs={12} sm={4} md={9} lg={11.1}>
-              <Typography variant="h5">New Slide</Typography>
+              <Typography variant="h5" color="primary">New Slide</Typography>
             </Grid>
             <Grid item xs={12} sm={4} md={9} lg={0.9} display="flex" justifyContent="space-between">
               <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
@@ -78,7 +67,7 @@ export const CreateSlidePage = () => {
             <Grid item xs={5.9}>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
                 <Typography variant="h6">Main Image or Video</Typography>
-                <SimpleFileUploader
+                <FileUploader
                   name="movie"
                   multiple={false}
                   fileUpload={movieUpload}
@@ -87,7 +76,7 @@ export const CreateSlidePage = () => {
               </Grid>
               <Grid item xs={12} sm={4} md={9} lg={12} sx={{ background: 'white', p: 30 }}>
                 <Typography variant="h6">Movie Title (Logo)</Typography>
-                <SimpleFileUploader
+                <FileUploader
                   name="logo_media"
                   multiple={false}
                   fileUpload={logoUpload}
@@ -119,6 +108,7 @@ export const CreateSlidePage = () => {
                   isText={true}
                   minRows={1000}
                   maxRows={1000}
+                  maxChars={100}
                   onInputChange={(value) => onInputChange('additional_text', value)}
                 />
               </Grid>

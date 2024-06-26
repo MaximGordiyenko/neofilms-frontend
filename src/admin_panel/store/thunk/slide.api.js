@@ -64,7 +64,7 @@ export const getMediaOfSlide = createAsyncThunk('data/mediaSlide', async (slide_
   }
 });
 
-export const getLogoOfSlide = createAsyncThunk('data/mediaSlide', async (slide_id) => {
+export const getLogoOfSlide = createAsyncThunk('data/logoSlide', async (slide_id) => {
   try {
     const response = await slideApi.getLogo(slide_id);
     return response.data;

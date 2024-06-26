@@ -1,20 +1,28 @@
 import { Controller } from 'react-hook-form';
 import { TextFieldCSS } from './ui.styles';
+import { useState, useEffect } from "react";
+
 
 export const InputTextAutosize = ({
-                                    name, value, label, control, errors, sx,
+                                    name, value = "", label, control, errors, sx,
                                     isText = false, minRow, maxRow, placeholder, onInputChange, maxChars
                                   }) => {
+  const [inputText, setInputText] = useState(value);
+  
+  useEffect(() => {
+    setInputText(value);
+  }, [value]);
+  
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue=""
+      defaultValue={inputText}
       render={
         ({ field }) =>
           <TextFieldCSS
             {...field}
-            value={field.value || value || ''}
+            value={inputText}
             placeholder={placeholder}
             sx={sx}
             multiline={isText}
@@ -35,6 +43,7 @@ export const InputTextAutosize = ({
             }}
             onChange={(e) => {
               field.onChange(e);
+              setInputText(e.target.value);
               if (onInputChange) {
                 onInputChange(e.target.value);
               }

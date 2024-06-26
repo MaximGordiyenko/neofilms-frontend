@@ -4,12 +4,11 @@ import { Typography } from '@mui/material';
 import { Logout } from '@mui/icons-material';
 
 import { LayoutContainerCSS } from './layout.styles.js';
-
 import { Header } from '../header/Header.jsx';
 import { MainComponent } from './MainComponent.jsx';
 import { IconButton } from '../buttons/IconButton.jsx';
 
-export const Layout = () => {
+export const Layout = ({ logout }) => {
   const outlet = useOutlet();
   
   return (
@@ -24,8 +23,8 @@ export const Layout = () => {
         rightContent={
           <IconButton
             icon={<Logout/>}
-            onClick={() => dispatch(adminLogout())}>
-            Logout icon
+            onClick={logout}>
+            Log out
           </IconButton>
         }
       />

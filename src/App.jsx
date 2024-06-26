@@ -1,5 +1,5 @@
 // sharing imports
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 // user frontend imports
@@ -43,10 +43,10 @@ import { light, dark } from './theme-config.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import OnlyAdmin from './utils/OnlyAdmin';
-import CastingDetails from "./website/pages/castDetails/CastingDetails";
 import { CreateCastingPage } from './admin_panel/pages/casting/CreateCastingPage';
 import { CastingEditPage } from './admin_panel/pages/casting/CastingEditPage';
 import { CastingPage } from './admin_panel/pages/casting/CastingPage';
+import { adminLogout } from './admin_panel/store/thunk/admin.api';
 
 const theme = createTheme({
   palette: {}
@@ -55,6 +55,7 @@ const theme = createTheme({
 export const App = () => {
   const themeLight = createTheme(light);
   const [tab, setTab] = useState(0);
+  const dispatch = useDispatch();
   
   const navigate = useNavigate();
 
@@ -63,6 +64,11 @@ export const App = () => {
   const { projects } = useSelector((state) => state?.project);
   const { calendars } = useSelector((state) => state?.calendar);
   const { castings } = useSelector((state) => state?.casting);
+  
+  const logout = async () => {
+    await dispatch(adminLogout());
+    navigate(`/${ROUTE.admin}/${ROUTE.login}`)
+  }
   
   return (
     <ThemeProvider theme={responsiveFontSizes(themeLight)}>
@@ -86,7 +92,7 @@ export const App = () => {
         <Route path={'/cast-film-details/:casting_id'} element={<CastFilmPage />} />
         {/* admin panel routes */}
         <Route path={`/${ROUTE.admin}/${ROUTE.login}`} element={<LoginPage/>}/>
-        <Route element={<Layout/>}>
+        <Route element={<Layout logout={logout}/>}>
           <Route
             path={ROUTE.admin}
             element={

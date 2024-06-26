@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Button, Box } from '@mui/material';
@@ -8,18 +8,28 @@ import { MediaCard } from '../../components/card/MediaCard';
 
 import { useDispatch } from 'react-redux';
 import { getCastings, deleteCasting } from '../../store/thunk/casting.api';
+import { Notification } from '../../components/notification/Notification';
 
 export const CastingPage = ({ tab, cards, onAdd, buttonName }) => {
+  const [isNotify, setIsNotify] = useState(true);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
   useEffect(() => {
     dispatch(getCastings());
-  }, [dispatch]);
+  }, [dispatch, getCastings]);
   
   return (
     <AdminTabPanel value={tab} index={4}>
-      <Box display="flex" alignItems="center">
+      {isNotify ?
+      <Notification
+        message={`Please pay attention that you can add only ${5 - cards.length} Castings total`}
+        onClick={() => setIsNotify(false)}
+      />
+      : null
+    }
+      <Box display="flex" alignItems="center" overflow="scroll" py={60} px={5}>
         {cards?.map((card, idx) => (
           <MediaCard
             key={card.id}
@@ -34,7 +44,7 @@ export const CastingPage = ({ tab, cards, onAdd, buttonName }) => {
             onEdit={() => navigate(card.id)}
           />
         ))}
-        <Button variant="contained" onClick={onAdd}>{buttonName}</Button>
+        <Button variant="contained" sx={{ minWidth: 150 }} onClick={onAdd}>{buttonName}</Button>
       </Box>
     </AdminTabPanel>
   );
