@@ -32,21 +32,19 @@ export const NeoNftCards = () => {
   //
   //   fetchProjects();
   // }, []);
-
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         setLoading(true);
         const response = await getProjects();
-        console.log(response.data, 'response');
-        const cardsWithImages = await Promise.all(
-          projectsData.map(async (project) => {
-            const imageResponse = await getImage(project.id);
-            const imageUrl = URL.createObjectURL(imageResponse.data);
-            return { ...project, imageUrl };
-          })
-        );
-        setProjectsData(cardsWithImages)
+        const projectsData = response.data;
+
+        const cardsWithImages = await Promise.all(projectsData.map(async (project) => {
+          const imageUrl = getImage(project.id);
+          return { ...project, imageUrl };
+        }));
+
+        setProjectsData(cardsWithImages);
       } catch (error) {
         console.error('Error fetching projects:', error);
       } finally {
@@ -56,7 +54,6 @@ export const NeoNftCards = () => {
 
     fetchProjects();
   }, []);
-
   console.log(projectsData, 'projects')
   return (
     <div className={'cards-nft'}>
@@ -65,7 +62,7 @@ export const NeoNftCards = () => {
         return (
           <div className={'card-nft'} key={i}>
             <div className={'card-inner-content'}>
-              <img src={`http://57.151.104.191:8888/api/pages/projects/${projectsData.id}/image`} className='image-nft-card' />
+              <img src={item.imageUrl} className='image-nft-card' />
               <h4>{item.name}</h4>
               <p>{item.description}</p>
               <ProgressBar progress={item.completion} />
