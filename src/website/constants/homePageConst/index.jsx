@@ -42,6 +42,7 @@ export const NAVBAR_TABS = [
       { title: 'NEO NFTs', path: '/web3/neo-nft' },
       { title: 'STAKE', path: '/web3/stake' },
       { title: 'REDEEM', path: '/web3/redeem' },
+      { title: 'RETK', path: '/web3/retk' },
     ],
   },
   {
