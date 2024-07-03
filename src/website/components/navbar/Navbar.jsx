@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { NAVBAR_TABS } from '../../constants/homePageConst';
 import './style.scss';
 
 export const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [navbarHeight, setNavbarHeight] = useState(5);
   const [initialActive, setInitialActive] = useState(location.pathname);
   const [isWeb3DropdownVisible, setIsWeb3DropdownVisible] = useState(false);
@@ -35,7 +36,12 @@ export const Navbar = () => {
     };
   }, [location.pathname, navbarHeight]);
 
-  const handleLinkClick = (path) => {
+  const handleLinkClick = (path, inside_page = true) => {
+    if (!inside_page) {
+      // navigate(path, { replace: false });
+      window.location.href = path;
+      return;
+    }
     setInitialActive(path);
     setIsWeb3DropdownVisible(false);
     window.scrollTo({ top: 0});
@@ -81,7 +87,7 @@ export const Navbar = () => {
                               className={`nav-title ${
                                 location.pathname === dropdownItem.path ? 'active-link' : ''
                               }`}
-                              onClick={() => handleLinkClick(dropdownItem.path)}>
+                              onClick={() => handleLinkClick(dropdownItem.path, dropdownItem.inside_page)}>
                               {dropdownItem.title}
                             </Link>
                           ))}

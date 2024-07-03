@@ -1,11 +1,12 @@
 import xmark from '../../assets/images/side-menu-x.svg';
 import './style.scss';
 import { NAVBAR_TABS } from '../../constants/homePageConst';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 export const MobMenu = ({ onClose, isOpen }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [initialActive, setInitialActive] = useState(location.pathname);
   const [closing, setClosing] = useState(false);
 
@@ -60,7 +61,12 @@ export const MobMenu = ({ onClose, isOpen }) => {
                           className={`nav-title ${
                             location.pathname === dropdownItem.path ? 'active-link' : ''
                           }`}
-                          onClick={() => {
+                          onClick={() => {               
+                            if (!dropdownItem.inside_page) {
+                              // navigate(dropdownItem.path, { replace: true });
+                              window.location.href = dropdownItem.path;
+                              return;
+                            }
                             setInitialActive(dropdownItem.path);
                             onClose(); // Close the menu when a link in web3 list is clicked
                             window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
