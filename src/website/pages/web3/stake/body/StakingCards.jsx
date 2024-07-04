@@ -106,6 +106,7 @@ export const StakingCards = () => {
                   await stake(pool);
                 }}
               />
+              <p className="unstake-btn">Unstake</p>
             </div>
           </div>
         );
