@@ -7,8 +7,9 @@ import { FilledButton } from '../../components/button/FilledButton';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import mobLine from '../../assets/images/cast-footer-geometry.png'
-import {useMediaQuery} from "@mui/material";
+import mobLine from '../../assets/images/cast-footer-geometry.png';
+import { useMediaQuery } from '@mui/material';
+import Spinner from "../../components/loader/Spinner";
 
 export const AllMovies = () => {
     const [films, setFilms] = useState([]);
@@ -17,6 +18,7 @@ export const AllMovies = () => {
     const [cardsPerPage, setCardsPerPage] = useState(5);
 
     const isMobile = useMediaQuery('(max-width: 430px)');
+
     useEffect(() => {
         const fetchMovies = async () => {
             try {
@@ -47,39 +49,37 @@ export const AllMovies = () => {
     };
 
     return (
-        <div className={'all-movies-wrapper'}>
-            <div className={'upper-movies-section'}>
-                <Header />
-                <div className={'all-movies-title'}>
-                    <h2>Original Films, Series & More</h2>
-                    <img src={film} alt={'all-movies film'} />
-                </div>
-            </div>
-            <div className={'films-cards-am'}>
-                {loading ? (
-                    <p>Loading...</p>
-                ) : (
-                    films.map((film) => (
-                        <Link to={`/film-details/${film.id}`} key={film.id} className={'link-to-details-am'}>
-                            <div className={'img-am-box'} style={{ backgroundColor: '#000' /* Replace with actual background color if available */ }}>
-                                <div className={'poster-am-title'}>
-                                    <span className={'all-m-title-card'}>{film.title}</span>
-                                    <span className={'date-all-movies'}>{new Date(film.release_date).toLocaleDateString()}</span>
-                                </div>
-                                <img src={film.posterUrl} className={'am-poster-img'} alt={'am-poster'} />
-                            </div>
-                        </Link>
-                    ))
-                )}
-                {
-                    isMobile && <img src={mobLine} alt="" className="mob-line"/>
-                }
-            </div>
-            <div className={'lower-bg-am-box'}>
-                <img className={'bg-wrapper-am'} src={bg} alt={'bg-wrapper-am'} />
-            </div>
-            <FilledButton btnText={'show older'} onClick={handleShowOlderClick} />
-            <FooterCreds />
-        </div>
+      <div className={'all-movies-wrapper'}>
+          <div className={'upper-movies-section'}>
+              <Header />
+              <div className={'all-movies-title'}>
+                  <h2>Original Films, Series & More</h2>
+                  <img src={film} alt={'all-movies film'} />
+              </div>
+          </div>
+          <div className={'films-cards-am'}>
+              {loading ? (
+                <Spinner />
+              ) : (
+                films.map((film) => (
+                  <Link to={`/film-details/${film.id}`} key={film.id} className={'link-to-details-am'}>
+                      <div className={'img-am-box'} style={{ backgroundColor: '#000' /* Replace with actual background color if available */ }}>
+                          <div className={'poster-am-title'}>
+                              <span className={'all-m-title-card'}>{film.title}</span>
+                              <span className={'date-all-movies'}>{new Date(film.release_date).toLocaleDateString()}</span>
+                          </div>
+                          <img src={film.posterUrl} className={'am-poster-img'} alt={'am-poster'} />
+                      </div>
+                  </Link>
+                ))
+              )}
+              {isMobile && <img src={mobLine} alt="" className="mob-line" />}
+          </div>
+          <div className={'lower-bg-am-box'}>
+              <img className={'bg-wrapper-am'} src={bg} alt={'bg-wrapper-am'} />
+          </div>
+          <FilledButton btnText={'show older'} onClick={handleShowOlderClick} />
+          <FooterCreds />
+      </div>
     );
 };
