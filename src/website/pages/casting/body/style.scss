@@ -6,6 +6,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  .cast-box-wrapper{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .spinner{
+      position: absolute;
+      top: 30vh;
+    }
+  }
 }
 @media (max-width: 430px){
   .cast-body{
