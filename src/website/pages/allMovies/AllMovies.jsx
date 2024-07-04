@@ -48,6 +48,7 @@ export const AllMovies = () => {
         setCurrentPage(currentPage + 1);
     };
 
+
     return (
       <div className={'all-movies-wrapper'}>
           <div className={'upper-movies-section'}>
