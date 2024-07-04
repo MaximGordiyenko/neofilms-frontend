@@ -44,7 +44,8 @@ export const MoviesPage = ({ tab, cards, onAdd, buttonName }) => {
             onEdit={() => navigate(card.id)}
           />
         ))}
-        <Button variant="contained" sx={{ minWidth: 150 }} onClick={onAdd}>{buttonName}</Button>
+        <Button variant="contained" sx={{ minWidth: 150 }} disabled={cards.length >= 5}
+                onClick={onAdd}>{buttonName}</Button>
       </Box>
     </AdminTabPanel>
   );

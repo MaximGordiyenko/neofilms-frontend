@@ -30,7 +30,7 @@ export const CreateProjectPage = () => {
     // resolver: yupResolver(AccountSchema),
   });
   
-  const { watch, control, handleSubmit, formState: { errors} } = methods;
+  const { control, handleSubmit, formState: { errors} } = methods;
   
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
@@ -42,7 +42,7 @@ export const CreateProjectPage = () => {
     }
     dispatch(addProject(newProject));
     navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
-    toast.success(`${data.logo_text} was added successfuly`);
+    toast.success(`Project ${data.name} was added successfuly`);
   };
   
   return (

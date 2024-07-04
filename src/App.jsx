@@ -48,10 +48,6 @@ import { CastingEditPage } from './admin_panel/pages/casting/CastingEditPage';
 import { CastingPage } from './admin_panel/pages/casting/CastingPage';
 import { adminLogout } from './admin_panel/store/thunk/admin.api';
 
-const theme = createTheme({
-  palette: {}
-});
-
 export const App = () => {
   const themeLight = createTheme(light);
   const [tab, setTab] = useState(0);
