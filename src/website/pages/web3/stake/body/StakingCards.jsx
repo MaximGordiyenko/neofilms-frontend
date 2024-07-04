@@ -36,7 +36,7 @@ export const StakingCards = () => {
             pools[i] = pool;
             pool.nft_to_stake = (await stakingApi.getTokens(pool.id)).data;
             try {
-              pool.unclaimed = (await stakingApi.availableRewards(pool.id)).data.amount;
+              pool.unclaimed = await stakingApi.availableRewards(pool.id);
             } catch (e) {
               console.error(e);
             }

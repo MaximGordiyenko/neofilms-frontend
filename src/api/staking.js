@@ -103,5 +103,5 @@ export async function claimRewards(poolId) {
 export async function availableRewards(poolId) {
 	return (await axios.get(`/api/staking/rewards/${poolId}`, {
 			withCredentials: true
-		})).amount;
+		})).data.amount;
 }
