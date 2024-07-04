@@ -30,9 +30,6 @@ export const BodyRedeem = () => {
             <div className={'hr'}/>
             {isMobile ? <MobButton btnText={'claim'}/> : <Button text={'claim'}/>}
           </div>
-          <a href={'#'} className={'coupons'}>
-            my coupons
-          </a>
         </div>
         <img src={coin} alt={'redeem-coin'} className={'coin'}/>
         <img src={isMobile ? mobileLine : bottomLine} alt={'bottom-redeem'} className={'bottom-redeem-line'}/>

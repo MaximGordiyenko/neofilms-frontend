@@ -51,6 +51,16 @@ export const DetailFilmDefinition = () => {
   if (!casting_id) {
     return <p>No details definition available.</p>;
   }
+
+  const formatDate = (milliseconds) => {
+    if (!milliseconds) return null;
+    const date = new Date(milliseconds);
+    return date.toLocaleDateString();
+  };
+  const renderDateRange = (from, to) => {
+    if (!from && !to) return "N/A";
+    return `${formatDate(from) || "N/A"} to ${formatDate(to) || "N/A"}`;
+  };
   return (
     <div className="detail-definition-container">
       <p className="production-info">{casting.subtitle}</p>
@@ -76,25 +86,31 @@ export const DetailFilmDefinition = () => {
         <div className="data-box">
           <div className="info-div">
             <h5>Audition dates</h5>
-            <div className="info">{Object.values(casting.audition_dates)}</div>
+            <div className="info">
+              <div className="info">{renderDateRange(casting.audition_dates.from, casting.audition_dates.to)}</div>
+            </div>
           </div>
           <div className="info-div">
             <h5>Callback Dates</h5>
-            <div className="info">{Object.values(casting.callback_dates)}</div>
+            <div className="info">
+              <div className="info">{renderDateRange(casting.callback_dates.from, casting.callback_dates.to)}</div>
+            </div>
           </div>
           <div className="info-div">
             <h5>Shoot Dates</h5>
-            <div className="info">{Object.values(casting.shoot_dates)}</div>
+            <div className="info">
+              <div className="info">{renderDateRange(casting.shoot_dates.from, casting.shoot_dates.to)}</div>
+            </div>
           </div>
           <div className="info-div">
             <h5>Deadline</h5>
-            <div className="info">{casting.deadline}</div>
+            <div className="info">{formatDate(casting.deadline) || "N/A"}</div>
           </div>
         </div>
         <div className="rate-box">
           <div className="info-div">
             <h5>Rate of Pay</h5>
-            <div className="info">{casting.rate_of_pay_per_day}</div>
+            <div className="info">${casting.rate_of_pay_per_day}/day</div>
           </div>
           <div className="info-div">
             <h5>Location</h5>

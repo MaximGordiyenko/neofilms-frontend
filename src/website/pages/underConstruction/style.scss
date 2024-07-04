@@ -34,8 +34,9 @@
         color: var(--white);
         font-weight: 700;
         font-family: actay_wide, 'sans-serif';
-        font-size: 38px;
-        line-height: 45.6px;
+        font-size: 64px;
+        line-height: 70.40px;
+        letter-spacing: 5.12px;
       }
       .under-construction{
         right: -7vw;
@@ -69,6 +70,11 @@
         font-size: 27px;
         line-height: normal;
         letter-spacing: 1.52px;
+        .soon-title-text{
+          font-size: 38px;
+          line-height: 45.60px;
+          letter-spacing: 1.52px;
+        }
         .under-construction{
           width: 80px;
           height: 80px;

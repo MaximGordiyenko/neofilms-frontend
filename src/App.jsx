@@ -18,8 +18,6 @@ import { Redeem } from './website/pages/web3/redeem/Redeem';
 import { Contact } from './website/pages/contact/Contact';
 import { Casting } from './website/pages/casting/Casting';
 import { CastFilmPage } from './website/pages/castFilmDetails/CastFilmPage';
-
-// admin panel imports
 import { useState } from 'react';
 import { ROUTE } from './constants.js';
 import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
