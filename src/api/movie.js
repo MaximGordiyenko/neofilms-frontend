@@ -80,3 +80,8 @@ export async function getMovies() {
 export function getPoster(movieId) {
 	return `/api/pages/movie/${movieId}/poster`;
 }
+
+
+export function getHeaderImage(movieId) {
+	return `/api/pages/movie/${movieId}/header_image`;
+}
