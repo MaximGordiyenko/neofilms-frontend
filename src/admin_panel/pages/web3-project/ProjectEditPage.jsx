@@ -37,7 +37,7 @@ export const ProjectEditPage = () => {
     // resolver: yupResolver(AccountSchema),
   });
   
-  const { watch, control, handleSubmit, formState: { errors } } = methods;
+  const { control, handleSubmit, formState: { errors } } = methods;
   
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
@@ -50,7 +50,7 @@ export const ProjectEditPage = () => {
     };
     dispatch(updateProject({ id: projectId, data: projectData }));
     navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
-    toast.success(`"Project" was added successfuly`);
+    toast.success(`Project ${name} was update successfuly`);
   };
   
   return (
@@ -68,7 +68,7 @@ export const ProjectEditPage = () => {
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteProject(projectId));
                 navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
-                toast.error(`Event ${watch().name} was deleted`);
+                toast.error(`Event ${name} was deleted`);
               }}>
                 Delete
               </Button>

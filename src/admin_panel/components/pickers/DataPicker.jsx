@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import dayjs from 'dayjs';
-import { styled } from '@mui/material';
+import { styled, Box, Toolbar, IconButton } from '@mui/material';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+import { ArrowBack, ArrowForward } from '@mui/icons-material';
 
 export const DataPicker = ({ name, value, label, control }) => {
   const initialDate = value ? dayjs(value) : dayjs('MM/DD/YYYY');
@@ -29,6 +30,10 @@ export const DataPicker = ({ name, value, label, control }) => {
             onChange={(date) => {
               field.onChange(date);
               setSelectedDate(date);
+            }}
+            slots={{
+              layout: MyCustomLayout,
+              toolbar: CustomToolbar,
             }}
           />
         )}
@@ -72,5 +77,29 @@ export const DatePickerCSS = styled(DatePicker)(
       padding: 2,
       fontSize: "0.87rem"
     },
+    // Add styles for weeks
+    "& .MuiDayCalendar-header": {
+      color: `${theme.palette.primary.main}`, // Change color for day elements
+      "& .MuiTypography-root": {
+        color: `${theme.palette.secondary.main}`, // Change color for week container
+      },
+    },
   })
+);
+
+const MyCustomLayout = ({ children }) => (
+  <Box sx={{ backgroundColor: 'white' }}>
+    {children}
+  </Box>
+);
+
+const CustomToolbar = () => (
+  <Toolbar sx={{ justifyContent: 'space-between', backgroundColor: 'white' }}>
+    <IconButton sx={{ color: 'black' }}>
+      <ArrowBack />
+    </IconButton>
+    <IconButton sx={{ color: 'black' }}>
+      <ArrowForward />
+    </IconButton>
+  </Toolbar>
 );
