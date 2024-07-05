@@ -22,7 +22,7 @@ import { updateField } from '../../store/reducers/movie.reducer.js';
 
 export const MovieEditPage = () => {
   const [posterUpload, setPosterUpload] = useState([{ name: 'mock.png', size: 0 }]);
-  const [movieUpload, setMovieUpload] = useState([]);
+  const [movieUpload, setMovieUpload] = useState([{ name: 'mock.png', size: 0 }]);
   
   const dispatch = useDispatch();
   const navigate = useNavigate();

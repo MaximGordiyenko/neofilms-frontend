@@ -33,7 +33,7 @@ export const DataPicker = ({ name, value, label, control }) => {
             }}
             slots={{
               layout: MyCustomLayout,
-              toolbar: CustomToolbar,
+              toolbar: CustomToolbar
             }}
           />
         )}
@@ -41,7 +41,6 @@ export const DataPicker = ({ name, value, label, control }) => {
     </LocalizationProvider>
   );
 };
-
 
 export const DatePickerCSS = styled(DatePicker)(
   ({ theme }) => ({
@@ -76,30 +75,40 @@ export const DatePickerCSS = styled(DatePicker)(
       background: 'white',
       padding: 2,
       fontSize: "0.87rem"
-    },
-    // Add styles for weeks
-    "& .MuiDayCalendar-header": {
-      color: `${theme.palette.primary.main}`, // Change color for day elements
-      "& .MuiTypography-root": {
-        color: `${theme.palette.secondary.main}`, // Change color for week container
-      },
-    },
+    }
   })
 );
 
 const MyCustomLayout = ({ children }) => (
-  <Box sx={{ backgroundColor: 'white' }}>
+  <BoxCSS className="bla-bla" sx={{ backgroundColor: 'white' }}>
     {children}
-  </Box>
+  </BoxCSS>
 );
 
 const CustomToolbar = () => (
-  <Toolbar sx={{ justifyContent: 'space-between', backgroundColor: 'white' }}>
+  <Toolbar sx={{ justifyContent: 'space-between' }}>
     <IconButton sx={{ color: 'black' }}>
-      <ArrowBack />
+      <ArrowBack/>
     </IconButton>
     <IconButton sx={{ color: 'black' }}>
-      <ArrowForward />
+      <ArrowForward/>
     </IconButton>
   </Toolbar>
+);
+
+
+export const BoxCSS = styled(Box)(
+  ({ theme }) => ({
+    "& .MuiDateCalendar-root": {
+      "& div": {
+        "& .MuiDayCalendar-root": {
+          "& .MuiDayCalendar-header": {
+            "& .MuiTypography-root": {
+              color: 'black'
+            }
+          }
+        }
+      }
+    }
+  })
 );

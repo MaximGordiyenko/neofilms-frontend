@@ -48,7 +48,9 @@ import { adminLogout } from './admin_panel/store/thunk/admin.api';
 
 export const App = () => {
   const themeLight = createTheme(light);
+  
   const [tab, setTab] = useState(0);
+  
   const dispatch = useDispatch();
   
   const navigate = useNavigate();
