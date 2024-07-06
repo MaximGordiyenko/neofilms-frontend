@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../components/header/Header';
 import './style.scss';
 import { FooterCreds } from '../../components/credsFooter/FooterCreds';
 import blackStroke from '../../assets/images/footer-hp-placeholder.svg';
+import imdb from '../../assets/images/IMDb.png';
 
 const FilmDetails = () => {
     const { id } = useParams();
@@ -12,15 +13,15 @@ const FilmDetails = () => {
     const [poster, setPoster] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
+
     useEffect(() => {
         if (!id) {
             setError('Film not found');
             setLoading(false);
             return;
         }
-
         let isMounted = true;
-
         const fetchFilmDetails = async () => {
             try {
                 const [filmResponse, posterResponse] = await axios.all([
@@ -46,13 +47,24 @@ const FilmDetails = () => {
                 }
             }
         };
-
         fetchFilmDetails();
-
         return () => {
             isMounted = false;
         };
     }, [id]);
+
+    useEffect(() => {
+
+    }, []);
+
+    const formatDate = (milliseconds) => {
+        const date = new Date(milliseconds);
+        return date.toLocaleDateString();
+    };
+    const handleNav = () => {
+        navigate(`${film.movie_link}}`, { replace: true });
+        window.scrollTo(0, 0);
+    }
 
     if (loading) {
         return <div>Loading...</div>;
@@ -66,7 +78,7 @@ const FilmDetails = () => {
         return <div>Film not found</div>;
     }
 
-    const { title, starring } = film;
+    const { title, starring, release_date, written_by, directed_by } = film;
     console.log(film, 'film')
     return (
         <div className="movie-details-wrapper">
@@ -74,17 +86,28 @@ const FilmDetails = () => {
                 <Header />
                 <div className="title-details-box">
                     <h2>{title}</h2>
+                    <img src={imdb} alt='imdb' onClick={handleNav}/>
                 </div>
             </div>
             <div className="movie-details-desc">
                 <div className="announcement">
-                    <span>release date</span>
-                    <h2>{film.release_date}</h2>
+                    <div className="date-release">
+                        <span>release date</span>
+                        <h2>{formatDate(release_date)}</h2>
+                    </div>
+                    <div className="written-by">
+                        <span>written by</span>
+                        <h2>{written_by}</h2>
+                    </div>
+                    <div className="directed-by">
+                        <span>directed by</span>
+                        <h2>{directed_by}</h2>
+                    </div>
                 </div>
                 <div className="desc-text">
                     {starring && (
-                        <>
-                            <span>starring</span>
+                      <>
+                          <span>starring</span>
                             {starring.map((actor, index) => (
                                 <h3 key={index}>{actor}</h3>
                             ))}

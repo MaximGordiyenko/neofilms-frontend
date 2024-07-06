@@ -55,14 +55,10 @@ export async function getSlides() {
 		});
 }
 
-export async function getMedia(slideId) {
-	return await axios.get(`/api/pages/slide/${slideId}/movie`, {
-			withCredentials: true
-		});
+export function getMedia(slideId) {
+	return `/api/pages/slide/${slideId}/movie`;
 }
 
-export async function getLogo(slideId) {
-	return await axios.get(`/api/pages/slide/${slideId}/logo`, {
-			withCredentials: true
-		});
+export function getLogo(slideId) {
+	return `/api/pages/slide/${slideId}/logo`;
 }

@@ -2,6 +2,7 @@ import './style.scss';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import CastFilmCards from '../../../components/castFilmCard/CastFilmCard';
+import Spinner from "../../../components/loader/Spinner";
 
 export const CastFilms = () => {
   const [castings, setCastings] = useState([]);
@@ -34,9 +35,9 @@ export const CastFilms = () => {
   console.log(castings, 'castings')
 
   return (
-      <div className={'cast-box-wrapper'}>
+      <div className='cast-box-wrapper'>
         {loading ? (
-            <p>Loading...</p>
+          <Spinner />
         ) : (
             castings.slice(-3).map((casting, index) => {
               console.log(casting, 'cast')

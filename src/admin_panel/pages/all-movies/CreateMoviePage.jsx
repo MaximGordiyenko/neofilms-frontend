@@ -23,6 +23,7 @@ import { ROUTE } from '../../../constants.js';
 
 export const CreateMoviePage = () => {
   const [posterUpload, setPosterUpload] = useState([]);
+  const [movieUpload, setMovieUpload] = useState([]);
   const [addDirector, setAddDirector] = useState(1);
   const [addWritten, setAddWritten] = useState(1);
   const [addActor, setAddActor] = useState(1);
@@ -62,6 +63,7 @@ export const CreateMoviePage = () => {
       id: uuidv4(),
       ...data,
       poster: posterUpload[0],
+      header_image: movieUpload[0],
       title: data.title,
       description: data.description,
       movie_link: data.movie_link,
@@ -71,6 +73,7 @@ export const CreateMoviePage = () => {
       written_by: written_by,
       starring: starring
     };
+    console.log(movieData);
     dispatch(addMovie(movieData));
     navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
     toast.success(`${data.logo_text} was added successfuly`);
@@ -98,12 +101,21 @@ export const CreateMoviePage = () => {
           <Grid container justifyContent="space-around">
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
-                <Typography variant="h5" color="primary">Movie Poster</Typography>
+                <Typography variant="h5" gutterBottom color="primary">Movie Poster</Typography>
                 <FileUploader
                   name="poster"
                   multiple={false}
                   fileUpload={posterUpload}
                   setFileUpload={setPosterUpload}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
+                <Typography variant="h5" gutterBottom color="primary">Movie Page Header Image</Typography>
+                <FileUploader
+                  name="header_image"
+                  multiple={false}
+                  fileUpload={movieUpload}
+                  setFileUpload={setMovieUpload}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>

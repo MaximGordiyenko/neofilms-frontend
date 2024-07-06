@@ -22,6 +22,7 @@ import { updateField } from '../../store/reducers/movie.reducer.js';
 
 export const MovieEditPage = () => {
   const [posterUpload, setPosterUpload] = useState([{ name: 'mock.png', size: 0 }]);
+  const [movieUpload, setMovieUpload] = useState([{ name: 'mock.png', size: 0 }]);
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -83,6 +84,7 @@ export const MovieEditPage = () => {
   const onSubmit = (data) => {
     const movieDate = {
       poster: posterUpload[0],
+      header_image: movieUpload[0],
       title: data.title || title,
       description: data.description || description,
       movie_link: data.movie_link || movie_link,
@@ -123,12 +125,21 @@ export const MovieEditPage = () => {
           <Grid container justifyContent="space-around">
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
-                <Typography variant="h5" color="primary">Movie Poster</Typography>
+                <Typography variant="h5" gutterBottom color="primary">Movie Poster</Typography>
                 <FileUploader
                   name="poster"
                   multiple={false}
                   fileUpload={posterUpload}
                   setFileUpload={setPosterUpload}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
+                <Typography variant="h5" gutterBottom color="primary">Movie Page Header Image</Typography>
+                <FileUploader
+                  name="header_image"
+                  multiple={false}
+                  fileUpload={movieUpload}
+                  setFileUpload={setMovieUpload}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>

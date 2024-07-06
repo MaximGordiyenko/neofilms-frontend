@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import dayjs from 'dayjs';
-import { styled } from '@mui/material';
+import { styled, Box, Toolbar, IconButton } from '@mui/material';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+import { ArrowBack, ArrowForward } from '@mui/icons-material';
 
 export const DataPicker = ({ name, value, label, control }) => {
   const initialDate = value ? dayjs(value) : dayjs('MM/DD/YYYY');
@@ -30,13 +31,16 @@ export const DataPicker = ({ name, value, label, control }) => {
               field.onChange(date);
               setSelectedDate(date);
             }}
+            slots={{
+              layout: MyCustomLayout,
+              toolbar: CustomToolbar
+            }}
           />
         )}
       />
     </LocalizationProvider>
   );
 };
-
 
 export const DatePickerCSS = styled(DatePicker)(
   ({ theme }) => ({
@@ -71,6 +75,40 @@ export const DatePickerCSS = styled(DatePicker)(
       background: 'white',
       padding: 2,
       fontSize: "0.87rem"
-    },
+    }
+  })
+);
+
+const MyCustomLayout = ({ children }) => (
+  <BoxCSS className="bla-bla" sx={{ backgroundColor: 'white' }}>
+    {children}
+  </BoxCSS>
+);
+
+const CustomToolbar = () => (
+  <Toolbar sx={{ justifyContent: 'space-between' }}>
+    <IconButton sx={{ color: 'black' }}>
+      <ArrowBack/>
+    </IconButton>
+    <IconButton sx={{ color: 'black' }}>
+      <ArrowForward/>
+    </IconButton>
+  </Toolbar>
+);
+
+
+export const BoxCSS = styled(Box)(
+  ({ theme }) => ({
+    "& .MuiDateCalendar-root": {
+      "& div": {
+        "& .MuiDayCalendar-root": {
+          "& .MuiDayCalendar-header": {
+            "& .MuiTypography-root": {
+              color: 'black'
+            }
+          }
+        }
+      }
+    }
   })
 );

@@ -9,7 +9,7 @@ export const Notification = ({ message, onClick }) => {
         <Typography variant="subtitle2">{message}</Typography>
       </Grid>
       <Grid item lg={0.8}>
-        <Button onClick={onClick}>Okey</Button>
+        <Button onClick={onClick}>Okay</Button>
       </Grid>
     </Grid>
   );

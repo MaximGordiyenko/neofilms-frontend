@@ -77,8 +77,11 @@ export async function getMovies() {
 		});
 }
 
-export async function getPoster(movieId) {
-	return await axios.get(`/api/pages/movie/${movieId}/poster`, {
-			withCredentials: true
-		});
+export function getPoster(movieId) {
+	return `/api/pages/movie/${movieId}/poster`;
+}
+
+
+export function getHeaderImage(movieId) {
+	return `/api/pages/movie/${movieId}/header_image`;
 }

@@ -18,8 +18,6 @@ import { Redeem } from './website/pages/web3/redeem/Redeem';
 import { Contact } from './website/pages/contact/Contact';
 import { Casting } from './website/pages/casting/Casting';
 import { CastFilmPage } from './website/pages/castFilmDetails/CastFilmPage';
-
-// admin panel imports
 import { useState } from 'react';
 import { ROUTE } from './constants.js';
 import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
@@ -48,13 +46,11 @@ import { CastingEditPage } from './admin_panel/pages/casting/CastingEditPage';
 import { CastingPage } from './admin_panel/pages/casting/CastingPage';
 import { adminLogout } from './admin_panel/store/thunk/admin.api';
 
-const theme = createTheme({
-  palette: {}
-});
-
 export const App = () => {
   const themeLight = createTheme(light);
+  
   const [tab, setTab] = useState(0);
+  
   const dispatch = useDispatch();
   
   const navigate = useNavigate();
