@@ -21,7 +21,7 @@ export const MoviesPage = ({ tab, cards, onAdd, buttonName }) => {
   }, [dispatch, getMovies]);
   
   return (
-    <AdminTabPanel value={tab} index={1}>
+    <AdminTabPanel value={tab} index={0}>
       {isNotify ?
         <Notification
           message={`Please pay attention that you can add only ${5 - cards.length} Movies total`}
@@ -39,7 +39,7 @@ export const MoviesPage = ({ tab, cards, onAdd, buttonName }) => {
             description={card.description}
             onDelete={() => {
               dispatch(deleteMovie(card.id));
-              toast.error(`Movie ${idx + 1} was deleted`);
+              toast.error(`Movie "${idx + 1}" was delete successfuly`);
             }}
             onEdit={() => navigate(card.id)}
           />

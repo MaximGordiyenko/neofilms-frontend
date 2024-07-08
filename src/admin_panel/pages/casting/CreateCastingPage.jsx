@@ -68,7 +68,7 @@ export const CreateCastingPage = () => {
     };
     dispatch(addCasting(newCasting));
     navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
-    toast.success(`${data.logo_text} was added successfuly`);
+    toast.success(`Casting "${data.logo_text}" was added successfuly`);
   };
   
   return (

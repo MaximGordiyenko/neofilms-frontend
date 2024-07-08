@@ -22,7 +22,7 @@ export const Web3ProjectPage = ({ tab, cards, onAdd, buttonName }) => {
   }, [dispatch, getProjects]);
   
   return (
-    <AdminTabPanel value={tab} index={2}>
+    <AdminTabPanel value={tab} index={1}>
       {isNotify ?
         <Notification
           message={`Please pay attention that you can add only ${5 - cards.length} Projects total`}
@@ -40,7 +40,7 @@ export const Web3ProjectPage = ({ tab, cards, onAdd, buttonName }) => {
             description={card.description}
             onDelete={() => {
               dispatch(deleteProject(card.id));
-              toast.error(`Project ${idx + 1} was deleted`);
+              toast.error(`Project "${idx + 1}" was delete successfuly`);
             }}
             onEdit={() => navigate(card.id)}
           />

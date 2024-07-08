@@ -41,7 +41,7 @@ export const CreateCalendarPage = () => {
     };
     dispatch(addCalendar(newEventData));
     navigate(`/${ROUTE.admin}/${ROUTE.calendar}`);
-    toast.success(`"Event" was added successfuly`);
+    toast.success(`Event "${data.name}" was added successfuly`);
   };
   
   return (

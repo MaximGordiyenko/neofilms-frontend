@@ -46,7 +46,7 @@ export const LoginPage = () => {
   
   useEffect(() => {
     if (status === 200) {
-      navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`, { replace: true });
+      navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`, { replace: true });
     }
   }, [status, navigate]);
   

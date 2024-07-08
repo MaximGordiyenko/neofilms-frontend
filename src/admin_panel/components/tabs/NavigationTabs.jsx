@@ -8,7 +8,6 @@ export const NavigationTabs = ({tab, onChangeTab}) => {
     <ContainerCSS maxWidth="lg">
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={tab} onChange={onChangeTab} textColor="inherit">
-          <Tab label="Main Slider" component={Link} to={ROUTE.mainSlider}/>
           <Tab label="All Movies" component={Link} to={ROUTE.allMovies}/>
           <Tab label="Web3 Projects" component={Link} to={ROUTE.web3project}/>
           <Tab label="Calendar" component={Link} to={ROUTE.calendar}/>

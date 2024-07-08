@@ -42,7 +42,7 @@ export const CreateProjectPage = () => {
     }
     dispatch(addProject(newProject));
     navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
-    toast.success(`Project ${data.name} was added successfuly`);
+    toast.success(`Project "${data.name}" was added successfuly`);
   };
   
   return (

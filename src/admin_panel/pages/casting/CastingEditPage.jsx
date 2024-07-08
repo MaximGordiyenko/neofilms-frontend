@@ -98,7 +98,7 @@ export const CastingEditPage = () => {
     };
     dispatch(updateCasting({ id: castingId, data: castingData }));
     navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
-    toast.success(`"Casting" was updated successfuly`);
+    toast.success(`Casting "${data.title}" was updated successfuly`);
   };
   
   return (
@@ -120,6 +120,7 @@ export const CastingEditPage = () => {
                         onClick={() => {
                           dispatch(deleteCasting(castingId));
                           navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
+                          toast.error(`Casting "${title}" was delete successfuly`);
                         }}>
                   Delete
                 </Button>
