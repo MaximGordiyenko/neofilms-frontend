@@ -8,7 +8,7 @@ export const InputTextAutosize = ({
                                     isText = false, minRow, maxRow, placeholder, onInputChange, maxChars
                                   }) => {
   const [inputText, setInputText] = useState(value);
-  
+
   useEffect(() => {
     setInputText(value);
   }, [value]);

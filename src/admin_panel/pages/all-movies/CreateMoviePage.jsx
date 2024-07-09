@@ -73,10 +73,9 @@ export const CreateMoviePage = () => {
       written_by: written_by,
       starring: starring
     };
-    console.log(movieData);
     dispatch(addMovie(movieData));
     navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
-    toast.success(`${data.logo_text} was added successfuly`);
+    toast.success(`Movie "${data.title}" was added successfuly`);
   };
   
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
@@ -101,7 +100,8 @@ export const CreateMoviePage = () => {
           <Grid container justifyContent="space-around">
             <Grid item xs={6}>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
-                <Typography variant="h5" gutterBottom color="primary">Movie Poster</Typography>
+                <Typography variant="h5" gutterBottom color="#000">Movie Poster</Typography>
+                <Typography variant="caption" paragraph color="#000">Aspect ratio: 2:3 (e.g. 400x600px)</Typography>
                 <FileUploader
                   name="poster"
                   multiple={false}
@@ -111,6 +111,7 @@ export const CreateMoviePage = () => {
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h5" gutterBottom color="primary">Movie Page Header Image</Typography>
+                <Typography variant="caption" paragraph color="#000">Aspect ratio: 2.39:1 (e.g. 1920x800px)</Typography>
                 <FileUploader
                   name="header_image"
                   multiple={false}

@@ -1,20 +1,16 @@
 import React from 'react';
-import ReactPlayer from 'react-player';
+import Plyr from 'react-plyr';
 
-const VideoBackground = ({ videoUrl }) => {
+const VideoPlayer = ({ videoUrl }) => {
   return (
-    <div className="video-background">
-      <ReactPlayer
-        url={videoUrl}
-        playing
-        loop
-        muted
-        width="100%"
-        height="100%"
-        style={{ position: 'absolute', top: 0, left: 0 }}
-      />
-    </div>
+    <Plyr
+      type="video"
+      url={videoUrl}
+      autoplay
+      controls
+      style={{ width: '1501px', height: '776px' }}
+    />
   );
 };
 
-export default VideoBackground;
+export default VideoPlayer;

@@ -52,7 +52,7 @@ export const MovieEditPage = () => {
     setDirectors(directed_by);
     setWriters(written_by);
     setActors(starring);
-  }, [directed_by, written_by, actors]);
+  }, []);
   
   const onDirectorChange = (index, value) => {
     const updatedDirectors = [...directors];
@@ -96,7 +96,7 @@ export const MovieEditPage = () => {
     };
     dispatch(updateMovie({ id: movieId, data: movieDate }));
     navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
-    toast.success(`"Movie" was added successfuly`);
+    toast.success(`Movie "${title}" was update successfuly`);
   };
   
   return (
@@ -114,6 +114,7 @@ export const MovieEditPage = () => {
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteMovie(movieId));
                 navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
+                toast.error(`Movie "${title}" was delete successfuly`);
               }}>
                 Delete
               </Button>

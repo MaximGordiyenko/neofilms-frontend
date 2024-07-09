@@ -97,16 +97,6 @@ export const App = () => {
                 onChangeTab={(event, newValue) => setTab(newValue)}
               />
             }>
-            <Route index element={<SlidePage/>}/>
-            <Route path={ROUTE.mainSlider} element={<OnlyAdmin element={
-              <SlidePage
-                tab={tab}
-                cards={slides}
-                onAdd={() => navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}/${ROUTE.createSlide}`)}
-                buttonName="Add Slide"
-              />
-            }/>
-            }/>
             <Route index element={<MoviesPage/>}/>
             <Route path={ROUTE.allMovies} element={<OnlyAdmin element={
               <MoviesPage
@@ -150,14 +140,6 @@ export const App = () => {
               }
             />
           </Route>
-          <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/${ROUTE.createSlide}`}
-                 element={<OnlyAdmin
-                   element={<CreateSlidePage/>}/>}
-          />
-          <Route path={`${ROUTE.admin}/${ROUTE.mainSlider}/:sliderId`}
-                 element={<OnlyAdmin
-                   element={<SliderEditPage/>}/>}
-          />
           
           <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/${ROUTE.createMovie}`}
                  element={<OnlyAdmin
