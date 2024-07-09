@@ -50,7 +50,7 @@ export const ProjectEditPage = () => {
     };
     dispatch(updateProject({ id: projectId, data: projectData }));
     navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
-    toast.success(`Project ${name} was update successfuly`);
+    toast.success(`Project "${name}" was update successfuly`);
   };
   
   return (
@@ -68,7 +68,7 @@ export const ProjectEditPage = () => {
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteProject(projectId));
                 navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
-                toast.error(`Event ${name} was deleted`);
+                toast.error(`Project "${name}" was delete successfuly`);
               }}>
                 Delete
               </Button>

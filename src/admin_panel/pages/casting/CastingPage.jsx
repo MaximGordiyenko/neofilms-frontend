@@ -21,7 +21,7 @@ export const CastingPage = ({ tab, cards, onAdd, buttonName }) => {
   }, [dispatch, getCastings]);
   
   return (
-    <AdminTabPanel value={tab} index={4}>
+    <AdminTabPanel value={tab} index={3}>
       {isNotify ?
       <Notification
         message={`Please pay attention that you can add only ${5 - cards.length} Castings total`}
@@ -39,7 +39,7 @@ export const CastingPage = ({ tab, cards, onAdd, buttonName }) => {
             description={card.description}
             onDelete={() => {
               dispatch(deleteCasting(card.id));
-              toast.error(`Casting ${idx + 1} was deleted`);
+              toast.error(`Casting "${idx + 1}" was delete successfuly`);
             }}
             onEdit={() => navigate(card.id)}
           />

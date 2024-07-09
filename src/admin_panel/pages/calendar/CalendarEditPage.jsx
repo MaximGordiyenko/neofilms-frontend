@@ -35,14 +35,14 @@ export const CalendarEditPage = () => {
     // resolver: yupResolver(AccountSchema),
   });
   
-  const { watch, control, handleSubmit, formState: { errors } } = methods;
+  const { control, handleSubmit, formState: { errors } } = methods;
   
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
   const onSubmit = (data) => {
     dispatch(updateCalendar({ id: calendarId, data }));
     navigate(`/${ROUTE.admin}/${ROUTE.calendar}`);
-    toast.success(`"Event" was added successfuly`);
+    toast.success(`Event ${data.name} was added successfuly`);
   };
   
   return (
@@ -60,7 +60,7 @@ export const CalendarEditPage = () => {
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteCalendar(calendarId));
                 navigate(`/${ROUTE.admin}/${ROUTE.calendar}`)
-                toast.error(`Event ${watch().name} was deleted`);
+                toast.error(`Event "${name}" was deleted successfuly`);
               }}>
                 Delete
               </Button>
