@@ -43,7 +43,6 @@ export const NAVBAR_TABS = [
       { title: 'STAKE', path: '/web3/stake', inside_page: true },
       { title: 'REDEEM', path: '/web3/redeem', inside_page: true },
       { title: 'REKT', path: '/web3/rekt', inside_page: false },
-      { title: 'REKT', path: '/web3/rekt' },
     ],
   },
   {

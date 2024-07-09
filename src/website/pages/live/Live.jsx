@@ -6,23 +6,35 @@ import { FooterCreds } from '../../components/credsFooter/FooterCreds';
 import { MobMenu } from '../../components/mobileMenu/MobMenu';
 import { Navbar } from '../../components/navbar/Navbar';
 import * as liveApi from '../../../api/live';
-import clipleft from '../../assets/images/clipleft.svg';
-import clipright from '../../assets/images/clipright.svg';
-import upperDots from '../../assets/images/image 16.svg';
-import downDots from '../../assets/images/image 18.svg';
 import mobMenu from '../../assets/images/sidebar-menu-mob.svg';
+import wallet from "../../assets/images/wallet connect.svg";
+import refresh from "../../assets/images/Linear/Arrows/Refresh.svg";
+import {getAccount, signData} from "../../../utils/MetaMask";
+import * as authApi from "../../../api/auth";
+import elipse from '../../assets/images/Ellipse 102.svg'
+import rec from '../../assets/images/Ellipse 97.svg'
+import keys from '../../assets/images/keys.svg';
+import accessImg from '../../assets/images/business-products-cash-user-man-message-49.svg'
 
 export const Live = () => {
+  const isMobile = window.innerWidth <= 430;
   const location = useLocation();
   const [initialActive, setInitialActive] = useState(location.pathname);
-  const isMobile = window.innerWidth <= 430;
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [isGotAccess, setIsGotAccess] = useState(null);
   const [liveUrl, setLiveUrl] = useState(null);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
+
+  const login = async () => {
+    const account = await getAccount();
+    const data = (await authApi.getData(account)).data.data;
+    const sign = await signData(data);
+    await authApi.login(account, sign);
+  }
 
   useEffect(() => {
     setInitialActive(location.pathname);
@@ -32,6 +44,7 @@ export const Live = () => {
     liveApi.status().then((res) => {
       console.log("live status", res.data.is_active, res.data.access_for_nft);
       setIsActive(res.data.is_active);
+      setIsGotAccess(res.data.access_for_nft)
       liveApi.check().then((res) => {
         console.log("check", res.data.live_url);
         setLiveUrl(res.data.live_url);
@@ -41,47 +54,147 @@ export const Live = () => {
     });
   }, []);
 
+  console.log(liveUrl , 'url')
+
+  const renderContent = () => {
+    if (!isActive) {
+      return null;
+    }
+
+    switch (true) {
+      case !!liveUrl:
+        return (
+          <iframe
+            width="100%"
+            height="100%"
+            src={liveUrl}
+            title="NEO Live Stream"
+            frameBorder="0"
+            className="video-frame"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen>
+            <div className="live-mark">Live<img alt="" src={rec}/></div>
+          </iframe>
+        );
+
+      case isGotAccess:
+        return (
+          <div className="live-stream-box">
+            <div className="have-access">
+              <img alt="" src={accessImg}/>
+              <h3>Looks Like You Have
+                No NeoFilms NFTs Acquired</h3>
+              <p>Purchase Any NeoFilms NFT to Gain Access to NeoFilms Live</p>
+            </div>
+          </div>
+        );
+
+      default:
+        return (
+          <div className="live-stream-box">
+            <div className="have_not-access">
+              <img alt="" src={keys}/>
+              <h3>NeoFilms Live is Available
+                Only for Our NFTs Holders</h3>
+              <p>Please authorize with WalletConnect to gain access</p>
+            </div>
+          </div>
+        );
+    }
+  };
+
   return (
-    <div className={'live-wrapper'}>
+    <div className='live-wrapper'>
       <div className="inner-content-live">
-        <div className={'live-inner-content'}>
-          <img src={upperDots} alt={'up-dots'} className={'live-up-dots'}/>
+        <div className='live-inner-content'>
           <Header/>
           {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen}/>}
-          <img src={downDots} alt={'up-dots'} className={'live-down-dots'}/>
         </div>
         {
-          isActive ? (
-            liveUrl ? (
-              <div className="live-stream-box">
-                <iframe
-                  width="1501"
-                  height="776"
-                  src={liveUrl}
-                  title="NEO Live Stream"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen>
-                </iframe>
+          isMobile ?
+            <div className="mob-title-box">
+              <div className='balance-text-mob'>
+                <span>Your Balance:</span>
+                <div className={'balance-count'}>0.00 NEOBux</div>
+                <button className={'reload-btn'}>
+                  <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'}/>
+                </button>
               </div>
-            ) : (
-              <div className="live-stream-box">
-                <h2 className="live-stream-title">Live stream is currently offline</h2>
+              <div className="live-title">
+                <h2>Neofilms</h2>
+                <h2>live <img className="elipse" alt="" src={elipse}/></h2>
               </div>
-            )
-          ) : (
-            <div className="live-stream-box">
-              <h2 className="live-stream-title">Live stream is currently offline</h2>
+              <button
+                className={'button-balance'}
+                onClick={login}
+              >
+                <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'}/>
+                <span>WalletConnect</span>
+              </button>
             </div>
-          )
+            :
+            <div className="live-title-box">
+              <div className="live-title">
+                <h2>Neofilms</h2>
+                <h2>live <img className="elipse" alt="" src={elipse}/></h2>
+              </div>
+              <div className={'title-box'}>
+                <div className={'balance-box'}>
+                  <button
+                    className={'button-balance'}
+                    onClick={login}
+                  >
+                    <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'}/>
+                    <span>WalletConnect</span>
+                  </button>
+                  <div className={'balance-text'}>
+                    <span>Your Balance:</span>
+                    <div className={'balance-count'}>0.00 NEOBux</div>
+                    <button className={'reload-btn'}>
+                      <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'}/>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
         }
-        <div className="live-title-box">
-          <h2 className="live-title">Livestream Media Hub</h2>
-          <div className="live-soon">
-            <h4 className="soon-span">coming soon</h4>
-          </div>
-        </div>
+        {renderContent()}
+
+        {/*{*/}
+        {/*  isActive && (*/}
+        {/*    liveUrl ? (*/}
+        {/*      <iframe*/}
+        {/*        width="100%"*/}
+        {/*        height="100%"*/}
+        {/*        src={`${liveUrl}`}*/}
+        {/*        title="NEO Live Stream"*/}
+        {/*        frameBorder="0"*/}
+        {/*        className="video-frame"*/}
+        {/*        referrerPolicy="strict-origin-when-cross-origin"*/}
+        {/*        allowFullScreen>*/}
+        {/*        <div className="live-mark">Live<img alt="" src={rec}/></div>*/}
+        {/*      </iframe>*/}
+        {/*    ) : (*/}
+        {/*      <div className="live-stream-box">*/}
+        {/*        {*/}
+        {/*          isGotAccess ?*/}
+        {/*            <div className="have-access">*/}
+        {/*              <img alt="" src={accessImg}/>*/}
+        {/*              <h3>Looks Like You Have*/}
+        {/*                No NeoFilms NFTs Acquired</h3>*/}
+        {/*              <p>Purchase Any NeoFilms NFT to Gain Access to NeoFilms Live</p>*/}
+        {/*            </div> :*/}
+        {/*            <div className="have_not-access">*/}
+        {/*              <img alt="" src={keys}/>*/}
+        {/*              <h3>NeoFilms Live is Available*/}
+        {/*                Only for Our NFTs Holders</h3>*/}
+        {/*              <p>Please autorize with WalletConnect to gain access</p>*/}
+        {/*            </div>*/}
+        {/*        }*/}
+        {/*      </div>*/}
+        {/*    )*/}
+        {/*  )*/}
+        {/*}*/}
       </div>
       {isMobile ? (
         <img
