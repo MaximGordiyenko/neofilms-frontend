@@ -1,6 +1,6 @@
 import topFrame from '../../../assets/images/top-frame-map.svg';
 import mapImg from '../../../assets/images/map.jpg';
-import mapMob from '../../../assets/images/mapMObile.png'
+import mapMob from '../../../assets/images/mapMob.jpg'
 import botLine from '../../../assets/images/footer-hp-placeholder.svg';
 import './style.scss';
 import { Button } from '../../../components/button/Button';
@@ -21,6 +21,15 @@ export const BodyContact = () => {
         <div className={'map-box'}>
           {!isMobile && <img className={'top-line'} src={topFrame} alt={'top-map-frame'} />}
           <img src={isMobile ? mapMob : mapImg} alt={'contact-map'} className={'contact-map'} />
+          {
+            !isMobile &&
+            <div className="address">
+              <span>our stores</span>
+              <h3>Visit Our New Store <br/>
+                in New York</h3>
+              <p>294 Bay Meadows Ave., Bay Shore, NY 11706</p>
+            </div>
+          }
         </div>
         {!isMobile && <img src={botLine} className={'bottom-line'} />}
       </div>
