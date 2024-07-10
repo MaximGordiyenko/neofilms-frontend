@@ -26,7 +26,10 @@ export const Live = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isGotAccess, setIsGotAccess] = useState(null);
   const [livesInfo, setLivesInfo] = useState(null);
-
+  console.log(isAuthorized, 'auth')
+  console.log(isActive, 'is active')
+  console.log(isGotAccess, 'is active')
+  console.log(livesInfo, 'is active')
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
@@ -70,10 +73,6 @@ export const Live = () => {
   }, []);
 
   const renderContent = () => {
-    if (!isActive) {
-      return null;
-    }
-
     if (!isAuthorized) {
       return (
         <div className="live-stream-box">
@@ -103,7 +102,6 @@ export const Live = () => {
     if (!livesInfo) {
       return null;
     }
-
     return (
       <>
         {livesInfo.map((live) => (
