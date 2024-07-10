@@ -75,6 +75,7 @@ export const Live = () => {
   const renderContent = () => {
     if (!isAuthorized) {
       return (
+
         <div className="live-stream-box">
           <div className="have_not-access">
             <img alt="" src={keys}/>
