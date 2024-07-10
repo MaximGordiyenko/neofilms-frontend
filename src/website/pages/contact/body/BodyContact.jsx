@@ -1,6 +1,6 @@
 import topFrame from '../../../assets/images/top-frame-map.svg';
 import mapImg from '../../../assets/images/map.jpg';
-import mapMob from '../../../assets/images/mapMObile.png'
+import mapMob from '../../../assets/images/mapMob.jpg'
 import botLine from '../../../assets/images/footer-hp-placeholder.svg';
 import './style.scss';
 import { Button } from '../../../components/button/Button';
