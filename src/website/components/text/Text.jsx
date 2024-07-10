@@ -10,18 +10,3 @@ export const Text = ({ children, className, style, as: Component = 'p', opacity,
         </Component>
     );
 };
-
-Text.propTypes = {
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    as: PropTypes.elementType
-};
-
-Text.defaultProps = {
-    className: '',
-    style: {},
-    as: 'p',
-    opacity: 1,
-    textTransform: 'none'
-};

@@ -55,7 +55,6 @@ export const App = () => {
   
   const navigate = useNavigate();
 
-  const { slides } = useSelector((state) => state?.slide);
   const { movies } = useSelector((state) => state?.movie);
   const { projects } = useSelector((state) => state?.project);
   const { calendars } = useSelector((state) => state?.calendar);
