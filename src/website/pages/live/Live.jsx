@@ -21,9 +21,11 @@ export const Live = () => {
   const location = useLocation();
   const [initialActive, setInitialActive] = useState(location.pathname);
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
+  
   const [isActive, setIsActive] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const [isGotAccess, setIsGotAccess] = useState(null);
-  const [liveUrl, setLiveUrl] = useState(null);
+  const [livesInfo, setLivesInfo] = useState(null);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
@@ -44,30 +46,71 @@ export const Live = () => {
     liveApi.status().then((res) => {
       console.log("live status", res.data.is_active, res.data.access_for_nft);
       setIsActive(res.data.is_active);
-      setIsGotAccess(res.data.access_for_nft)
-      liveApi.check().then((res) => {
-        console.log("check", res.data.live_url);
-        setLiveUrl(res.data.live_url);
+      authApi.check().then((res) => {
+        console.log("auth check", res.data);
+        setIsAuthorized(res.data);
+        liveApi.check().then((res) => {
+          console.log("live check", res.data);
+          setIsGotAccess(res.data);
+          liveApi.info().then((res) => {
+            console.log("live info:", res.data);
+            setLivesInfo(res.data);
+          }).catch((err) => {
+            console.error("Error fetching live info", err);
+          });
+        }).catch((err) => {
+          console.error("Error fetching live status", err);
+        });
+      }).catch((err) => {
+        console.error("Error fetching auth status", err);
       });
     }).catch((err) => {
       console.error("Error fetching live status", err);
     });
   }, []);
 
-  console.log(liveUrl , 'url')
-
   const renderContent = () => {
     if (!isActive) {
       return null;
     }
 
-    switch (true) {
-      case !!liveUrl:
-        return (
+    if (!isAuthorized) {
+      return (
+        <div className="live-stream-box">
+          <div className="have_not-access">
+            <img alt="" src={keys}/>
+            <h3>NeoFilms Live is Available
+              Only for Our NFTs Holders</h3>
+            <p>Please authorize with WalletConnect to gain access</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (!isGotAccess) {
+      return (
+        <div className="live-stream-box">
+          <div className="have-access">
+            <img alt="" src={accessImg}/>
+            <h3>Looks Like You Have
+              No NeoFilms NFTs Acquired</h3>
+            <p>Purchase Any NeoFilms NFT to Gain Access to NeoFilms Live</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (!livesInfo) {
+      return null;
+    }
+
+    return (
+      <>
+        {livesInfo.map((live) => (
           <iframe
             width="100%"
             height="100%"
-            src={liveUrl}
+            src={live.url}
             title="NEO Live Stream"
             frameBorder="0"
             className="video-frame"
@@ -75,32 +118,9 @@ export const Live = () => {
             allowFullScreen>
             <div className="live-mark">Live<img alt="" src={rec}/></div>
           </iframe>
-        );
-
-      case isGotAccess:
-        return (
-          <div className="live-stream-box">
-            <div className="have-access">
-              <img alt="" src={accessImg}/>
-              <h3>Looks Like You Have
-                No NeoFilms NFTs Acquired</h3>
-              <p>Purchase Any NeoFilms NFT to Gain Access to NeoFilms Live</p>
-            </div>
-          </div>
-        );
-
-      default:
-        return (
-          <div className="live-stream-box">
-            <div className="have_not-access">
-              <img alt="" src={keys}/>
-              <h3>NeoFilms Live is Available
-                Only for Our NFTs Holders</h3>
-              <p>Please authorize with WalletConnect to gain access</p>
-            </div>
-          </div>
-        );
-    }
+        ))}
+      </>
+    );
   };
 
   return (
