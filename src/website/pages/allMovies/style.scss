@@ -5,11 +5,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: url("../../assets/images/image 37.jpg") bottom no-repeat;
+  background-size: contain;
   .upper-movies-section{
-    background: url("../../assets/images/livestreams-bg.jpg") center no-repeat;
+    background: url("../../assets/images/image 60.png") bottom no-repeat;
     background-size: cover;
-    padding: 50px 1vw;
     width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    .header{
+      padding: 0;
+    }
     .all-movies-title{
       display: flex;
       h2{

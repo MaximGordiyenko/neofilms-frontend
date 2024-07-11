@@ -1,15 +1,15 @@
-import Header from '../../components/header/Header';
-import './style.scss';
-import film from '../../assets/images/interface-essential-paginate-filter-camera-10.svg';
-import { FooterCreds } from '../../components/credsFooter/FooterCreds';
-import bg from '../../assets/images/image 37.jpg';
-import { FilledButton } from '../../components/button/FilledButton';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import mobLine from '../../assets/images/cast-footer-geometry.png';
 import { useMediaQuery } from '@mui/material';
-import Spinner from "../../components/loader/Spinner";
+import Header from '../../components/header/Header';
+import Spinner from '../../components/loader/Spinner';
+import { FooterCreds } from '../../components/credsFooter/FooterCreds';
+import { FilledButton } from '../../components/button/FilledButton';
+import film from '../../assets/images/interface-essential-paginate-filter-camera-10.svg';
+import bg from '../../assets/images/image 37.jpg';
+import mobLine from '../../assets/images/cast-footer-geometry.png';
+import './style.scss';
+import {getMovies, getPoster} from "../../../api/movie";
 
 export const AllMovies = () => {
     const [films, setFilms] = useState([]);
@@ -23,13 +23,12 @@ export const AllMovies = () => {
         const fetchMovies = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get('http://57.151.104.191:8888/api/pages/movies');
+                const response = await getMovies();
                 const movies = response.data;
 
-                const moviesWithPosters = await Promise.all(movies.map(async (movie) => {
-                    const posterResponse = await axios.get(`http://57.151.104.191:8888/api/pages/movie/${movie.id}/poster`, { responseType: 'blob' });
-                    const posterUrl = URL.createObjectURL(posterResponse.data);
-                    return { ...movie, posterUrl };
+                const moviesWithPosters = movies.map((movie) => ({
+                    ...movie,
+                    posterUrl: getPoster(movie.id),
                 }));
 
                 setFilms(moviesWithPosters);
@@ -48,36 +47,35 @@ export const AllMovies = () => {
         setCurrentPage(currentPage + 1);
     };
 
-
     return (
-      <div className={'all-movies-wrapper'}>
-          <div className={'upper-movies-section'}>
+      <div className='all-movies-wrapper'>
+          <div className='upper-movies-section'>
               <Header />
-              <div className={'all-movies-title'}>
+              <div className='all-movies-title'>
                   <h2>Original Films, Series & More</h2>
-                  <img src={film} alt={'all-movies film'} />
+                  <img src={film} alt='all-movies film' />
               </div>
           </div>
-          <div className={'films-cards-am'}>
+          <div className='films-cards-am'>
               {loading ? (
                 <Spinner />
               ) : (
-                films.map((film) => (
-                  <Link to={`/film-details/${film.id}`} key={film.id} className={'link-to-details-am'}>
-                      <div className={'img-am-box'} style={{ backgroundColor: '#000' /* Replace with actual background color if available */ }}>
-                          <div className={'poster-am-title'}>
-                              <span className={'all-m-title-card'}>{film.title}</span>
-                              <span className={'date-all-movies'}>{new Date(film.release_date).toLocaleDateString()}</span>
+                films.slice(0, currentPage * cardsPerPage).map((film) => (
+                  <Link to={`/film-details/${film.id}`} key={film.id} className='link-to-details-am'>
+                      <div className='img-am-box' style={{ backgroundColor: '#000' }}>
+                          <div className='poster-am-title'>
+                              <span className='all-m-title-card'>{film.title}</span>
+                              <span className='date-all-movies'>{new Date(film.release_date).toLocaleDateString()}</span>
                           </div>
-                          <img src={film.posterUrl} className={'am-poster-img'} alt={'am-poster'} />
+                          <img src={film.posterUrl} className='am-poster-img' alt='am-poster' />
                       </div>
                   </Link>
                 ))
               )}
-              {isMobile && <img src={mobLine} alt="" className="mob-line" />}
+              {isMobile && <img src={mobLine} alt='' className='mob-line' />}
           </div>
-          <div className={'lower-bg-am-box'}>
-              <img className={'bg-wrapper-am'} src={bg} alt={'bg-wrapper-am'} />
+          <div className='lower-bg-am-box'>
+              <img className='bg-wrapper-am' src={bg} alt='bg-wrapper-am' />
           </div>
           <FilledButton btnText={'show older'} onClick={handleShowOlderClick} />
           <FooterCreds />
