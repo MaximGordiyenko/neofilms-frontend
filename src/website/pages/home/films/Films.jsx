@@ -1,6 +1,6 @@
 import './style.scss';
-import fAward from '../../../assets/images/fAward.svg';
-import sAward from '../../../assets/images/sAward.svg';
+import fAward from '../../../assets/images/f-award.png';
+import sAward from '../../../assets/images/reward-sec.png';
 import { FILM_CARDS } from '../../../constants/filmsConstants';
 import FilmCards from './FilmsCards';
 import { Button } from '../../../components/button/Button';
@@ -35,8 +35,8 @@ export const Films = () => {
         International Film Festival, and many more.
       </p>
       <div className={'rewards'}>
-        <img src={fAward} alt={'fAward-films'} />
-        <img src={sAward} alt={'sAward-films'} />
+        <img src={fAward} alt={'fAward-films'} className="f-award"/>
+        <img src={sAward} alt={'sAward-films'} className="s-award"/>
       </div>
       {status === 'loading' ? (
         <Spinner />

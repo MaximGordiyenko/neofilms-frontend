@@ -5,7 +5,7 @@ import { DetailsBody } from './body/DetailsBody';
 import { CustomModal } from '../../components/modal/Modal';
 import { Input } from '../../components/input/Input';
 import './style.css';
-import closeIcon from '../../assets/images/xmarkmodal.png';
+import closeIcon from '../../assets/images/cross.svg';
 import Icon from '../../assets/images/IMDb.png';
 import { Button } from '../../components/button/Button';
 import dots from '../../assets/images/thripleDots.svg';
@@ -15,6 +15,7 @@ import axios from "axios";
 import {FooterCreds} from "../../components/credsFooter/FooterCreds";
 import {Flex} from "../../components/customDiv/Flex";
 import {ClipInput} from "../../components/input/ClipInput";
+import {getCasting} from "../../../api/casting";
 
 export const CastFilmPage = () => {
   const { casting_id } = useParams();
@@ -39,7 +40,7 @@ export const CastFilmPage = () => {
     const fetchCastingDetails = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://57.151.104.191:8888/api/pages/casting/${casting_id}`);
+        const response = await getCasting(casting_id);
         setCastingData(response.data);
         console.log(response.data);
       } catch (error) {
@@ -49,7 +50,7 @@ export const CastFilmPage = () => {
       }
     };
     fetchCastingDetails();
-  }, [casting_id]);
+  }, []);
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 430);
 
@@ -119,7 +120,7 @@ export const CastFilmPage = () => {
       formData.append(key, _formData[key]);
     }
 
-    return await axios.post(`http://57.151.104.191:8888/api/pages/casting/${castingId}/send-resume`, formData, {
+    return await axios.post(`/api/pages/casting/${castingId}/send-resume`, formData, {
       withCredentials: true,
     });
   }

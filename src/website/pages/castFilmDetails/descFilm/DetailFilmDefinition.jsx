@@ -3,6 +3,7 @@ import './style.css';
 import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {getCasting} from "../../../../api/casting";
 export const DetailFilmDefinition = () => {
   const { casting_id } = useParams();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -22,7 +23,7 @@ export const DetailFilmDefinition = () => {
     const fetchCastingDetail = async () => {
       try {
         const [detailsResponse, imageResponse] = await axios.all([
-          axios.get(`http://57.151.104.191:8888/api/pages/casting/${casting_id}`)
+          getCasting(casting_id)
         ])
         if (isMounted) {
           setCasting(detailsResponse.data);

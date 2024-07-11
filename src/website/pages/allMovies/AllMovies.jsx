@@ -19,6 +19,7 @@ export const AllMovies = () => {
 
     const isMobile = useMediaQuery('(max-width: 430px)');
 
+
     useEffect(() => {
         const fetchMovies = async () => {
             try {

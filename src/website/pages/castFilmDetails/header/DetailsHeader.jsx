@@ -6,8 +6,9 @@ import Icon from '../../../assets/images/IMDb.png';
 import menuMobile from '../../../assets/images/burger-menu.svg';
 import { Navbar } from '../../../components/navbar/Navbar';
 import { MobMenu } from '../../../components/mobileMenu/MobMenu';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
+import { getCasting, getImage } from "../../../../api/casting";
 
 export const CastDetHeader = () => {
   const isMobile = window.innerWidth <= 430;
@@ -16,7 +17,7 @@ export const CastDetHeader = () => {
   const [casting, setCasting] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [getImage, setImage] = useState(null);
+  const [castingImage, setImage] = useState(null);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
@@ -34,11 +35,10 @@ export const CastDetHeader = () => {
     const fetchCastingDetail = async () => {
       try {
         const [detailsResponse, imageResponse] = await axios.all([
-          axios.get(`http://57.151.104.191:8888/api/pages/casting/${casting_id}`),
-          axios.get(`http://57.151.104.191:8888/api/pages/casting/${casting_id}/image`, {
-            responseType: 'blob'
-          })
-        ])
+          getCasting(casting_id),
+          getImage(casting_id)
+        ]);
+
         if (isMounted) {
           setCasting(detailsResponse.data);
           const imageBlob = imageResponse.data;
@@ -48,8 +48,8 @@ export const CastDetHeader = () => {
       } catch (error) {
         if (isMounted) {
           setError('Failed to fetch film details or poster');
-        }            }
-      finally {
+        }
+      } finally {
         if (isMounted) {
           setLoading(false);
         }
@@ -69,13 +69,14 @@ export const CastDetHeader = () => {
   if (!casting) {
     return <p>No details available.</p>;
   }
+
   return (
     <div className="detail-header">
       <Header />
       <div
         className="background-header"
         style={{
-          backgroundImage: `url(${getImage})`,
+          backgroundImage: `url(${castingImage})`,
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
@@ -91,12 +92,12 @@ export const CastDetHeader = () => {
         </div>
       </div>
       {isMobile ? (
-        <div className={'menu-mob-wrapper'}>
+        <div className="menu-mob-wrapper">
           <img
             src={menuMobile}
-            className={'sidebar-mob-btn'}
+            className="sidebar-mob-btn"
             onClick={handleOpenMobMenu}
-            alt={'menuMob-hp'}
+            alt="menuMob-hp"
           />
         </div>
       ) : (
