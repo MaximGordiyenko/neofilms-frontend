@@ -15,7 +15,7 @@ import axios from "axios";
 import {FooterCreds} from "../../components/credsFooter/FooterCreds";
 import {Flex} from "../../components/customDiv/Flex";
 import {ClipInput} from "../../components/input/ClipInput";
-import {getCasting} from "../../../api/casting";
+import { getCasting, sendResume } from "../../../api/casting";
 
 export const CastFilmPage = () => {
   const { casting_id } = useParams();
@@ -114,16 +114,7 @@ export const CastFilmPage = () => {
       [name]: value,
     });
   };
-  async function sendResume(castingId, _formData) {
-    const formData = new FormData();
-    for (const key in _formData) {
-      formData.append(key, _formData[key]);
-    }
 
-    return await axios.post(`/api/pages/casting/${castingId}/send-resume`, formData, {
-      withCredentials: true,
-    });
-  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsError(null);
