@@ -69,10 +69,10 @@ export const DetailsBody = ({ onApplyClick }) => {
   return (
     <div className="detail-body">
       <div className="body-film-def">
-        <DetailFilmDefinition />
+        <DetailFilmDefinition/>
       </div>
+      <img className="body-bg" src={bodyBg} alt=""/>
       <p className={'detail-desc'}>{casting.subtitle && casting.subtitle}</p>
-      <img className="body-bg" src={bodyBg} alt="" />
       <div className="cards-wrapper">
         <div className="detail-cards">
           <ArtistFilmCard

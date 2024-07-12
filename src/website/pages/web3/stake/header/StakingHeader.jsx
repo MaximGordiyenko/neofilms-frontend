@@ -24,7 +24,6 @@ export const HeaderStaking = () => {
       await authApi.login(account, sign);
   }
 
-
   return (
     <div className={'staking-header-wrapper'}>
       <Header />

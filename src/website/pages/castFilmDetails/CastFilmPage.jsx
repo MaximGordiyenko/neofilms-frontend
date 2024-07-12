@@ -114,7 +114,16 @@ export const CastFilmPage = () => {
       [name]: value,
     });
   };
+  async function sendResume(castingId, _formData) {
+    const formData = new FormData();
+    for (const key in _formData) {
+      formData.append(key, _formData[key]);
+    }
 
+    return await axios.post(`/api/pages/casting/${castingId}/send-resume`, formData, {
+      withCredentials: true,
+    });
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsError(null);
