@@ -8,11 +8,11 @@ import emailjs from '@emailjs/browser';
 import bgBorder from '../../assets/images/buttonSvg.svg';
 import successImg from '../../assets/images/success.svg';
 
-const Form = () => {
+const ContactForm = () => {
   const [userName, setUserName] = useState({ value: '', error: '' });
-  const [userDiscord, setUserDiscord] = useState({ value: '', error: '' });
-  const [userBestMovie, setUserBestMovie] = useState({ value: '', error: '' });
-  const [selectedBudget, setSelectedBudget] = useState('50-100k');
+  const [userEmail, setUserEmail] = useState({ value: '', error: '' });
+  const [userCompany, setUserCompany] = useState({ value: '', error: '' });
+  const [userPhone, setUserPhone] = useState({ value: '', error: '' });
   const [userConcept, setUserConcept] = useState({ value: '', error: '' });
   const [isBtnPressed, setIsBtnPressed] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
@@ -35,16 +35,6 @@ const Form = () => {
 
   const form = useRef();
 
-  const options = [
-    { value: '50-100k', label: '50-100k' },
-    { value: '150-250k', label: '150-250k' },
-    { value: '250-500k', label: '250-500k' },
-    { value: '500+k', label: '500+k' },
-  ];
-  const handleDropdownChange = (selectedValue) => {
-    setSelectedBudget(selectedValue); // Step 2
-  };
-
   const handleBtnPressed = () => {
     setIsBtnPressed(true);
   };
@@ -54,21 +44,25 @@ const Form = () => {
     let isError = false;
     const userCredentials = {
       username: userName.value,
-      discordName: userDiscord.value,
-      userMovie: userBestMovie.value,
+      userEmail: userEmail.value,
+      userCompany: userCompany.value,
       concept: userConcept.value,
-      budget: selectedBudget,
+      phone: userPhone.value,
     };
     if (!userCredentials.username) {
       setUserName({ value: '', error: 'Name is require' });
       isError = true;
     }
-    if (!userCredentials.discordName) {
-      setUserDiscord({ value: '', error: 'Please, enter a discord' });
+    if (!userCredentials.userEmail) {
+      setUserEmail({ value: '', error: 'Please, enter a email' });
       isError = true;
     }
-    if (!userCredentials.userMovie) {
-      setUserBestMovie({ value: '', error: 'Tell us your favourite movie' });
+    if (!userCredentials.userCompany) {
+      setUserCompany({ value: '', error: 'Tell us your company' });
+      isError = true;
+    }
+    if (!userCredentials.phone) {
+      setUserPhone({ value: '', error: 'Tell us your phone number' });
       isError = true;
     }
     if (!userCredentials.concept) {
@@ -77,10 +71,10 @@ const Form = () => {
     }
     if (!isError) {
       setUserName({ value: '', error: '' });
-      setUserDiscord({ value: '', error: '' });
-      setUserBestMovie({ value: '', error: '' });
+      setUserEmail({ value: '', error: '' });
+      setUserCompany({ value: '', error: '' });
       setUserConcept({ value: '', error: '' });
-      setSelectedBudget(selectedBudget);
+      setUserPhone({value: '', error: ''})
       try {
         console.log('The email is valid');
         emailjs
@@ -99,21 +93,21 @@ const Form = () => {
     setUserName({ value: e.target.value, error: '' });
     setIsFilled(true);
   };
-  const handleChangeDiscord = (e) => {
-    setUserDiscord({ value: e.target.value, error: '' });
+  const handleChangeEmail = (e) => {
+    setUserEmail({ value: e.target.value, error: '' });
     setIsFilled(true);
   };
-  const handleChangeMovie = (e) => {
-    setUserBestMovie({ value: e.target.value, error: '' });
+  const handleCompany = (e) => {
+    setUserCompany({ value: e.target.value, error: '' });
     setIsFilled(true);
   };
-  const handleChangeConcept = (e) => {
-    setUserConcept({ value: e.target.value, error: '' });
+  const handleChangePhone = (e) => {
+    setUserPhone({ value: e.target.value, error: '' });
     setIsFilled(true);
   };
   console.log(isBtnPressed, 'isBtnPressed');
   return (
-    <form className="form-container" ref={form} onSubmit={handleSubmit}>
+    <form className="contact-form-container" ref={form} onSubmit={handleSubmit}>
       <div className={'inputs-container'}>
         <div className={'name-box'}>
           <label htmlFor="user_name">How should we call you?</label>
@@ -132,61 +126,64 @@ const Form = () => {
           {userName.error && <span className="error-message">{userName.error}</span>}
         </div>
         <div className={'discord-address'}>
-          <label htmlFor="input2">Your Discord?</label>
+          <label htmlFor="input2">Your Email</label>
           <div className={'custom-input-box'}>
             <img src={clipleft} alt={'inp-clip-l'} />
             <input
-              placeholder={'@davethecreator'}
+              placeholder={'dave@mail.com'}
               type="text"
               id="input2"
               name="discord_name"
-              value={userDiscord.value}
-              onChange={handleChangeDiscord}
+              value={userEmail.value}
+              onChange={handleChangeEmail}
             />
             <img src={clipright} alt={'inp-clip-r'} />
           </div>
-          {userDiscord.error && <span className="error-message">{userDiscord.error}</span>}
+          {userEmail.error && <span className="error-message">{userEmail.error}</span>}
         </div>
         <div className={'project-name'}>
-          <label htmlFor="best_movie">Project name</label>
+          <label htmlFor="best_movie">Your phone number</label>
           <div className={'custom-input-box'}>
             <img src={clipleft} alt={'inp-clip-l'} />
             <input
-              placeholder={'[The best movie]'}
+              placeholder={'+1 (555) 555 35 35'}
               type="text"
               id="input3"
               name="best_movie"
-              onChange={handleChangeMovie}
-              value={userBestMovie.value}
+              onChange={handleChangePhone}
+              value={userPhone.value}
             />
             <img src={clipright} alt={'inp-clip-r'} />
           </div>
-          {userBestMovie.error && <span className="error-message">{userBestMovie.error}</span>}
+          {userPhone.error && <span className="error-message">{userPhone.error}</span>}
         </div>
         <div className={'budget-box'}>
-          <label htmlFor={'custom-dropdown'}>Budget</label>
-          <div className={'btn-wrapper'}>
+          <label htmlFor="best_movie">Your company</label>
+          <div className={'custom-input-box'}>
             <img src={clipleft} alt={'inp-clip-l'} />
-            <CustomDropdown
-              name="budget"
-              options={options}
-              value={selectedBudget}
-              onChange={handleDropdownChange}
+            <input
+              placeholder={'Davebusiness'}
+              type="text"
+              id="input3"
+              name="best_movie"
+              onChange={handleCompany}
+              value={userCompany.value}
             />
             <img src={clipright} alt={'inp-clip-r'} />
           </div>
+          {userCompany.error && <span className="error-message">{userCompany.error}</span>}
         </div>
       </div>
       <label htmlFor="textarea" className={'textarea-label'}>
-        Your concept
+        So... Whats up?
       </label>
       <textarea
         className={'textarea-form'}
-        placeholder={'It all starts far far away...'}
+        placeholder={'Hello'}
         id="textarea"
         name="concept"
         value={userConcept.value}
-        onChange={handleChangeConcept}
+        onChange={handleChangePhone}
         // value={formData.concept}
         // onChange={handleChange}
       ></textarea>
@@ -215,4 +212,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default ContactForm;

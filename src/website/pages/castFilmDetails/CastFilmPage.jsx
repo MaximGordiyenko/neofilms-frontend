@@ -3,10 +3,8 @@ import { useParams } from 'react-router-dom';
 import { CastDetHeader } from './header/DetailsHeader';
 import { DetailsBody } from './body/DetailsBody';
 import { CustomModal } from '../../components/modal/Modal';
-import { Input } from '../../components/input/Input';
 import './style.css';
 import closeIcon from '../../assets/images/cross.svg';
-import Icon from '../../assets/images/IMDb.png';
 import { Button } from '../../components/button/Button';
 import dots from '../../assets/images/thripleDots.svg';
 import successImg from '../../assets/images/success.svg';
@@ -148,6 +146,7 @@ export const CastFilmPage = () => {
     } finally {
       setIsSubmit(false);
     }
+    console.log(isSubmit, 'is submitted?')
   };
 
   console.log(isError)

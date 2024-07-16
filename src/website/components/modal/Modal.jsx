@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './style.css';
 
 export const CustomModal = ({ isOpen, onClose, title, content }) => {
