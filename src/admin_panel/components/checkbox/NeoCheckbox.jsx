@@ -2,7 +2,7 @@ import { FormControlLabel, Checkbox, styled } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 
-export const NeoCheckbox = ({ name, value = false, label, control }) => {
+export const NeoCheckbox = ({ name, value, label, control }) => {
   const [data, setData] = useState(value);
   
   useEffect(() => {

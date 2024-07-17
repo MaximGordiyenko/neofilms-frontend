@@ -50,11 +50,11 @@ export const FileUploader = ({ multiple, fileUpload, setFileUpload }) => {
         <Container {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
           <UploadFile sx={{ color: blue[300] }} fontSize="small"/>
           <input {...getInputProps()} />
-          <Typography>
-            <LinkCSS underline="hover" onClick={open}>Click to upload</LinkCSS>
+          <Typography color="#000">
+            <LinkCSS underline="hover" onClick={open}>Click to upload </LinkCSS>
             or drag and drop
           </Typography>
-          <Typography>MP4, PNG, or JPG (max. 3MB)</Typography>
+          <Typography color="#757575">MP4, PNG, or JPG (max. 3MB)</Typography>
         </Container>
       ) : (
         <aside>{files}</aside>

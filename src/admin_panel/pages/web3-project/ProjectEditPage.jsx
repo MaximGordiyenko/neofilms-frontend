@@ -20,11 +20,22 @@ import { ROUTE } from '../../../constants.js';
 
 export const ProjectEditPage = () => {
   const [imageUpload, setImageUpload] = useState([{ name: 'mock.png', size: 0 }]);
+  const [projectData, setProjectData] = useState({
+    name: '',
+    description: '',
+    completion: 0,
+  });
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
   const { projectId } = useParams();
+  
+  useEffect(() => {
+    dispatch(getProject(projectId)).then((project) => {
+      const { name, description, completion } = project.payload;
+      setProjectData({ name, description, completion });
+    });
+  }, [dispatch, projectId]);
   
   useEffect(() => {
     dispatch(getProject(projectId));
@@ -33,24 +44,30 @@ export const ProjectEditPage = () => {
   const { name, description, completion } = useSelector((state) => state?.project?.project);
   
   const methods = useForm({
-    mode: 'onSubmit'
-    // resolver: yupResolver(AccountSchema),
+    mode: 'onSubmit',
+    defaultValues: projectData,
   });
   
   const { control, handleSubmit, formState: { errors } } = methods;
   
-  const onInputChange = (field, value) => dispatch(updateField({ field, value }));
+  const onInputChange = (field, value) => {
+    setProjectData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+    dispatch(updateField({ field, value }));
+  };
   
   const onSubmit = (data) => {
-    const projectData = {
+    const updatedProjectData = {
       image: imageUpload[0],
-      name: data.name,
-      description: data.description,
-      completion: data.completion
+      name: data.name || projectData.name,
+      description: data.description || projectData.description,
+      completion: data.completion || projectData.completion
     };
-    dispatch(updateProject({ id: projectId, data: projectData }));
+    dispatch(updateProject({ id: projectId, data: updatedProjectData }));
     navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
-    toast.success(`Project "${name}" was update successfuly`);
+    toast.success(`Project "${updatedProjectData.name}" was updated successfully`);
   };
   
   return (

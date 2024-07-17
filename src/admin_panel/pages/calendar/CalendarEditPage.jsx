@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -17,32 +17,53 @@ import { InputTextAutosize } from '../../components/inputs/InputTextAutosize.jsx
 import { updateField } from '../../store/reducers/calendar.reducer.js';
 import { getCalendar, deleteCalendar, updateCalendar } from '../../store/thunk/calendar.api.js';
 import { toast } from 'react-toastify';
+import moment from 'moment/moment';
 
 export const CalendarEditPage = () => {
+  const [eventData, setEventData] = useState({
+    name: '',
+    description: '',
+    date: null,
+  });
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
   const { calendarId } = useParams();
+  
+  useEffect(() => {
+    dispatch(getCalendar(calendarId)).then((event) => {
+      const { name, description, date } = event.payload;
+      setEventData({ name, description, date: date ? moment(date) : null });
+    });
+  }, [dispatch, calendarId]);
   
   useEffect(() => {
     dispatch(getCalendar(calendarId));
   }, [dispatch, calendarId]);
   
-  const { name, description, date } = useSelector((state) => state?.calendar?.calendar);
-  
   const methods = useForm({
     mode: 'onSubmit'
-    // resolver: yupResolver(AccountSchema),
   });
   
   const { control, handleSubmit, formState: { errors } } = methods;
   
-  const onInputChange = (field, value) => dispatch(updateField({ field, value }));
+  const onInputChange = (field, value) => {
+    setEventData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+    dispatch(updateField({ field, value }));
+  };
   
   const onSubmit = (data) => {
-    dispatch(updateCalendar({ id: calendarId, data }));
+    const updatedEventData = {
+      name: data.name || eventData.name,
+      description: data.description || eventData.description,
+      date: data?.date?.unix() * 1000 || eventData.date?.unix() * 1000
+    }
+    dispatch(updateCalendar({ id: calendarId, data: updatedEventData }));
     navigate(`/${ROUTE.admin}/${ROUTE.calendar}`);
-    toast.success(`Event ${data.name} was added successfuly`);
+    toast.success(`Event ${updatedEventData.name} was added successfuly`);
   };
   
   return (
@@ -60,7 +81,7 @@ export const CalendarEditPage = () => {
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteCalendar(calendarId));
                 navigate(`/${ROUTE.admin}/${ROUTE.calendar}`)
-                toast.error(`Event "${name}" was deleted successfuly`);
+                toast.error(`Event "${eventData.name}" was deleted successfuly`);
               }}>
                 Delete
               </Button>
@@ -80,7 +101,7 @@ export const CalendarEditPage = () => {
                     name="name"
                     label="Event name"
                     placeholder="Name..."
-                    value={name}
+                    value={eventData.name}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('logo_text', value)}
@@ -90,7 +111,7 @@ export const CalendarEditPage = () => {
                   <DataPicker
                     name="date"
                     label="MM/DD/YYYY"
-                    value={date}
+                    value={eventData.date}
                     control={control}
                     errors={errors}
                   />
@@ -103,7 +124,7 @@ export const CalendarEditPage = () => {
                   name="description"
                   label="Description"
                   placeholder="Write something..."
-                  value={description}
+                  value={eventData.description}
                   control={control}
                   errors={errors}
                   isText={true}

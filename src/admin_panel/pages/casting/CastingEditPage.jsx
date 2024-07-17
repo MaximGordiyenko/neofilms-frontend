@@ -17,88 +17,160 @@ import { FileUploader } from '../../components/file-upload/FileUploader';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize';
 import { NeoCheckbox } from '../../components/checkbox/NeoCheckbox';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateCasting, getCasting, deleteCasting } from '../../store/thunk/casting.api';
 import { updateField } from '../../store/reducers/movie.reducer';
+import moment from 'moment';
 
 export const CastingEditPage = () => {
   const [imageUpload, setImageUpload] = useState([{ name: 'mock.png', size: 0 }]);
-  const [roles, setRoles] = useState([
-    { id: 1, name: 'test', description: 'hello world' }
-  ]);
+  // const [roles, setRoles] = useState([
+  //   { id: 1, name: 'test', description: 'hello world' }
+  // ]);
+  const [castingData, setCastingData] = useState({
+    title: '',
+    subtitle: '',
+    additional_info: '',
+    plot: '',
+    producer: '',
+    director: '',
+    writer: '',
+    casting_director: '',
+    audition_dates: {
+      from: null,
+      to: null,
+    },
+    eco_cast_self_tape: '',
+    callback_dates: {
+      from: null,
+      to: null,
+    },
+    shoot_dates: {
+      from: null,
+      to: null,
+    },
+    deadline: null,
+    rate_of_pay_per_day: '',
+    location: '',
+    roles: []
+  });
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
   const { castingId } = useParams();
+  
+  useEffect(() => {
+    dispatch(getCasting(castingId)).then((cast) => {
+      const {
+        title,
+        subtitle,
+        additional_info,
+        plot,
+        producer,
+        director,
+        writer,
+        casting_director,
+        audition_dates,
+        eco_cast_self_tape,
+        callback_dates,
+        shoot_dates,
+        deadline,
+        rate_of_pay_per_day,
+        location,
+        roles
+      } = cast.payload;
+      console.log({roles});
+      setCastingData({
+        title,
+        subtitle,
+        additional_info,
+        plot,
+        producer,
+        director,
+        writer,
+        casting_director,
+        eco_cast_self_tape,
+        audition_dates: {
+          from:  audition_dates.from ? moment(audition_dates.from) : null,
+          to:  audition_dates.to ? moment(audition_dates.to) : null,
+        },
+        callback_dates: {
+          from: callback_dates.from ? moment(callback_dates.from) : null,
+          to: callback_dates.to ? moment(callback_dates.to) : null,
+        },
+        shoot_dates: {
+          from: shoot_dates.from ? moment(shoot_dates.from) : null,
+          to: shoot_dates.to ? moment(shoot_dates.to) : null,
+        },
+        deadline: deadline ? moment(deadline) : null,
+        rate_of_pay_per_day,
+        location,
+        roles,
+      });
+    });
+  }, [dispatch, castingId]);
   
   useEffect(() => {
     dispatch(getCasting(castingId));
   }, [dispatch, castingId]);
   
-  const {
-    title,
-    subtitle,
-    additional_info,
-    plot,
-    producer,
-    director,
-    writer,
-    casting_director,
-    audition_dates = {},
-    eco_cast_self_tape = false,
-    callback_dates = {},
-    shoot_dates = {},
-    deadline,
-    rate_of_pay_per_day,
-    location
-  } = useSelector((state) => state?.casting?.casting || {});
-
   const addNewRole = () => {
-    setRoles([...roles, { id: roles.length + 1, name: '', description: '' }]);
+    setCastingData(prevState => ({
+      ...prevState,
+      roles: [
+        ...prevState.roles,
+        { id: prevState.roles.length + 1, name: '', description: '' }
+      ]
+    }));
   };
   
   const methods = useForm({
-    mode: 'onSubmit'
-    // resolver: yupResolver(AccountSchema),
+    mode: 'onSubmit',
+    defaultValues: castingData,
   });
   
   const { control, handleSubmit, formState: { errors } } = methods;
   
-  const onInputChange = (field, value) => dispatch(updateField({ field, value }));
+  const onInputChange = (field, value) => {
+    setCastingData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+    dispatch(updateField({ field, value }));
+  };
   
   const onSubmit = (data) => {
-    const castingData = {
+    const updatedCastingData = {
       image: imageUpload[0],
-      title: data.title,
-      subtitle: data.subtitle,
-      additional_info: data.additional_info,
-      plot: data.plot,
-      producer: data.producer,
-      director: data.director,
-      writer: data.writer,
-      casting_director: data.casting_director,
+      title: data.title || castingData.title,
+      subtitle: data.subtitle || castingData.subtitle,
+      additional_info: data.additional_info || castingData.additional_info,
+      plot: data.plot || castingData.plot,
+      producer: data.producer || castingData.producer,
+      director: data.director || castingData.director,
+      writer: data.writer || castingData.writer,
+      casting_director: data.casting_director || castingData.casting_director,
       audition_dates: {
-        from: data.audition_dates.from.unix() * 1000 || audition_dates.from.unix() * 1000,
-        to: data.audition_dates.to.unix() * 1000 || audition_dates.to.unix() * 1000
+        from: (data.audition_dates?.from?.unix() * 1000) || (castingData.audition_dates?.from?.unix() * 1000),
+        to: (data.audition_dates?.to?.unix() * 1000) || (castingData.audition_dates?.to?.unix() * 1000)
       },
       callback_dates: {
-        from: data.callback_dates.from.unix() * 1000 || callback_dates.from.unix() * 1000,
-        to: data.callback_dates.to.unix() * 1000 || callback_dates.to.unix() * 1000
+        from: (data.callback_dates?.from?.unix() * 1000) || (castingData.callback_dates?.from?.unix() * 1000),
+        to: (data.callback_dates?.to?.unix() * 1000) || (castingData.callback_dates?.to?.unix() * 1000)
       },
       shoot_dates: {
-        from: data.shoot_dates.from.unix() * 1000 || shoot_dates.from.unix() * 1000,
-        to: data.shoot_dates.to.unix() * 1000 || shoot_dates.to.unix() * 1000
+        from: (data.shoot_dates?.from?.unix() * 1000) || (castingData.shoot_dates?.from?.unix() * 1000),
+        to: (data.shoot_dates?.to?.unix() * 1000) || (castingData.shoot_dates?.to?.unix() * 1000)
       },
-      deadline: data?.deadline.unix() * 1000 || deadline.unix() * 1000,
-      rate_of_pay_per_day: data.rate_of_pay_per_day,
-      eco_cast_self_tape: data.eco_cast_self_tape,
-      location: data.location,
-      roles: data.roles
+      deadline: (data?.deadline?.unix() * 1000) || (castingData.deadline?.unix() * 1000),
+      rate_of_pay_per_day: data.rate_of_pay_per_day || castingData.rate_of_pay_per_day,
+      eco_cast_self_tape: data.eco_cast_self_tape || castingData.eco_cast_self_tape,
+      location: data.location || castingData.location,
+      roles: data.roles && data.roles.length ? data.roles : castingData.roles
     };
-    dispatch(updateCasting({ id: castingId, data: castingData }));
+    dispatch(updateCasting({ id: castingId, data: updatedCastingData }));
     navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
-    toast.success(`Casting "${data.title}" was updated successfuly`);
+    toast.success(`Casting "${updatedCastingData?.title}" was updated successfully`);
   };
   
   return (
@@ -158,7 +230,7 @@ export const CastingEditPage = () => {
                     placeholder="The maestro"
                     control={control}
                     errors={errors}
-                    value={title}
+                    value={castingData.title}
                     onInputChange={(value) => onInputChange('title', value)}
                   />
                 </Grid>
@@ -167,7 +239,7 @@ export const CastingEditPage = () => {
                     name="subtitle"
                     label="Subtitle"
                     placeholder="Write something..."
-                    value={subtitle}
+                    value={castingData.subtitle}
                     control={control}
                     errors={errors}
                     isText={true}
@@ -182,7 +254,7 @@ export const CastingEditPage = () => {
                     name="additional_info"
                     label="Additional Info"
                     placeholder="Write something..."
-                    value={additional_info}
+                    value={castingData.additional_info}
                     control={control}
                     errors={errors}
                     isText={true}
@@ -197,7 +269,7 @@ export const CastingEditPage = () => {
                     name="plot"
                     label="Plot"
                     placeholder="Write something..."
-                    value={plot}
+                    value={castingData.plot}
                     control={control}
                     errors={errors}
                     isText={true}
@@ -212,7 +284,7 @@ export const CastingEditPage = () => {
                     name="producer"
                     label="Producer"
                     placeholder="Full Name"
-                    value={producer}
+                    value={castingData.producer}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('producer', value)}
@@ -223,7 +295,7 @@ export const CastingEditPage = () => {
                     name="director"
                     label="Director"
                     placeholder="Full Name"
-                    value={director}
+                    value={castingData.director}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('director', value)}
@@ -234,7 +306,7 @@ export const CastingEditPage = () => {
                     name="writer"
                     label="Writer"
                     placeholder="Full Name"
-                    value={writer}
+                    value={castingData.writer}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('writer', value)}
@@ -245,7 +317,7 @@ export const CastingEditPage = () => {
                     name="casting_director"
                     label="Casting Director"
                     placeholder="Full Name"
-                    value={casting_director}
+                    value={castingData.casting_director}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('casting_director', value)}
@@ -256,7 +328,7 @@ export const CastingEditPage = () => {
                     <DataPicker
                       name="audition_dates.from"
                       label="Audition dates"
-                      value={audition_dates.from}
+                      value={castingData.audition_dates.from}
                       control={control}
                       errors={errors}
                     />
@@ -266,7 +338,7 @@ export const CastingEditPage = () => {
                     <DataPicker
                       name="audition_dates.to"
                       label="Audition dates"
-                      value={audition_dates.to}
+                      value={castingData.audition_dates.to}
                       control={control}
                       errors={errors}
                     />
@@ -277,7 +349,7 @@ export const CastingEditPage = () => {
                     name="eco_cast_self_tape"
                     label="Eco Cast Self-Tape"
                     control={control}
-                    value={eco_cast_self_tape}
+                    value={castingData.eco_cast_self_tape}
                   />
                 </Grid>
                 <GroupGridCSS item container xs={12} sm={12} md={12} lg={12}>
@@ -285,7 +357,7 @@ export const CastingEditPage = () => {
                     <DataPicker
                       name="callback_dates.from"
                       label="Callback dates"
-                      value={callback_dates.from}
+                      value={castingData.callback_dates.from}
                       control={control}
                       errors={errors}
                     />
@@ -295,7 +367,7 @@ export const CastingEditPage = () => {
                     <DataPicker
                       name="callback_dates.to"
                       label="Callback dates"
-                      value={callback_dates.to}
+                      value={castingData.callback_dates.to}
                       control={control}
                       errors={errors}
                     />
@@ -306,7 +378,7 @@ export const CastingEditPage = () => {
                     <DataPicker
                       name="shoot_dates.from"
                       label="Shoot dates"
-                      value={shoot_dates.from}
+                      value={castingData.shoot_dates.from}
                       control={control}
                       errors={errors}
                     />
@@ -316,7 +388,7 @@ export const CastingEditPage = () => {
                     <DataPicker
                       name="shoot_dates.to"
                       label="Shoot dates"
-                      value={shoot_dates.to}
+                      value={castingData.shoot_dates.to}
                       control={control}
                       errors={errors}
                     />
@@ -326,7 +398,7 @@ export const CastingEditPage = () => {
                   <DataPicker
                     name="deadline"
                     label="Deadline"
-                    value={deadline}
+                    value={castingData.deadline}
                     control={control}
                     errors={errors}
                   />
@@ -336,7 +408,7 @@ export const CastingEditPage = () => {
                     name="rate_of_pay_per_day"
                     label="Rate of pay per day"
                     placeholder="$0"
-                    value={rate_of_pay_per_day}
+                    value={castingData.rate_of_pay_per_day}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('rate_of_pay_per_day', value)}
@@ -347,7 +419,7 @@ export const CastingEditPage = () => {
                     name="location"
                     label="Location"
                     placeholder="LA, CA"
-                    value={location}
+                    value={castingData.location}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('location', value)}
@@ -360,14 +432,14 @@ export const CastingEditPage = () => {
               <Grid item xs={12} sm={12} md={12} lg={12} pb={15}>
                 <Typography variant="h5" color={'primary'}>Role</Typography>
               </Grid>
-              {roles.map((role, index) => (
+              {castingData?.roles?.map((role, index) => (
                 <Grid container xs={12} sm={12} md={12} lg={12} item key={role.id}>
                   <Grid item xs={12} sm={12} md={12} lg={12}>
                     <InputTextAutosize
                       name={`roles[${index}].name`}
                       label={`Character Name ${role.id}`}
                       placeholder="The maestro"
-                      value={`${roles[index].name}`}
+                      value={`${castingData?.roles[index].name}`}
                       control={control}
                       errors={errors}
                       onInputChange={(value) => onInputChange(`name_${role.id}`, value)}
@@ -378,7 +450,7 @@ export const CastingEditPage = () => {
                       name={`roles[${index}].description`}
                       label={`Character Description ${role.id}`}
                       placeholder="Write something..."
-                      value={`${roles[index].description}`}
+                      value={`${castingData?.roles[index].description}`}
                       control={control}
                       errors={errors}
                       isText={true}

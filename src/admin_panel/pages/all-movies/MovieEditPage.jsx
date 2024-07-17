@@ -19,15 +19,32 @@ import { ROUTE } from '../../../constants.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMovie, updateMovie, deleteMovie } from '../../store/thunk/movie.api.js';
 import { updateField } from '../../store/reducers/movie.reducer.js';
+import moment from 'moment';
 
 export const MovieEditPage = () => {
   const [posterUpload, setPosterUpload] = useState([{ name: 'mock.png', size: 0 }]);
   const [movieUpload, setMovieUpload] = useState([{ name: 'mock.png', size: 0 }]);
+  const [movieData, setMovieData] = useState({
+    title: '',
+    description: '',
+    movie_link: '',
+    release_date: null,
+    status: '',
+    directed_by: [],
+    written_by: [],
+    starring: []
+  });
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
   const { movieId } = useParams();
+  
+  useEffect(() => {
+    dispatch(getMovie(movieId)).then((movie) => {
+      const { title, description, movie_link, release_date, status, directed_by, written_by, starring } = movie.payload;
+      setMovieData({ title, description, movie_link, release_date: release_date ? moment(release_date) : null, status, directed_by, written_by, starring });
+    });
+  }, [dispatch, movieId]);
   
   useEffect(() => {
     dispatch(getMovie(movieId));
@@ -49,10 +66,10 @@ export const MovieEditPage = () => {
   const [actors, setActors] = useState(starring || []);
   
   useEffect(() => {
-    setDirectors(directed_by);
-    setWriters(written_by);
-    setActors(starring);
-  }, []);
+    setDirectors(directed_by || []);
+    setWriters(written_by || []);
+    setActors(starring || []);
+  }, [directed_by, written_by, starring]);
   
   const onDirectorChange = (index, value) => {
     const updatedDirectors = [...directors];
@@ -72,31 +89,37 @@ export const MovieEditPage = () => {
     setActors(updatedActors);
   };
   
-  const onInputChange = (field, value) => dispatch(updateField({ field, value }));
+  const onInputChange = (field, value) => {
+    setMovieData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+    dispatch(updateField({ field, value }));
+  };
   
   const methods = useForm({
-    mode: 'onSubmit'
-    // resolver: yupResolver(AccountSchema),
+    mode: 'onSubmit',
+    defaultValues: movieData,
   });
   
   const { control, handleSubmit, formState: { errors } } = methods;
   
   const onSubmit = (data) => {
-    const movieDate = {
+    const updatedMovieData = {
       poster: posterUpload[0],
       header_image: movieUpload[0],
-      title: data.title || title,
-      description: data.description || description,
-      movie_link: data.movie_link || movie_link,
-      release_date: data?.release_date.unix() * 1000 || release_date.unix() * 1000,
-      status: data.status || status,
+      title: data.title || movieData.title,
+      description: data.description || movieData.description,
+      movie_link: data.movie_link || movieData.movie_link,
+      release_date: data?.release_date?.unix() * 1000 || movieData.release_date?.unix() * 1000,
+      status: data.status || movieData.status,
       directed_by: directors,
       written_by: writers,
       starring: actors
     };
-    dispatch(updateMovie({ id: movieId, data: movieDate }));
+    dispatch(updateMovie({ id: movieId, data: updatedMovieData }));
     navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
-    toast.success(`Movie "${title}" was update successfuly`);
+    toast.success(`Movie "${updatedMovieData.title}" was update successfuly`);
   };
   
   return (

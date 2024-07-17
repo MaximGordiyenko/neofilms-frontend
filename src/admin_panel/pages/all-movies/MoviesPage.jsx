@@ -38,7 +38,7 @@ export const MoviesPage = ({ tab, cards, onAdd, buttonName }) => {
             title={card.title}
             description={card.description}
             onDelete={() => {
-              dispatch(deleteMovie(card.id));
+              dispatch(deleteMovie(card?.id));
               toast.error(`Movie "${idx + 1}" was delete successfuly`);
             }}
             onEdit={() => navigate(card.id)}

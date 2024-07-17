@@ -24,9 +24,6 @@ import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/s
 import { Layout } from './admin_panel/components/layouts/Layout.jsx';
 import { NavigationTabs } from './admin_panel/components/tabs/NavigationTabs.jsx';
 import { LoginPage } from './admin_panel/pages/sign-in/LoginPage.jsx';
-import { SlidePage } from './admin_panel/pages/main-slider/SlidePage.jsx';
-import { CreateSlidePage } from './admin_panel/pages/main-slider/CreateSlidePage.jsx';
-import { SliderEditPage } from './admin_panel/pages/main-slider/SliderEditPage.jsx';
 import { MoviesPage } from './admin_panel/pages/all-movies/MoviesPage.jsx';
 import { CreateMoviePage } from './admin_panel/pages/all-movies/CreateMoviePage.jsx';
 import { MovieEditPage } from './admin_panel/pages/all-movies/MovieEditPage.jsx';
