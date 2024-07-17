@@ -3,10 +3,10 @@ import './style.scss';
 import menuMobile from '../../../assets/images/burger-menu.svg';
 import { Navbar } from '../../../components/navbar/Navbar';
 import crown from '../../../assets/images/crown.svg';
-import freeform from '../../../assets/images/freeformLogo.svg';
+import freeform from '../../../assets/images/freeform-services.png';
 import disney from '../../../assets/images/disney.svg';
-import hulu from '../../../assets/images/hulu-logo.svg';
-import amazon from '../../../assets/images/amazon-logo.svg';
+import hulu from '../../../assets/images/hulu-services.png';
+import amazon from '../../../assets/images/amazon-services.png';
 import hbo from '../../../assets/images/hbo.svg';
 import downDots from '../../../assets/images/image 18.svg';
 import upperDots from '../../../assets/images/image 16.svg';
@@ -21,9 +21,14 @@ export const ServicesHeader = () => {
   const renderedLogoBox = () => {
     return (
       <div className={'rendered-logoBox'}>
-        {logos.map((logo, index) => (
-          <img key={index} src={logo} alt={`logo-${index}`} className={'logo'} />
-        ))}
+        {/*{logos.map((logo, index) => (*/}
+        {/*  <img key={index} src={logo} alt={`logo-${index}`} className={'logo'} />*/}
+        {/*))}*/}
+        <img src={freeform} alt="" className="freeform-logo"/>
+        <img src={disney} alt="" className="disney-logo"/>
+        <img src={hulu} alt="" className="hulu-logo"/>
+        <img src={amazon} alt="" className="amazon-logo"/>
+        <img src={hbo} alt="" className="hbo-logo"/>
       </div>
     );
   };

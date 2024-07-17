@@ -3,6 +3,7 @@ import './style.css';
 import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {getCasting} from "../../../../api/casting";
 export const DetailFilmDefinition = () => {
   const { casting_id } = useParams();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -22,7 +23,7 @@ export const DetailFilmDefinition = () => {
     const fetchCastingDetail = async () => {
       try {
         const [detailsResponse, imageResponse] = await axios.all([
-          axios.get(`http://57.151.104.191:8888/api/pages/casting/${casting_id}`)
+          getCasting(casting_id)
         ])
         if (isMounted) {
           setCasting(detailsResponse.data);
@@ -55,8 +56,12 @@ export const DetailFilmDefinition = () => {
   const formatDate = (milliseconds) => {
     if (!milliseconds) return null;
     const date = new Date(milliseconds);
-    return date.toLocaleDateString();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = String(date.getFullYear()).slice(-2);
+    return `${day}.${month}.${year}`;
   };
+
   const renderDateRange = (from, to) => {
     if (!from && !to) return "N/A";
     return `${formatDate(from) || "N/A"} to ${formatDate(to) || "N/A"}`;

@@ -18,24 +18,11 @@ export const HomepageHeader = () => {
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
-
-  const GlitchText = () => {
-    return (
-      <ul className="glitch" style={{ textAlign: 'center' }}>
-        <li>
-          <a href="#" style={{ fontSize: '32px' }}>
-            The
-          </a>
-        </li>
-        <li>
-          <a href="#" style={{ fontSize: '128px', textAlign: 'center' }}>
-            Maestro
-          </a>
-        </li>
-      </ul>
-    );
-  };
-
+  const navigate = useNavigate()
+  const handleNav = () => {
+    navigate('/https://vimeo.com/user109067760/review/913360625/0f57eb2d22', {replace: true});
+    window.scrollTo({ top: 0});
+  }
   return (
     <div className={'homepage-header-box'}>
       <img src={upperDots} alt={'up-dots'} className={'up-dots'} />
@@ -57,7 +44,7 @@ export const HomepageHeader = () => {
             <h1>Filmmaking</h1>
           </div>
           <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'}>
-            <Button text={'watch reel'} width={'250px'} />
+            <Button text={'watch reel'} width={'250px'} vimeoLink={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'}/>
           </a>
         </div>
       ) : (
@@ -67,12 +54,11 @@ export const HomepageHeader = () => {
             <h1>Of Filmmaking</h1>
           </div>
           <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'}>
-            <Button text={'watch reel'} width={'250px'} />
+            <Button text={'watch reel'} width={'250px'} vimeoLink={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'} />
           </a>
         </div>
       )}
       <div className={'navbar-box'}>
-        {/*<img src={tabbar} alt={'home-page-tabs'} className={'tabs-bar-home'} />*/}
       </div>
       {isMobile ? (
         <div className={'menu-mob-wrapper'}>
@@ -88,7 +74,6 @@ export const HomepageHeader = () => {
       )}
       {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen} />}
       <img src={downDots} alt={'up-dots'} className={'down-dots'} />
-      {/*<div className={'linear-bg'} />*/}
     </div>
   );
 };

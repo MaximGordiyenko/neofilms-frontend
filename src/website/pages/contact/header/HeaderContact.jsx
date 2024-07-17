@@ -6,6 +6,7 @@ import { useState } from 'react';
 import menuMobile from '../../../assets/images/burger-menu.svg';
 import { Navbar } from '../../../components/navbar/Navbar';
 import { MobMenu } from '../../../components/mobileMenu/MobMenu';
+import ContactForm from "../../../components/form/ContactUsForm";
 export const HeaderContact = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
@@ -25,12 +26,11 @@ export const HeaderContact = () => {
               <img src={imageForm} alt={'imageForm'} className={'imageForm'} />
             </div>
             <p className={'form-des-text'}>
-              Id vivamus habitant ac lectus diam et. Dignissim at mauris sagittis nibh maecenas
-              adipiscing. Facilisis enim nunc aliquet quis ipsum. Vitae id sodales nunc congue morbi
-              consectetur sed.
+              Have questions or need more information? Fill out the form below and our team at Neofilms will get back to you shortly.
+              We're here to help with any inquiries you have about our movie recording services.
             </p>
           </div>
-          <Form />
+          <ContactForm />
         </div>
       </div>
       {isMobile ? (

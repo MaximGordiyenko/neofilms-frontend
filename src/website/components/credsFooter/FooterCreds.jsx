@@ -1,8 +1,8 @@
 import './style.scss';
 import Logo from '../../assets/images/neo_logo.svg';
-import amazon from '../../assets/images/amazon-logo.svg';
-import hulu from '../../assets/images/hulu-logo.svg';
-import freeform from '../../assets/images/freeformLogo.svg';
+import amazon from '../../assets/images/amazon-services.png';
+import hulu from '../../assets/images/hulu-services.png';
+import freeform from '../../assets/images/freeform-services.png';
 import squareIcon from '../../assets/images/footer-square.svg';
 import tetraSquare from '../../assets/images/footer-tetra.svg';
 import discord from '../../assets/images/Discord.svg';
@@ -24,9 +24,9 @@ export const FooterCreds = () => {
       <div className={'sponsors'}>
         <span className={'proud'}>PROUDLY ACCOMPANIED BY</span>
         <div className={'sponsors-box-fc'}>
-          <img src={freeform} alt={'freeform-f-c'} />
-          <img src={hulu} alt={'hulu-f-c'} />
-          <img src={amazon} alt={'f-c-amazon'} />
+          <img src={freeform} alt={'freeform-f-c'} className="freeform-logo-f"/>
+          <img src={hulu} alt={'hulu-f-c'} className="hulu-logo-f"/>
+          <img src={amazon} alt={'f-c-amazon'} className="amazon-logo-f"/>
         </div>
       </div>
       <div className={'f-c-hr'} />

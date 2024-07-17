@@ -1,8 +1,7 @@
 .actor-card-wrapper {
     width: 427px;
     height: auto;
-    padding: 30px 40px;
-
+    box-sizing: border-box;
 }
 
 .card-title {

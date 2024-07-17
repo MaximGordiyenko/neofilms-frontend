@@ -12,10 +12,16 @@ import lowerLine from '../../../assets/images/down_block-placeholder.svg';
 import lowerMobLine from '../../../assets/images/bot-body-mob-stroke.png';
 import { LATEST_NEWS_CARDS } from '../../../constants/homePageConst';
 import NewsCard from './NewsCards';
+import {useNavigate} from "react-router-dom";
 
 export const Body = () => {
   const isMobile = window.innerWidth <= 430;
+  const navigate = useNavigate();
 
+  const handleNav = () => {
+    navigate('/news', {replace: true});
+    window.scrollTo({ top: 0});
+  }
   return (
     <div className={'hp-body-wrapper'}>
       {/*<div className={'linear-bg-top'} />*/}
@@ -67,7 +73,7 @@ export const Body = () => {
           <div className={'button-box'}>
             <img src={dots} alt={'hp-b-dots'} />
             <div className={'hr-line-body'} />
-            <Button text={'other news'} width={'210px'} />
+            <Button text={'other news'} width={'210px'} onClick={handleNav} />
           </div>
         </div>
         <div className={'hp-cards-body-box'}>
@@ -85,7 +91,7 @@ export const Body = () => {
           ))}
           {isMobile && (
             <div className={'btn-mob-wrapper'}>
-              <Button text={'more news'} width={'100%'} />
+              <Button text={'more news'} width={'100%'} onClick={handleNav}/>
             </div>
           )}
         </div>

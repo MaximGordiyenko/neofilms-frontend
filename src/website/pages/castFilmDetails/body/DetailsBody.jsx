@@ -8,6 +8,7 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import {Flex} from "../../../components/customDiv/Flex";
 import {Text} from "../../../components/text/Text";
+import {getCasting, getImage} from "../../../../api/casting";
 
 export const DetailsBody = ({ onApplyClick }) => {
   const { casting_id } = useParams();
@@ -15,7 +16,9 @@ export const DetailsBody = ({ onApplyClick }) => {
   const [casting, setCasting] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [getImage, setImage] = useState(null);
+  const [getCastImage, setImage] = useState(null);
+
+  console.log(casting, 'casting')
 
   useEffect(() => {
     if (!casting_id) {
@@ -29,10 +32,8 @@ export const DetailsBody = ({ onApplyClick }) => {
     const fetchCastingDetail = async () => {
       try {
         const [detailsResponse, imageResponse] = await axios.all([
-          axios.get(`http://57.151.104.191:8888/api/pages/casting/${casting_id}`),
-          axios.get(`http://57.151.104.191:8888/api/pages/casting/${casting_id}/image`, {
-            responseType: 'blob'
-          })
+          getCasting(casting_id),
+          getImage(casting_id)
         ])
         if (isMounted) {
           setCasting(detailsResponse.data);
@@ -68,10 +69,10 @@ export const DetailsBody = ({ onApplyClick }) => {
   return (
     <div className="detail-body">
       <div className="body-film-def">
-        <DetailFilmDefinition />
+        <DetailFilmDefinition/>
       </div>
-      <p className={'detail-desc'}>{casting.subtitle}</p>
-      <img className="body-bg" src={bodyBg} alt="" />
+      <img className="body-bg" src={bodyBg} alt=""/>
+      <p className={'detail-desc'}>{casting.subtitle && casting.subtitle}</p>
       <div className="cards-wrapper">
         <div className="detail-cards">
           <ArtistFilmCard

@@ -24,6 +24,15 @@
     display: flex;
     gap: 20px;
     margin: 120px 0 ;
+    .f-award{
+      width: 240px;
+      height: 62px;
+    }
+    .s-award{
+      width: 200px;
+      height: 62px;
+      -webkit-transform: translate3d(0,0,0)
+    }
   }
   .film-cards-box{
     display: flex;

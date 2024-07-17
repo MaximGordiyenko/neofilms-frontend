@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, forwardRef } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { NAVBAR_TABS } from '../../constants/homePageConst';
 import './style.scss';
 
-export const Navbar = () => {
+export const Navbar = forwardRef((props, ref) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [navbarHeight, setNavbarHeight] = useState(5);
@@ -38,17 +38,16 @@ export const Navbar = () => {
 
   const handleLinkClick = (path, inside_page = true) => {
     if (!inside_page) {
-      // navigate(path, { replace: false });
       window.location.href = path;
       return;
     }
     setInitialActive(path);
     setIsWeb3DropdownVisible(false);
-    window.scrollTo({ top: 0});
+    window.scrollTo({ top: 0 });
   };
 
   return (
-    <div className="navbar-wrapper" style={{ bottom: `${navbarHeight}vh` }}>
+    <div className="navbar-wrapper" ref={ref} style={{ bottom: `${navbarHeight}vh` }}>
       <div className={'nav-inner-content'}>
         <div className="navigation-container">
           {NAVBAR_TABS.map((item, i) => {
@@ -111,4 +110,4 @@ export const Navbar = () => {
       </div>
     </div>
   );
-};
+});
