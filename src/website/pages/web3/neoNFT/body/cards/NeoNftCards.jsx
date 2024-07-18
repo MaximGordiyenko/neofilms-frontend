@@ -44,7 +44,14 @@ export const NeoNftCards = () => {
           return (
             <div className={'card-nft'} key={i}>
               <div className={'card-inner-content'}>
-                <img src={item.imageUrl} className='image-nft-card' />
+                {/*<img src={item.imageUrl} className='image-nft-card' />*/}
+                <div className="image-nft-card"
+                     style={{
+                       backgroundImage: `url(${item.imageUrl})`,
+                       backgroundSize: 'cover',
+                       backgroundPosition: 'center',
+                       backgroundRepeat: 'no-repeat'
+                }}/>
                 <h4>{item.name}</h4>
                 <p>{item.description}</p>
                 <ProgressBar progress={item.completion} />

@@ -24,7 +24,6 @@ export const BodyRedeem = () => {
             Choose a promotion, select claim, head to the Coupon page to see your codes. Please note
             that claiming promotions can take up to 20 seconds.
           </p>
-          <CustomDropdown options={options} value={'$5 storewide for 5 NEOBux'}/>
           <div className={'form-btn-box'}>
             <img src={dots} alt={'redeem-dots'}/>
             <div className={'hr'}/>

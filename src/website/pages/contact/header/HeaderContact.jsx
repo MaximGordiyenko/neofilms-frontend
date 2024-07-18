@@ -20,7 +20,6 @@ export const HeaderContact = () => {
       <div className={'header-contact'}>
         <div className={'form-wrapper'}>
           <div className={'contact-description'}>
-            <span className={'upper-span'}>Cras orci et eu nec</span>
             <div className={'form-title-contact'}>
               <h2 className={'form-des-title'}>Contact Us for Any Questions</h2>
               <img src={imageForm} alt={'imageForm'} className={'imageForm'} />

@@ -46,7 +46,6 @@ export const NewsPageCards = () => {
           <div className={'news_page-card'} key={item._id}>
             <div className={'other-cards'} style={{ borderBottom: '1px solid rgba(250, 250, 250, 0.2)' }}>
               <div className={'date-news-o-card'}>
-                <span className={'other-card-news'}>News</span>
                 <span className={'other-card-date'}>{item.updated_at}</span>
               </div>
               <h5 className={'other-card-title'}>{item.name}</h5>
