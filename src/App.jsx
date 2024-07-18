@@ -49,7 +49,6 @@ export const App = () => {
   const [tab, setTab] = useState(0);
   
   const dispatch = useDispatch();
-  
   const navigate = useNavigate();
 
   const { movies } = useSelector((state) => state?.movie);
@@ -59,7 +58,7 @@ export const App = () => {
   
   const logout = async () => {
     await dispatch(adminLogout());
-    navigate(`/${ROUTE.admin}/${ROUTE.login}`)
+    navigate(`/${ROUTE.admin}/${ROUTE.login}`, { replace: true })
   }
   
   return (

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { adminLogin, adminCheck } from '../thunk/admin.api.js';
+import { adminLogin, adminCheck, adminLogout } from '../thunk/admin.api.js';
 
 const adminSlicer = createSlice({
   name: 'admin',
@@ -17,11 +17,11 @@ const adminSlicer = createSlice({
       })
       .addCase(adminLogin.fulfilled, (state, action) => {
         state.loading = false;
-        state.status = action.payload;
+        state.status = 200;
       })
       .addCase(adminLogin.rejected, (state, action) => {
         state.loading = false;
-        state.status = action.payload;
+        state.error = action.payload;
       })
       .addCase(adminCheck.pending, (state) => {
         state.loading = true;
@@ -29,11 +29,16 @@ const adminSlicer = createSlice({
       })
       .addCase(adminCheck.fulfilled, (state, action) => {
         state.loading = false;
-        state.status = action.payload;
+        state.status = 200;
       })
       .addCase(adminCheck.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(adminLogout.fulfilled, (state) => {
+        state.status = null;
+        state.loading = false;
+        state.error = null;
       });
   }
 });
