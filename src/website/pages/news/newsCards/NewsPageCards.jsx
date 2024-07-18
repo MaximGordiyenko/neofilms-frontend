@@ -5,6 +5,7 @@ import { FilledButton } from '../../../components/button/FilledButton';
 import {useMediaQuery} from "@mui/material";
 import {useState, useEffect} from "react";
 import axios from "axios";
+import { getNews } from '../../../../api/news';
 
 export const NewsPageCards = () => {
   const isMobile = useMediaQuery('(max-width: 430px)');
@@ -16,18 +17,16 @@ export const NewsPageCards = () => {
 
   const fetchNewsCards = async () => {
     try {
-      const response = await axios.get('/api/pages/events', {
-        withCredentials: true,
-      });
+      const response = await getNews();
 
       const transformedData = response.data.map(item => ({
         ...item,
-        updated_at: new Date(item.updated_at).toLocaleDateString('en-US', {
+        updated_at: new Date(item.updated_at || item.date).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long',
           day: 'numeric',
         }),
-        description: item.description.length > 250 ? `${item.description.slice(0, 250)}...` : item.description,
+        description: item.content.length > 250 ? `${item.content.slice(0, 250)}...` : item.content,
       }));
 
       setNewsCards(transformedData);
