@@ -103,7 +103,7 @@ export const NewsPageCards = () => {
               </>
             ) : (
               <div className={'other-cards'} style={{ borderBottom: item.borderBottom }}>
-                { item.img ? <img src={item.img} alt={'card-news-image'} /> : null }
+                { item.image ? <img src={item.image} alt={'card-news-image'} /> : null }
                 <div className={'date-news-o-card'}>
                   <span className={'other-card-news'}>News</span>
                   <span className={'other-card-date'}>{item.date}</span>
