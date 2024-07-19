@@ -7,6 +7,7 @@ import { MobMenu } from '../../components/mobileMenu/MobMenu';
 import menuMobile from '../../assets/images/burger-menu.svg';
 import { Navbar } from '../../components/navbar/Navbar';
 import { Text } from "../../components/text/Text";
+import {ShopifyProduct} from "../product/product";
 
 export const UnderConstruction = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
@@ -62,6 +63,7 @@ export const UnderConstruction = () => {
         )}
         {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen} />}
       </div>
+      <ShopifyProduct />
       <FooterCreds />
     </div>
   );

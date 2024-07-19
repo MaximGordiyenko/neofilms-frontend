@@ -71,7 +71,7 @@ export const App = () => {
         <Route path={'/all_movies'} element={<AllMovies/>}/>
         <Route path={'/soon'} element={<UnderConstruction/>}/>
         <Route path={'/news'} element={<News/>}/>
-        <Route path={'/shop'} element={<UnderConstruction/>}/>
+        <Route path={'/product'} element={<UnderConstruction/>}/>
         <Route path={'/services'} element={<Services/>}/>
         {/*<Route path={'/web3'} element={<UnderConstruction />} />*/}
         <Route path={'/web3/neo-nft'} element={<NeoNft/>}/>

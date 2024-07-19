@@ -29,7 +29,7 @@ export const NAVBAR_TABS = [
   },
   {
     title: 'shop',
-    path: '/shop',
+    path: '/product',
   },
   {
     title: 'services',

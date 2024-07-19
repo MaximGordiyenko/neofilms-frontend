@@ -49,7 +49,7 @@ export const NewsPageCards = () => {
           month: 'long',
           day: 'numeric',
         }),
-        text: item.content.length > 250 ? `${item.content.slice(0, 250)}...` : item.content,
+        text: item.content.replace(/<\/?p>/g, '').length > 250 ? `${item.content.replace(/<\/?p>/g, '').slice(0, 250)}...` : item.content.replace(/<\/?p>/g, ''),
         buttonText: 'read more',
         background: 'transparent',
         borderBottom: '1px solid rgba(250, 250, 250, 0.2)',

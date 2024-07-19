@@ -34,6 +34,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    .other-cards{
+      max-width: 425px;
+    }
     .filled-button-box{
       width: 100%;
       height: 31px;
