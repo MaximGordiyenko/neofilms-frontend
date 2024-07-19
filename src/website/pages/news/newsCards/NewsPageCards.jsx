@@ -5,15 +5,38 @@ import { FilledButton } from '../../../components/button/FilledButton';
 import {useMediaQuery} from "@mui/material";
 import {useState, useEffect} from "react";
 import axios from "axios";
+import { getEvents } from '../../../../api/event';
 import { getNews } from '../../../../api/news';
 
 export const NewsPageCards = () => {
   const isMobile = useMediaQuery('(max-width: 430px)');
+  const [eventsCards, setEventsCards] = useState([]);
   const [newsCards, setNewsCards] = useState([]);
 
   useEffect(() => {
+    fetchEventsCards();
     fetchNewsCards();
   }, []);
+
+  const fetchEventsCards = async () => {
+    try {
+      const response = await getEvents();
+
+      const transformedData = response.data.map(item => ({
+        ...item,
+        updated_at: new Date(item.updated_at).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        }),
+        description: item.description.length > 250 ? `${item.description.slice(0, 250)}...` : item.description,
+      }));
+
+      setEventsCards(transformedData);
+    } catch (error) {
+      console.error('Error fetching news cards:', error);
+    }
+  };
 
   const fetchNewsCards = async () => {
     try {
@@ -21,12 +44,15 @@ export const NewsPageCards = () => {
 
       const transformedData = response.data.map(item => ({
         ...item,
-        updated_at: new Date(item.updated_at || item.date).toLocaleDateString('en-US', {
+        date: new Date(item.updated_at || item.date).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long',
           day: 'numeric',
         }),
-        description: item.content.length > 250 ? `${item.content.slice(0, 250)}...` : item.content,
+        text: item.content.length > 250 ? `${item.content.slice(0, 250)}...` : item.content,
+        buttonText: 'read more',
+        background: 'transparent',
+        borderBottom: '1px solid rgba(250, 250, 250, 0.2)',
       }));
 
       setNewsCards(transformedData);
@@ -34,9 +60,10 @@ export const NewsPageCards = () => {
       console.error('Error fetching news cards:', error);
     }
   };
-  const renderLatestNews = newsCards.slice(-2);
+  
+  const renderLatestNews = eventsCards.slice(-2);
 
-  console.log(newsCards, 'news')
+  console.log(eventsCards, 'news')
   return (
     <div className="cards-news-wrapper">
       <div className="news-container">
@@ -53,7 +80,7 @@ export const NewsPageCards = () => {
           </div>
         ))}
       </div>
-      {NEWS_CARDS.map((item, i) => {
+      {newsCards.map((item, i) => {
         return (
           <div className={'news_page-card'} key={i}>
             {item.buttonMainText && <FilledButton btnText={item.buttonMainText} />}
@@ -76,7 +103,7 @@ export const NewsPageCards = () => {
               </>
             ) : (
               <div className={'other-cards'} style={{ borderBottom: item.borderBottom }}>
-                <img src={item.img} alt={'card-news-image'} />
+                { item.img ? <img src={item.img} alt={'card-news-image'} /> : null }
                 <div className={'date-news-o-card'}>
                   <span className={'other-card-news'}>News</span>
                   <span className={'other-card-date'}>{item.date}</span>
