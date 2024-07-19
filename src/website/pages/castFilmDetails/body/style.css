@@ -25,6 +25,7 @@
             width: 64.2%;
             flex-wrap: wrap;
             align-items: flex-end;
+            gap: 35px;
         }
     }
 }
