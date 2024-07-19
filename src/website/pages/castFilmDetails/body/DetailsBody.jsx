@@ -75,12 +75,14 @@ export const DetailsBody = ({ onApplyClick }) => {
       <p className={'detail-desc'}>{casting.subtitle && casting.subtitle}</p>
       <div className="cards-wrapper">
         <div className="detail-cards">
-          <ArtistFilmCard
-            actor_name={casting.roles[0].name}
-            key={casting.id}
-            bio={casting.roles[0].description}
-            onApplyClick={onApplyClick}
-          />
+          {casting.roles.map((role) => (
+            <ArtistFilmCard
+              actor_name={role.name}
+              key={role.id}
+              bio={role.description}
+              onApplyClick={onApplyClick}
+            />
+          ))}
         </div>
       </div>
     </div>
