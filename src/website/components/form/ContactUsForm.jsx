@@ -78,87 +78,87 @@ const ContactForm = () => {
       try {
         console.log('The email is valid');
         emailjs
-        .sendForm('service_yfracbb', 'template_hjypvh8', form.current, 'Z9T9c4TGtpcAEIrXq')
-        .then((result) => {
-          console.log(result.text);
-          setIsSubmit(true);
-        });
-    } catch (err) {
-      console.error(err);
-      setIsSubmit(false);
+          .sendForm('service_yfracbb', 'template_hjypvh8', form.current, 'Z9T9c4TGtpcAEIrXq')
+          .then((result) => {
+            console.log(result.text);
+            setIsSubmit(true);
+          });
+      } catch (err) {
+        console.error(err);
+        setIsSubmit(false);
+      }
     }
-  }
-};
-const handleChangeName = (e) => {
-  setUserName({ value: e.target.value, error: '' });
-  setIsFilled(true);
-};
-const handleChangeEmail = (e) => {
-  setUserEmail({ value: e.target.value, error: '' });
-  setIsFilled(true);
-};
-const handleCompany = (e) => {
-  setUserCompany({ value: e.target.value, error: '' });
-  setIsFilled(true);
-};
-const handleChangePhone = (e) => {
-  setUserPhone({ value: e.target.value, error: '' });
-  setIsFilled(true);
-};
-console.log(isBtnPressed, 'isBtnPressed');
-return (
-  <form className="contact-form-container" ref={form} onSubmit={handleSubmit}>
-    <div className={'inputs-container'}>
-      <div className={'name-box'}>
-        <label htmlFor="user_name">How should we call you?</label>
-        <div className={'custom-input-box'}>
-          <img src={clipleft} alt={'inp-clip-l'} />
-          <input
-            type="text"
-            placeholder={'Dave?'}
-            id="input1"
-            name={'user_name'}
-            value={userName.value}
-            onChange={handleChangeName}
-          />
-          <img src={clipright} alt={'inp-clip-r'} />
+  };
+  const handleChangeName = (e) => {
+    setUserName({ value: e.target.value, error: '' });
+    setIsFilled(true);
+  };
+  const handleChangeEmail = (e) => {
+    setUserEmail({ value: e.target.value, error: '' });
+    setIsFilled(true);
+  };
+  const handleCompany = (e) => {
+    setUserCompany({ value: e.target.value, error: '' });
+    setIsFilled(true);
+  };
+  const handleChangePhone = (e) => {
+    setUserPhone({ value: e.target.value, error: '' });
+    setIsFilled(true);
+  };
+  console.log(isBtnPressed, 'isBtnPressed');
+  return (
+    <form className="contact-form-container" ref={form} onSubmit={handleSubmit}>
+      <div className={'inputs-container'}>
+        <div className={'name-box'}>
+          <label htmlFor="user_name">How should we call you?</label>
+          <div className={'custom-input-box'}>
+            <img src={clipleft} alt={'inp-clip-l'} />
+            <input
+              type="text"
+              placeholder={'Dave?'}
+              id="input1"
+              name={'user_name'}
+              value={userName.value}
+              onChange={handleChangeName}
+            />
+            <img src={clipright} alt={'inp-clip-r'} />
+          </div>
+          {userName.error && <span className="error-message">{userName.error}</span>}
         </div>
-        {userName.error && <span className="error-message">{userName.error}</span>}
-      </div>
-      <div className={'discord-address'}>
-        <label htmlFor="input2">Your Email</label>
-        <div className={'custom-input-box'}>
-          <img src={clipleft} alt={'inp-clip-l'} />
-          <input
-            placeholder={'dave@mail.com'}
-            type="text"
-            id="input2"
-            name="discord_name"
-            value={userEmail.value}
-            onChange={handleChangeEmail}
-          />
-          <img src={clipright} alt={'inp-clip-r'} />
+        <div className={'discord-address'}>
+          <label htmlFor="input2">Your Email</label>
+          <div className={'custom-input-box'}>
+            <img src={clipleft} alt={'inp-clip-l'} />
+            <input
+              placeholder={'dave@mail.com'}
+              type="text"
+              id="input2"
+              name="discord_name"
+              value={userEmail.value}
+              onChange={handleChangeEmail}
+            />
+            <img src={clipright} alt={'inp-clip-r'} />
+          </div>
+          {userEmail.error && <span className="error-message">{userEmail.error}</span>}
         </div>
-        {userEmail.error && <span className="error-message">{userEmail.error}</span>}
-      </div>
-      <div className={'project-name'}>
-        <label htmlFor="best_movie">Your phone number</label>
-        <div className={'custom-input-box'}>
-          <img src={clipleft} alt={'inp-clip-l'} />
-          <input
-            placeholder={'+1 (555) 555 35 35'}
-            type="text"
-            id="input3"
-            name="best_movie"
-            onChange={handleChangePhone}
-            value={userPhone.value}
-          />
-          <img src={clipright} alt={'inp-clip-r'} />
+        <div className={'project-name'}>
+          <label htmlFor="best_movie">Your phone number</label>
+          <div className={'custom-input-box'}>
+            <img src={clipleft} alt={'inp-clip-l'} />
+            <input
+              placeholder={'+1 (555) 555 35 35'}
+              type="text"
+              id="input3"
+              name="best_movie"
+              onChange={handleChangePhone}
+              value={userPhone.value}
+            />
+            <img src={clipright} alt={'inp-clip-r'} />
+          </div>
+          {userPhone.error && <span className="error-message">{userPhone.error}</span>}
         </div>
-        {userPhone.error && <span className="error-message">{userPhone.error}</span>}
-      </div>
-      <div className={'budget-box'}>
-      <label htmlFor="best_movie">Your company</label>
+        <div className={'budget-box'}>
+          <label htmlFor="best_movie">Your company</label>
           <div className={'custom-input-box'}>
             <img src={clipleft} alt={'inp-clip-l'} />
             <input
