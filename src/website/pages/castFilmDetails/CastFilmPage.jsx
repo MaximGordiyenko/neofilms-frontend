@@ -40,7 +40,6 @@ export const CastFilmPage = () => {
         setLoading(true);
         const response = await getCasting(casting_id);
         setCastingData(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error('Error fetching casting details:', error);
       } finally {
@@ -117,7 +116,6 @@ export const CastFilmPage = () => {
     for (const key in _formData) {
       formData.append(key, _formData[key]);
     }
-
     return await axios.post(`/api/pages/casting/${castingId}/send-resume`, formData, {
       withCredentials: true,
     });
@@ -146,20 +144,7 @@ export const CastFilmPage = () => {
     } finally {
       setIsSubmit(false);
     }
-    console.log(isSubmit, 'is submitted?')
   };
-
-  console.log(isError)
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const { userName, userEmail } = formData;
-  //   if (!userName || !userEmail || !headshotFile || !resumeFile) {
-  //     setIsError('Please fill in all fields and upload both files.');
-  //   } else {
-  //     setIsSubmit(true);
-  //     setIsError(null);
-  //   }
-  // };
 
   if (!casting_id) {
     return <div>Film not found</div>;
@@ -175,7 +160,7 @@ export const CastFilmPage = () => {
           <img className="modal-icon" src={closeIcon} onClick={closeModal} alt="Close" />
         )}
       </Flex>
-      <Flex className="detail-body-box" flexDirection="column">
+      <form className="detail-body-box" onSubmit={handleSubmit}>
         <Flex
           justifyContent="space-between"
           className="user-creds"
@@ -243,7 +228,7 @@ export const CastFilmPage = () => {
         <div className="detail-form-button-box">
           <img className="modal-form-icon" src={dots} alt="dots"/>
           <div className="hr-line"/>
-          <Button text={'Apply'} onClick={handleSubmit}/>
+          <Button text={'Apply'} type={'submit'}/>
           {isMobile && (
             <div onClick={closeModal} className="modal-close-button">
               Cancel
@@ -266,7 +251,7 @@ export const CastFilmPage = () => {
             </div>
           )}
         </div>
-      </Flex>
+      </form>
     </div>
   );
 

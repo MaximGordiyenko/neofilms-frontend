@@ -9,7 +9,7 @@ import { Navbar } from '../../components/navbar/Navbar';
 import { Text } from "../../components/text/Text";
 import {ShopifyProduct} from "../product/product";
 
-export const UnderConstruction = () => {
+const Shop = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const isMobile = window.innerWidth <= 430;
@@ -45,26 +45,28 @@ export const UnderConstruction = () => {
       <div className={'soon-page-inner-box'}>
         <div className={'soon-title'}>
           <h2 className="soon-title-text">
-            This page <br /> is under construction
+            neo store
           </h2>
           <img src={satelite} alt={'under-construction'} className={'under-construction'} />
         </div>
-        {isMobile ? (
-          <div className={'menu-mob-wrapper'}>
-            <img
-              src={menuMobile}
-              className={'sidebar-mob-btn'}
-              onClick={handleOpenMobMenu}
-              alt={'menuMob-hp'}
-            />
-          </div>
-        ) : (
-          <Navbar ref={navbarRef} />
-        )}
-        {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen} />}
+        {/*{isMobile ? (*/}
+        {/*  <div className={'menu-mob-wrapper'}>*/}
+        {/*    <img*/}
+        {/*      src={menuMobile}*/}
+        {/*      className={'sidebar-mob-btn'}*/}
+        {/*      onClick={handleOpenMobMenu}*/}
+        {/*      alt={'menuMob-hp'}*/}
+        {/*    />*/}
+        {/*  </div>*/}
+        {/*) : (*/}
+        {/*  <Navbar ref={navbarRef} />*/}
+        {/*)}*/}
+        {/*{isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen} />}*/}
       </div>
       <ShopifyProduct />
       <FooterCreds />
     </div>
   );
 };
+
+export default Shop;

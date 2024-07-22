@@ -1,5 +1,5 @@
-.product-box{
-  display: flex;
+.shopify-buy-frame {
+  display: flex!important;
   width: 100%;
   max-width: 100%;
 }

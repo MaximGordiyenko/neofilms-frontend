@@ -80,7 +80,7 @@ const FilmDetails = () => {
                 <Header />
               <div className="title-details-box">
                   <h2>{title}</h2>
-                  <img src={imdb} alt='imdb' onClick={handleNav} />
+                  <img src={imdb} alt='imdb' onClick={handleNav} className="imdb"/>
               </div>
           </div>
           <div className="movie-details-desc">

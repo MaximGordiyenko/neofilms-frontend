@@ -7,11 +7,13 @@ import {useState, useEffect} from "react";
 import axios from "axios";
 import { getEvents } from '../../../../api/event';
 import { getNews } from '../../../../api/news';
+import {useNavigate} from "react-router-dom";
 
 export const NewsPageCards = () => {
   const isMobile = useMediaQuery('(max-width: 430px)');
   const [eventsCards, setEventsCards] = useState([]);
   const [newsCards, setNewsCards] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchEventsCards();
@@ -63,7 +65,9 @@ export const NewsPageCards = () => {
   
   const renderLatestNews = eventsCards.slice(-2);
 
-  console.log(eventsCards, 'news')
+  const handleNav = (url) => {
+    window.open(url, '_blank');
+  };
   return (
     <div className="cards-news-wrapper">
       <div className="news-container">
@@ -110,7 +114,7 @@ export const NewsPageCards = () => {
                 </div>
                 <h5 className={'other-card-title'}>{item.title}</h5>
                 <p className={'other-card-text'}>{item.text}</p>
-                <Button text={item.buttonText} />
+                <Button text={item.buttonText} onClick={() => handleNav(item.url)} />
               </div>
             )}
           </div>

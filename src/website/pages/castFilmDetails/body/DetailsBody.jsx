@@ -18,8 +18,6 @@ export const DetailsBody = ({ onApplyClick }) => {
   const [error, setError] = useState(null);
   const [getCastImage, setImage] = useState(null);
 
-  console.log(casting, 'casting')
-
   useEffect(() => {
     if (!casting_id) {
       setError('Film not found');
@@ -72,11 +70,12 @@ export const DetailsBody = ({ onApplyClick }) => {
         <DetailFilmDefinition/>
       </div>
       <img className="body-bg" src={bodyBg} alt=""/>
-      <p className={'detail-desc'}>{casting.subtitle && casting.subtitle}</p>
+      <p className={'detail-desc'}>{casting.plot}</p>
       <div className="cards-wrapper">
         <div className="detail-cards">
-          {casting.roles.map((role) => (
+          {casting.roles.map((role, index) => (
             <ArtistFilmCard
+              index={index}
               actor_name={role.name}
               key={role.id}
               bio={role.description}
