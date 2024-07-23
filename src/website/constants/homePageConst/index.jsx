@@ -42,7 +42,7 @@ export const NAVBAR_TABS = [
       { title: 'NEO NFTs', path: '/web3/neo-nft', inside_page: true },
       { title: 'STAKE', path: '/web3/stake', inside_page: true },
       { title: 'REDEEM', path: '/web3/redeem', inside_page: true },
-      { title: 'REKT', path: '/web3/rekt', inside_page: false },
+      { title: 'REKT', path: 'https://rekt-robots.theneofund.com/', inside_page: false, external: true },
     ],
   },
   {
