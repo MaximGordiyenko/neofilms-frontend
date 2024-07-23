@@ -24,9 +24,7 @@ import moment from 'moment';
 
 export const CastingEditPage = () => {
   const [imageUpload, setImageUpload] = useState([{ name: 'mock.png', size: 0 }]);
-  // const [roles, setRoles] = useState([
-  //   { id: 1, name: 'test', description: 'hello world' }
-  // ]);
+  const [checkedData, setCheckedData] = useState(null);
   const [castingData, setCastingData] = useState({
     title: '',
     subtitle: '',
@@ -40,7 +38,6 @@ export const CastingEditPage = () => {
       from: null,
       to: null,
     },
-    eco_cast_self_tape: '',
     callback_dates: {
       from: null,
       to: null,
@@ -79,7 +76,9 @@ export const CastingEditPage = () => {
         location,
         roles
       } = cast.payload;
-      console.log({roles});
+      
+      setCheckedData(eco_cast_self_tape);
+      
       setCastingData({
         title,
         subtitle,
@@ -89,7 +88,6 @@ export const CastingEditPage = () => {
         director,
         writer,
         casting_director,
-        eco_cast_self_tape,
         audition_dates: {
           from:  audition_dates.from ? moment(audition_dates.from) : null,
           to:  audition_dates.to ? moment(audition_dates.to) : null,
@@ -126,7 +124,10 @@ export const CastingEditPage = () => {
   
   const methods = useForm({
     mode: 'onSubmit',
-    defaultValues: castingData,
+    defaultValues: {
+      eco_cast_self_tape: checkedData,
+      ...castingData
+    },
   });
   
   const { control, handleSubmit, formState: { errors } } = methods;
@@ -164,15 +165,16 @@ export const CastingEditPage = () => {
       },
       deadline: (data?.deadline?.unix() * 1000) || (castingData.deadline?.unix() * 1000),
       rate_of_pay_per_day: data.rate_of_pay_per_day || castingData.rate_of_pay_per_day,
-      eco_cast_self_tape: data.eco_cast_self_tape || castingData.eco_cast_self_tape,
+      eco_cast_self_tape: data.eco_cast_self_tape || checkedData,
       location: data.location || castingData.location,
       roles: data.roles && data.roles.length ? data.roles : castingData.roles
     };
+    console.log({ data }, { checkedData });
     dispatch(updateCasting({ id: castingId, data: updatedCastingData }));
     navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
     toast.success(`Casting "${updatedCastingData?.title}" was updated successfully`);
   };
-  
+  console.log({ checkedData });
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -349,7 +351,8 @@ export const CastingEditPage = () => {
                     name="eco_cast_self_tape"
                     label="Eco Cast Self-Tape"
                     control={control}
-                    value={castingData.eco_cast_self_tape}
+                    value={checkedData}
+                    setCheckedData={setCheckedData}
                   />
                 </Grid>
                 <GroupGridCSS item container xs={12} sm={12} md={12} lg={12}>
