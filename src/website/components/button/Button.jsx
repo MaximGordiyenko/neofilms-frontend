@@ -20,7 +20,7 @@ export const Button = ({ text, style, onClick, width, isFilled, disabled, vimeoL
   }, []);
 
   return (
-    <button className={'btn-box'} onClick={onClick} style={{ width: width }} disabled={disabled} type={type}>
+    <button className={'btn-box'} onClick={onClick} style={{ width: width }} disabled={disabled} type={type ? type : null}>
       <img src={!isMobile ? bgBorder : BTN_mob} className={'button-border'} />
       <div className={'btn-body'} style={style}>
         {isMobile ? (
