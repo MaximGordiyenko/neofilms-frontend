@@ -9,11 +9,10 @@ import { Button } from '../../components/button/Button';
 import dots from '../../assets/images/thripleDots.svg';
 import successImg from '../../assets/images/success.svg';
 import errimg from '../../assets/images/submit-error.svg';
-import axios from "axios";
-import {FooterCreds} from "../../components/credsFooter/FooterCreds";
-import {Flex} from "../../components/customDiv/Flex";
-import {ClipInput} from "../../components/input/ClipInput";
 import { getCasting, sendResume } from "../../../api/casting";
+import { FooterCreds } from "../../components/credsFooter/FooterCreds";
+import { Flex } from "../../components/customDiv/Flex";
+import { ClipInput } from "../../components/input/ClipInput";
 
 export const CastFilmPage = () => {
   const { casting_id } = useParams();
@@ -28,6 +27,7 @@ export const CastFilmPage = () => {
     userName: '',
     userEmail: '',
   });
+  const [roleName, setRoleName] = useState('');
   const headshotFileInputRef = useRef(null);
   const resumeFileInputRef = useRef(null);
 
@@ -40,7 +40,6 @@ export const CastFilmPage = () => {
         setLoading(true);
         const response = await getCasting(casting_id);
         setCastingData(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error('Error fetching casting details:', error);
       } finally {
@@ -48,7 +47,7 @@ export const CastFilmPage = () => {
       }
     };
     fetchCastingDetails();
-  }, []);
+  }, [casting_id]);
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 430);
 
@@ -62,7 +61,24 @@ export const CastFilmPage = () => {
     };
   }, []);
 
-  const openModal = () => {
+  const trimFileName = (fileName, maxLength) => {
+    if (!fileName) return '';
+
+    const dotIndex = fileName.lastIndexOf('.');
+
+    if (dotIndex === -1 || fileName.length <= maxLength) {
+      return fileName;
+    }
+
+    const namePart = fileName.substring(0, dotIndex);
+    const extension = fileName.substring(dotIndex);
+
+    return `${namePart.substring(0, maxLength)}...${extension}`;
+  };
+  const trimmedHeadshotFileName = trimFileName(headshotFileName, 10);
+  const trimmedResumeFileName = trimFileName(resumeFileName, 10);
+  const openModal = (roleName) => {
+    setRoleName(roleName);
     setIsModalOpen(true);
     setIsSubmit(false);
   };
@@ -112,16 +128,7 @@ export const CastFilmPage = () => {
       [name]: value,
     });
   };
-  async function sendResume(castingId, _formData) {
-    const formData = new FormData();
-    for (const key in _formData) {
-      formData.append(key, _formData[key]);
-    }
 
-    return await axios.post(`/api/pages/casting/${castingId}/send-resume`, formData, {
-      withCredentials: true,
-    });
-  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsError(null);
@@ -133,7 +140,7 @@ export const CastFilmPage = () => {
       name: formData.userName,
       email: formData.userEmail,
       acting_resume: resumeFile,
-      role: 'test'
+      role: roleName,
     };
     try {
       const response = await sendResume(casting_id, data);
@@ -146,20 +153,7 @@ export const CastFilmPage = () => {
     } finally {
       setIsSubmit(false);
     }
-    console.log(isSubmit, 'is submitted?')
   };
-
-  console.log(isError)
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const { userName, userEmail } = formData;
-  //   if (!userName || !userEmail || !headshotFile || !resumeFile) {
-  //     setIsError('Please fill in all fields and upload both files.');
-  //   } else {
-  //     setIsSubmit(true);
-  //     setIsError(null);
-  //   }
-  // };
 
   if (!casting_id) {
     return <div>Film not found</div>;
@@ -175,7 +169,7 @@ export const CastFilmPage = () => {
           <img className="modal-icon" src={closeIcon} onClick={closeModal} alt="Close" />
         )}
       </Flex>
-      <Flex className="detail-body-box" flexDirection="column">
+      <div className="detail-body-box">
         <Flex
           justifyContent="space-between"
           className="user-creds"
@@ -196,53 +190,51 @@ export const CastFilmPage = () => {
             onChange={handleInputChange}
           />
         </Flex>
-        <Flex className="detail-button-box"  justifyContent="space-between">
+        <Flex className="detail-button-box" justifyContent="space-between">
           <div className="detail-upload-btn">
             <Flex flexDirection="column">
               <p className="modal-text">Headshot</p>
-              {headshotFile && <p className="modal-file-name">{headshotFileName}</p>}
+              {headshotFile && <p className="modal-file-name">{trimmedHeadshotFileName}</p>}
             </Flex>
             {headshotFile ? (
-              <Button text={'Delete'} onClick={deleteHeadshot}/>
+              <Button text={'Delete'} onClick={deleteHeadshot} />
             ) : (
               <>
                 <input
                   type="file"
                   ref={headshotFileInputRef}
-                  style={{display: 'none'}}
+                  style={{ display: 'none' }}
                   onChange={handleHeadshotChange}
                 />
-                <Button text="Upload" onClick={() => headshotFileInputRef.current.click()}/>
-                {headshotFileName && <p className="modal-text">{headshotFileName}</p>}
+                <Button text="Upload" onClick={() => headshotFileInputRef.current.click()} />
+                {headshotFileName && <p className="modal-text">{trimmedHeadshotFileName}</p>}
               </>
             )}
           </div>
           <Flex className="detail-upload-btn" alignItems="center" justifyContent="space-between">
             <Flex flexDirection="column">
               <p className="modal-text">Acting resume</p>
-              { resumeFile && <p className="modal-file-name">{resumeFileName.substring(0,15)}</p>}
+              {resumeFile && <p className="modal-file-name">{trimmedResumeFileName}</p>}
             </Flex>
             {resumeFile ? (
-              <>
-                <Button text={'Delete'} onClick={deleteResume}/>
-              </>
+              <Button text={'Delete'} onClick={deleteResume} />
             ) : (
               <>
                 <input
                   type="file"
                   ref={resumeFileInputRef}
-                  style={{display: 'none'}}
+                  style={{ display: 'none' }}
                   onChange={handleResumeChange}
                 />
-                <Button text="Upload" onClick={() => resumeFileInputRef.current.click()}/>
-                {resumeFileName && <p className="modal-text">{resumeFileName}</p>}
+                <Button text="Upload" onClick={() => resumeFileInputRef.current.click()} />
+                {resumeFileName && <p className="modal-text">{trimmedResumeFileName}</p>}
               </>
             )}
           </Flex>
         </Flex>
         <div className="detail-form-button-box">
-          <img className="modal-form-icon" src={dots} alt="dots"/>
-          <div className="hr-line"/>
+          <img className="modal-form-icon" src={dots} alt="dots" />
+          <div className="hr-line" />
           <Button text={'Apply'} onClick={handleSubmit}/>
           {isMobile && (
             <div onClick={closeModal} className="modal-close-button">
@@ -253,27 +245,27 @@ export const CastFilmPage = () => {
         <div className="modal-images">
           {isError && (
             <div className={'submitting-wrong'}>
-              <img src={errimg} alt={'err-img'}/>
+              <img src={errimg} alt={'err-img'} />
               <p>Oops! Something went wrong... Please try again.</p>
             </div>
           )}
           {isSubmit && !isError && (
             <div className={'success'}>
-              <img src={successImg} alt={'success-img'}/>
+              <img src={successImg} alt={'success-img'} />
               <p>
-                All done! <br/> Your idea submitted successfully!
+                All done! <br /> Your application was submitted successfully!
               </p>
             </div>
           )}
         </div>
-      </Flex>
+      </div>
     </div>
   );
 
   return (
     <div className='details-cast-wrapper'>
-      <CastDetHeader/>
-      <DetailsBody onApplyClick={openModal}/>
+      <CastDetHeader />
+      <DetailsBody onApplyClick={openModal} />
       <CustomModal
         className="cast-content"
         isOpen={isModalOpen}
@@ -281,7 +273,7 @@ export const CastFilmPage = () => {
         title="Apply for Role"
         content={modalContent}
       />
-      <FooterCreds/>
+      <FooterCreds />
     </div>
   );
 };

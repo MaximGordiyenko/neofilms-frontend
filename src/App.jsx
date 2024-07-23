@@ -1,15 +1,12 @@
-// sharing imports
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-// user frontend imports
 import './App.scss';
 import { HomePage } from './website/pages/home/HomePage';
 import { Live } from './website/pages/live/Live';
 import { AllMovies } from './website/pages/allMovies/AllMovies';
 import FilmDetails from './website/pages/filmDetails/FilmDetails';
 import { AboutPage } from './website/pages/about/AboutPage';
-import { UnderConstruction } from './website/pages/underConstruction/SoonPage';
 import { News } from './website/pages/news/News';
 import { Services } from './website/pages/services/Services';
 import { NeoNft } from './website/pages/web3/neoNFT/NeoNft';
@@ -42,6 +39,7 @@ import { CreateCastingPage } from './admin_panel/pages/casting/CreateCastingPage
 import { CastingEditPage } from './admin_panel/pages/casting/CastingEditPage';
 import { CastingPage } from './admin_panel/pages/casting/CastingPage';
 import { adminLogout } from './admin_panel/store/thunk/admin.api';
+import Shop from "./website/pages/shop/Shop";
 
 export const App = () => {
   const themeLight = createTheme(light);
@@ -69,9 +67,8 @@ export const App = () => {
         <Route path={'/live'} element={<Live/>}/>
         <Route path={'/about'} element={<AboutPage/>}/>
         <Route path={'/all_movies'} element={<AllMovies/>}/>
-        <Route path={'/soon'} element={<UnderConstruction/>}/>
         <Route path={'/news'} element={<News/>}/>
-        <Route path={'/product'} element={<UnderConstruction/>}/>
+        <Route path={'/product'} element={<Shop/>}/>
         <Route path={'/services'} element={<Services/>}/>
         {/*<Route path={'/web3'} element={<UnderConstruction />} />*/}
         <Route path={'/web3/neo-nft'} element={<NeoNft/>}/>

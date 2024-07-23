@@ -31,8 +31,8 @@ export const AllMovies = () => {
                     ...movie,
                     posterUrl: getPoster(movie.id),
                 }));
-
-                setFilms(moviesWithPosters);
+              const sortedMovies = moviesWithPosters.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+              setFilms(sortedMovies);
             } catch (error) {
                 console.error('Error fetching movies:', error);
             } finally {
@@ -57,29 +57,29 @@ export const AllMovies = () => {
                   <img src={film} alt='all-movies film' />
               </div>
           </div>
-          <div className='films-cards-am'>
-              {loading ? (
-                <Spinner />
-              ) : (
-                films.slice(0, currentPage * cardsPerPage).map((film) => (
-                  <Link to={`/film-details/${film.id}`} key={film.id} className='link-to-details-am'>
-                      <div className='img-am-box' style={{ backgroundColor: '#000' }}>
-                          <div className='poster-am-title'>
-                              <span className='all-m-title-card'>{film.title}</span>
-                              <span className='date-all-movies'>{new Date(film.release_date).toLocaleDateString()}</span>
-                          </div>
-                          <img src={film.posterUrl} className='am-poster-img' alt='am-poster' />
-                      </div>
-                  </Link>
-                ))
-              )}
-              {isMobile && <img src={mobLine} alt='' className='mob-line' />}
-          </div>
-          <div className='lower-bg-am-box'>
-              <img className='bg-wrapper-am' src={bg} alt='bg-wrapper-am' />
-          </div>
-          <FilledButton btnText={'show older'} onClick={handleShowOlderClick} />
-          <FooterCreds />
+        <div className='films-cards-am'>
+          {loading ? (
+            <Spinner/>
+          ) : (
+            films.slice(0, currentPage * cardsPerPage).map((film) => (
+              <Link to={`/film-details/${film.id}`} key={film.id} className='link-to-details-am'>
+                <div className='img-am-box' style={{backgroundColor: '#000'}}>
+                  <div className='poster-am-title'>
+                    <span className='all-m-title-card'>{film.title}</span>
+                    <span className='date-all-movies'>{new Date(film.release_date).toLocaleDateString()}</span>
+                  </div>
+                  <img src={film.posterUrl} className='am-poster-img' alt='am-poster'/>
+                </div>
+              </Link>
+            ))
+          )}
+          {isMobile && <img src={mobLine} alt='' className='mob-line'/>}
+        </div>
+        <div className='lower-bg-am-box'>
+          <img className='bg-wrapper-am' src={bg} alt='bg-wrapper-am'/>
+        </div>
+        <FilledButton btnText={'show older'} onClick={handleShowOlderClick}/>
+        <FooterCreds/>
       </div>
     );
 };

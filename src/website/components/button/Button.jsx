@@ -5,7 +5,7 @@ import play from '../../assets/images/play-mob.svg';
 import './glitch.scss';
 import bgBorder from '../../assets/images/buttonSvg.svg';
 import BTN_mob from '../../assets/images/BTN_Mobile.svg';
-export const Button = ({ text, style, onClick, width, isFilled, disabled, vimeoLink }) => {
+export const Button = ({ text, style, onClick, width, isFilled, disabled, vimeoLink, type }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 430);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export const Button = ({ text, style, onClick, width, isFilled, disabled, vimeoL
   }, []);
 
   return (
-    <button className={'btn-box'} onClick={onClick} style={{ width: width }} disabled={disabled}>
+    <button className={'btn-box'} onClick={onClick} style={{ width: width }} disabled={disabled} type={type ? type : null}>
       <img src={!isMobile ? bgBorder : BTN_mob} className={'button-border'} />
       <div className={'btn-body'} style={style}>
         {isMobile ? (

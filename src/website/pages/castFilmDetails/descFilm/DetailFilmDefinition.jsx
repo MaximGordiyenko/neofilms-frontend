@@ -68,7 +68,7 @@ export const DetailFilmDefinition = () => {
   };
   return (
     <div className="detail-definition-container">
-      <p className="production-info">{casting.subtitle}</p>
+      <p className="production-info">{casting.additional_info}</p>
       <div className="info-box">
         <div className={'details-box'}>
           <div className="info-div">
@@ -83,16 +83,20 @@ export const DetailFilmDefinition = () => {
             <h5>Writer</h5>
             <div className="info">{casting.writer}</div>
           </div>
-          {/*<div className="info-div">*/}
-          {/*  <h5>Casting Director</h5>*/}
-          {/*  <div className="info">{firstFilmCard.director}</div>*/}
-          {/*</div>*/}
+          <div className="info-div">
+            <h5>Casting Director</h5>
+            <div className="info">{casting.director}</div>
+          </div>
         </div>
         <div className="data-box">
           <div className="info-div">
             <h5>Audition dates</h5>
             <div className="info">
-              <div className="info">{renderDateRange(casting.audition_dates.from, casting.audition_dates.to)}</div>
+              <div className="info">
+                {casting.eco_cast_self_tape
+                  ? "Eco cast self-tape"
+                  : renderDateRange(casting.audition_dates.from, casting.audition_dates.to)}
+              </div>
             </div>
           </div>
           <div className="info-div">

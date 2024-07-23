@@ -32,7 +32,6 @@ export const NeoNftCards = () => {
     fetchProjects();
   }, []);
 
-  console.log(projectsData, 'projects');
 
   return (
     <div className={'cards-nft'}>
@@ -40,7 +39,6 @@ export const NeoNftCards = () => {
         <Spinner />
       ) : (
         projectsData.slice(-3).map((item, i) => {
-          console.log(item, 'item');
           return (
             <div className={'card-nft'} key={i}>
               <div className={'card-inner-content'}>
