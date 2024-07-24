@@ -68,7 +68,7 @@ export const StakingCards = () => {
     console.log("stake tx:", tx);
     await runTransaction(tx);
   };
-
+console.log(pools, 'pools')
   return (
     <div className={'card-container'}>
       {pools.map((pool, i) => {

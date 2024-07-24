@@ -112,7 +112,7 @@ export const NewsPageCards = () => {
                   <span className={'other-card-news'}>News</span>
                   <span className={'other-card-date'}>{item.date}</span>
                 </div>
-                <h5 className={'other-card-title'}>{item.title}</h5>
+                <h5 className={'other-card-title'}>{item.name}</h5>
                 <p className={'other-card-text'}>{item.text}</p>
                 <Button text={item.buttonText} onClick={() => handleNav(item.url)} />
               </div>

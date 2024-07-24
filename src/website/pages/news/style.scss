@@ -42,8 +42,16 @@
       }
     }
   }
-  .navbar-wrapper{
+  .navbar-wrapper {
+    opacity: 0;
+    display: none;
   }
+  .navbar-wrapper.visible {
+    opacity: 1;
+    bottom: 0;
+    display: flex;
+  }
+
   .news-page-cards-box{
     width: 100%;
     display: flex;
