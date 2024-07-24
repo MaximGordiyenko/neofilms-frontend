@@ -169,12 +169,12 @@ export const CastingEditPage = () => {
       location: data.location || castingData.location,
       roles: data.roles && data.roles.length ? data.roles : castingData.roles
     };
-    console.log({ data }, { checkedData });
+
     dispatch(updateCasting({ id: castingId, data: updatedCastingData }));
     navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
     toast.success(`Casting "${updatedCastingData?.title}" was updated successfully`);
   };
-  console.log({ checkedData });
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>

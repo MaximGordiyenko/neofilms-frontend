@@ -16,7 +16,6 @@ export const NeoCheckbox = ({ name, value, label, control, setCheckedData }) => 
               checked={value}
               onChange={(e) => {
                 setCheckedData(e.target.checked);
-                // field.onChange(e.target.checked);
               }}
             />
           }
@@ -30,6 +29,11 @@ const FormControlLabelCSS = styled(FormControlLabel)(
   ({ theme }) => ({
     '& .MuiFormControlLabel-label': {
       color: theme.palette.grey[600]
+    },
+    '& .MuiInputBase-root': {
+      'fieldset': {
+        color: theme.palette.grey[600]
+      }
     }
   })
 );

@@ -22,6 +22,7 @@ import { FileUploader } from '../../components/file-upload/FileUploader';
 
 export const CreateCastingPage = () => {
   const [imageUpload, setImageUpload] = useState([]);
+  const [checkedData, setCheckedData] = useState(null);
   const [roles, setRoles] = useState([
     { id: 1, name: 'test', description: 'hello world' }
   ]);
@@ -55,6 +56,7 @@ export const CreateCastingPage = () => {
         from: data.audition_dates.from.unix() * 1000,
         to: data.audition_dates.to.unix() * 1000
       },
+      eco_cast_self_tape: data.eco_cast_self_tape || checkedData,
       callback_dates: {
         from: data.callback_dates.from.unix() * 1000,
         to: data.callback_dates.to.unix() * 1000
@@ -228,6 +230,8 @@ export const CreateCastingPage = () => {
                     name="eco_cast_self_tape"
                     label="Eco Cast Self-Tape"
                     control={control}
+                    value={checkedData}
+                    setCheckedData={setCheckedData}
                   />
                 </Grid>
                 <GroupGridCSS item container xs={12} sm={12} md={12} lg={12}>
