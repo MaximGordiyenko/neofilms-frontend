@@ -12,6 +12,8 @@ import {ShopifyProduct} from "../product/product";
 const Shop = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
   const isMobile = window.innerWidth <= 430;
   const navbarRef = useRef(null);
 
@@ -20,24 +22,35 @@ const Shop = () => {
   };
 
   useEffect(() => {
-    // Simulate a loading delay
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // Adjust the timeout duration as needed
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setHasScrolled(true);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
     const navbar = navbarRef.current;
     if (navbar) {
-      if (isLoading) {
-        navbar.style.bottom = '-10vh'; // Example style
+      if (!isLoading && hasScrolled) {
+        navbar.classList.add('visible');
       } else {
-        navbar.style.bottom = '-10vh'; // Reset style
+        navbar.classList.remove('visible');
       }
     }
-  }, [isLoading]);
+  }, [isLoading, hasScrolled]);
 
   return (
     <div className={'soon-page-wrapper'}>
@@ -49,21 +62,23 @@ const Shop = () => {
           </h2>
           <img src={satelite} alt={'under-construction'} className={'under-construction'} />
         </div>
-        {/*{isMobile ? (*/}
-        {/*  <div className={'menu-mob-wrapper'}>*/}
-        {/*    <img*/}
-        {/*      src={menuMobile}*/}
-        {/*      className={'sidebar-mob-btn'}*/}
-        {/*      onClick={handleOpenMobMenu}*/}
-        {/*      alt={'menuMob-hp'}*/}
-        {/*    />*/}
-        {/*  </div>*/}
-        {/*) : (*/}
-        {/*  <Navbar ref={navbarRef} />*/}
-        {/*)}*/}
-        {/*{isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen} />}*/}
       </div>
-      <ShopifyProduct />
+      {isMobile ? (
+        <div className={'menu-mob-wrapper'}>
+          <img
+            src={menuMobile}
+            className={'sidebar-mob-btn'}
+            onClick={handleOpenMobMenu}
+            alt={'menuMob-hp'}
+          />
+        </div>
+      ) : (
+        <Navbar ref={navbarRef} />
+      )}
+      {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen} />}
+      <div className="shopify-products_wrapper">
+        <ShopifyProduct />
+      </div>
       <FooterCreds />
     </div>
   );

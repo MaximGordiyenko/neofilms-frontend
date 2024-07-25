@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 import Header from '../../components/header/Header';
@@ -10,16 +10,54 @@ import bg from '../../assets/images/image 37.jpg';
 import mobLine from '../../assets/images/cast-footer-geometry.png';
 import './style.scss';
 import {getMovies, getPoster} from "../../../api/movie";
+import menuMobile from "../../assets/images/burger-menu.svg";
+import {Navbar} from "../../components/navbar/Navbar";
 
 export const AllMovies = () => {
     const [films, setFilms] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [cardsPerPage, setCardsPerPage] = useState(5);
+    const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [hasScrolled, setHasScrolled] = useState(false);
+    const navbarRef = useRef(null);
 
+    const handleOpenMobMenu = () => {
+        setIsMobMenuOpen((prev) => !prev);
+    };
     const isMobile = useMediaQuery('(max-width: 430px)');
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                setHasScrolled(true);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    useEffect(() => {
+        const navbar = navbarRef.current;
+        if (navbar) {
+            if (!isLoading && hasScrolled) {
+                navbar.classList.add('visible');
+            } else {
+                navbar.classList.remove('visible');
+            }
+        }
+    }, [isLoading, hasScrolled]);
     useEffect(() => {
         const fetchMovies = async () => {
             try {
@@ -78,6 +116,18 @@ export const AllMovies = () => {
         <div className='lower-bg-am-box'>
           <img className='bg-wrapper-am' src={bg} alt='bg-wrapper-am'/>
         </div>
+          {isMobile ? (
+            <div className={'menu-mob-wrapper'}>
+                <img
+                  src={menuMobile}
+                  className={'sidebar-mob-btn'}
+                  onClick={handleOpenMobMenu}
+                  alt={'menuMob-hp'}
+                />
+            </div>
+          ) : (
+            <Navbar ref={navbarRef} />
+          )}
         <FilledButton btnText={'show older'} onClick={handleShowOlderClick}/>
         <FooterCreds/>
       </div>
