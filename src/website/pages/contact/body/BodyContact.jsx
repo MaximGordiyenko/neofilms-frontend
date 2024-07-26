@@ -12,9 +12,9 @@ export const BodyContact = () => {
       <div className={'inner-contact-box'}>
         {isMobile && (
           <div className={'mobile-content'}>
-            <span>Our stores</span>
-            <h2>Visit Our New Store in New York</h2>
-            <p>294 Bay Meadows Ave., Bay Shore, NY 11706</p>
+            <span>Studio Location</span>
+            <h2>Visit Our Studio Location in New York</h2>
+            <p>107 Memorial Dr, St. Louis, MO 63102</p>
             <Button text={'see more about'} />
           </div>
         )}
@@ -24,10 +24,10 @@ export const BodyContact = () => {
           {
             !isMobile &&
             <div className="address">
-              <span>our stores</span>
-              <h3>Visit Our New Store <br/>
+              <span>Studio Location</span>
+              <h3>Visit Our Studio Location <br/>
                 in New York</h3>
-              <p>294 Bay Meadows Ave., Bay Shore, NY 11706</p>
+              <p>107 Memorial Dr, St. Louis, MO 63102</p>
             </div>
           }
         </div>

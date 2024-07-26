@@ -71,7 +71,7 @@ export const NewsPageCards = () => {
   return (
     <div className="cards-news-wrapper">
       <div className="news-container">
-        <FilledButton btnText="cooming soon"/>
+        <FilledButton btnText="calendar"/>
         {renderLatestNews.map((item, i) => (
           <div className={'news_page-card'} key={item._id}>
             <div className={'other-cards'} style={{ borderBottom: '1px solid rgba(250, 250, 250, 0.2)' }}>

@@ -77,7 +77,7 @@ export const DetailFilmDefinition = () => {
           </div>
           <div className="info-div">
             <h5>Director</h5>
-            <div className="info">{casting.casting_director}</div>
+            <div className="info">{casting.director}</div>
           </div>
           <div className="info-div">
             <h5>Writer</h5>
@@ -85,7 +85,7 @@ export const DetailFilmDefinition = () => {
           </div>
           <div className="info-div">
             <h5>Casting Director</h5>
-            <div className="info">{casting.director}</div>
+            <div className="info">{casting.casting_director}</div>
           </div>
         </div>
         <div className="data-box">

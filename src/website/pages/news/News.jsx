@@ -55,6 +55,7 @@ export const News = () => {
     }
   }, [isLoading, hasScrolled]);
 
+
   return (
     <div className={'news-wrapper'}>
       <Flex flexDirection="column" className={'news-header'}>

@@ -6,11 +6,16 @@ export const ShopifyProduct = () => {
 
     const loadScript = (src) => {
       return new Promise((resolve) => {
-        const script = document.createElement('script');
-        script.src = src;
-        script.async = true;
-        script.onload = resolve;
-        document.head.appendChild(script);
+        const existingScript = document.querySelector(`script[src="${src}"]`);
+        if (existingScript) {
+          resolve();
+        } else {
+          const script = document.createElement('script');
+          script.src = src;
+          script.async = true;
+          script.onload = resolve;
+          document.head.appendChild(script);
+        }
       });
     };
 
@@ -25,7 +30,7 @@ export const ShopifyProduct = () => {
           ui.createComponent('collection', {
             id: '331566383257',
             node: document.getElementById('collection-component-1721827904642'),
-            moneyFormat: '%E2%82%B4%7B%7Bamount%7D%7D',
+            moneyFormat: '%24%7B%7Bamount%7D%7D',
             options: {
               product: {
                 styles: {
