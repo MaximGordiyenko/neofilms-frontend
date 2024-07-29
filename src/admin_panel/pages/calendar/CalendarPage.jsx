@@ -19,7 +19,7 @@ export const CalendarPage = ({ tab, cards, onAdd, buttonName }) => {
   }, [dispatch, getCalendars]);
   
   return (
-    <AdminTabPanel value={tab} index={2}>
+    <AdminTabPanel value={tab} index={3}>
       <Box display="flex" alignItems="center" overflow="scroll" py={60} px={5}>
         {cards?.map(card => (
           <MediaCard
@@ -27,6 +27,7 @@ export const CalendarPage = ({ tab, cards, onAdd, buttonName }) => {
             date={card.date}
             name={card.name}
             description={card.description}
+            isDelete={true}
             onDelete={() => {
               dispatch(deleteCalendar(card.id));
               toast.error(`Event "${idx + 1}" was delete successfuly`);

@@ -19,7 +19,7 @@ export const MoviesPage = ({ tab, cards, onAdd, buttonName }) => {
   }, [dispatch, getMovies]);
   
   return (
-    <AdminTabPanel value={tab} index={0}>
+    <AdminTabPanel value={tab} index={1}>
       <Box display="flex" alignItems="center" overflow="scroll" py={60} px={5}>
         {cards?.map((card, idx) => (
           <MediaCard
@@ -28,6 +28,7 @@ export const MoviesPage = ({ tab, cards, onAdd, buttonName }) => {
             status={card.status}
             title={card.title}
             description={card.description}
+            isDelete={true}
             onDelete={() => {
               dispatch(deleteMovie(card?.id));
               toast.error(`Movie "${idx + 1}" was delete successfuly`);

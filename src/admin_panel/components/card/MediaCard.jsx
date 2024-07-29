@@ -1,13 +1,28 @@
 import { CardContent, Typography, CardMedia, CardActions, Button, Card } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import slide_placeholder from '../../assets/slide_placeholder.png';
-import { ConvertDateUsFormat, formatStatus } from '../../helpers/common';
+import { ConvertDateUsFormat, formatStatus, trimText } from '../../helpers/common';
 
-export const MediaCard = ({ status, date, name, role, completion, title, description, image, onDelete, onEdit }) => {
+export const MediaCard = ({
+                            status,
+                            date,
+                            name,
+                            role,
+                            completion,
+                            title,
+                            description,
+                            content,
+                            image,
+                            onDelete,
+                            onEdit,
+                            width = `${250}px`,
+                            isDelete
+                          }) => {
   const formattedDate = ConvertDateUsFormat(date);
-
+  const trimmedText = trimText(content, 100);
+  
   return (
-    <Card sx={{ width: 250, mx: 10, overflow: 'initial', background: '#faf5f5' }} raised>
+    <Card sx={{ width: width, mx: 10, overflow: 'initial', background: '#faf5f5' }} raised>
       {
         image && <CardMedia
           component="img"
@@ -29,16 +44,22 @@ export const MediaCard = ({ status, date, name, role, completion, title, descrip
         <Typography gutterBottom variant="body2" color="primary">
           {description}
         </Typography>
+        {
+          content &&
+          <div dangerouslySetInnerHTML={{ __html: trimmedText }}/>
+        }
       </CardContent>
       <CardActions sx={{ justifyContent: 'space-around' }}>
-        <Button
-          variant="contained"
-          color="error"
-          endIcon={<Delete/>}
-          onClick={onDelete}
-          sx={{ width: 100 }}>
-          Delete
-        </Button>
+        {isDelete &&
+          <Button
+            variant="contained"
+            color="error"
+            endIcon={<Delete/>}
+            onClick={onDelete}
+            sx={{ width: 100 }}>
+            Delete
+          </Button>
+        }
         <Button
           variant="contained"
           endIcon={<Edit/>}

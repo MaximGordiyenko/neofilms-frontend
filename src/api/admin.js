@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export async function login(login, password) {
 	return await axios.post(`/api/admin/login`, {
 			login: login,

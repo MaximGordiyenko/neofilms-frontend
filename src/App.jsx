@@ -40,6 +40,9 @@ import { CastingEditPage } from './admin_panel/pages/casting/CastingEditPage';
 import { CastingPage } from './admin_panel/pages/casting/CastingPage';
 import { adminLogout } from './admin_panel/store/thunk/admin.api';
 import Shop from "./website/pages/shop/Shop";
+import { LatestNewsPage } from './admin_panel/pages/latest-news/LatestNewsPage';
+import { NewsEditPage } from './admin_panel/pages/latest-news/NewsEditPage';
+import { SettingsPage } from './admin_panel/pages/settings/SettingsPage';
 
 export const App = () => {
   const themeLight = createTheme(light);
@@ -49,6 +52,7 @@ export const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { news } = useSelector((state) => state?.news);
   const { movies } = useSelector((state) => state?.movie);
   const { projects } = useSelector((state) => state?.project);
   const { calendars } = useSelector((state) => state?.calendar);
@@ -89,6 +93,16 @@ export const App = () => {
                 onChangeTab={(event, newValue) => setTab(newValue)}
               />
             }>
+            
+            <Route index element={<LatestNewsPage/>}/>
+            <Route path={ROUTE.latestNews} element={<OnlyAdmin element={
+              <LatestNewsPage
+                tab={tab}
+                cards={news}
+              />
+            }/>
+            }/>
+            
             <Route index element={<MoviesPage/>}/>
             <Route path={ROUTE.allMovies} element={<OnlyAdmin element={
               <MoviesPage
@@ -99,6 +113,7 @@ export const App = () => {
               />
             }/>
             }/>
+            
             <Route index element={<Web3ProjectPage/>}/>
             <Route path={ROUTE.web3project} element={<OnlyAdmin element={
               <Web3ProjectPage
@@ -109,6 +124,7 @@ export const App = () => {
               />
             }/>
             }/>
+            
             <Route index element={<CalendarPage/>}/>
             <Route path={ROUTE.calendar} element={<OnlyAdmin element={
               <CalendarPage
@@ -119,6 +135,7 @@ export const App = () => {
               />
             }/>
             }/>
+            
             <Route index element={<CastingPage/>}/>
             <Route
               path={ROUTE.casting}
@@ -132,6 +149,17 @@ export const App = () => {
               }
             />
           </Route>
+          
+          <Route index element={<SettingsPage/>}/>
+          <Route path={ROUTE.settings} element={<OnlyAdmin element={
+            <SettingsPage tab={tab}/>
+          }/>
+          }/>
+          
+          <Route path={`${ROUTE.admin}/${ROUTE.latestNews}/:newsId`}
+                 element={<OnlyAdmin
+                   element={<NewsEditPage/>}/>}
+          />
           
           <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/${ROUTE.createMovie}`}
                  element={<OnlyAdmin
