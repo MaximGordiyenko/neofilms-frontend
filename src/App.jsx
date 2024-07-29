@@ -148,13 +148,15 @@ export const App = () => {
                 />
               }
             />
+            
+            <Route index element={<SettingsPage/>}/>
+            <Route
+              path={ROUTE.settings}
+              element={
+                <SettingsPage tab={tab}/>
+              }
+            />
           </Route>
-          
-          <Route index element={<SettingsPage/>}/>
-          <Route path={ROUTE.settings} element={<OnlyAdmin element={
-            <SettingsPage tab={tab}/>
-          }/>
-          }/>
           
           <Route path={`${ROUTE.admin}/${ROUTE.latestNews}/:newsId`}
                  element={<OnlyAdmin

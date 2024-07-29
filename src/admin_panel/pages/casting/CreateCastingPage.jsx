@@ -228,7 +228,7 @@ export const CreateCastingPage = () => {
                 <Grid item xs={12} sm={12} md={12} lg={12} mb={15}>
                   <NeoCheckbox
                     name="eco_cast_self_tape"
-                    label="Eco Cast Self-Tape"
+                    label="Self-Tape"
                     control={control}
                     value={checkedData}
                     setCheckedData={setCheckedData}

@@ -36,15 +36,15 @@ export const CastingEditPage = () => {
     casting_director: '',
     audition_dates: {
       from: null,
-      to: null,
+      to: null
     },
     callback_dates: {
       from: null,
-      to: null,
+      to: null
     },
     shoot_dates: {
       from: null,
-      to: null,
+      to: null
     },
     deadline: null,
     rate_of_pay_per_day: '',
@@ -89,21 +89,21 @@ export const CastingEditPage = () => {
         writer,
         casting_director,
         audition_dates: {
-          from:  audition_dates.from ? moment(audition_dates.from) : null,
-          to:  audition_dates.to ? moment(audition_dates.to) : null,
+          from: audition_dates.from ? moment(audition_dates.from) : null,
+          to: audition_dates.to ? moment(audition_dates.to) : null
         },
         callback_dates: {
           from: callback_dates.from ? moment(callback_dates.from) : null,
-          to: callback_dates.to ? moment(callback_dates.to) : null,
+          to: callback_dates.to ? moment(callback_dates.to) : null
         },
         shoot_dates: {
           from: shoot_dates.from ? moment(shoot_dates.from) : null,
-          to: shoot_dates.to ? moment(shoot_dates.to) : null,
+          to: shoot_dates.to ? moment(shoot_dates.to) : null
         },
         deadline: deadline ? moment(deadline) : null,
         rate_of_pay_per_day,
         location,
-        roles,
+        roles
       });
     });
   }, [dispatch, castingId]);
@@ -127,7 +127,7 @@ export const CastingEditPage = () => {
     defaultValues: {
       eco_cast_self_tape: checkedData,
       ...castingData
-    },
+    }
   });
   
   const { control, handleSubmit, formState: { errors } } = methods;
@@ -135,7 +135,7 @@ export const CastingEditPage = () => {
   const onInputChange = (field, value) => {
     setCastingData((prevData) => ({
       ...prevData,
-      [field]: value,
+      [field]: value
     }));
     dispatch(updateField({ field, value }));
   };
@@ -169,12 +169,12 @@ export const CastingEditPage = () => {
       location: data.location || castingData.location,
       roles: data.roles && data.roles.length ? data.roles : castingData.roles
     };
-
+    
     dispatch(updateCasting({ id: castingId, data: updatedCastingData }));
     navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
     toast.success(`Casting "${updatedCastingData?.title}" was updated successfully`);
   };
-
+  
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -325,31 +325,33 @@ export const CastingEditPage = () => {
                     onInputChange={(value) => onInputChange('casting_director', value)}
                   />
                 </Grid>
-                <GroupGridCSS item container xs={12} sm={12} md={12} lg={12}>
-                  <Grid item xs={12} sm={12} md={5} lg={5.5}>
-                    <DataPicker
-                      name="audition_dates.from"
-                      label="Audition dates"
-                      value={castingData.audition_dates.from}
-                      control={control}
-                      errors={errors}
-                    />
-                  </Grid>
-                  <Remove/>
-                  <Grid item xs={12} sm={12} md={5} lg={5.5}>
-                    <DataPicker
-                      name="audition_dates.to"
-                      label="Audition dates"
-                      value={castingData.audition_dates.to}
-                      control={control}
-                      errors={errors}
-                    />
-                  </Grid>
-                </GroupGridCSS>
+                {checkedData &&
+                  <GroupGridCSS item container xs={12} sm={12} md={12} lg={12}>
+                    <Grid item xs={12} sm={12} md={5} lg={5.5}>
+                      <DataPicker
+                        name="audition_dates.from"
+                        label="Audition dates"
+                        value={castingData.audition_dates.from}
+                        control={control}
+                        errors={errors}
+                      />
+                    </Grid>
+                    <Remove/>
+                    <Grid item xs={12} sm={12} md={5} lg={5.5}>
+                      <DataPicker
+                        name="audition_dates.to"
+                        label="Audition dates"
+                        value={castingData.audition_dates.to}
+                        control={control}
+                        errors={errors}
+                      />
+                    </Grid>
+                  </GroupGridCSS>
+                }
                 <Grid item xs={12} sm={12} md={12} lg={12} mb={15}>
                   <NeoCheckbox
                     name="eco_cast_self_tape"
-                    label="Eco Cast Self-Tape"
+                    label="Self-Tape"
                     control={control}
                     value={checkedData}
                     setCheckedData={setCheckedData}
