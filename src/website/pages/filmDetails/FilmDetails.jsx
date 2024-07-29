@@ -73,14 +73,14 @@ const FilmDetails = () => {
     }
 
     const { title, starring, release_date, written_by, directed_by } = film;
-
+    console.log(film, 'film details')
     return (
       <div className="movie-details-wrapper">
           <div className="bg-details-box" style={{ backgroundImage: `url(${poster || film.backgroundImg})` }}>
                 <Header />
               <div className="title-details-box">
                   <h2>{title}</h2>
-                  <img src={imdb} alt='imdb' onClick={handleNav} />
+                  <img src={imdb} alt='imdb' onClick={handleNav} className="imdb"/>
               </div>
           </div>
           <div className="movie-details-desc">
@@ -95,7 +95,9 @@ const FilmDetails = () => {
                   </div>
                   <div className="directed-by">
                       <span>directed by</span>
-                      <h2>{directed_by}</h2>
+                      {directed_by && directed_by.filter(director => director).map((director, index) => (
+                        <h2 key={index}>{director}</h2>
+                      ))}
                   </div>
               </div>
               <div className="desc-text">

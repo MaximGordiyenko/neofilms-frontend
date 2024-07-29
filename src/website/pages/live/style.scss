@@ -361,6 +361,11 @@
           }
         }
       }
+      .video-frame{
+        max-height: 190px;
+        min-height: 180px;
+        height: 100%;
+      }
       .live-stream-box{
         min-width: 350px;
         max-width: 350px;

@@ -36,7 +36,11 @@ export const Navbar = forwardRef((props, ref) => {
     };
   }, [location.pathname, navbarHeight]);
 
-  const handleLinkClick = (path, inside_page = true) => {
+  const handleLinkClick = (path, inside_page = true, external = false) => {
+    if (external) {
+      window.location.href = path;
+      return;
+    }
     if (!inside_page) {
       window.location.href = path;
       return;
@@ -44,6 +48,7 @@ export const Navbar = forwardRef((props, ref) => {
     setInitialActive(path);
     setIsWeb3DropdownVisible(false);
     window.scrollTo({ top: 0 });
+    navigate(path);
   };
 
   return (
@@ -80,15 +85,15 @@ export const Navbar = forwardRef((props, ref) => {
                       {isWeb3DropdownVisible && item.title === 'web3' && (
                         <div className="dropdown-content">
                           {item.dropdown.map((dropdownItem, j) => (
-                            <Link
-                              to={dropdownItem.path}
+                            <a
+                              href={dropdownItem.inside_page ? undefined : dropdownItem.path}
+                              onClick={() => dropdownItem.inside_page && handleLinkClick(dropdownItem.path, dropdownItem.inside_page)}
                               key={j}
                               className={`nav-title ${
                                 location.pathname === dropdownItem.path ? 'active-link' : ''
-                              }`}
-                              onClick={() => handleLinkClick(dropdownItem.path, dropdownItem.inside_page)}>
+                              }`}>
                               {dropdownItem.title}
-                            </Link>
+                            </a>
                           ))}
                         </div>
                       )}

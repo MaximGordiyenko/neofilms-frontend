@@ -64,5 +64,9 @@
   .cards-nft{
     flex-direction: column;
     margin-top: 60px;
+    .card-nft{
+      width: 350px;
+      min-width: unset;
+    }
   }
 }

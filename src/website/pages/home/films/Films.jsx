@@ -20,12 +20,15 @@ export const Films = () => {
   }, [dispatch, getMovies]);
   
   const { movies, status } = useSelector((state) => state?.movie);
-  
+
+
   const handleNav = () => {
     navigate('/all_movies', { replace: true });
     window.scrollTo(0, 0);
   };
-
+  const sortMoviesByDate = (movies) => {
+    return movies.slice().sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+  };
   return (
     <div className={'films-box-wrapper'}>
       <h3 className={'films-title'}>original films, series & more</h3>
@@ -42,7 +45,7 @@ export const Films = () => {
         <Spinner />
       ) : (
         <div className={'film-cards-box'}>
-          {movies && movies?.slice(-3)?.map((film) => (
+          {movies && sortMoviesByDate(movies)?.slice(0, 3)?.map((film) => (
             <HomeFilmCards
               key={film.id}
               img={`/api/pages/movie/${film?.id}/poster`}

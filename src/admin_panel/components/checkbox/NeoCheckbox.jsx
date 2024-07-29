@@ -1,27 +1,22 @@
-import { FormControlLabel, Checkbox, styled } from '@mui/material';
 import { Controller } from 'react-hook-form';
-import { useState, useEffect } from 'react';
+import { FormControlLabel, Checkbox, styled } from '@mui/material';
 
-export const NeoCheckbox = ({ name, value, label, control }) => {
-  const [data, setData] = useState(value);
-  
-  useEffect(() => {
-    setData(value);
-  }, [value]);
-  
+export const NeoCheckbox = ({ name, value, label, control, setCheckedData }) => {
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue={data}
+      defaultValue={value}
       render={({ field }) => (
         <FormControlLabelCSS
           label={label}
           control={
             <CheckboxCSS
               {...field}
-              value={data}
-              checked={field.value}
+              checked={value}
+              onChange={(e) => {
+                setCheckedData(e.target.checked);
+              }}
             />
           }
         />
@@ -34,6 +29,11 @@ const FormControlLabelCSS = styled(FormControlLabel)(
   ({ theme }) => ({
     '& .MuiFormControlLabel-label': {
       color: theme.palette.grey[600]
+    },
+    '& .MuiInputBase-root': {
+      'fieldset': {
+        color: theme.palette.grey[600]
+      }
     }
   })
 );

@@ -85,11 +85,6 @@ export const CastDetHeader = () => {
       <div className="detail-header-content">
         <p className="detail-text">{casting.date}</p>
         <h2 className="detail-title">{casting.title}</h2>
-        <div className="text">
-          <b className="detail-title-text">
-            {casting.filmAbout} <img className="header-icon" src={Icon} alt="IMDb Icon" />
-          </b>
-        </div>
       </div>
       {isMobile ? (
         <div className="menu-mob-wrapper">

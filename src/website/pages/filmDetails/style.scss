@@ -5,11 +5,14 @@
   position: relative;
   .bg-details-box{
     height: 65vh;
-    padding: 50px 1vw;
+    padding: 30px 30px;
     background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    .header{
+      padding: 0;
+    }
     .title-details-box{
       display: flex;
       justify-content: space-between;
@@ -23,6 +26,9 @@
         font-size: 96px;
         margin: 0;
       }
+      .imdb{
+        cursor: pointer;
+      }
     }
   }
   .stroke-placeholder-det{
@@ -34,7 +40,7 @@
   .movie-details-desc{
     width: 100%;
     height: 100vh;
-    padding: 50px 50px 50px;
+    padding: 50px 30px 50px;
     box-sizing: border-box;
     background: url("../../assets/images/image 37.png") center no-repeat;
     background-size: cover;
@@ -54,6 +60,13 @@
       flex-direction: column;
       z-index: 2;
       gap: 60px;
+      width: 100%;
+      max-width: 427px;
+      .directed-by, .date-release, .written-by {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
       span{
         color: var(--white);
         opacity: 0.7;

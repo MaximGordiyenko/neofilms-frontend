@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import './style.css';
-import { FILM_CARDS } from '../../../constants/filmsConstants';
 import { ArtistFilmCard } from '../../../components/artistCard/ArtistFilmCard';
 import bodyBg from '../../../assets/images/BG-Details.jpg';
 import { DetailFilmDefinition } from '../descFilm/DetailFilmDefinition';
 import {useParams} from "react-router-dom";
 import axios from "axios";
-import {Flex} from "../../../components/customDiv/Flex";
-import {Text} from "../../../components/text/Text";
 import {getCasting, getImage} from "../../../../api/casting";
 
 export const DetailsBody = ({ onApplyClick }) => {
@@ -17,8 +14,6 @@ export const DetailsBody = ({ onApplyClick }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [getCastImage, setImage] = useState(null);
-
-  console.log(casting, 'casting')
 
   useEffect(() => {
     if (!casting_id) {
@@ -44,8 +39,8 @@ export const DetailsBody = ({ onApplyClick }) => {
       } catch (error) {
         if (isMounted) {
           setError('Failed to fetch film details or poster');
-        }            }
-      finally {
+        }
+      } finally {
         if (isMounted) {
           setLoading(false);
         }
@@ -66,21 +61,26 @@ export const DetailsBody = ({ onApplyClick }) => {
     return <p>No details available.</p>;
   }
 
+  const handleApplyClick = (roleName) => {
+    onApplyClick(roleName);
+  };
+
   return (
     <div className="detail-body">
       <div className="body-film-def">
         <DetailFilmDefinition/>
       </div>
       <img className="body-bg" src={bodyBg} alt=""/>
-      <p className={'detail-desc'}>{casting.subtitle && casting.subtitle}</p>
+      <p className={'detail-desc'}>{casting.plot}</p>
       <div className="cards-wrapper">
         <div className="detail-cards">
-          {casting.roles.map((role) => (
+          {casting.roles.map((role, index) => (
             <ArtistFilmCard
+              index={index}
               actor_name={role.name}
               key={role.id}
               bio={role.description}
-              onApplyClick={onApplyClick}
+              onApplyClick={() => handleApplyClick(role.name)}
             />
           ))}
         </div>

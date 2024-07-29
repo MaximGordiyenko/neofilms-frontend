@@ -7,11 +7,20 @@
   align-items: center;
   background: url("../../assets/images/image 37.jpg") bottom no-repeat;
   background-size: contain;
+  .navbar-wrapper {
+    opacity: 0;
+    display: none;
+  }
+  .navbar-wrapper.visible {
+    opacity: 1;
+    bottom: 0;
+    display: flex;
+  }
   .upper-movies-section{
     background: url("../../assets/images/image 60.png") bottom no-repeat;
     background-size: cover;
     width: 100%;
-    padding: 30px;
+    padding: 30px 30px 100px 30px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -39,7 +48,6 @@
     width: 100%;
     box-sizing: border-box;
     gap: 2% 1%;
-    background: var(--black);
     max-width: 1360px;
     align-self: center;
     .link-to-details-am{
@@ -69,7 +77,7 @@
   }
   .filled-button-box{
     position: absolute;
-    bottom: 30vh;
+    bottom: 25vh;
     left: 42vw;
     width: 400px;
     cursor: pointer;
@@ -77,7 +85,8 @@
   }
   .lower-bg-am-box{
     position: relative;
-    height: 100vh;
+    height: 100%;
+    min-height: 20vh;
     //z-index: -1;
     background: linear-gradient(to top, black, transparent);
     .bg-wrapper-am{
