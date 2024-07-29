@@ -30,6 +30,14 @@ export async function setPrivateKey(privateKey) {
 		});
 }
 
+export async function setPassword(password) {
+	return await axios.post(`/api/admin/password`, {
+			password: password,
+		}, {
+			withCredentials: true
+		});
+}
+
 export async function checkPrivateKey() {
 	return (await axios.get(`/api/admin/private_key`, {
 			withCredentials: true
