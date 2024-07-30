@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 export async function login(login, password) {
 	return await axios.post(`/api/admin/login`, {
 			login: login,
@@ -30,11 +31,11 @@ export async function setPrivateKey(privateKey) {
 }
 
 export async function setPassword(password) {
-  return await axios.post(`/api/admin/password`, {
-    password: password,
-  }, {
-    withCredentials: true
-  });
+	return await axios.post(`/api/admin/password`, {
+			password: password,
+		}, {
+			withCredentials: true
+		});
 }
 
 export async function checkPrivateKey() {
