@@ -42,6 +42,9 @@ export async function getShortNews(shortNewsId) {
 		});
 }
 
-export function getShortNewsImage(shortNewsId) {
-	return `/api/pages/short_news/${shortNewsId}/image`;
+export async function getShortNewsImage(shortNewsId) {
+	return await axios.get(`/api/pages/short_news/${shortNewsId}/image`, {
+		responseType: 'blob',
+		withCredentials: true
+	});
 }

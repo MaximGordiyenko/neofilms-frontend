@@ -94,7 +94,7 @@ export const DetailFilmDefinition = () => {
             <div className="info">
               <div className="info">
                 {casting.eco_cast_self_tape
-                  ? "Eco cast self-tape"
+                  ? "Self-tape"
                   : renderDateRange(casting.audition_dates.from, casting.audition_dates.to)}
               </div>
             </div>
