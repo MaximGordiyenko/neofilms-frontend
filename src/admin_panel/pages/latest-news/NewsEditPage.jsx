@@ -2,23 +2,24 @@ import { ContainerCSS } from '../../components/ui/ui.styles';
 import { Grid, Typography, Button } from '@mui/material';
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs';
 import { ROUTE } from '../../../constants';
-import { Delete, DownloadDone } from '@mui/icons-material';
-import { deleteProject, getProject, updateProject } from '../../store/thunk/project.api';
+import { DownloadDone } from '@mui/icons-material';
+import { getProject, updateProject } from '../../store/thunk/project.api';
 import { toast } from 'react-toastify';
 import { FileUploader } from '../../components/file-upload/FileUploader';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateField } from '../../store/reducers/project.reducer';
 import { DataPicker } from '../../components/pickers/DataPicker';
+import { getCurrentNews, updateCurrentNews } from '../../store/thunk/news';
 
 export const NewsEditPage = () => {
   const [imageUpload, setImageUpload] = useState([{ name: 'mock.png', size: 0 }]);
   const [newsData, setNewsData] = useState({
     date: '',
-    name: '',
+    description: '',
   });
   
   const navigate = useNavigate();
@@ -26,17 +27,15 @@ export const NewsEditPage = () => {
   const { newsId } = useParams();
   
   useEffect(() => {
-    dispatch(getProject(newsId)).then((project) => {
-      const { name, description, completion } = project.payload;
-      setNewsData({ name, description, completion });
+    dispatch(getCurrentNews(newsId)).then((news) => {
+      const { date, description } = news.payload;
+      setNewsData({ date, description });
     });
   }, [dispatch, newsId]);
   
   useEffect(() => {
-    dispatch(getProject(newsId));
+    dispatch(getCurrentNews(newsId));
   }, [dispatch, newsId]);
-  
-  const { name, description } = useSelector((state) => state?.project?.project);
   
   const methods = useForm({
     mode: 'onSubmit',
@@ -54,22 +53,23 @@ export const NewsEditPage = () => {
   };
   
   const onSubmit = (data) => {
-    const updatedProjectData = {
+    const updatedNewsData = {
       image: imageUpload[0],
-      date: data.date || newsData.date,
+      date: data.date?.unix() * 1000 || newsData.date?.unix() * 1000,
       description: data.description || newsData.description,
     };
-    dispatch(updateProject({ id: newsId, data: updatedProjectData }));
-    navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
-    toast.success(`Project "${updatedProjectData.name}" was updated successfully`);
+    dispatch(updateCurrentNews({ id: newsId, data: updatedNewsData }));
+    navigate(`/${ROUTE.admin}/${ROUTE.latestNews}`);
+    toast.success(`News was updated successfully`);
   };
+  
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <ContainerCSS sx={{ background: 'none' }}>
           <Grid container>
             <Grid item xs={12} sm={12} md={12} lg={12}>
-              <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.web3project}`}/>
+              <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.latestNews}`}/>
             </Grid>
             <Grid item xs={4} sm={9} md={9} lg={9.5}>
               <Typography variant="h5" color="primary">New Story</Typography>
@@ -99,7 +99,7 @@ export const NewsEditPage = () => {
                   <DataPicker
                     name="date"
                     label="MM/DD/YYYY"
-                    // value={eventData.date}
+                    value={newsData.date}
                     control={control}
                     errors={errors}
                   />
@@ -109,7 +109,7 @@ export const NewsEditPage = () => {
                     name="description"
                     label="Description"
                     placeholder="Write something..."
-                    value={description}
+                    value={newsData.description}
                     control={control}
                     errors={errors}
                     isText={true}

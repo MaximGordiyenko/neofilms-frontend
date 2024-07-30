@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getNews } from '../thunk/news';
+import { getNews, getCurrentNews } from '../thunk/news';
 
 const newsReducer = createSlice({
   name: 'news',
   initialState: {
     news: [],
+    currentNews: {},
     mediaUrl: '',
     status: 'idle',
     error: null
@@ -19,6 +20,17 @@ const newsReducer = createSlice({
         state.news = action.payload;
       })
       .addCase(getNews.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action?.error.message;
+      })
+      .addCase(getCurrentNews.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getCurrentNews.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.currentNews = action.payload;
+      })
+      .addCase(getCurrentNews.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action?.error.message;
       })

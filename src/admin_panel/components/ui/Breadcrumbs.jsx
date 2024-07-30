@@ -8,7 +8,7 @@ export const BreadCrumbs = ({ currentPage }) => {
   const navigate = useNavigate();
   
   const breadcrumbMapping = {
-    [`${ROUTE.admin}/${ROUTE.mainSlider}`]: { main: 'Main Slider', sub: 'Add Slide' },
+    [`${ROUTE.admin}/${ROUTE.latestNews}`]: { main: 'Latest News', sub: 'Add News' },
     [`${ROUTE.admin}/${ROUTE.allMovies}`]: { main: 'All Movies', sub: 'Add Movie' },
     [`${ROUTE.admin}/${ROUTE.web3project}`]: { main: 'Web 3 Project', sub: 'Add Project' },
     [`${ROUTE.admin}/${ROUTE.calendar}`]: { main: 'Calendar', sub: 'Add Event' },
@@ -19,8 +19,8 @@ export const BreadCrumbs = ({ currentPage }) => {
   
   const handleClick = (event) => {
     event.preventDefault();
-    if (currentPage === `${ROUTE.admin}/${ROUTE.mainSlider}`) {
-      navigate(`/${ROUTE.admin}/${ROUTE.mainSlider}`);
+    if (currentPage === `${ROUTE.admin}/${ROUTE.latestNews}`) {
+      navigate(`/${ROUTE.admin}/${ROUTE.latestNews}`);
     }
     if (currentPage === `${ROUTE.admin}/${ROUTE.allMovies}`) {
       navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);

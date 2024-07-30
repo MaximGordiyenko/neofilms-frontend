@@ -21,14 +21,14 @@ export const LatestNewsPage = ({ tab, cards }) => {
       <Box display="flex" alignItems="center" overflow="scroll" py={60} px={5}>
         {cards?.map((card) => (
           <MediaCard
-            key={String(card.date)}
-            image={card?.image}
+            key={String(card.id)}
+            image={`/api/pages/short_news/${card?.id}/image`}
             date={card.date}
             title={card.title}
-            content={card.content}
+            description={card.description}
             width={`${550}px`}
             isDelete={false}
-            onEdit={() => navigate(String(card.date))}
+            onEdit={() => navigate(String(card.id))}
           />
         ))}
       </Box>
