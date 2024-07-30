@@ -14,11 +14,12 @@ import { useDispatch } from 'react-redux';
 import { updateField } from '../../store/reducers/project.reducer';
 import { DataPicker } from '../../components/pickers/DataPicker';
 import { getCurrentNews, updateCurrentNews } from '../../store/thunk/news';
+import moment from 'moment/moment';
 
 export const NewsEditPage = () => {
   const [imageUpload, setImageUpload] = useState([{ name: 'mock.png', size: 0 }]);
   const [newsData, setNewsData] = useState({
-    date: '',
+    date: null,
     description: '',
   });
   
@@ -29,7 +30,7 @@ export const NewsEditPage = () => {
   useEffect(() => {
     dispatch(getCurrentNews(newsId)).then((news) => {
       const { date, description } = news.payload;
-      setNewsData({ date, description });
+      setNewsData({ date: date ? moment(date) : null, description });
     });
   }, [dispatch, newsId]);
   
