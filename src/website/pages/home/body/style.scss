@@ -104,10 +104,18 @@
     .hp-cards-body-box{
       display: flex;
       gap: 0 20px;
-      max-width: 1140px;
+      max-width: 1360px;
+      .first-card {
+        clip-path: polygon(50px 0, 100% 0, 100% 100%, 0 100%, 0 50px);
+      }
+
+      .second-card {
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 50px), calc(100% - 50px) 100%, 0 100%);
+      }
       .news-card{
         position: relative;
         height: 100%;
+        width: 670px;
         .news-content{
           left: 15px;
           bottom: 15px;
@@ -149,8 +157,9 @@
           }
         }
         .background-news-img{
-          width: 100%;
-          height: 100%;
+          width: 670px;
+          height: 520px;
+          border-radius: 20px;
         }
       }
     }

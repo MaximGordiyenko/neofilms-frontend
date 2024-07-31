@@ -76,7 +76,7 @@ export const CastDetHeader = () => {
       <div
         className="background-header"
         style={{
-          backgroundImage: `url(${castingImage})`,
+          background: `linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), url(${castingImage})`,
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',

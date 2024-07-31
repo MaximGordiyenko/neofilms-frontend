@@ -85,7 +85,11 @@ export const AllMovies = () => {
         setCardsPerPage(cardsPerPage * 2);
         setCurrentPage(currentPage + 1);
     };
-
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', options);
+    };
     return (
       <div className='all-movies-wrapper'>
           <div className='upper-movies-section'>
@@ -104,7 +108,7 @@ export const AllMovies = () => {
                 <div className='img-am-box' style={{backgroundColor: '#000'}}>
                   <div className='poster-am-title'>
                     <span className='all-m-title-card'>{film.title}</span>
-                    <span className='date-all-movies'>{new Date(film.release_date).toLocaleDateString()}</span>
+                    <span className='date-all-movies'>{formatDate(film.release_date)}</span>
                   </div>
                   <img src={film.posterUrl} className='am-poster-img' alt='am-poster'/>
                 </div>

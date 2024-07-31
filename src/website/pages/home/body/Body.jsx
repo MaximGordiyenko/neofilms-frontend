@@ -135,6 +135,7 @@ export const Body = () => {
               buttonText={card.buttonText}
               desc={card.description}
               glitchEffect={card.glitchEffect}
+              className={index === 0 ? 'first-card' : index === 1 ? 'second-card' : ''}
             />
           ))}
           {isMobile && (
