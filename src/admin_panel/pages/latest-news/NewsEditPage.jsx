@@ -3,7 +3,6 @@ import { Grid, Typography, Button } from '@mui/material';
 import { BreadCrumbs } from '../../components/ui/Breadcrumbs';
 import { ROUTE } from '../../../constants';
 import { DownloadDone } from '@mui/icons-material';
-import { getProject, updateProject } from '../../store/thunk/project.api';
 import { toast } from 'react-toastify';
 import { FileUploader } from '../../components/file-upload/FileUploader';
 import { InputTextAutosize } from '../../components/inputs/InputTextAutosize';
