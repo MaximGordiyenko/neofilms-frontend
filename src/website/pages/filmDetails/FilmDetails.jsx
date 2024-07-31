@@ -6,7 +6,7 @@ import './style.scss';
 import { FooterCreds } from '../../components/credsFooter/FooterCreds';
 import blackStroke from '../../assets/images/footer-hp-placeholder.svg';
 import imdb from '../../assets/images/IMDb.png';
-import {getMovie, getPoster} from "../../../api/movie";
+import { getMovie, getPoster } from "../../../api/movie";
 
 const FilmDetails = () => {
     const { id } = useParams();
@@ -50,15 +50,16 @@ const FilmDetails = () => {
         };
     }, [id]);
 
-    const formatDate = (milliseconds) => {
-        const date = new Date(milliseconds);
-        return date.toLocaleDateString();
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', options).replace(/\//g, '.');
     };
 
     const handleNav = () => {
         navigate(`${film.movie_link}}`, { replace: true });
         window.scrollTo(0, 0);
-    }
+    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -73,11 +74,12 @@ const FilmDetails = () => {
     }
 
     const { title, starring, release_date, written_by, directed_by } = film;
-    console.log(film, 'film details')
+    console.log(film, 'film details');
+
     return (
       <div className="movie-details-wrapper">
           <div className="bg-details-box" style={{ backgroundImage: `url(${poster || film.backgroundImg})` }}>
-                <Header />
+              <Header />
               <div className="title-details-box">
                   <h2>{title}</h2>
                   <img src={imdb} alt='imdb' onClick={handleNav} className="imdb"/>
@@ -109,11 +111,11 @@ const FilmDetails = () => {
                         ))}
                     </>
                   )}
-                    <p>{film.description}</p>
+                  <p>{film.description}</p>
               </div>
           </div>
-            <img src={blackStroke} alt="black-stroke-details" className="stroke-placeholder-det" />
-            <FooterCreds />
+          <img src={blackStroke} alt="black-stroke-details" className="stroke-placeholder-det" />
+          <FooterCreds />
       </div>
     );
 };
