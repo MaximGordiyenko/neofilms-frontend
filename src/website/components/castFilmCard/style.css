@@ -1,5 +1,5 @@
 .cast-card-wrapper {
-    width: 440px;
+    width: 437px;
     height: 446px;
     padding: 20px;
     background: #151515;
@@ -8,6 +8,7 @@
     justify-content: space-between;
     gap: 20px;
     display: flex;
+    box-sizing: border-box;
     .cast-card-title{
         display: flex;
         align-items: center;

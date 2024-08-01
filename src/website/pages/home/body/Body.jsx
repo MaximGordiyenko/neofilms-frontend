@@ -21,7 +21,7 @@ export const Body = () => {
   const [error, setError] = useState(null);
   const isMobile = window.innerWidth <= 430;
   const navigate = useNavigate();
-
+  console.log(news, 'news')
   useEffect(() => {
     let isMounted = true;
 
