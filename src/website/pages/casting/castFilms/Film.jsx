@@ -20,7 +20,7 @@ export const CastFilms = () => {
         {status === 'loading' ? (
           <Spinner />
         ) : (
-            castings.slice(-3).map((casting, index) => {
+            castings.map((casting, index) => {
               return(
                   <CastFilmCards
                       id={casting.id}
