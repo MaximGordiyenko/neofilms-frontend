@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { adminLogin, adminCheck, adminLogout } from '../thunk/admin.api.js';
+import { adminLogin, adminCheck, adminLogout, adminUpdatePassword } from '../thunk/admin.api.js';
 
 const adminSlicer = createSlice({
   name: 'admin',
   initialState: {
     status: null,
     loading: false,
-    error: null
+    error: null,
+    password: '',
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -20,6 +21,19 @@ const adminSlicer = createSlice({
         state.status = 200;
       })
       .addCase(adminLogin.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(adminUpdatePassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(adminUpdatePassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.status = 200;
+        state.password = action.payload;
+      })
+      .addCase(adminUpdatePassword.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

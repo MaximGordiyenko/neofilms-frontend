@@ -19,7 +19,7 @@ export const CastingPage = ({ tab, cards, onAdd, buttonName }) => {
   }, [dispatch, getCastings]);
   
   return (
-    <AdminTabPanel value={tab} index={3}>
+    <AdminTabPanel value={tab} index={4}>
       <Box display="flex" alignItems="center" overflow="scroll" py={60} px={5}>
         {cards?.map((card, idx) => (
           <MediaCard
@@ -28,6 +28,7 @@ export const CastingPage = ({ tab, cards, onAdd, buttonName }) => {
             role={card.role}
             title={card.title}
             description={card.description}
+            isDelete={true}
             onDelete={() => {
               dispatch(deleteCasting(card.id));
               toast.error(`Casting "${idx + 1}" was delete successfuly`);

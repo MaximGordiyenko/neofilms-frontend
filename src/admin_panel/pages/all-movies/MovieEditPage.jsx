@@ -51,11 +51,6 @@ export const MovieEditPage = () => {
   }, [dispatch, movieId]);
   
   const {
-    title,
-    description,
-    movie_link,
-    release_date,
-    status,
     directed_by,
     written_by,
     starring
@@ -137,7 +132,7 @@ export const MovieEditPage = () => {
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteMovie(movieId));
                 navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
-                toast.error(`Movie "${title}" was delete successfuly`);
+                toast.error(`Movie "${movieData.title}" was delete successfuly`);
               }}>
                 Delete
               </Button>
@@ -175,7 +170,7 @@ export const MovieEditPage = () => {
                     name="title"
                     label="Title"
                     placeholder="The maestro"
-                    value={title}
+                    value={movieData.title}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('title', value)}
@@ -186,7 +181,7 @@ export const MovieEditPage = () => {
                     name="description"
                     label="Description"
                     placeholder="Write something..."
-                    value={description}
+                    value={movieData.description}
                     control={control}
                     errors={errors}
                     isText={true}
@@ -201,7 +196,7 @@ export const MovieEditPage = () => {
                     name="movie_link"
                     label="IMDB Link"
                     placeholder="https://..."
-                    value={movie_link}
+                    value={movieData.movie_link}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('movie_link', value)}
@@ -211,7 +206,7 @@ export const MovieEditPage = () => {
                   <DataPicker
                     name="release_date"
                     label="Release date"
-                    value={release_date}
+                    value={movieData.release_date}
                     control={control}
                     errors={errors}
                   />
@@ -221,7 +216,7 @@ export const MovieEditPage = () => {
                     name="status"
                     control={control}
                     errors={errors}
-                    value={status}
+                    value={movieData.status}
                   />
                 </Grid>
               </Grid>

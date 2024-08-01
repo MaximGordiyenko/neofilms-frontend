@@ -16,3 +16,10 @@ export const ConvertDateUsFormat = (dateString) => {
 export const formatStatus = (status) => {
   return status?.replace(/_/g, ' ');
 };
+
+export const trimText = (text, maxLength) => {
+  if (text?.length <= maxLength) {
+    return text;
+  }
+  return text?.substring(0, maxLength) + '...';
+}

@@ -16,3 +16,16 @@ export const loginSchema = Yup.object({
     .matches(/[@$!%\\*\\?&]+/, 'Password must contain at least one special character')
     .required('Password is required')
 });
+
+export const checkPassword = Yup.object({
+  new_password: Yup.string()
+    .min(8, 'New Password must be at least 8 characters long')
+    .matches(/[a-z]+/, 'New Password must contain at least one lowercase letter')
+    .matches(/[A-Z]+/, 'New Password must contain at least one uppercase letter')
+    .matches(/[0-9]+/, 'New Password must contain at least one digit')
+    .matches(/[@$!%*?&]+/, 'New Password must contain at least one special character')
+    .required('New Password is required'),
+  confirm_password: Yup.string()
+    .oneOf([Yup.ref('new_password'), null], 'Confirm Password must match New Password')
+    .required('Confirm Password is required')
+});

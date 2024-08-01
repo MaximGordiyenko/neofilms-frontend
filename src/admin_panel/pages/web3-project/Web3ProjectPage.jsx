@@ -20,7 +20,7 @@ export const Web3ProjectPage = ({ tab, cards, onAdd, buttonName }) => {
   }, [dispatch, getProjects]);
   
   return (
-    <AdminTabPanel value={tab} index={1}>
+    <AdminTabPanel value={tab} index={2}>
       <Box display="flex" alignItems="center" overflow="scroll" py={60} px={5}>
         {cards?.map((card, idx) => (
           <MediaCard
@@ -29,6 +29,7 @@ export const Web3ProjectPage = ({ tab, cards, onAdd, buttonName }) => {
             name={card.name}
             completion={card.completion}
             description={card.description}
+            isDelete={true}
             onDelete={() => {
               dispatch(deleteProject(card.id));
               toast.error(`Project "${idx + 1}" was delete successfuly`);

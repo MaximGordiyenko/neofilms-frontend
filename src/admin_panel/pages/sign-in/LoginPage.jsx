@@ -80,7 +80,6 @@ export const LoginPage = () => {
             <Grid item xs={12} lg={12}>
               <Button
                 fullWidth
-                // disabled={!isValid}
                 variant="contained"
                 type="submit">
                 Sign in
