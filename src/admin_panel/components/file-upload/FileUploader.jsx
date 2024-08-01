@@ -54,7 +54,7 @@ export const FileUploader = ({ multiple, fileUpload, setFileUpload }) => {
             <LinkCSS underline="hover" onClick={open}>Click to upload </LinkCSS>
             or drag and drop
           </Typography>
-          <Typography color="#757575">MP4, PNG, or JPG (max. 3MB)</Typography>
+          <Typography color="#757575">PNG or JPG (Max. 3MB) </Typography>
         </Container>
       ) : (
         <aside>{files}</aside>

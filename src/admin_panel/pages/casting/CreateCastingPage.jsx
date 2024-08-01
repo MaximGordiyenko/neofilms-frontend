@@ -82,11 +82,11 @@ export const CreateCastingPage = () => {
             <Grid item xs={12} sm={6} md={12} lg={12}>
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.casting}`}/>
             </Grid>
-            <Grid container item xs={12} sm={6} md={12} lg={12} my={30}>
-              <Grid item xs={12} sm={6} md={9} lg={11.1}>
+            <Grid container item xs={12} sm={6} md={12} lg={12} my={10}>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Typography variant="h5" color={'primary'}>New Casting</Typography>
               </Grid>
-              <Grid item xs={12} sm={6} md={9} lg={0.9} display="flex" justifyContent="space-between">
+              <Grid item xs={12} sm={12} md={12} lg={12} display="flex" justifyContent="flex-end">
                 <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
                   Save
                 </Button>

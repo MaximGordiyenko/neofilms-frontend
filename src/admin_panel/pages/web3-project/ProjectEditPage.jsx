@@ -81,7 +81,7 @@ export const ProjectEditPage = () => {
             <Grid item xs={4} sm={9} md={9} lg={9.5}>
               <Typography variant="h5" color="primary">New Project</Typography>
             </Grid>
-            <Grid item xs={4} sm={3} md={9} lg={2.5} display="flex" justifyContent="space-between">
+            <Grid item xs={12} sm={12} md={12} lg={2.5} display="flex" justifyContent="flex-end">
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteProject(projectId));
                 navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
@@ -89,7 +89,7 @@ export const ProjectEditPage = () => {
               }}>
                 Delete
               </Button>
-              <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
+              <Button variant="contained" endIcon={<DownloadDone/>} type="submit" sx={{ ml: 20 }}>
                 Save
               </Button>
             </Grid>

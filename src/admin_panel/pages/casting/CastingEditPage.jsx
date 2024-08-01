@@ -189,7 +189,7 @@ export const CastingEditPage = () => {
                 <Typography variant="h5" color={'primary'}>New Casting</Typography>
               </Grid>
               
-              <Grid item container xs={4} sm={3} md={9} lg={2.5} justifyContent="space-between">
+              <Grid item container xs={12} sm={12} md={12} lg={12} justifyContent="flex-end">
                 <Button variant="contained" color="error" endIcon={<Delete/>}
                         onClick={() => {
                           dispatch(deleteCasting(castingId));
@@ -198,7 +198,7 @@ export const CastingEditPage = () => {
                         }}>
                   Delete
                 </Button>
-                <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
+                <Button variant="contained" endIcon={<DownloadDone/>} type="submit" sx={{ ml: 20 }}>
                   Save
                 </Button>
               </Grid>

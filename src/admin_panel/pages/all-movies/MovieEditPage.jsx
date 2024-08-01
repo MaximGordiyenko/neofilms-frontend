@@ -42,7 +42,16 @@ export const MovieEditPage = () => {
   useEffect(() => {
     dispatch(getMovie(movieId)).then((movie) => {
       const { title, description, movie_link, release_date, status, directed_by, written_by, starring } = movie.payload;
-      setMovieData({ title, description, movie_link, release_date: release_date ? moment(release_date) : null, status, directed_by, written_by, starring });
+      setMovieData({
+        title,
+        description,
+        movie_link,
+        release_date: release_date ? moment(release_date) : null,
+        status,
+        directed_by,
+        written_by,
+        starring
+      });
     });
   }, [dispatch, movieId]);
   
@@ -87,14 +96,14 @@ export const MovieEditPage = () => {
   const onInputChange = (field, value) => {
     setMovieData((prevData) => ({
       ...prevData,
-      [field]: value,
+      [field]: value
     }));
     dispatch(updateField({ field, value }));
   };
   
   const methods = useForm({
     mode: 'onSubmit',
-    defaultValues: movieData,
+    defaultValues: movieData
   });
   
   const { control, handleSubmit, formState: { errors } } = methods;
@@ -128,7 +137,7 @@ export const MovieEditPage = () => {
             <Grid item xs={4} sm={9} md={9} lg={9.5}>
               <Typography variant="h5" color="primary">New Movie</Typography>
             </Grid>
-            <Grid item container xs={4} sm={3} md={9} lg={2.5} justifyContent="space-between">
+            <Grid item container xs={12} sm={12} md={12} lg={2.5} justifyContent="flex-end">
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteMovie(movieId));
                 navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
@@ -136,7 +145,7 @@ export const MovieEditPage = () => {
               }}>
                 Delete
               </Button>
-              <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
+              <Button variant="contained" endIcon={<DownloadDone/>} type="submit" sx={{ ml: 20 }}>
                 Save
               </Button>
             </Grid>

@@ -77,7 +77,7 @@ export const CalendarEditPage = () => {
             <Grid item xs={4} sm={9} md={9} lg={9.5}>
               <Typography variant="h5">New Event</Typography>
             </Grid>
-            <Grid item xs={4} sm={3} md={9} lg={2.5} display="flex" justifyContent="space-between">
+            <Grid item xs={12} sm={12} md={12} lg={12} display="flex" justifyContent="flex-end">
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteCalendar(calendarId));
                 navigate(`/${ROUTE.admin}/${ROUTE.calendar}`)
@@ -85,7 +85,7 @@ export const CalendarEditPage = () => {
               }}>
                 Delete
               </Button>
-              <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
+              <Button variant="contained" endIcon={<DownloadDone/>} type="submit" sx={{ ml: 20 }}>
                 Save
               </Button>
             </Grid>
