@@ -22,8 +22,10 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants.js';
 
 export const CreateMoviePage = () => {
-  const [posterUpload, setPosterUpload] = useState([]);
-  const [movieUpload, setMovieUpload] = useState([]);
+  const [movieData, setMovieData] = useState({
+    header_image_name: '',
+    poster_name: '',
+  });
   const [addDirector, setAddDirector] = useState(1);
   const [addWritten, setAddWritten] = useState(1);
   const [addActor, setAddActor] = useState(1);
@@ -59,11 +61,10 @@ export const CreateMoviePage = () => {
       }
     }
     
-    const movieData = {
-      id: uuidv4(),
+    const collectMovieData = {
       ...data,
-      poster: posterUpload[0],
-      header_image: movieUpload[0],
+      poster_name: movieData.poster_name,
+      header_image_name: movieData.header_image_name,
       title: data.title,
       description: data.description,
       movie_link: data.movie_link,
@@ -73,7 +74,8 @@ export const CreateMoviePage = () => {
       written_by: written_by,
       starring: starring
     };
-    dispatch(addMovie(movieData));
+    console.log(collectMovieData);
+    dispatch(addMovie(collectMovieData));
     navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
     toast.success(`Movie "${data.title}" was added successfuly`);
   };
@@ -103,20 +105,20 @@ export const CreateMoviePage = () => {
                 <Typography variant="h5" gutterBottom color="#000">Movie Poster</Typography>
                 <Typography variant="caption" paragraph color="#000">Aspect ratio: 2:3 (e.g. 400x600px)</Typography>
                 <FileUploader
-                  name="poster"
+                  name="poster_name"
                   multiple={false}
-                  fileUpload={posterUpload}
-                  setFileUpload={setPosterUpload}
+                  fileUpload={movieData}
+                  setFileUpload={setMovieData}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h5" gutterBottom color="primary">Movie Page Header Image</Typography>
                 <Typography variant="caption" paragraph color="#000">Aspect ratio: 2.39:1 (e.g. 1920x800px)</Typography>
                 <FileUploader
-                  name="header_image"
+                  name="header_image_name"
                   multiple={false}
-                  fileUpload={movieUpload}
-                  setFileUpload={setMovieUpload}
+                  fileUpload={movieData}
+                  setFileUpload={setMovieData}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>

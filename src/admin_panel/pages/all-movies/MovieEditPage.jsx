@@ -22,9 +22,9 @@ import { updateField } from '../../store/reducers/movie.reducer.js';
 import moment from 'moment';
 
 export const MovieEditPage = () => {
-  const [posterUpload, setPosterUpload] = useState([{ name: 'mock.png', size: 0 }]);
-  const [movieUpload, setMovieUpload] = useState([{ name: 'mock.png', size: 0 }]);
   const [movieData, setMovieData] = useState({
+    header_image_name: '',
+    poster_name: '',
     title: '',
     description: '',
     movie_link: '',
@@ -41,8 +41,21 @@ export const MovieEditPage = () => {
   
   useEffect(() => {
     dispatch(getMovie(movieId)).then((movie) => {
-      const { title, description, movie_link, release_date, status, directed_by, written_by, starring } = movie.payload;
+      const {
+        header_image_name,
+        poster_name,
+        title,
+        description,
+        movie_link,
+        release_date,
+        status,
+        directed_by,
+        written_by,
+        starring
+      } = movie.payload;
       setMovieData({
+        header_image_name,
+        poster_name,
         title,
         description,
         movie_link,
@@ -110,8 +123,8 @@ export const MovieEditPage = () => {
   
   const onSubmit = (data) => {
     const updatedMovieData = {
-      poster: posterUpload[0],
-      header_image: movieUpload[0],
+      poster_name: movieData.poster_name[0],
+      header_image_name: movieData.header_image_name[0],
       title: data.title || movieData.title,
       description: data.description || movieData.description,
       movie_link: data.movie_link || movieData.movie_link,
@@ -155,19 +168,19 @@ export const MovieEditPage = () => {
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h5" gutterBottom color="primary">Movie Poster</Typography>
                 <FileUploader
-                  name="poster"
+                  name="poster_name"
                   multiple={false}
-                  fileUpload={posterUpload}
-                  setFileUpload={setPosterUpload}
+                  fileUpload={movieData}
+                  setFileUpload={setMovieData}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h5" gutterBottom color="primary">Movie Page Header Image</Typography>
                 <FileUploader
-                  name="header_image"
+                  name="header_image_name"
                   multiple={false}
-                  fileUpload={movieUpload}
-                  setFileUpload={setMovieUpload}
+                  fileUpload={movieData}
+                  setFileUpload={setMovieData}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>

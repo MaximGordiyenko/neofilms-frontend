@@ -149,12 +149,14 @@
             align-items: center;
             font-family: actay, "sans-serif";
             color: var(--white);
-            opacity: 0.5;
-            text-transform: uppercase;
-            .card-news-date{
-              margin: 0;
-            }
           }
+        }
+        .card-news-date{
+          margin: 0;
+          font-family: actay, "sans-serif";
+          color: var(--white);
+          opacity: 0.5;
+          text-align: end;
         }
         .background-news-img{
           width: 670px;
