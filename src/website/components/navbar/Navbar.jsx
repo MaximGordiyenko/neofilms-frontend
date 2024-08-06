@@ -1,7 +1,6 @@
 import React, { useEffect, useState, forwardRef } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { NAVBAR_TABS } from '../../constants/homePageConst';
-
 import './style.scss';
 
 export const Navbar = forwardRef((props, ref) => {
