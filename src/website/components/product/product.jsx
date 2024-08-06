@@ -1,26 +1,27 @@
 import React, { useEffect } from 'react';
 
 export const ShopifyProduct = () => {
+
   useEffect(() => {
     const scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-
     const loadScript = (src) => {
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
         const existingScript = document.querySelector(`script[src="${src}"]`);
         if (existingScript) {
-          resolve();
+          existingScript.onload ? resolve() : existingScript.addEventListener('load', resolve);
         } else {
           const script = document.createElement('script');
           script.src = src;
           script.async = true;
           script.onload = resolve;
+          script.onerror = reject;
           document.head.appendChild(script);
         }
       });
     };
 
     const ShopifyBuyInit = () => {
-      const client = ShopifyBuy.buildClient({
+      const client = window.ShopifyBuy.buildClient({
         domain: '6dfefc-68.myshopify.com',
         storefrontAccessToken: '84f7ef9813778955f8b46d985eb6cd1b',
       });
