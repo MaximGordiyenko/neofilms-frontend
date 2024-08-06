@@ -23,7 +23,6 @@ export const getCurrentNews = createAsyncThunk('data/getCurrentNew', async (movi
 });
 
 export const updateCurrentNews = createAsyncThunk('data/updateCurrentNew', async ({ id, data, thunkAPI }) => {
-  console.log(data);
   try {
     const response = await newsApi.editShortNews(id, data.image_name, data.description, data.date);
     if (response.status === 200) {

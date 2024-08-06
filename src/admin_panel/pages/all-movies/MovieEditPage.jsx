@@ -135,10 +135,9 @@ export const MovieEditPage = () => {
       written_by: writers,
       starring: actors
     };
-    console.log(updatedMovieData);
     dispatch(updateMovie({ id: movieId, data: updatedMovieData }));
-    // navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
-    // toast.success(`Movie "${updatedMovieData.title}" was update successfuly`);
+    navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
+    toast.success(`Movie "${updatedMovieData.title}" was update successfuly`);
   };
   
   return (

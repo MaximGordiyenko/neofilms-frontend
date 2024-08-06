@@ -59,7 +59,6 @@ export const NewsEditPage = () => {
       date: data.date?.unix() * 1000 || newsData.date?.unix() * 1000,
       description: data.description || newsData.description,
     };
-    console.log(updatedNewsData);
     dispatch(updateCurrentNews({ id: newsId, data: updatedNewsData }));
     navigate(`/${ROUTE.admin}/${ROUTE.latestNews}`);
     toast.success(`News was updated successfully`);

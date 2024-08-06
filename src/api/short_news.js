@@ -14,7 +14,6 @@ export async function addShortNews(image, description, date) {
 }
 
 export async function editShortNews(shortNewsId, image, description, date) {
-  console.log(image, description, date);
 	const formData = new FormData();
 	formData.append('image', image);
 	formData.append('description', description);

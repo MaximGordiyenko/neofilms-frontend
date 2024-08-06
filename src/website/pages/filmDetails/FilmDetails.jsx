@@ -78,7 +78,14 @@ const FilmDetails = () => {
 
     return (
       <div className="movie-details-wrapper">
-          <div className="bg-details-box" style={{ backgroundImage: `url(${poster || film.backgroundImg})` }}>
+          <div className="bg-details-box"
+               style={{
+                   background: `linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), url(${poster || film.backgroundImg})`,
+                   backgroundPosition: 'center',
+                   backgroundRepeat: 'no-repeat',
+                   backgroundSize: 'cover',
+          }}
+          >
               <Header />
               <div className="title-details-box">
                   <h2>{title}</h2>
