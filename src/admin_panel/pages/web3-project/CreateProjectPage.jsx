@@ -20,7 +20,9 @@ import { addProject } from '../../store/thunk/project.api.js';
 import { updateField } from '../../store/reducers/project.reducer.js';
 
 export const CreateProjectPage = () => {
-  const [imageUpload, setImageUpload] = useState([]);
+  const [imageUpload, setImageUpload] = useState({
+    image_name: [],
+  });
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,7 +40,7 @@ export const CreateProjectPage = () => {
     const newProject = {
       id: uuidv4(),
       ...data,
-      image: imageUpload[0],
+      image: imageUpload.image_name[0],
     }
     dispatch(addProject(newProject));
     navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
@@ -67,7 +69,7 @@ export const CreateProjectPage = () => {
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', mb: 20, mt: 20, p: 30 }}>
                 <Typography variant="h6">Project Image</Typography>
                 <FileUploader
-                  name="image"
+                  name="image_name"
                   multiple={false}
                   fileUpload={imageUpload}
                   setFileUpload={setImageUpload}

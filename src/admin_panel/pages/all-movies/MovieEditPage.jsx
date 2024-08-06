@@ -23,8 +23,8 @@ import moment from 'moment';
 
 export const MovieEditPage = () => {
   const [movieData, setMovieData] = useState({
-    header_image_name: '',
-    poster_name: '',
+    header_image_name: [],
+    poster_name: [],
     title: '',
     description: '',
     movie_link: '',
@@ -53,6 +53,7 @@ export const MovieEditPage = () => {
         written_by,
         starring
       } = movie.payload;
+      
       setMovieData({
         header_image_name,
         poster_name,
@@ -123,8 +124,8 @@ export const MovieEditPage = () => {
   
   const onSubmit = (data) => {
     const updatedMovieData = {
-      poster_name: movieData.poster_name[0],
-      header_image_name: movieData.header_image_name[0],
+      poster: movieData.poster_name[0],
+      header_image: movieData.header_image_name[0],
       title: data.title || movieData.title,
       description: data.description || movieData.description,
       movie_link: data.movie_link || movieData.movie_link,
@@ -134,9 +135,10 @@ export const MovieEditPage = () => {
       written_by: writers,
       starring: actors
     };
+    console.log(updatedMovieData);
     dispatch(updateMovie({ id: movieId, data: updatedMovieData }));
-    navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
-    toast.success(`Movie "${updatedMovieData.title}" was update successfuly`);
+    // navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
+    // toast.success(`Movie "${updatedMovieData.title}" was update successfuly`);
   };
   
   return (

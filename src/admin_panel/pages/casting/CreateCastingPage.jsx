@@ -21,7 +21,9 @@ import { addCasting } from '../../store/thunk/casting.api';
 import { FileUploader } from '../../components/file-upload/FileUploader';
 
 export const CreateCastingPage = () => {
-  const [imageUpload, setImageUpload] = useState([]);
+  const [imageUpload, setImageUpload] = useState({
+    image_name: [],
+  });
   const [checkedData, setCheckedData] = useState(null);
   const [roles, setRoles] = useState([
     { id: 1, name: 'test', description: 'hello world' }
@@ -51,7 +53,7 @@ export const CreateCastingPage = () => {
     const newCasting = {
       id: uuidv4(),
       ...data,
-      image: imageUpload[0],
+      image: imageUpload?.image_name[0],
       audition_dates: {
         from: data.audition_dates.from.unix() * 1000,
         to: data.audition_dates.to.unix() * 1000
@@ -77,7 +79,6 @@ export const CreateCastingPage = () => {
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <ContainerCSS>
-          
           <Grid container>
             <Grid item xs={12} sm={6} md={12} lg={12}>
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.casting}`}/>
@@ -102,7 +103,7 @@ export const CreateCastingPage = () => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                   <FileUploader
-                    name="image"
+                    name="image_name"
                     multiple={false}
                     fileUpload={imageUpload}
                     setFileUpload={setImageUpload}

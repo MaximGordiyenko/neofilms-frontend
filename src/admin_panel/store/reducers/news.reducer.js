@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getNews, getCurrentNews } from '../thunk/news';
+import { getNews, getCurrentNews, updateCurrentNews, deleteNews } from '../thunk/news';
 
 const newsReducer = createSlice({
   name: 'news',
@@ -34,6 +34,26 @@ const newsReducer = createSlice({
         state.status = 'failed';
         state.error = action?.error.message;
       })
+      .addCase(updateCurrentNews.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateCurrentNews.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(updateCurrentNews.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action?.error.message;
+      })
+      .addCase(deleteNews.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(deleteNews.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(deleteNews.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action?.error.message;
+      });
   }
 });
 

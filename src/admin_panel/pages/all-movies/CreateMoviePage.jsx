@@ -23,8 +23,8 @@ import { ROUTE } from '../../../constants.js';
 
 export const CreateMoviePage = () => {
   const [movieData, setMovieData] = useState({
-    header_image_name: '',
-    poster_name: '',
+    header_image_name:[],
+    poster_name: [],
   });
   const [addDirector, setAddDirector] = useState(1);
   const [addWritten, setAddWritten] = useState(1);
@@ -62,9 +62,10 @@ export const CreateMoviePage = () => {
     }
     
     const collectMovieData = {
+      id: uuidv4(),
       ...data,
-      poster_name: movieData.poster_name,
-      header_image_name: movieData.header_image_name,
+      poster: movieData.poster_name[0],
+      header_image: movieData.header_image_name[0],
       title: data.title,
       description: data.description,
       movie_link: data.movie_link,

@@ -19,8 +19,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants.js';
 
 export const ProjectEditPage = () => {
-  const [imageUpload, setImageUpload] = useState([{ name: 'mock.png', size: 0 }]);
   const [projectData, setProjectData] = useState({
+    image_name: [],
     name: '',
     description: '',
     completion: 0,
@@ -32,16 +32,14 @@ export const ProjectEditPage = () => {
   
   useEffect(() => {
     dispatch(getProject(projectId)).then((project) => {
-      const { name, description, completion } = project.payload;
-      setProjectData({ name, description, completion });
+      const { image_name, name, description, completion } = project.payload;
+      setProjectData({ image_name, name, description, completion });
     });
   }, [dispatch, projectId]);
   
   useEffect(() => {
     dispatch(getProject(projectId));
   }, [dispatch, projectId]);
-
-  const { name, description, completion } = useSelector((state) => state?.project?.project);
   
   const methods = useForm({
     mode: 'onSubmit',
@@ -60,7 +58,7 @@ export const ProjectEditPage = () => {
   
   const onSubmit = (data) => {
     const updatedProjectData = {
-      image: imageUpload[0],
+      image: projectData.image_name[0],
       name: data.name || projectData.name,
       description: data.description || projectData.description,
       completion: data.completion || projectData.completion
@@ -99,10 +97,10 @@ export const ProjectEditPage = () => {
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h6">Project Image</Typography>
                 <FileUploader
-                  name="image"
+                  name="image_name"
                   multiple={false}
-                  fileUpload={imageUpload}
-                  setFileUpload={setImageUpload}
+                  fileUpload={projectData}
+                  setFileUpload={setProjectData}
                 />
               </Grid>
             </Grid>
@@ -114,7 +112,7 @@ export const ProjectEditPage = () => {
                     name="name"
                     label="Project name"
                     placeholder="The maestro"
-                    value={name}
+                    value={projectData.name}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('logo_text', value)}
@@ -125,7 +123,7 @@ export const ProjectEditPage = () => {
                     name="description"
                     label="Description"
                     placeholder="Write something..."
-                    value={description}
+                    value={projectData.description}
                     control={control}
                     errors={errors}
                     isText={true}
@@ -138,7 +136,7 @@ export const ProjectEditPage = () => {
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <Slide
                     name="completion"
-                    value={completion}
+                    value={projectData.completion}
                     control={control}
                     errors={errors}
                   />

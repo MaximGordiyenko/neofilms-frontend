@@ -19,7 +19,7 @@ export const FileUploader = ({ name, multiple, fileUpload, setFileUpload }) => {
     if (acceptedFiles.length > 0) {
       setFileUpload((prevData) => ({
         ...prevData,
-        [name]: acceptedFiles[0].name
+        [name]: acceptedFiles
       }));
     }
   }, [acceptedFiles, setFileUpload, name]);
@@ -27,18 +27,19 @@ export const FileUploader = ({ name, multiple, fileUpload, setFileUpload }) => {
   const handleDelete = () => {
     setFileUpload((prevData) => ({
       ...prevData,
-      [name]: ''
+      [name]: []
     }));
   };
   
-  
+  const fileName = Array.isArray(fileUpload[name]) && fileUpload[name].length > 0 ? fileUpload[name][0].name : fileUpload[name];
+
   const files = (
     <Grid container justifyContent="center" alignItems="center">
       <Grid item xs={12} sm={1} md={1} lg={1}>
         <UploadFile sx={{ color: blue[300] }} fontSize="small"/>
       </Grid>
       <Grid item xs={12} sm={9} md={7} lg={9}>
-        <Typography sx={{ color: grey[600] }}>{fileUpload[name]}</Typography>
+        <Typography sx={{ color: grey[600] }}>{fileName}</Typography>
       </Grid>
       <Grid container item xs={12} sm={3} md={2} lg={2} justifyContent="space-between">
         <IconButton onClick={handleDelete}>
@@ -51,7 +52,7 @@ export const FileUploader = ({ name, multiple, fileUpload, setFileUpload }) => {
   
   return (
     <section>
-      {fileUpload[name] === '' ? (
+      {fileUpload[name]?.length === 0 ? (
         <Container {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
           <UploadFile sx={{ color: blue[300] }} fontSize="small"/>
           <input {...getInputProps()} />
