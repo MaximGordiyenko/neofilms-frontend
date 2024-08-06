@@ -57,7 +57,6 @@ export const ShopBody = () => {
             <h2 className="soon-title-text">
               neo store
             </h2>
-            <img src={satelite} alt={'under-construction'} className={'under-construction'}/>
           </div>
         </div>
         {isMobile ? (
