@@ -22,6 +22,7 @@ export const NAVBAR_TABS = [
   {
     title: 'casting',
     path: '/casting',
+    openInNewTab: true,
   },
   {
     title: 'news',
@@ -51,27 +52,3 @@ export const NAVBAR_TABS = [
   },
 ];
 
-const isMobile = window.innerWidth <= 430;
-
-export const LATEST_NEWS_CARDS = [
-  {
-    mark: 'news',
-    date: 'feb 19 2024',
-    title: 'Some title',
-    img: isMobile ? newfMobile : house,
-    glitchEffect: <GlitchEffect imgSrc={house} />,
-    buttonText: 'Read More',
-    borderRadius: '10px',
-    desc: 'Neo Masterpiece Films Explores Exciting Collaboration Opportunities in Costa Rica',
-  },
-  {
-    date: 'nov 20 2023',
-    mark: 'news',
-    borderRadius: '10px',
-    img: isMobile ? newSecMobile : peoples,
-    title: 'Pretty long title taking two lines',
-    buttonText: 'Read More',
-    desc: 'Neo Masterpiece Films, a trailblazer in the realm of cinematic excellence, has set its sights on pioneering a groundbreaking innovation in the filmmaking process.',
-    glitchEffect: <GlitchEffect imgSrc={house} />,
-  },
-];

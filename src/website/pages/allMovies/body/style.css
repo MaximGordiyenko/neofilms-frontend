@@ -1,0 +1,45 @@
+.films-cards-am{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+  align-self: center;
+  background: url('../../../assets/images/image 67.jpg') bottom no-repeat;
+  background-size: cover;
+  min-height: 70vh;
+  padding: 100px 30px;
+  height: 100%;
+  .cards-all-m-box{
+    max-width: 1360px;
+    width: 100%;
+    display: flex;
+    gap: 2% 1%;
+
+    .link-to-details-am{
+      text-decoration: none;
+      margin-top: 1vh;
+      width: 32.5%;
+      max-height: 590px;
+      z-index: 22;
+      .am-poster-img{
+        width: 100%;
+      }
+      .img-am-box{
+        height: 100%;
+        padding: 20px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        .poster-am-title{
+          margin: 0 0 10px;
+          display: flex;
+          justify-content: space-between;
+          color: var(--white);
+          opacity: 0.5;
+          font-family: actay, "sans-serif";
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}

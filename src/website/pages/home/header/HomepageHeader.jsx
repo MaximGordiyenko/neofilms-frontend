@@ -9,7 +9,6 @@ import menuMobile from '../../../assets/images/burger-menu.svg';
 import { useState } from 'react';
 import { MobMenu } from '../../../components/mobileMenu/MobMenu';
 import './glitch.css';
-import { useNavigate } from 'react-router-dom';
 
 export const HomepageHeader = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
@@ -18,11 +17,7 @@ export const HomepageHeader = () => {
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
-  const navigate = useNavigate()
-  const handleNav = () => {
-    navigate('/https://vimeo.com/user109067760/review/913360625/0f57eb2d22', {replace: true});
-    window.scrollTo({ top: 0});
-  }
+
   return (
     <div className={'homepage-header-box'}>
       <img src={upperDots} alt={'up-dots'} className={'up-dots'} />
@@ -43,7 +38,7 @@ export const HomepageHeader = () => {
             <h1>Future Of</h1>
             <h1>Filmmaking</h1>
           </div>
-          <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'}>
+          <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'} target="_blank" rel="noopener noreferrer">
             <Button text={'watch reel'} width={'250px'} vimeoLink={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'}/>
           </a>
         </div>
@@ -53,8 +48,8 @@ export const HomepageHeader = () => {
             <h1>The Future</h1>
             <h1>Of Filmmaking</h1>
           </div>
-          <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'}>
-            <Button text={'watch reel'} width={'250px'} vimeoLink={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'} />
+          <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'} target="_blank" rel="noopener noreferrer">
+            <Button text={'watch reel'} width={'250px'} />
           </a>
         </div>
       )}

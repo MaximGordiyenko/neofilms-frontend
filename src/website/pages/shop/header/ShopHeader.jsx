@@ -1,6 +1,6 @@
 import Header from "../../../components/header/Header";
 import satelite from "../../../assets/images/constructor-img.svg";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import menuMobile from "../../../assets/images/burger-menu.svg";
 import {Navbar} from "../../../components/navbar/Navbar";
 import {MobMenu} from "../../../components/mobileMenu/MobMenu";
@@ -8,10 +8,8 @@ import {MobMenu} from "../../../components/mobileMenu/MobMenu";
 export const ShopHeader = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [hasScrolled, setHasScrolled] = useState(false);
 
   const isMobile = window.innerWidth <= 430;
-  const navbarRef = useRef(null);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
@@ -25,28 +23,6 @@ export const ShopHeader = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setHasScrolled(true);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    const navbar = navbarRef.current;
-    if (navbar) {
-      if (!isLoading && hasScrolled) {
-        navbar.classList.add('visible');
-      } else {
-        navbar.classList.remove('visible');
-      }
-    }
-  }, [isLoading, hasScrolled]);
   return(
     <div className="shop-header">
       <Header />
@@ -68,7 +44,7 @@ export const ShopHeader = () => {
           />
         </div>
       ) : (
-        <Navbar ref={navbarRef} />
+        <Navbar />
       )}
       {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen} />}
     </div>
