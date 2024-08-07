@@ -1,6 +1,6 @@
 .navbar-wrapper{
   display: flex;
-  z-index: 22;
+  z-index: 2222;
   position: fixed;
   filter: blur(20%);
   top: 30px;
@@ -29,12 +29,11 @@
           bottom: -125px;
           position: absolute;
           min-width: 100px;
-          backdrop-filter: blur(40px);
           padding: 10px;
           box-sizing: border-box;
-          background: rgba(250, 250, 250, 0.10);
+          background-color: rgba(14, 14, 14, 0.85);
           box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-          z-index: 222;
+          z-index: 2222;
           border-radius: 5px;
           a {
             color: var(--white); /* Default color for inactive links in dropdown */

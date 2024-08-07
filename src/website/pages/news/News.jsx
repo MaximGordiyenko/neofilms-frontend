@@ -8,7 +8,6 @@ import { Navbar } from '../../components/navbar/Navbar';
 import { MobMenu } from '../../components/mobileMenu/MobMenu';
 import { useEffect, useRef, useState } from 'react';
 import { NewsPageCards } from './newsCards/NewsPageCards';
-import { Button } from '../../components/button/Button';
 import { FilledButton } from '../../components/button/FilledButton';
 import lowerStroke from '../../assets/images/footer-hp-placeholder.svg';
 import { Flex } from "../../components/customDiv/Flex";
@@ -17,8 +16,6 @@ export const News = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
   const [isLoading, setIsLoading] = useState(true);
-  const [hasScrolled, setHasScrolled] = useState(false);
-  const navbarRef = useRef(null);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
@@ -30,31 +27,6 @@ export const News = () => {
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setHasScrolled(true);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    const navbar = navbarRef.current;
-    if (navbar) {
-      if (!isLoading && hasScrolled) {
-        navbar.classList.add('visible');
-      } else {
-        navbar.classList.remove('visible');
-      }
-    }
-  }, [isLoading, hasScrolled]);
-
 
   return (
     <div className={'news-wrapper'}>
@@ -83,7 +55,7 @@ export const News = () => {
           />
         </div>
       ) : (
-        <Navbar ref={navbarRef} />
+        <Navbar/>
       )}
       <img src={lowerBg} alt={'lower-bg-news'} className={'lower-bg-news'} />
       {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen} />}

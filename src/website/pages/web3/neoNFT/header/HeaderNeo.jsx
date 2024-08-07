@@ -18,7 +18,7 @@ export const HeaderNeo = () => {
       <div className={'neo-nft-title'}>
         <h2>NEO NFTs COLLECTION</h2>
         <p>
-          Behind the scenes access, raffles of memorabillia, all-expense paid trips to our film
+          Behind the scenes access, raffles of memorabilia, all-expense paid trips to our film
           sets, a chance to be an extra in our films, access to red carpet premieres, table reads,
           and so much more! Our NEO NFTs give holders access to the film industry in ways that were
           never possible before.

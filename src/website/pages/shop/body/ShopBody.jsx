@@ -26,28 +26,6 @@ export const ShopBody = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setHasScrolled(true);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    const navbar = navbarRef.current;
-    if (navbar) {
-      if (!isLoading && hasScrolled) {
-        navbar.classList.add('visible');
-      } else {
-        navbar.classList.remove('visible');
-      }
-    }
-  }, [isLoading, hasScrolled]);
   return (
     <div className="shopify-products_wrapper">
       <div className="shop-header">
@@ -69,7 +47,7 @@ export const ShopBody = () => {
             />
           </div>
         ) : (
-          <Navbar ref={navbarRef}/>
+          <Navbar/>
         )}
         {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen}/>}
       </div>
