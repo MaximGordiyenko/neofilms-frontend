@@ -82,6 +82,7 @@ export const BodyAllMovies = () => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', options);
   };
+
   return (
     <div className='films-cards-am'>
       <div className="cards-all-m-box">
