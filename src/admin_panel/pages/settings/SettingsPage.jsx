@@ -24,7 +24,7 @@ export const SettingsPage = ({ tab }) => {
     handleSubmit,
     formState: { errors }
   } = methods;
-  console.log(errors);
+
   const onInputChange = (field, value) => dispatch(updateField({ field, value }));
   
   const onSubmit = (data) => {

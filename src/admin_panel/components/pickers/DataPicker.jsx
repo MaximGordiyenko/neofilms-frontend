@@ -46,7 +46,7 @@ export const DataPicker = ({ name, value, label, control }) => {
 export const DatePickerCSS = styled(DatePicker)(
   ({ theme }) => ({
     width: '100%',
-    '& .MuiInputBase-root-MuiOutlinedInput-root.MuiOutlinedInput-notchedOutline': {
+    '& .MuiInputBase-root-MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.grey[400]
     },
     '& .MuiInputBase-root-MuiOutlinedInput-root.Mui-error.MuiOutlinedInput-notchedOutline': {
@@ -85,7 +85,7 @@ export const DatePickerCSS = styled(DatePicker)(
 );
 
 const MyCustomLayout = ({ children }) => (
-  <BoxCSS className="bla-bla" sx={{ backgroundColor: 'white' }}>
+  <BoxCSS sx={{ backgroundColor: 'white' }}>
     {children}
   </BoxCSS>
 );

@@ -23,9 +23,9 @@ import { updateField } from '../../store/reducers/movie.reducer';
 import moment from 'moment';
 
 export const CastingEditPage = () => {
-  const [imageUpload, setImageUpload] = useState([{ name: 'mock.png', size: 0 }]);
   const [checkedData, setCheckedData] = useState(null);
   const [castingData, setCastingData] = useState({
+    image_name: [],
     title: '',
     subtitle: '',
     additional_info: '',
@@ -59,6 +59,7 @@ export const CastingEditPage = () => {
   useEffect(() => {
     dispatch(getCasting(castingId)).then((cast) => {
       const {
+        image_name,
         title,
         subtitle,
         additional_info,
@@ -80,6 +81,7 @@ export const CastingEditPage = () => {
       setCheckedData(eco_cast_self_tape);
       
       setCastingData({
+        image_name,
         title,
         subtitle,
         additional_info,
@@ -142,7 +144,7 @@ export const CastingEditPage = () => {
   
   const onSubmit = (data) => {
     const updatedCastingData = {
-      image: imageUpload[0],
+      image: castingData.image_name[0],
       title: data.title || castingData.title,
       subtitle: data.subtitle || castingData.subtitle,
       additional_info: data.additional_info || castingData.additional_info,
@@ -169,7 +171,6 @@ export const CastingEditPage = () => {
       location: data.location || castingData.location,
       roles: data.roles && data.roles.length ? data.roles : castingData.roles
     };
-    
     dispatch(updateCasting({ id: castingId, data: updatedCastingData }));
     navigate(`/${ROUTE.admin}/${ROUTE.casting}`);
     toast.success(`Casting "${updatedCastingData?.title}" was updated successfully`);
@@ -179,7 +180,6 @@ export const CastingEditPage = () => {
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <ContainerCSS>
-          
           <Grid container>
             <Grid item xs={12} sm={6} md={12} lg={12}>
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.casting}`}/>
@@ -189,7 +189,7 @@ export const CastingEditPage = () => {
                 <Typography variant="h5" color={'primary'}>New Casting</Typography>
               </Grid>
               
-              <Grid item container xs={4} sm={3} md={9} lg={2.5} justifyContent="space-between">
+              <Grid item container xs={12} sm={12} md={12} lg={12} justifyContent="flex-end">
                 <Button variant="contained" color="error" endIcon={<Delete/>}
                         onClick={() => {
                           dispatch(deleteCasting(castingId));
@@ -198,7 +198,7 @@ export const CastingEditPage = () => {
                         }}>
                   Delete
                 </Button>
-                <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
+                <Button variant="contained" endIcon={<DownloadDone/>} type="submit" sx={{ ml: 20 }}>
                   Save
                 </Button>
               </Grid>
@@ -214,10 +214,10 @@ export const CastingEditPage = () => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                   <FileUploader
-                    name="image"
+                    name="image_name"
                     multiple={false}
-                    fileUpload={imageUpload}
-                    setFileUpload={setImageUpload}
+                    fileUpload={castingData}
+                    setFileUpload={setCastingData}
                   />
                 </Grid>
               </Grid>
@@ -438,7 +438,7 @@ export const CastingEditPage = () => {
                 <Typography variant="h5" color={'primary'}>Role</Typography>
               </Grid>
               {castingData?.roles?.map((role, index) => (
-                <Grid container xs={12} sm={12} md={12} lg={12} item key={role.id}>
+                <Grid container xs={12} sm={12} md={12} lg={12} item key={index}>
                   <Grid item xs={12} sm={12} md={12} lg={12}>
                     <InputTextAutosize
                       name={`roles[${index}].name`}
