@@ -17,6 +17,7 @@ export const BodyAllMovies = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const navbarRef = useRef(null);
 
+
   const isMobile = useMediaQuery('(max-width: 430px)');
 
   useEffect(() => {

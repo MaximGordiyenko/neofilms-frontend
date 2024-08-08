@@ -22,6 +22,7 @@ export const NAVBAR_TABS = [
   {
     title: 'casting',
     path: '/casting',
+    openInNewTab: true,
   },
   {
     title: 'news',
