@@ -10,7 +10,7 @@ const CastFilmCard = ({ ...rest }) => {
   const navigate = useNavigate();
 
   const navigateToDetails = () => {
-    navigate(`/cast-film-details/${rest.id}`);
+    window.open(`/cast-film-details/${rest.id}`, '_blank');
     window.scrollTo(0, 0);
   };
   return (

@@ -17,9 +17,9 @@ export const HomeFilmCards = ({ img, title, date, description, movieLink, id }) 
         setIsHovered(false);
     };
 
+
     const navigateToDetails = () => {
-        navigate(`/film-details/${id}`);
-        window.scrollTo(0, 0);
+        window.open(`/film-details/${id}`, '_blank');
     };
     return (
         <div className={isHovered ? "film-card hovered" : "film-card"}
