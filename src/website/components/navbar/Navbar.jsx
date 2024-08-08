@@ -15,10 +15,6 @@ export const Navbar = forwardRef((props, ref) => {
   }, [location.pathname, navbarHeight]);
 
   const handleLinkClick = (path, inside_page = true, external = false, openInNewTab = false) => {
-    if (openInNewTab) {
-      window.open(path, '_blank');
-      return;
-    }
     if (external) {
       window.location.href = path;
       return;
