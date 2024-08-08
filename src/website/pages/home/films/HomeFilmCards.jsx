@@ -17,6 +17,7 @@ export const HomeFilmCards = ({ img, title, date, description, movieLink, id }) 
         setIsHovered(false);
     };
 
+
     const navigateToDetails = () => {
         window.open(`/film-details/${id}`, '_blank');
     };
