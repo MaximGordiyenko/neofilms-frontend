@@ -17,7 +17,6 @@ export const BodyAllMovies = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const navbarRef = useRef(null);
 
-
   const isMobile = useMediaQuery('(max-width: 430px)');
 
   useEffect(() => {
@@ -50,6 +49,7 @@ export const BodyAllMovies = () => {
       }
     }
   }, [isLoading, hasScrolled]);
+
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -77,10 +77,16 @@ export const BodyAllMovies = () => {
     setCardsPerPage(cardsPerPage * 2);
     setCurrentPage(currentPage + 1);
   };
+
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', options);
+  };
+
+  const handleLinkClick = (e, id) => {
+    e.preventDefault();
+    window.open(`/film-details/${id}`, '_blank');
   };
 
   return (
@@ -90,7 +96,12 @@ export const BodyAllMovies = () => {
           <Spinner/>
         ) : (
           films.slice(0, currentPage * cardsPerPage).map((film) => (
-            <Link to={`/film-details/${film.id}`} key={film.id} className='link-to-details-am'>
+            <a
+              href={`/film-details/${film.id}`}
+              key={film.id}
+              className='link-to-details-am'
+              onClick={(e) => handleLinkClick(e, film.id)}
+            >
               <div className='img-am-box' style={{backgroundColor: '#000'}}>
                 <div className='poster-am-title'>
                   <span className='all-m-title-card'>{film.title}</span>
@@ -98,12 +109,12 @@ export const BodyAllMovies = () => {
                 </div>
                 <img src={film.posterUrl} className='am-poster-img' alt='am-poster'/>
               </div>
-            </Link>
+            </a>
           ))
         )}
       </div>
       {isMobile && <img src={mobLine} alt='' className='mob-line'/>}
       <FilledButton btnText={'show older'} onClick={handleShowOlderClick}/>
     </div>
-  )
+  );
 }
