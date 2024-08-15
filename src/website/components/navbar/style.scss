@@ -1,9 +1,13 @@
 .navbar-wrapper{
   display: flex;
-  z-index: 2222;
+  z-index: 22;
   position: fixed;
   filter: blur(20%);
   top: 30px;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
   .nav-inner-content{
     border-radius: 10px;
     padding: 10px 30px;
@@ -13,7 +17,7 @@
     height: 40px;
     background: rgba(250, 250, 250, 0.20);
     backdrop-filter: blur(20px);
-    z-index: 222;
+    z-index: 2222;
     .navigation-container{
       display: flex;
       .tab-btn{

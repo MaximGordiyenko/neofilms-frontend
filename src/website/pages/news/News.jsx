@@ -3,7 +3,7 @@ import Header from '../../components/header/Header';
 import { FooterCreds } from '../../components/credsFooter/FooterCreds';
 import ball from '../../assets/images/ecology-global-warming-globe-fire-31.svg';
 import menuMobile from '../../assets/images/burger-menu.svg';
-import lowerBg from '../../assets/images/BG_News.jpg';
+import lowerBg from '../../assets/images/image 71.jpg';
 import { Navbar } from '../../components/navbar/Navbar';
 import { MobMenu } from '../../components/mobileMenu/MobMenu';
 import { useEffect, useRef, useState } from 'react';

@@ -83,7 +83,7 @@ export const Body = () => {
           )}
           <div className={'neo-body-text'}>
             <div className={'neo-description'}>
-              <span className={'sub-title-body'}>What is Neo masterpiece films?</span>
+              <span className={'sub-title-body'}>What is Neo Masterpiece Films?</span>
               {isMobile ? (
                 <div className={'mob-text-wrapper'}>
                   <div className={'mob-text-box'}>
