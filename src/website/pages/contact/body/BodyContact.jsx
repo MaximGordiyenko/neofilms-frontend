@@ -26,7 +26,7 @@ export const BodyContact = () => {
             <div className="address">
               <span>Studio Location</span>
               <h3>Visit Our Studio Location <br/>
-                in New York</h3>
+                in Saint Louis</h3>
               <p>107 Memorial Dr, St. Louis, MO 63102</p>
             </div>
           }

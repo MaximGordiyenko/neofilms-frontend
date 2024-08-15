@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './App.scss';
@@ -15,7 +15,7 @@ import { Redeem } from './website/pages/web3/redeem/Redeem';
 import { Contact } from './website/pages/contact/Contact';
 import { Casting } from './website/pages/casting/Casting';
 import { CastFilmPage } from './website/pages/castFilmDetails/CastFilmPage';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ROUTE } from './constants.js';
 import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 import { Layout } from './admin_panel/components/layouts/Layout.jsx';
@@ -43,8 +43,20 @@ import Shop from "./website/pages/shop/Shop";
 import { LatestNewsPage } from './admin_panel/pages/latest-news/LatestNewsPage';
 import { NewsEditPage } from './admin_panel/pages/latest-news/NewsEditPage';
 import { SettingsPage } from './admin_panel/pages/settings/SettingsPage';
+import Spinner from "./website/components/loader/Spinner";
 
 export const App = () => {
+  const [loading, setLoading] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [location]);
   const themeLight = createTheme(light);
   
   const [tab, setTab] = useState(0);
@@ -65,6 +77,12 @@ export const App = () => {
   
   return (
     <ThemeProvider theme={responsiveFontSizes(themeLight)}>
+      {loading && (
+        <div className="loader-container">
+          <Spinner />
+        </div>
+      )
+      }
       <Routes>
         {/* user frontend routes */}
         <Route path={'/'} element={<HomePage/>}/>
@@ -93,7 +111,7 @@ export const App = () => {
                 onChangeTab={(event, newValue) => setTab(newValue)}
               />
             }>
-            
+
             <Route index element={<LatestNewsPage/>}/>
             <Route path={ROUTE.latestNews} element={<OnlyAdmin element={
               <LatestNewsPage
@@ -102,7 +120,7 @@ export const App = () => {
               />
             }/>
             }/>
-            
+
             <Route index element={<MoviesPage/>}/>
             <Route path={ROUTE.allMovies} element={<OnlyAdmin element={
               <MoviesPage
@@ -113,7 +131,7 @@ export const App = () => {
               />
             }/>
             }/>
-            
+
             <Route index element={<Web3ProjectPage/>}/>
             <Route path={ROUTE.web3project} element={<OnlyAdmin element={
               <Web3ProjectPage
@@ -124,7 +142,7 @@ export const App = () => {
               />
             }/>
             }/>
-            
+
             <Route index element={<CalendarPage/>}/>
             <Route path={ROUTE.calendar} element={<OnlyAdmin element={
               <CalendarPage
@@ -135,7 +153,7 @@ export const App = () => {
               />
             }/>
             }/>
-            
+
             <Route index element={<CastingPage/>}/>
             <Route
               path={ROUTE.casting}
@@ -148,7 +166,7 @@ export const App = () => {
                 />
               }
             />
-            
+
             <Route index element={<SettingsPage/>}/>
             <Route
               path={ROUTE.settings}
@@ -157,12 +175,12 @@ export const App = () => {
               }
             />
           </Route>
-          
+
           <Route path={`${ROUTE.admin}/${ROUTE.latestNews}/:newsId`}
                  element={<OnlyAdmin
                    element={<NewsEditPage/>}/>}
           />
-          
+
           <Route path={`${ROUTE.admin}/${ROUTE.allMovies}/${ROUTE.createMovie}`}
                  element={<OnlyAdmin
                    element={<CreateMoviePage/>}/>}
@@ -171,7 +189,7 @@ export const App = () => {
                  element={<OnlyAdmin
                    element={<MovieEditPage/>}/>}
           />
-          
+
           <Route path={`${ROUTE.admin}/${ROUTE.web3project}/${ROUTE.createProject}`}
                  element={<OnlyAdmin
                    element={<CreateProjectPage/>}/>}
@@ -180,7 +198,7 @@ export const App = () => {
                  element={<OnlyAdmin
                    element={<ProjectEditPage/>}/>}
           />
-          
+
           <Route path={`${ROUTE.admin}/${ROUTE.calendar}/${ROUTE.createCalendar}`}
                  element={<OnlyAdmin
                    element={<CreateCalendarPage/>}/>}
