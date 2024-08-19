@@ -1,18 +1,42 @@
 import Header from '../../../../components/header/Header';
+import { useEffect, useState } from 'react';
 import wallet from '../../../../assets/images/wallet connect.svg';
 import refresh from '../../../../assets/images/Linear/Arrows/Refresh.svg';
 import './style.scss';
 import { Navbar } from '../../../../components/navbar/Navbar';
-import { useState } from 'react';
 import menuMobile from '../../../../assets/images/burger-menu.svg';
 import { MobMenu } from '../../../../components/mobileMenu/MobMenu';
+import { getAccount, signData } from '../../../../../utils/MetaMask';
+import * as authApi from '../../../../../api/auth';
+import * as neobuxApi from '../../../../../api/neobux';
+
 export const HeaderRedeem = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
+  const [balance, setBalance] = useState("0.0");
+
+  useEffect(() => {
+    getBalance().then();
+  }, []);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
+
+  const login = async () => {
+    const account = await getAccount();
+    const data = (await authApi.getData(account)).data.data;
+    const sign = await signData(data);
+    await authApi.login(account, sign);
+    await getBalance();
+  }
+
+  const getBalance = async () => {
+    const account = await getAccount();
+    const balance = (await neobuxApi.balanceOf(account)).data.balance;
+    setBalance(balance);
+  }
+
   return (
     <div className={'redeem-header-wrapper'}>
       <Header />
@@ -20,8 +44,11 @@ export const HeaderRedeem = () => {
         <div className={'mobile-title-box'}>
           <div className={'balance-mob-text'}>
             <span>Your Balance:</span>
-            <div className={'balance-count'}>0.00 NEOBux</div>
-            <button className={'reload-btn'}>
+            <div className={'balance-count'}>{balance} NEOBux</div>
+            <button
+              className={'reload-btn'}
+              onClick={getBalance}
+            >
               <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'} />
             </button>
           </div>
@@ -30,7 +57,10 @@ export const HeaderRedeem = () => {
             rewards
           </h2>
           <div className={'balance-mob-box'}>
-            <button className={'button-balance'}>
+            <button
+              className={'button-balance'}
+              onClick={login}
+            >
               <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'} />
               <span>WalletConnect</span>
             </button>
@@ -40,14 +70,20 @@ export const HeaderRedeem = () => {
         <div className={'title-box'}>
           <h2 className={'redeem-title'}>redeem rewards</h2>
           <div className={'balance-box'}>
-            <button className={'button-balance'}>
+            <button
+              className={'button-balance'}
+              onClick={login}
+            >
               <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'} />
               <span>WalletConnect</span>
             </button>
             <div className={'balance-text'}>
               <span>Your Balance:</span>
-              <div className={'balance-count'}>0.00 NEOBux</div>
-              <button className={'reload-btn'}>
+              <div className={'balance-count'}>{balance} NEOBux</div>
+              <button
+                className={'reload-btn'}
+                onClick={getBalance}
+              >
                 <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'} />
               </button>
             </div>

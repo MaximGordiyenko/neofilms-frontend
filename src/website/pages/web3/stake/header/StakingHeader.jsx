@@ -1,11 +1,11 @@
 import Header from '../../../../components/header/Header';
+import { useEffect, useState } from 'react';
 import wallet from '../../../../assets/images/wallet connect.svg';
 import refresh from '../../../../assets/images/Linear/Arrows/Refresh.svg';
 import './style.scss';
 import { Navbar } from '../../../../components/navbar/Navbar';
 import menuMobile from '../../../../assets/images/burger-menu.svg';
 import { MobMenu } from '../../../../components/mobileMenu/MobMenu';
-import { useState } from 'react';
 import { getAccount, signData } from '../../../../../utils/MetaMask';
 import * as authApi from '../../../../../api/auth';
 import * as neobuxApi from '../../../../../api/neobux';
@@ -14,6 +14,10 @@ export const HeaderStaking = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
   const [balance, setBalance] = useState("0.0");
+
+  useEffect(() => {
+    getBalance().then();
+  }, []);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
