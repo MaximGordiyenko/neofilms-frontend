@@ -6,6 +6,7 @@ import { CustomModal } from '../../../components/modal/Modal';
 import { Button } from '../../../components/button/Button';
 import Checkbox from '../../../components/checkbox/Checkbox';
 import { MobButton } from '../../../components/button/MobButton';
+
 export const NeoStaking = () => {
   const [isOpen, setIsOpen] = useState(localStorage.getItem('agreed') !== 'true');
   const [agreed, setAgreed] = useState(false);

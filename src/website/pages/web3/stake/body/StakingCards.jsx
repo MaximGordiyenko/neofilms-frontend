@@ -10,6 +10,7 @@ import { runTransaction } from '../../../../../utils/MetaMask';
 
 export const StakingCards = () => {
   const [pools, setPools] = useState([]);
+  const [stakingList, setStaking] = useState([]);
   
   useEffect(() => {
     (async () => {
@@ -42,6 +43,8 @@ export const StakingCards = () => {
             }
           }
           setPools([...pools]);
+
+          setStaking((await stakingApi.getStakingList()).data);
         }
       } catch (e) {
         console.error(e);
@@ -68,6 +71,18 @@ export const StakingCards = () => {
     console.log("stake tx:", tx);
     await runTransaction(tx);
   };
+
+  const unstake = async (pool) => {
+    const staking = stakingList.find((s) => s.pool_id === pool.id);
+    if (!staking) {
+      console.error("staking not found for pool:", pool);
+      return;
+    }
+    const tx = (await stakingApi.unstake(pool.id, staking.token_ids)).data;
+    console.log("unstake tx:", tx);
+    await runTransaction(tx);
+  };
+  
 console.log(pools, 'pools')
   return (
     <div className={'card-container'}>
@@ -106,7 +121,12 @@ console.log(pools, 'pools')
                   await stake(pool);
                 }}
               />
-              <p className="unstake-btn">Unstake</p>
+              <p
+                className="unstake-btn"
+                onClick={async () => {
+                  await unstake(pool);
+                }}
+              >Unstake</p>
             </div>
           </div>
         );
