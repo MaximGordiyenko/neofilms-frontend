@@ -82,6 +82,12 @@ export const StakingCards = () => {
     console.log("unstake tx:", tx);
     await runTransaction(tx);
   };
+
+  const claim = async (pool) => {
+    const tx = (await stakingApi.claimRewards(pool.id)).data;
+    console.log("claim tx:", tx);
+    await runTransaction(tx);
+  };
   
 console.log(pools, 'pools')
   return (
