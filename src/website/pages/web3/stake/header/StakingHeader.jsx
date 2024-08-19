@@ -8,10 +8,12 @@ import { MobMenu } from '../../../../components/mobileMenu/MobMenu';
 import { useState } from 'react';
 import { getAccount, signData } from '../../../../../utils/MetaMask';
 import * as authApi from '../../../../../api/auth';
+import * as neobuxApi from '../../../../../api/neobux';
 
 export const HeaderStaking = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
+  const [balance, setBalance] = useState("0.0");
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
@@ -22,6 +24,13 @@ export const HeaderStaking = () => {
       const data = (await authApi.getData(account)).data.data;
       const sign = await signData(data);
       await authApi.login(account, sign);
+      await getBalance();
+  }
+
+  const getBalance = async () => {
+    const account = await getAccount();
+    const balance = (await neobuxApi.balanceOf(account)).data.balance;
+    setBalance(balance);
   }
 
   return (
@@ -31,8 +40,11 @@ export const HeaderStaking = () => {
         <div className={'mobile-title-box'}>
           <div className={'balance-mob-text'}>
             <span>Your Balance:</span>
-            <div className={'balance-count'}>0.00 NEOBux</div>
-            <button className={'reload-btn'}>
+            <div className={'balance-count'}>{balance} NEOBux</div>
+            <button
+              className={'reload-btn'}
+              onClick={getBalance}
+            >
               <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'} />
             </button>
           </div>
@@ -63,8 +75,11 @@ export const HeaderStaking = () => {
             </button>
             <div className={'balance-text'}>
               <span>Your Balance:</span>
-              <div className={'balance-count'}>0.00 NEOBux</div>
-              <button className={'reload-btn'}>
+              <div className={'balance-count'}>{balance} NEOBux</div>
+              <button
+                className={'reload-btn'}
+                onClick={getBalance}
+              >
                 <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'} />
               </button>
             </div>
