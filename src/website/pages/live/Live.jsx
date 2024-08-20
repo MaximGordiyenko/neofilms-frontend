@@ -15,8 +15,10 @@ import elipse from '../../assets/images/Ellipse 102.svg'
 import rec from '../../assets/images/Ellipse 97.svg'
 import keys from '../../assets/images/keys.svg';
 import accessImg from '../../assets/images/business-products-cash-user-man-message-49.svg'
-
-export const Live = () => {
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import background from '../../assets/images/image 66.jpg'
+const Live = () => {
   const isMobile = window.innerWidth <= 430;
   const location = useLocation();
   const [initialActive, setInitialActive] = useState(location.pathname);
@@ -119,7 +121,12 @@ export const Live = () => {
   };
 
   return (
-    <div className='live-wrapper'>
+    <div className='live-wrapper' >
+      <LazyLoadImage
+        src={background}
+        alt='Background'
+        effect='blur'
+      />
       <div className="inner-content-live">
         <div className='live-inner-content'>
           <Header/>
@@ -225,3 +232,5 @@ export const Live = () => {
     </div>
   );
 };
+
+export default Live;

@@ -14,7 +14,7 @@ import { FooterCreds } from "../../components/credsFooter/FooterCreds";
 import { Flex } from "../../components/customDiv/Flex";
 import { ClipInput } from "../../components/input/ClipInput";
 
-export const CastFilmPage = () => {
+const CastFilmPage = () => {
   const { casting_id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [headshotFile, setHeadshotFile] = useState(null);
@@ -277,3 +277,5 @@ export const CastFilmPage = () => {
     </div>
   );
 };
+
+export default CastFilmPage;

@@ -10,16 +10,12 @@
   <title>NEO Masterpiece Films — Film in Web3</title>
   <script>
     document.onreadystatechange = function () {
-      if (document.readyState !== "complete") {
-        document.querySelector(
-                "body").style.visibility = "hidden";
-        document.querySelector(
-                ".holder").style.visibility = "visible";
+      if (document.readyState === "complete") {
+        document.querySelector(".holder").style.display = "none";
+        document.querySelector("body").style.visibility = "visible";
       } else {
-        document.querySelector(
-                ".holder").style.display = "none";
-        document.querySelector(
-                "body").style.visibility = "visible";
+        document.querySelector("body").style.visibility = "hidden";
+        document.querySelector(".holder").style.visibility = "visible";
       }
     };
   </script>
@@ -37,7 +33,7 @@
       justify-content: center;
       align-items: center;
       position: fixed;
-      z-index: 2222;
+      z-index: 2222!important;
       left: 0;
       top: 0;
       right: 0;

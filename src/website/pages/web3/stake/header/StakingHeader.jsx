@@ -8,6 +8,9 @@ import menuMobile from '../../../../assets/images/burger-menu.svg';
 import { MobMenu } from '../../../../components/mobileMenu/MobMenu';
 import { getAccount, signData } from '../../../../../utils/MetaMask';
 import * as authApi from '../../../../../api/auth';
+import {LazyLoadImage} from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import background from "../../../../assets/images/Staking_BG.jpg";
 import * as neobuxApi from '../../../../../api/neobux';
 
 export const HeaderStaking = () => {
@@ -40,6 +43,7 @@ export const HeaderStaking = () => {
   return (
     <div className={'staking-header-wrapper'}>
       <Header />
+      <LazyLoadImage src={background} wrapperClassName='staking-header-box' effect='blur'/>
       {isMobile ? (
         <div className={'mobile-title-box'}>
           <div className={'balance-mob-text'}>
