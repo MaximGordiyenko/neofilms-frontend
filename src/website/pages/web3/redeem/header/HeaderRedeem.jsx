@@ -4,7 +4,6 @@ import wallet from '../../../../assets/images/wallet connect.svg';
 import refresh from '../../../../assets/images/Linear/Arrows/Refresh.svg';
 import './style.scss';
 import { Navbar } from '../../../../components/navbar/Navbar';
-import React, { useState } from 'react';
 import menuMobile from '../../../../assets/images/burger-menu.svg';
 import { MobMenu } from '../../../../components/mobileMenu/MobMenu';
 import {LazyLoadImage} from "react-lazy-load-image-component";
