@@ -6,7 +6,6 @@ import './style.scss';
 import { Navbar } from '../../../../components/navbar/Navbar';
 import menuMobile from '../../../../assets/images/burger-menu.svg';
 import { MobMenu } from '../../../../components/mobileMenu/MobMenu';
-import React, { useState } from 'react';
 import { getAccount, signData } from '../../../../../utils/MetaMask';
 import * as authApi from '../../../../../api/auth';
 import {LazyLoadImage} from "react-lazy-load-image-component";
