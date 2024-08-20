@@ -48,6 +48,17 @@ const Casting = lazy(() => import('./website/pages/casting/Casting'));
 const CastFilmPage = lazy(() => import('./website/pages/castFilmDetails/CastFilmPage'));
 
 export const App = () => {
+  const [loading, setLoading] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [location]);
   const themeLight = createTheme(light);
 
   const [tab, setTab] = useState(0);
@@ -68,6 +79,12 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={responsiveFontSizes(themeLight)}>
+      {loading && (
+        <div className="loader-container">
+          <Spinner />
+        </div>
+      )
+      }
       <Suspense fallback={<div className="holder-app"><img src={loader} className="loader-gif-app"/></div>}>
         <Routes>
           {/* user frontend routes */}
