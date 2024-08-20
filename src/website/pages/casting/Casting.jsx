@@ -3,7 +3,7 @@ import { CastingBody } from './body/CastingBody';
 import './style.scss';
 import CastingFooter from './castingFooterCreds/CastingFooter';
 
-export const Casting = () => {
+const Casting = () => {
   return (
     <div className="casting-mainpage">
       <CastingHeader />
@@ -12,3 +12,5 @@ export const Casting = () => {
     </div>
   );
 };
+
+export default Casting;

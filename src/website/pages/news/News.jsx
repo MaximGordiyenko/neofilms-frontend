@@ -11,8 +11,11 @@ import { NewsPageCards } from './newsCards/NewsPageCards';
 import { FilledButton } from '../../components/button/FilledButton';
 import lowerStroke from '../../assets/images/footer-hp-placeholder.svg';
 import { Flex } from "../../components/customDiv/Flex";
-
-export const News = () => {
+import {LazyLoadImage} from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import bg from '../../assets/images/image 70.jpg';
+import background from "../../assets/images/about-bg.jpg";
+const News = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +35,7 @@ export const News = () => {
     <div className={'news-wrapper'}>
       <Flex flexDirection="column" className={'news-header'}>
         <Header />
+        <LazyLoadImage src={bg} wrapperClassName='news-header-box' effect='blur'/>
         <div className={'title-news-box'}>
           <h2 className={'news-title-text'}>
             neo films <br /> latest news
@@ -64,3 +68,5 @@ export const News = () => {
     </div>
   );
 };
+
+export default News;

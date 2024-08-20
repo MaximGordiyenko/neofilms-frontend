@@ -9,16 +9,26 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     z-index: -1;
   }
   .news-header{
     width: 100%;
     padding: 30px 40px;
     box-sizing: border-box;
-    background: url("../../assets/images/image 70.jpg") bottom no-repeat;
+    //background: url("../../assets/images/image 70.jpg") bottom no-repeat;
     background-size: cover;
     gap: 40px;
+    .news-header-box{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      img{
+        width: 100%;
+        max-height: 320px;
+      }
+    }
     .header{
       padding: 0;
     }

@@ -201,5 +201,5 @@ export const ShopifyProduct = () => {
     initShopify();
   }, []);
 
-  return <div id="collection-component-1721827904642"></div>;
+  return <div id="collection-component-1721827904642" style={{marginTop: '-3vh', minHeight: '150vh'}}></div>;
 };

@@ -2,7 +2,7 @@ import { AboutHeader } from './header/AboutHeader';
 import { FooterCreds } from '../../components/credsFooter/FooterCreds';
 import { BodyAbout } from './body/BodyAbout';
 
-export const AboutPage = () => {
+const AboutPage = () => {
   return (
     <div className={'about-page-main'}>
       <AboutHeader />
@@ -11,3 +11,5 @@ export const AboutPage = () => {
     </div>
   );
 };
+
+export default AboutPage;

@@ -3,7 +3,10 @@ import Header from '../../../../components/header/Header';
 import menuMobile from '../../../../assets/images/burger-menu.svg';
 import { Navbar } from '../../../../components/navbar/Navbar';
 import { MobMenu } from '../../../../components/mobileMenu/MobMenu';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import {LazyLoadImage} from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import background from "../../../../assets/images/neonft.jpg";
 
 export const HeaderNeo = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
@@ -15,6 +18,7 @@ export const HeaderNeo = () => {
   return (
     <div className={'neo-nft-header'}>
       <Header />
+      <LazyLoadImage src={background} wrapperClassName='services-header-box' effect='blur'/>
       <div className={'neo-nft-title'}>
         <h2>NEO NFTs COLLECTION</h2>
         <p>

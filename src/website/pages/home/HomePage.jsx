@@ -4,7 +4,8 @@ import { Body } from './body/Body';
 import { Films } from './films/Films';
 import { FooterHomepage } from './footer/Footer';
 import { FooterCreds } from '../../components/credsFooter/FooterCreds';
-export const HomePage = () => {
+
+const HomePage = () => {
   return (
     <div className={'homepage-wrapper'}>
       <HomepageHeader />
@@ -17,3 +18,5 @@ export const HomePage = () => {
     </div>
   );
 };
+
+export default HomePage

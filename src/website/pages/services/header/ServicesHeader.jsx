@@ -12,6 +12,9 @@ import downDots from '../../../assets/images/image 18.svg';
 import upperDots from '../../../assets/images/image 16.svg';
 import React, { useState } from 'react';
 import {MobMenu} from "../../../components/mobileMenu/MobMenu";
+import {LazyLoadImage} from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import background from "../../../assets/images/servicesmainBg.jpg";
 
 const logos = [freeform, disney, hulu, amazon, hbo];
 export const ServicesHeader = () => {
@@ -40,6 +43,7 @@ export const ServicesHeader = () => {
     <div className={'services-wrapper'}>
       <img src={upperDots} alt={'up-dots'} className={'up-dots-services'} />
       <Header />
+      <LazyLoadImage src={background} wrapperClassName='services-header-box' effect='blur'/>
       <div className={'inner-content'}>
         <img src={crown} alt={'services-crown'} className={'services-crown'} />
         <h2 className={'services-header-title'}>
