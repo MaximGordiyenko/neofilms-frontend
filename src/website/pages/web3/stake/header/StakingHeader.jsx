@@ -12,11 +12,14 @@ import {LazyLoadImage} from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import background from "../../../../assets/images/Staking_BG.jpg";
 import * as neobuxApi from '../../../../../api/neobux';
+import {Wallet} from "../../../../components/wallet/Wallet";
 
 export const HeaderStaking = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
   const [balance, setBalance] = useState("0.0");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getBalance().then();
@@ -35,9 +38,11 @@ export const HeaderStaking = () => {
   }
 
   const getBalance = async () => {
+    setIsLoading(true)
     const account = await getAccount();
     const balance = (await neobuxApi.balanceOf(account)).data.balance;
     setBalance(balance);
+    setIsLoading(false)
   }
 
   return (
@@ -53,7 +58,11 @@ export const HeaderStaking = () => {
               className={'reload-btn'}
               onClick={getBalance}
             >
-              <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'} />
+              <img
+                src={refresh}
+                alt={'refresh-balance'}
+                className={`refresh-balance ${isLoading ? 'spinning' : ''}`}
+              />
             </button>
           </div>
           <h2 className={'staking-title'}>
@@ -65,7 +74,6 @@ export const HeaderStaking = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'} />
               <span>WalletConnect</span>
             </button>
           </div>
@@ -78,7 +86,6 @@ export const HeaderStaking = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'} />
               <span>WalletConnect</span>
             </button>
             <div className={'balance-text'}>
@@ -88,7 +95,11 @@ export const HeaderStaking = () => {
                 className={'reload-btn'}
                 onClick={getBalance}
               >
-                <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'} />
+                <img
+                  src={refresh}
+                  alt={'refresh-balance'}
+                  className={`refresh-balance ${isLoading ? 'spinning' : ''}`}
+                />
               </button>
             </div>
           </div>

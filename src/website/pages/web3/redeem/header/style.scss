@@ -95,6 +95,9 @@
           background: #050505;
           border: none;
           border-radius: 10px;
+          .refresh-balance.spinning {
+            animation: spin 1s linear infinite;
+          }
         }
       }
     }
