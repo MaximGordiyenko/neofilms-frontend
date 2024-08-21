@@ -17,6 +17,7 @@
     left: 0;
     width: 100%;
     top: 0;
+    z-index: -1;
     img{
       width: 100%;
     }
@@ -83,6 +84,12 @@
 
 @media (min-width: 2560px) {
   .neo-nft-header{
+    .header{
+      .header__social-wrapper{
+        display: flex;
+        flex-direction: row;
+      }
+    }
     .neo-nft-title{
       h2{
         font-size: 144px;

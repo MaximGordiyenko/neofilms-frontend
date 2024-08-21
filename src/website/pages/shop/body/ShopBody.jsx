@@ -5,7 +5,7 @@ import satelite from "../../../assets/images/constructor-img.svg";
 import menuMobile from "../../../assets/images/burger-menu.svg";
 import {Navbar} from "../../../components/navbar/Navbar";
 import {MobMenu} from "../../../components/mobileMenu/MobMenu";
-
+import './style.css'
 export const ShopBody = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);

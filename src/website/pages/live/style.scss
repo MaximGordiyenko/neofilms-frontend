@@ -1,3 +1,7 @@
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 .live-wrapper{
   width: 100%;
   height: 100vh;
@@ -18,6 +22,7 @@
     max-height: 100vh;
     width: 100%;
     height: 100%;
+    z-index: -1;
     img{
       max-width: 100%;
     }
@@ -183,6 +188,9 @@
               background: #050505;
               border: none;
               border-radius: 10px;
+              .refresh-balance.spinning {
+                animation: spin 1s linear infinite;
+              }
             }
           }
         }
@@ -277,7 +285,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 10%;
+        margin-top: 22%;
         max-width: 100%;
         gap: 30px;
         .live-title{
@@ -294,6 +302,7 @@
             display: flex;
             align-items: center;
             line-height: 52px;
+            margin: 0;
             .elipse{
               margin-left: 20px;
             }

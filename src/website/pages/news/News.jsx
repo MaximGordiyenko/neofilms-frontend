@@ -35,7 +35,7 @@ const News = () => {
     <div className={'news-wrapper'}>
       <Flex flexDirection="column" className={'news-header'}>
         <Header />
-        <LazyLoadImage src={bg} wrapperClassName='news-header-box' effect='blur'/>
+        {!isMobile && <LazyLoadImage src={bg} wrapperClassName='news-header-box' effect='blur'/>}
         <div className={'title-news-box'}>
           <h2 className={'news-title-text'}>
             neo films <br /> latest news

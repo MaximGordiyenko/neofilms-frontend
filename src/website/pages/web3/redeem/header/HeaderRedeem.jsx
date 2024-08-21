@@ -13,11 +13,13 @@ import background from "../../../../assets/images/Staking_BG.jpg";
 import { getAccount, signData } from '../../../../../utils/MetaMask';
 import * as authApi from '../../../../../api/auth';
 import * as neobuxApi from '../../../../../api/neobux';
+import {Wallet} from "../../../../components/wallet/Wallet";
 
 export const HeaderRedeem = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
   const [balance, setBalance] = useState("0.0");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getBalance().then();
@@ -36,15 +38,18 @@ export const HeaderRedeem = () => {
   }
 
   const getBalance = async () => {
+    setIsLoading(true)
     const account = await getAccount();
     const balance = (await neobuxApi.balanceOf(account)).data.balance;
     setBalance(balance);
+    setIsLoading(false)
   }
 
   return (
     <div className={'redeem-header-wrapper'}>
       <Header />
       <LazyLoadImage src={background} wrapperClassName='redeem-header-box' effect='blur'/>
+      {/*<Wallet />*/}
       {isMobile ? (
         <div className={'mobile-title-box'}>
           <div className={'balance-mob-text'}>
@@ -54,7 +59,11 @@ export const HeaderRedeem = () => {
               className={'reload-btn'}
               onClick={getBalance}
             >
-              <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'} />
+              <img
+                src={refresh}
+                alt={'refresh-balance'}
+                className={`refresh-balance ${isLoading ? 'spinning' : ''}`}
+              />
             </button>
           </div>
           <h2 className={'staking-title'}>
@@ -66,7 +75,6 @@ export const HeaderRedeem = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'} />
               <span>WalletConnect</span>
             </button>
           </div>
@@ -79,7 +87,6 @@ export const HeaderRedeem = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'} />
               <span>WalletConnect</span>
             </button>
             <div className={'balance-text'}>
@@ -89,7 +96,11 @@ export const HeaderRedeem = () => {
                 className={'reload-btn'}
                 onClick={getBalance}
               >
-                <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'} />
+                <img
+                  src={refresh}
+                  alt={'refresh-balance'}
+                  className={`refresh-balance ${isLoading ? 'spinning' : ''}`}
+                />
               </button>
             </div>
           </div>
