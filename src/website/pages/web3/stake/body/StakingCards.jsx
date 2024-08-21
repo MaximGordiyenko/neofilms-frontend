@@ -119,7 +119,13 @@ console.log(pools, 'pools')
               <p>{pool.unclaimed} NEObux</p>
             </div>
             <div className={'btn-box-staking'}>
-              <MobButton btnText={'claim neobux'} />
+              <MobButton
+                btnText={'claim neobux'}
+                onClick={async () => {
+                  await claim(pool);
+                }}
+                disabled={pool.unclaimed === "0.0" || pool.unclaimed === "0"}
+              />
               <Button
                 text={'stake'}
                 onClick={async () => {
