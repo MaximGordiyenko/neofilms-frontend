@@ -49,7 +49,6 @@ export const HeaderRedeem = () => {
     <div className={'redeem-header-wrapper'}>
       <Header />
       <LazyLoadImage src={background} wrapperClassName='redeem-header-box' effect='blur'/>
-      {/*<Wallet />*/}
       {isMobile ? (
         <div className={'mobile-title-box'}>
           <div className={'balance-mob-text'}>

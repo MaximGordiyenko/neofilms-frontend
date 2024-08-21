@@ -49,7 +49,6 @@ export const HeaderStaking = () => {
     <div className={'staking-header-wrapper'}>
       <Header />
       <LazyLoadImage src={background} wrapperClassName='staking-header-box' effect='blur'/>
-      {/*<Wallet />*/}
       {isMobile ? (
         <div className={'mobile-title-box'}>
           <div className={'balance-mob-text'}>
