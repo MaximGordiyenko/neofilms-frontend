@@ -7,6 +7,7 @@ import squareIcon from '../../assets/images/footer-square.svg';
 import tetraSquare from '../../assets/images/footer-tetra.svg';
 import discord from '../../assets/images/Discord.svg';
 import x from '../../assets/images/X.svg';
+import { FaInstagram } from "react-icons/fa";
 
 export const FooterCreds = () => {
   return (
@@ -31,16 +32,19 @@ export const FooterCreds = () => {
       </div>
       <div className={'f-c-hr'} />
       <div className={'other-logos'}>
-        <img src={squareIcon} alt={'f-cred-squareIcon'} />
+        <img src={squareIcon} alt={'f-cred-squareIcon'} className="square-first"/>
         <img src={tetraSquare} alt={'f-cred-tetraSquare'} />
       </div>
       <div className={'f-c-hr'} />
       <div className={'socials'}>
         <a href={'https://twitter.com/NeoFilmsNFT'}>
-          <img src={x} alt={'x-cred-footer'} />
+          <img src={x} alt={'x-cred-footer'}/>
         </a>
         <a href={'https://discord.com/invite/brMNhjGdTn'}>
-          <img src={discord} alt={'f-cred-discord'} />
+          <img src={discord} alt={'f-cred-discord'}/>
+        </a>
+        <a href="https://www.instagram.com/neofilmsnft/" target="_blank" rel="noopener noreferrer">
+          <FaInstagram color="#FFF"/>
         </a>
       </div>
     </div>

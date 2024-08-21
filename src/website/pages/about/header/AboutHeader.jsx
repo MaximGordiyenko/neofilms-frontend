@@ -7,8 +7,12 @@ import xDots from '../../../assets/images/x-head-about.svg';
 import dots from '../../../assets/images/circles-head-about.svg';
 import './style.scss';
 import menuMobile from '../../../assets/images/burger-menu.svg';
+import background from '../../../assets/images/about-bg.jpg';
 import { MobMenu } from '../../../components/mobileMenu/MobMenu';
 import { useState } from 'react';
+import {LazyLoadImage} from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 export const AboutHeader = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
@@ -19,6 +23,7 @@ export const AboutHeader = () => {
   return (
     <div className={'about-header-wrapper'}>
       <img src={updots} alt={'about-up-dots'} className={'up-dots'} />
+      <LazyLoadImage src={background} wrapperClassName='about-header-box' effect='blur'/>
       <Header />
       <div className={'about-content'}>
         <img src={dots} alt={'about-dots'} className={'about-h-dots'} />

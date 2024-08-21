@@ -8,7 +8,7 @@ import botLine from '../../assets/images/footer-hp-placeholder.svg';
 import topFrame from '../../assets/images/top-frame-map.svg';
 import { HeaderContact } from './header/HeaderContact';
 import { BodyContact } from './body/BodyContact';
-export const Contact = () => {
+const Contact = () => {
   //topFrame
   return (
     <div className={'contact-wrapper'}>
@@ -18,3 +18,4 @@ export const Contact = () => {
     </div>
   );
 };
+ export default Contact;

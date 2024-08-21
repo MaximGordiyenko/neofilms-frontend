@@ -15,7 +15,7 @@ import {Navbar} from "../../components/navbar/Navbar";
 import {HeaderAllMovies} from "./header/HeaderAllMovies";
 import {BodyAllMovies} from "./body/BodyAllMovies";
 
-export const AllMovies = () => {
+const AllMovies = () => {
     return (
       <div className='all-movies-wrapper'>
         <HeaderAllMovies />
@@ -24,3 +24,5 @@ export const AllMovies = () => {
       </div>
     );
 };
+
+export default AllMovies;

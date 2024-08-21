@@ -1,0 +1,15 @@
+.shopify-products_wrapper{
+  .shop-header{
+    .menu-mob-wrapper{
+      position: fixed;
+      z-index: 999;
+      right: 4vw;
+      bottom: 3vh;
+      backdrop-filter: blur(20px);
+      padding: 20px;
+      box-sizing: border-box;
+      background: rgba(250, 250, 250, 0.20);
+      border-radius: 10px;
+    }
+  }
+}

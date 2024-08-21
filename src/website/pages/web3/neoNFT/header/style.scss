@@ -1,7 +1,7 @@
 .neo-nft-header{
   width: 100%;
   height: 100vh;
-  background: url("../../../../assets/images/neonft.jpg") center no-repeat;
+  //background: url("../../../../assets/images/neonft.jpg") center no-repeat;
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -11,6 +11,16 @@
   position: relative;
   .header{
     padding: 0;
+  }
+  .services-header-box{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 0;
+    z-index: -1;
+    img{
+      width: 100%;
+    }
   }
   .neo-nft-title{
     display: flex;
@@ -74,6 +84,12 @@
 
 @media (min-width: 2560px) {
   .neo-nft-header{
+    .header{
+      .header__social-wrapper{
+        display: flex;
+        flex-direction: row;
+      }
+    }
     .neo-nft-title{
       h2{
         font-size: 144px;

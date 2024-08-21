@@ -15,8 +15,12 @@ import elipse from '../../assets/images/Ellipse 102.svg'
 import rec from '../../assets/images/Ellipse 97.svg'
 import keys from '../../assets/images/keys.svg';
 import accessImg from '../../assets/images/business-products-cash-user-man-message-49.svg'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import background from '../../assets/images/image 66.jpg'
+import * as neobuxApi from "../../../api/neobux";
 
-export const Live = () => {
+const Live = () => {
   const isMobile = window.innerWidth <= 430;
   const location = useLocation();
   const [initialActive, setInitialActive] = useState(location.pathname);
@@ -26,6 +30,9 @@ export const Live = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isGotAccess, setIsGotAccess] = useState(null);
   const [livesInfo, setLivesInfo] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [balance, setBalance] = useState("0.0");
+
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
@@ -37,9 +44,18 @@ export const Live = () => {
     await authApi.login(account, sign);
   }
 
+  const getBalance = async () => {
+    setIsLoading(true)
+    const account = await getAccount();
+    const balance = (await neobuxApi.balanceOf(account)).data.balance;
+    setBalance(balance);
+    setIsLoading(false)
+  }
   useEffect(() => {
     setInitialActive(location.pathname);
   }, [location.pathname]);
+
+  console.log(isAuthorized, 'isAuth')
 
   useEffect(() => {
     liveApi.status().then((res) => {
@@ -71,7 +87,6 @@ export const Live = () => {
   const renderContent = () => {
     if (!isAuthorized) {
       return (
-
         <div className="live-stream-box">
           <div className="have_not-access">
             <img alt="" src={keys}/>
@@ -119,7 +134,12 @@ export const Live = () => {
   };
 
   return (
-    <div className='live-wrapper'>
+    <div className='live-wrapper' >
+      <LazyLoadImage
+        src={background}
+        alt='Background'
+        effect='blur'
+      />
       <div className="inner-content-live">
         <div className='live-inner-content'>
           <Header/>
@@ -130,9 +150,13 @@ export const Live = () => {
             <div className="mob-title-box">
               <div className='balance-text-mob'>
                 <span>Your Balance:</span>
-                <div className={'balance-count'}>0.00 NEOBux</div>
-                <button className={'reload-btn'}>
-                  <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'}/>
+                <div className={'balance-count'}>{balance} NEOBux</div>
+                <button className={'reload-btn'} onClick={getBalance}>
+                  <img
+                    src={refresh}
+                    alt={'refresh-balance'}
+                    className={`refresh-balance ${isLoading ? 'spinning' : ''}`}
+                  />
                 </button>
               </div>
               <div className="live-title">
@@ -143,8 +167,7 @@ export const Live = () => {
                 className={'button-balance'}
                 onClick={login}
               >
-                <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'}/>
-                <span>WalletConnect</span>
+                <span>{isAuthorized.address ? 'Connected!' : 'WalletConnect'}</span>
               </button>
             </div>
             :
@@ -159,14 +182,17 @@ export const Live = () => {
                     className={'button-balance'}
                     onClick={login}
                   >
-                    <img src={wallet} alt={'btn-wallet'} className={'wallet-btn'}/>
-                    <span>WalletConnect</span>
+                    <span>{isAuthorized.address ? 'Connected!' : 'WalletConnect'}</span>
                   </button>
                   <div className={'balance-text'}>
                     <span>Your Balance:</span>
-                    <div className={'balance-count'}>0.00 NEOBux</div>
-                    <button className={'reload-btn'}>
-                      <img src={refresh} alt={'refresh-balance'} className={'refresh-balance'}/>
+                    <div className={'balance-count'}>{balance} NEOBux</div>
+                    <button className={'reload-btn'} onClick={getBalance}>
+                      <img
+                        src={refresh}
+                        alt={'refresh-balance'}
+                        className={`refresh-balance ${isLoading ? 'spinning' : ''}`}
+                      />
                     </button>
                   </div>
                 </div>
@@ -174,7 +200,6 @@ export const Live = () => {
             </div>
         }
         {renderContent()}
-
         {/*{*/}
         {/*  isActive && (*/}
         {/*    liveUrl ? (*/}
@@ -225,3 +250,5 @@ export const Live = () => {
     </div>
   );
 };
+
+export default Live;
