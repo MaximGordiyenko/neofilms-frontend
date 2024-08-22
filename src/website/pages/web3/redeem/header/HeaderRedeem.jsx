@@ -20,10 +20,11 @@ export const HeaderRedeem = () => {
   const isMobile = window.innerWidth <= 430;
   const [balance, setBalance] = useState("0.0");
   const [isLoading, setIsLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    getBalance().then();
-  }, []);
+  // useEffect(() => {
+  //   getBalance().then();
+  // }, []);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
@@ -40,6 +41,9 @@ export const HeaderRedeem = () => {
   const getBalance = async () => {
     setIsLoading(true)
     const account = await getAccount();
+    if(account){
+      setIsAuthenticated(true)
+    }
     const balance = (await neobuxApi.balanceOf(account)).data.balance;
     setBalance(balance);
     setIsLoading(false)
@@ -74,7 +78,7 @@ export const HeaderRedeem = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <span>WalletConnect</span>
+              <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
             </button>
           </div>
         </div>
@@ -86,7 +90,7 @@ export const HeaderRedeem = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <span>WalletConnect</span>
+              <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
             </button>
             <div className={'balance-text'}>
               <span>Your Balance:</span>
