@@ -41,6 +41,9 @@ export const HeaderStaking = () => {
     setIsLoading(true)
     const account = await getAccount();
     console.log(account, 'account')
+    if(account){
+      setIsAuthenticated(true)
+    }
     const balance = (await neobuxApi.balanceOf(account)).data.balance;
     setBalance(balance);
     setIsLoading(false)
@@ -75,7 +78,7 @@ export const HeaderStaking = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <span>WalletConnect</span>
+              <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
             </button>
           </div>
         </div>
@@ -87,10 +90,10 @@ export const HeaderStaking = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <span>WalletConnect</span>
+              <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
             </button>
             <div className={'balance-text'}>
-              <span>Your Balance:</span>
+            <span>Your Balance:</span>
               <div className={'balance-count'}>{balance} NEOBux</div>
               <button
                 className={'reload-btn'}
