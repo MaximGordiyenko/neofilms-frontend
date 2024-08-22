@@ -17,7 +17,7 @@ export const BodyRedeem = () => {
   const [approveTx, setApproveTx] = useState(null);
   const [claimTx, setClaimTx] = useState(null);
 
-  userEffect(() => {
+  useEffect(() => {
     (async () => {
       const eligible_passes = (await rewardNftApi.getEligiblePasses()).data;
       setIsEligible(eligible_passes.eligible);
