@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export const ShopifyProduct = () => {
+  const location = useLocation();
+  const isInitialized = useRef(false); // Flag to prevent multiple initializations
 
   useEffect(() => {
     const scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+
     const loadScript = (src) => {
       return new Promise((resolve, reject) => {
         const existingScript = document.querySelector(`script[src="${src}"]`);
@@ -20,7 +24,18 @@ export const ShopifyProduct = () => {
       });
     };
 
+    const removeExistingShopifyFrames = () => {
+      const frames = document.querySelectorAll('.shopify-buy-frame');
+      frames.forEach(frame => frame.remove());
+    };
+
     const ShopifyBuyInit = () => {
+      if (!window.ShopifyBuy) {
+        console.error('ShopifyBuy is not available');
+        return;
+      }
+
+
       const client = window.ShopifyBuy.buildClient({
         domain: '6dfefc-68.myshopify.com',
         storefrontAccessToken: '84f7ef9813778955f8b46d985eb6cd1b',
@@ -179,27 +194,42 @@ export const ShopifyProduct = () => {
                 },
               },
             },
+            // Other options...
           });
         }
       });
     };
 
     const initShopify = async () => {
-      if (window.ShopifyBuy) {
-        if (window.ShopifyBuy.UI) {
-          ShopifyBuyInit();
+      if (isInitialized.current) return; // Prevent reinitialization if already done
+
+      try {
+        if (window.ShopifyBuy) {
+          if (window.ShopifyBuy.UI) {
+            ShopifyBuyInit();
+          } else {
+            await loadScript(scriptURL);
+            ShopifyBuyInit();
+          }
         } else {
           await loadScript(scriptURL);
           ShopifyBuyInit();
         }
-      } else {
-        await loadScript(scriptURL);
-        ShopifyBuyInit();
+        isInitialized.current = true; // Set the flag to indicate initialization is complete
+      } catch (error) {
+        console.error('Error initializing Shopify:', error);
       }
     };
 
-    initShopify();
-  }, []);
+    if (!isInitialized.current) {
+      removeExistingShopifyFrames();
+      initShopify();
+    }
 
-  return <div id="collection-component-1721827904642" style={{marginTop: '-3vh', minHeight: '150vh'}}></div>;
+    return () => {
+      removeExistingShopifyFrames(); // Clean up frames when component unmounts
+    };
+  }, [location.key]); // Re-run effect only when the location key changes
+
+  return <div id="collection-component-1721827904642" style={{ marginTop: '-3vh', minHeight: '150vh' }}></div>;
 };
