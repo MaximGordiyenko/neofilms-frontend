@@ -14,7 +14,7 @@
   }
   .news-header{
     width: 100%;
-    padding: 30px 40px;
+    padding: 30px 30px;
     box-sizing: border-box;
     //background: url("../../assets/images/image 70.jpg") bottom no-repeat;
     background-size: cover;
@@ -31,6 +31,7 @@
     }
     .header{
       padding: 0;
+      z-index: 2;
     }
     .title-news-box{
       max-width: 50%;
@@ -47,7 +48,7 @@
       }
       .news-ball{
         position: absolute;
-        bottom: 17px;
+        bottom: 67px;
         left: 520px;
       }
     }

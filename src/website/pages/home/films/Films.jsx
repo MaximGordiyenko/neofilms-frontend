@@ -59,7 +59,12 @@ export const Films = () => {
           ))}
         </div>
       )}
-      <Button onClick={handleNav} text={'explore full library'} style={{width: '100%'}} />
+      <Button
+        onClick={handleNav}
+        text={'explore full library'}
+        style={{width: '100%'}}
+        additionalClass="explore-lib"
+      />
     </div>
   );
 };

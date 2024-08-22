@@ -33,7 +33,12 @@ const CastFilmCard = ({ ...rest }) => {
         />
       )}
       <p className="cast-desc">{rest.movieDes}</p>
-      <Button text={'explore roles'} style={{ width: '150px' }} onClick={navigateToDetails} />
+      <Button
+        text={'explore roles'}
+        style={{ width: '170px' }}
+        onClick={navigateToDetails}
+        additionalClass="explore-roles"
+      />
     </div>
   );
 };

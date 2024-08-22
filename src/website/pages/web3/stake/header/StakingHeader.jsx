@@ -21,9 +21,9 @@ export const HeaderStaking = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    getBalance().then();
-  }, []);
+  // useEffect(() => {
+  //   getBalance().then();
+  // }, []);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
@@ -40,6 +40,7 @@ export const HeaderStaking = () => {
   const getBalance = async () => {
     setIsLoading(true)
     const account = await getAccount();
+    console.log(account, 'account')
     const balance = (await neobuxApi.balanceOf(account)).data.balance;
     setBalance(balance);
     setIsLoading(false)
@@ -48,7 +49,7 @@ export const HeaderStaking = () => {
   return (
     <div className={'staking-header-wrapper'}>
       <Header />
-      <LazyLoadImage src={background} wrapperClassName='staking-header-box' effect='blur'/>
+      {/*<LazyLoadImage src={background} wrapperClassName='staking-header-box' effect='blur'/>*/}
       {isMobile ? (
         <div className={'mobile-title-box'}>
           <div className={'balance-mob-text'}>
@@ -61,7 +62,7 @@ export const HeaderStaking = () => {
               <img
                 src={refresh}
                 alt={'refresh-balance'}
-                className={`refresh-balance ${isLoading ? 'spinning' : ''}`}
+                className={`refresh-balance ${isLoading && getBalance() ? 'spinning' : ''}`}
               />
             </button>
           </div>

@@ -3,14 +3,14 @@ ul.glitch{
     height: 100%;
     display: flex;
     align-items: center;
-    font-family: actay_wide, "sans-serif";
     word-spacing: 0!important;
     z-index: 22;
     li{
+        font-family: actay_wide, "sans-serif";
         display: flex;
         align-items: center;
         height: 100%;
-        font-size: 14px!important;
+        color: white;
     }
 }
 .btn-box.btn-body.ul.glitch li a.loaded:after {

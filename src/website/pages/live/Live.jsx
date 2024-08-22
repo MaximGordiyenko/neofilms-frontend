@@ -42,6 +42,7 @@ const Live = () => {
     const data = (await authApi.getData(account)).data.data;
     const sign = await signData(data);
     await authApi.login(account, sign);
+    console.log(account, 'acc', data, 'data');
   }
 
   const getBalance = async () => {
@@ -55,13 +56,12 @@ const Live = () => {
     setInitialActive(location.pathname);
   }, [location.pathname]);
 
-  console.log(isAuthorized, 'isAuth')
-
   useEffect(() => {
     liveApi.status().then((res) => {
       console.log("live status", res.data.is_active, res.data.access_for_nft);
       setIsActive(res.data.is_active);
       authApi.check().then((res) => {
+        setIsAuthorized(true)
         console.log("auth check", res.data);
         setIsAuthorized(res.data);
         liveApi.check().then((res) => {
@@ -167,7 +167,7 @@ const Live = () => {
                 className={'button-balance'}
                 onClick={login}
               >
-                <span>{isAuthorized.address ? 'Connected!' : 'WalletConnect'}</span>
+                <span>{isAuthorized ? 'Connected!' : 'WalletConnect'}</span>
               </button>
             </div>
             :
@@ -182,7 +182,7 @@ const Live = () => {
                     className={'button-balance'}
                     onClick={login}
                   >
-                    <span>{isAuthorized.address ? 'Connected!' : 'WalletConnect'}</span>
+                    <span>{isAuthorized ? 'Connected!' : 'WalletConnect'}</span>
                   </button>
                   <div className={'balance-text'}>
                     <span>Your Balance:</span>
