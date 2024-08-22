@@ -1,15 +1,17 @@
 import {ShopifyProduct} from "../../../components/product/product";
 import React, {useEffect, useRef, useState} from "react";
 import Header from "../../../components/header/Header";
-import satelite from "../../../assets/images/constructor-img.svg";
 import menuMobile from "../../../assets/images/burger-menu.svg";
 import {Navbar} from "../../../components/navbar/Navbar";
 import {MobMenu} from "../../../components/mobileMenu/MobMenu";
 import './style.css'
+import {useLocation} from "react-router-dom";
+
 export const ShopBody = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [hasScrolled, setHasScrolled] = useState(false);
+
+  const location = useLocation();
 
   const isMobile = window.innerWidth <= 430;
   const navbarRef = useRef(null);
