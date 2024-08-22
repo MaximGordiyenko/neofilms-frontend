@@ -18,7 +18,7 @@ export const HeaderNeo = () => {
   return (
     <div className={'neo-nft-header'}>
       <Header />
-      <LazyLoadImage src={background} wrapperClassName='services-header-box' effect='blur'/>
+      {/*<LazyLoadImage src={background} wrapperClassName='services-header-box' effect='blur'/>*/}
       <div className={'neo-nft-title'}>
         <h2>NEO NFTs COLLECTION</h2>
         <p>

@@ -11,7 +11,7 @@ const Shop = () => {
   return (
     <div className={'soon-page-wrapper'}>
       {/*<ShopHeader />*/}
-      {!isMobile && <LazyLoadImage src={bg} wrapperClassName='shop-header-box' effect='blur'/>}
+      {/*{!isMobile && <LazyLoadImage src={bg} wrapperClassName='shop-header-box' effect='blur'/>}*/}
       <ShopBody />
       <ShopFooter />
     </div>

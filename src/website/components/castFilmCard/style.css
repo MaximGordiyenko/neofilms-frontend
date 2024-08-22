@@ -9,6 +9,13 @@
     gap: 20px;
     display: flex;
     box-sizing: border-box;
+    .explore-roles{
+        .btn-body{
+            span{
+                font-size: 14px;
+            }
+        }
+    }
     .cast-card-title{
         display: flex;
         align-items: center;

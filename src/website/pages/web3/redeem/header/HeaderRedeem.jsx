@@ -48,7 +48,7 @@ export const HeaderRedeem = () => {
   return (
     <div className={'redeem-header-wrapper'}>
       <Header />
-      <LazyLoadImage src={background} wrapperClassName='redeem-header-box' effect='blur'/>
+      {/*<LazyLoadImage src={background} wrapperClassName='redeem-header-box' effect='blur'/>*/}
       {isMobile ? (
         <div className={'mobile-title-box'}>
           <div className={'balance-mob-text'}>
