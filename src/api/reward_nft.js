@@ -1,6 +1,12 @@
 import axios from 'axios';
 
 
+export async function getEligiblePasses() {
+	return await axios.get('/api/reward/eligibility-passes', {
+			withCredentials: true
+		});
+}
+
 export async function approveNeoBux(poolId) {
 	return await axios.get(`/api/reward/approve/${poolId}`, {
 			withCredentials: true
