@@ -15,6 +15,7 @@ import * as authApi from '../../../../../api/auth';
 import * as neobuxApi from '../../../../../api/neobux';
 import {Wallet} from "../../../../components/wallet/Wallet";
 
+
 export const HeaderRedeem = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
