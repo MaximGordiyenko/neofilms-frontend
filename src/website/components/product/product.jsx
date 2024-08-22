@@ -35,6 +35,7 @@ export const ShopifyProduct = () => {
         return;
       }
 
+
       const client = window.ShopifyBuy.buildClient({
         domain: '6dfefc-68.myshopify.com',
         storefrontAccessToken: '84f7ef9813778955f8b46d985eb6cd1b',
