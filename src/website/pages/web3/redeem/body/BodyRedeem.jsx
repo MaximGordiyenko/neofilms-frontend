@@ -64,6 +64,7 @@ export const BodyRedeem = () => {
               onClick={claim}
               disabled={!isEligible}
             /> : <Button
+              isGlitch
               text={'claim'}
               onClick={claim}
               disabled={!isEligible}

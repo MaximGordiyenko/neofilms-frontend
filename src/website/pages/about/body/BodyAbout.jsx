@@ -69,7 +69,7 @@ export const BodyAbout = () => {
             </p>
             <div className={'inner-input-box'}>
               <ClipInput placeholder={'Enter your Email address'} className={'email-input'} />
-              <Button text={'subscribe'} />
+              <Button isGlitch text={'subscribe'} />
             </div>
           </div>
         </div>

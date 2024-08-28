@@ -114,7 +114,7 @@ export const NewsPageCards = () => {
                 </div>
                 <h5 className={'other-card-title'}>{item.name}</h5>
                 <p className={'other-card-text'}>{item.text}</p>
-                <Button text={item.buttonText} onClick={() => handleNav(item.url)} />
+                <Button isGlitch text={item.buttonText} onClick={() => handleNav(item.url)} />
               </div>
             )}
           </div>

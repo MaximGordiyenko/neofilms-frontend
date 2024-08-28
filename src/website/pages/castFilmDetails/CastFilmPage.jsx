@@ -197,7 +197,7 @@ const CastFilmPage = () => {
               {headshotFile && <p className="modal-file-name">{trimmedHeadshotFileName}</p>}
             </Flex>
             {headshotFile ? (
-              <Button text={'Delete'} onClick={deleteHeadshot} />
+              <Button isGlitch text={'Delete'} onClick={deleteHeadshot} />
             ) : (
               <>
                 <input
@@ -206,7 +206,7 @@ const CastFilmPage = () => {
                   style={{ display: 'none' }}
                   onChange={handleHeadshotChange}
                 />
-                <Button text="Upload" onClick={() => headshotFileInputRef.current.click()} />
+                <Button isGlitch text="Upload" onClick={() => headshotFileInputRef.current.click()} />
                 {headshotFileName && <p className="modal-text">{trimmedHeadshotFileName}</p>}
               </>
             )}
@@ -217,7 +217,7 @@ const CastFilmPage = () => {
               {resumeFile && <p className="modal-file-name">{trimmedResumeFileName}</p>}
             </Flex>
             {resumeFile ? (
-              <Button text={'Delete'} onClick={deleteResume} />
+              <Button isGlitch text={'Delete'} onClick={deleteResume} />
             ) : (
               <>
                 <input
@@ -226,7 +226,7 @@ const CastFilmPage = () => {
                   style={{ display: 'none' }}
                   onChange={handleResumeChange}
                 />
-                <Button text="Upload" onClick={() => resumeFileInputRef.current.click()} />
+                <Button isGlitch text="Upload" onClick={() => resumeFileInputRef.current.click()} />
                 {resumeFileName && <p className="modal-text">{trimmedResumeFileName}</p>}
               </>
             )}
@@ -235,7 +235,7 @@ const CastFilmPage = () => {
         <div className="detail-form-button-box">
           <img className="modal-form-icon" src={dots} alt="dots" />
           <div className="hr-line" />
-          <Button text={'Apply'} onClick={handleSubmit}/>
+          <Button isGlitch text={'Apply'} onClick={handleSubmit}/>
           {isMobile && (
             <div onClick={closeModal} className="modal-close-button">
               Cancel

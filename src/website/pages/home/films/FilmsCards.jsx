@@ -45,7 +45,7 @@ const FilmCards = ({ img, title, date, backgroundStatic, backgroundHover, button
         />
       )}
       {isHovered && (
-        <Button text={buttonText} style={{ width: '150px' }} onClick={navigateToDetails} />
+        <Button isGlitch text={buttonText} style={{ width: '150px' }} onClick={navigateToDetails} />
       )}
     </div>
   );
