@@ -35,7 +35,6 @@ export const ShopifyProduct = () => {
         return;
       }
 
-
       const client = window.ShopifyBuy.buildClient({
         domain: '6dfefc-68.myshopify.com',
         storefrontAccessToken: '84f7ef9813778955f8b46d985eb6cd1b',
@@ -45,7 +44,7 @@ export const ShopifyProduct = () => {
         if (!document.querySelector('.shopify-buy-frame')) {
           ui.createComponent('collection', {
             id: '331566383257',
-            node: document.getElementById('collection-component-1721827904642'),
+            node: document.getElementById('collection-component-1724822383762'),
             moneyFormat: '%24%7B%7Bamount%7D%7D',
             options: {
               product: {
@@ -160,7 +159,6 @@ export const ShopifyProduct = () => {
                   button: 'Add to cart',
                 },
               },
-              option: {},
               cart: {
                 styles: {
                   button: {
@@ -194,7 +192,6 @@ export const ShopifyProduct = () => {
                 },
               },
             },
-            // Other options...
           });
         }
       });
@@ -231,5 +228,5 @@ export const ShopifyProduct = () => {
     };
   }, [location.key]); // Re-run effect only when the location key changes
 
-  return <div id="collection-component-1721827904642" style={{ marginTop: '-3vh', minHeight: '150vh' }}></div>;
+  return <div id="collection-component-1724822383762" style={{ marginTop: '-3vh', minHeight: '150vh' }}></div>;
 };

@@ -50,7 +50,7 @@ const NeoStaking = () => {
             I have read and understand the above
           </span>
         </div>
-        <Button text="i agree" disabled={!agreed} onClick={() => closeModal()} />
+        <Button isGlitch text="i agree" disabled={!agreed} onClick={() => closeModal()} />
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import menuMobile from '../../../assets/images/burger-menu.svg';
 import { useState } from 'react';
 import { MobMenu } from '../../../components/mobileMenu/MobMenu';
 import './glitch.css';
+import {GlitchButton} from "../../../components/button/glitchButton/GlitchButton";
 
 export const HomepageHeader = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
@@ -39,7 +40,7 @@ export const HomepageHeader = () => {
             <h1>Filmmaking</h1>
           </div>
           <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'} target="_blank" rel="noopener noreferrer">
-            <Button text={'watch reel'} width={'250px'} vimeoLink={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'}/>
+            <Button isGlitch text={'watch reel'} width={'250px'} vimeoLink={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'}/>
           </a>
         </div>
       ) : (
@@ -49,7 +50,7 @@ export const HomepageHeader = () => {
             <h1>Of Filmmaking</h1>
           </div>
           <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'} target="_blank" rel="noopener noreferrer">
-            <Button text={'watch reel'} width={'250px'} />
+            <Button text={'watch reel'} width={'250px'} isGlitch/>
           </a>
         </div>
       )}
