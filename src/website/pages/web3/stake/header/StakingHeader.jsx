@@ -7,23 +7,21 @@ import { Navbar } from '../../../../components/navbar/Navbar';
 import menuMobile from '../../../../assets/images/burger-menu.svg';
 import { MobMenu } from '../../../../components/mobileMenu/MobMenu';
 import { getAccount, signData } from '../../../../../utils/MetaMask';
-import * as authApi from '../../../../../api/auth';
+import * as authCheck from '../../../../../api/auth';
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import background from "../../../../assets/images/Staking_BG.jpg";
 import * as neobuxApi from '../../../../../api/neobux';
 import {Wallet} from "../../../../components/wallet/Wallet";
+import * as liveApi from "../../../../../api/live";
+import Spinner from "../../../../components/loader/Spinner";
 
 export const HeaderStaking = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
   const [balance, setBalance] = useState("0.0");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  // useEffect(() => {
-  //   getBalance().then();
-  // }, []);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
@@ -33,7 +31,7 @@ export const HeaderStaking = () => {
       const account = await getAccount();
       const data = (await authApi.getData(account)).data.data;
       const sign = await signData(data);
-      await authApi.login(account, sign);
+      await authCheck.login(account, sign);
       await getBalance();
   }
 
@@ -48,6 +46,16 @@ export const HeaderStaking = () => {
     setBalance(balance);
     setIsLoading(false)
   }
+
+  useEffect(() => {
+    authCheck.check().then((res) => {
+      console.log("auth check", res.data);
+      setIsAuthenticated(res.data);
+    }).catch((err) => {
+      console.log(isAuthenticated, 'isAuth')
+      console.error("Error fetching auth status", err);
+    });
+  }, []);
 
   return (
     <div className={'staking-header-wrapper'}>
@@ -78,7 +86,7 @@ export const HeaderStaking = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
+              <span>{isAuthenticated ? "Wallet Connected" : "Connect you wallet"}</span>
             </button>
           </div>
         </div>
@@ -90,10 +98,10 @@ export const HeaderStaking = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
+              <span>{isAuthenticated ? "Wallet connected" : "Connect your wallet"}</span>
             </button>
             <div className={'balance-text'}>
-            <span>Your Balance:</span>
+              <span>Your Balance:</span>
               <div className={'balance-count'}>{balance} NEOBux</div>
               <button
                 className={'reload-btn'}

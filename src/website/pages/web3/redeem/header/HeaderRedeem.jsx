@@ -14,17 +14,25 @@ import { getAccount, signData } from '../../../../../utils/MetaMask';
 import * as authApi from '../../../../../api/auth';
 import * as neobuxApi from '../../../../../api/neobux';
 import {Wallet} from "../../../../components/wallet/Wallet";
+import * as authCheck from "../../../../../api/auth";
+import Spinner from "../../../../components/loader/Spinner";
 
 export const HeaderRedeem = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
   const [balance, setBalance] = useState("0.0");
   const [isLoading, setIsLoading] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState();
 
-  // useEffect(() => {
-  //   getBalance().then();
-  // }, []);
+  useEffect(() => {
+    authCheck.check().then((res) => {
+      console.log("auth check", res.data);
+      setIsAuthenticated(res.data);
+    }).catch((err) => {
+      console.log(isAuthenticated, 'isuath')
+      console.error("Error fetching auth status", err);
+    });
+  }, []);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
@@ -78,7 +86,7 @@ export const HeaderRedeem = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
+              <span>{isAuthenticated ? "Wallet connected" : "Connect your wallet"}</span>
             </button>
           </div>
         </div>
@@ -90,7 +98,7 @@ export const HeaderRedeem = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
+              <span>{isAuthenticated ? "Wallet connected" : "Connect your wallet"}</span>
             </button>
             <div className={'balance-text'}>
               <span>Your Balance:</span>
