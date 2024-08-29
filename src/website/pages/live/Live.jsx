@@ -167,7 +167,7 @@ const Live = () => {
                 className={'button-balance'}
                 onClick={login}
               >
-                <span>{isAuthorized ? 'Connected!' : 'WalletConnect'}</span>
+                <span>{isAuthorized ? 'Wallet connected' : 'Connect your wallet'}</span>
               </button>
             </div>
             :
@@ -182,7 +182,7 @@ const Live = () => {
                     className={'button-balance'}
                     onClick={login}
                   >
-                    <span>{isAuthorized ? 'Connected!' : 'WalletConnect'}</span>
+                    <span>{isAuthorized ? 'Wallet connected' : 'Connect your wallet'}</span>
                   </button>
                   <div className={'balance-text'}>
                     <span>Your Balance:</span>
