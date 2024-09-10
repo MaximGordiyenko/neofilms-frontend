@@ -60,6 +60,7 @@ export const Films = () => {
         </div>
       )}
       <Button
+        isGlitch
         onClick={handleNav}
         text={'explore full library'}
         style={{width: '100%'}}

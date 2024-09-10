@@ -121,7 +121,7 @@ export const Body = () => {
           <div className={'button-box'}>
             <img src={dots} alt={'hp-b-dots'} />
             <div className={'hr-line-body'} />
-            <Button text={'other news'} width={'210px'} onClick={handleNav} />
+            <Button isGlitch text={'other news'} width={'210px'} onClick={handleNav} />
           </div>
         </div>
         <div className={'hp-cards-body-box'}>

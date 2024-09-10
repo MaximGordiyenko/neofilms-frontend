@@ -6,6 +6,7 @@ import {Navbar} from "../../../components/navbar/Navbar";
 import {MobMenu} from "../../../components/mobileMenu/MobMenu";
 import './style.css'
 import {useLocation} from "react-router-dom";
+import {Button} from "../../../components/button/Button";
 
 export const ShopBody = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
@@ -38,6 +39,7 @@ export const ShopBody = () => {
               neo store
             </h2>
           </div>
+          <Button isGlitch text="Go to shop" isFilled additionalClass="filled-button-box"/>
         </div>
         {isMobile ? (
           <div className={'menu-mob-wrapper'}>

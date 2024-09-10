@@ -126,6 +126,7 @@ export const StakingCards = () => {
                 disabled={pool.unclaimed === "0.0" || pool.unclaimed === "0"}
               />
               <Button
+                isGlitch
                 text={'stake'}
                 onClick={async () => {
                   await approveAll(pool);

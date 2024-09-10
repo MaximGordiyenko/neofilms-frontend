@@ -34,8 +34,9 @@ const CastFilmCard = ({ ...rest }) => {
       )}
       <p className="cast-desc">{rest.movieDes}</p>
       <Button
+        isGlitch
         text={'explore roles'}
-        style={{ width: '170px' }}
+        style={{ width: '195px' }}
         onClick={navigateToDetails}
         additionalClass="explore-roles"
       />
