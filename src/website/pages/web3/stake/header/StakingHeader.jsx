@@ -15,6 +15,7 @@ import * as neobuxApi from '../../../../../api/neobux';
 import {Wallet} from "../../../../components/wallet/Wallet";
 import * as liveApi from "../../../../../api/live";
 import Spinner from "../../../../components/loader/Spinner";
+import * as authApi from "../../../../../api/auth";
 
 export const HeaderStaking = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
