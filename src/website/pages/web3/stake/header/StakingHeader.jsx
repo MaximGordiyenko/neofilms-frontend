@@ -21,9 +21,9 @@ export const HeaderStaking = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // useEffect(() => {
-  //   getBalance().then();
-  // }, []);
+  useEffect(() => {
+    getBalance().then();
+  }, []);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
