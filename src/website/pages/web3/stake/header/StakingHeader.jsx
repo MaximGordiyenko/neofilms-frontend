@@ -15,6 +15,9 @@ import * as neobuxApi from '../../../../../api/neobux';
 import {Wallet} from "../../../../components/wallet/Wallet";
 import * as liveApi from "../../../../../api/live";
 import Spinner from "../../../../components/loader/Spinner";
+import * as liveApi from "../../../../../api/live";
+import Spinner from "../../../../components/loader/Spinner";
+import * as authApi from "../../../../../api/auth";
 
 export const HeaderStaking = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
@@ -22,6 +25,10 @@ export const HeaderStaking = () => {
   const [balance, setBalance] = useState("0.0");
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    getBalance().then();
+  }, []);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
