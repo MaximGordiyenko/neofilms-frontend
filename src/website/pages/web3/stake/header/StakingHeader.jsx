@@ -83,6 +83,7 @@ export const HeaderStaking = () => {
             </button>
           </div>
         </div>
+
       ) : (
         <div className={'title-box'}>
           <h2 className={'staking-title'}>neo staking</h2>
