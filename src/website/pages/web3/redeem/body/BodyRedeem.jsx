@@ -13,32 +13,26 @@ import { runTransaction } from '../../../../../utils/MetaMask';
 
 export const BodyRedeem = () => {
   const isMobile = window.innerWidth <= 430;
-  const [isEligible, setIsEligible] = useState(false);
   const [approveTx, setApproveTx] = useState(null);
   const [claimTx, setClaimTx] = useState(null);
+  const [eligablePasses, setEligablePasses] = useState([]);
 
   useEffect(() => {
     (async () => {
       const eligible_passes = (await rewardNftApi.getEligiblePasses()).data;
-      setIsEligible(eligible_passes.eligible);
-      setApproveTx(eligible_passes.approve_tx);
-      setClaimTx(eligible_passes.purchase_tx);
+      setEligablePasses(eligible_passes);
     })()
   }, []);
-  
-  const approve = async () => {
-    if (approveTx === null) {
-      return;
-    }
-    await runTransaction(approveTx);
-  };
 
   const claim = async () => {
-    await approve();
-    if (claimTx === null) {
-      return;
+    for (let eligiblePass of eligablePasses) {
+      if (eligiblePass.approve_tx) {
+        await runTransaction(eligiblePass.approve_tx);
+      }
+      if (eligiblePass.purchase_tx) {
+        await runTransaction(eligiblePass.purchase_tx);
+      }
     }
-    await runTransaction(claimTx);
   }
 
   const options = [
@@ -62,12 +56,12 @@ export const BodyRedeem = () => {
             {isMobile ? <MobButton
               btnText={'claim'}
               onClick={claim}
-              disabled={!isEligible}
+              disabled={!eligablePasses.length}
             /> : <Button
               isGlitch
               text={'claim'}
               onClick={claim}
-              disabled={!isEligible}
+              disabled={!eligablePasses.length}
             />}
           </div>
         </div>
