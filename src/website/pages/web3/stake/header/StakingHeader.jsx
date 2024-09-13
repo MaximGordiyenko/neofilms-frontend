@@ -7,22 +7,20 @@ import { Navbar } from '../../../../components/navbar/Navbar';
 import menuMobile from '../../../../assets/images/burger-menu.svg';
 import { MobMenu } from '../../../../components/mobileMenu/MobMenu';
 import { getAccount, signData } from '../../../../../utils/MetaMask';
-import * as authCheck from '../../../../../api/auth';
+import * as authApi from '../../../../../api/auth';
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import background from "../../../../assets/images/Staking_BG.jpg";
 import * as neobuxApi from '../../../../../api/neobux';
 import {Wallet} from "../../../../components/wallet/Wallet";
-import * as liveApi from "../../../../../api/live";
-import Spinner from "../../../../components/loader/Spinner";
-import * as authApi from "../../../../../api/auth";
 
 export const HeaderStaking = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
   const [balance, setBalance] = useState("0.0");
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isReloading, setIsReloading] = useState(false);
 
   useEffect(() => {
     getBalance().then();
@@ -36,12 +34,12 @@ export const HeaderStaking = () => {
       const account = await getAccount();
       const data = (await authApi.getData(account)).data.data;
       const sign = await signData(data);
-      await authCheck.login(account, sign);
+      await authApi.login(account, sign);
       await getBalance();
   }
 
   const getBalance = async () => {
-    setIsLoading(true)
+    setIsReloading(true);  // Set reloading to true when balance is fetched
     const account = await getAccount();
     console.log(account, 'account')
     if(account){
@@ -49,18 +47,8 @@ export const HeaderStaking = () => {
     }
     const balance = (await neobuxApi.balanceOf(account)).data.balance;
     setBalance(balance);
-    setIsLoading(false)
+    setIsReloading(false);  // Turn off spinner after balance is updated
   }
-
-  useEffect(() => {
-    authCheck.check().then((res) => {
-      console.log("auth check", res.data);
-      setIsAuthenticated(res.data);
-    }).catch((err) => {
-      console.log(isAuthenticated, 'isAuth')
-      console.error("Error fetching auth status", err);
-    });
-  }, []);
 
   return (
     <div className={'staking-header-wrapper'}>
@@ -91,10 +79,11 @@ export const HeaderStaking = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <span>{isAuthenticated ? "Wallet Connected" : "Connect you wallet"}</span>
+              <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
             </button>
           </div>
         </div>
+
       ) : (
         <div className={'title-box'}>
           <h2 className={'staking-title'}>neo staking</h2>
@@ -103,10 +92,10 @@ export const HeaderStaking = () => {
               className={'button-balance'}
               onClick={login}
             >
-              <span>{isAuthenticated ? "Wallet connected" : "Connect your wallet"}</span>
+              <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
             </button>
             <div className={'balance-text'}>
-              <span>Your Balance:</span>
+            <span>Your Balance:</span>
               <div className={'balance-count'}>{balance} NEOBux</div>
               <button
                 className={'reload-btn'}
@@ -115,7 +104,7 @@ export const HeaderStaking = () => {
                 <img
                   src={refresh}
                   alt={'refresh-balance'}
-                  className={`refresh-balance ${isLoading ? 'spinning' : ''}`}
+                  className={`refresh-balance ${isAuthenticated && isReloading ? 'spinning' : ''}`}
                 />
               </button>
             </div>
