@@ -9,7 +9,8 @@ export const MobButton = ({ btnText, onClick, disabled }) => {
       <button 
         className={'filled-btn-body'} 
         onClick={onClick} 
-        disabled={disabled}
+        disabled={disabled} 
+        style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}
       >
         <span>{btnText}</span>
       </button>

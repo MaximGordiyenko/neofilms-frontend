@@ -10,6 +10,7 @@ import { MobButton } from '../../../components/button/MobButton';
 const NeoStaking = () => {
   const [isOpen, setIsOpen] = useState(localStorage.getItem('agreed') !== 'true');
   const [agreed, setAgreed] = useState(false);
+  const [authCount, setAuthCount] = useState(0);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -18,6 +19,10 @@ const NeoStaking = () => {
   function toggleCheckbox(checkbox) {
     checkbox.classList.toggle('selected');
   }
+
+  const onLogin = () => {
+    setAuthCount(authCount + 1);
+  };
 
   const isMobile = window.innerWidth <= 430;
 
@@ -56,8 +61,8 @@ const NeoStaking = () => {
   );
   return (
     <>
-      <HeaderStaking />
-      <StakingBody />
+      <HeaderStaking onLogin = {onLogin} />
+      <StakingBody authCount={authCount} />
       <FooterCreds />
       {isOpen && <CustomModal isOpen={isOpen} onClose={closeModal} content={modalContent} />}
     </>

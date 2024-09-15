@@ -14,7 +14,7 @@ import background from "../../../../assets/images/Staking_BG.jpg";
 import * as neobuxApi from '../../../../../api/neobux';
 import {Wallet} from "../../../../components/wallet/Wallet";
 
-export const HeaderStaking = () => {
+export const HeaderStaking = ({ onLogin }) => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
   const [balance, setBalance] = useState("0.0");
@@ -23,32 +23,69 @@ export const HeaderStaking = () => {
   const [isReloading, setIsReloading] = useState(false);
 
   useEffect(() => {
-    getBalance().then();
+    getBalance();
   }, []);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
 
+  const checkAuth = async () => {
+    try {
+      const response = await authApi.check();
+      if (response.status === 200) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+      return response.status === 200;
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setIsAuthenticated(false);
+        return false;
+      } else {
+        console.error("An error occurred while checking authentication:", error);
+      }
+    }
+  };
+  
+
   const login = async () => {
+    if (await checkAuth()) {
+      return;
+    }
+    try {
+      setIsLoading(true);
       const account = await getAccount();
-      const data = (await authApi.getData(account)).data.data;
+      const response = await authApi.getData(account);
+      const data = response.data.data;
       const sign = await signData(data);
       await authApi.login(account, sign);
+      setIsAuthenticated(true);
       await getBalance();
-  }
+      onLogin();
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Login failed:", error);
+      setIsLoading(false);
+    }
+  };
 
   const getBalance = async () => {
-    setIsReloading(true);  // Set reloading to true when balance is fetched
-    const account = await getAccount();
-    console.log(account, 'account')
-    if(account){
-      setIsAuthenticated(true)
+    try {
+      setIsReloading(true);
+      const account = await getAccount();
+      if (account) {
+        setIsAuthenticated(true);
+        const response = await neobuxApi.balanceOf(account);
+        setBalance(response.data.balance);
+      }
+      setIsReloading(false);
+    } catch (error) {
+      console.error("Failed to fetch balance:", error);
+      setIsReloading(false);
     }
-    const balance = (await neobuxApi.balanceOf(account)).data.balance;
-    setBalance(balance);
-    setIsReloading(false);  // Turn off spinner after balance is updated
-  }
+  };
 
   return (
     <div className={'staking-header-wrapper'}>
@@ -62,11 +99,12 @@ export const HeaderStaking = () => {
             <button
               className={'reload-btn'}
               onClick={getBalance}
+              disabled={isReloading}
             >
               <img
                 src={refresh}
                 alt={'refresh-balance'}
-                className={`refresh-balance ${isLoading && getBalance() ? 'spinning' : ''}`}
+                className={`refresh-balance ${isReloading ? 'spinning' : ''}`}
               />
             </button>
           </div>
@@ -78,12 +116,12 @@ export const HeaderStaking = () => {
             <button
               className={'button-balance'}
               onClick={login}
+              disabled={isLoading}
             >
               <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
             </button>
           </div>
         </div>
-
       ) : (
         <div className={'title-box'}>
           <h2 className={'staking-title'}>neo staking</h2>
@@ -91,6 +129,7 @@ export const HeaderStaking = () => {
             <button
               className={'button-balance'}
               onClick={login}
+              disabled={isLoading}
             >
               <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
             </button>
@@ -100,11 +139,12 @@ export const HeaderStaking = () => {
               <button
                 className={'reload-btn'}
                 onClick={getBalance}
+                disabled={isReloading}
               >
                 <img
                   src={refresh}
                   alt={'refresh-balance'}
-                  className={`refresh-balance ${isAuthenticated && isReloading ? 'spinning' : ''}`}
+                  className={`refresh-balance ${isReloading ? 'spinning' : ''}`}
                 />
               </button>
             </div>
