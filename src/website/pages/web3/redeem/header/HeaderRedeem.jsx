@@ -27,8 +27,8 @@ export const HeaderRedeem = ({ onLogin }) => {
 
   useEffect(() => {
     checkAuth().then((res) => {
-      setIsAuthenticated(res.data);
-      if (res.data) {
+      setIsAuthenticated(res);
+      if (res) {
         getBalance();
       }
     });
