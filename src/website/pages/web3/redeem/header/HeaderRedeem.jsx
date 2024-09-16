@@ -17,20 +17,20 @@ import {Wallet} from "../../../../components/wallet/Wallet";
 import * as authCheck from "../../../../../api/auth";
 import Spinner from "../../../../components/loader/Spinner";
 
-export const HeaderRedeem = () => {
+export const HeaderRedeem = ({ onLogin }) => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
-  const isMobile = window.innerWidth <= 430;
   const [balance, setBalance] = useState("0.0");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState();
+  const [isReloading, setIsReloading] = useState(false);
+  const isMobile = window.innerWidth <= 430;
 
   useEffect(() => {
-    authCheck.check().then((res) => {
-      console.log("auth check", res.data);
+    checkAuth().then((res) => {
       setIsAuthenticated(res.data);
-    }).catch((err) => {
-      console.log(isAuthenticated, 'isuath')
-      console.error("Error fetching auth status", err);
+      if (res.data) {
+        getBalance();
+      }
     });
   }, []);
 
@@ -38,29 +38,59 @@ export const HeaderRedeem = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
 
+  const checkAuth = async () => {
+    try {
+      const response = await authApi.check();
+      return response.status === 200;
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        return false;
+      } else {
+        console.error("An error occurred while checking authentication:", error);
+      }
+    }
+  };
+
   const login = async () => {
-    const account = await getAccount();
-    const data = (await authApi.getData(account)).data.data;
-    const sign = await signData(data);
-    await authApi.login(account, sign);
-    await getBalance();
-  }
+    if (await checkAuth()) {
+      return;
+    }
+    try {
+      setIsLoading(true);
+      const account = await getAccount();
+      const response = await authApi.getData(account);
+      const data = response.data.data;
+      const sign = await signData(data);
+      await authApi.login(account, sign);
+      setIsAuthenticated(true);
+      getBalance();
+      onLogin();
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Login failed:", error);
+      setIsLoading(false);
+    }
+  };
 
   const getBalance = async () => {
-    setIsLoading(true)
-    const account = await getAccount();
-    if(account){
-      setIsAuthenticated(true)
+    try {
+      setIsReloading(true);
+      const account = await getAccount();
+      if (account) {
+        setIsAuthenticated(true);
+        const response = await neobuxApi.balanceOf(account);
+        setBalance(response.data.balance);
+      }
+      setIsReloading(false);
+    } catch (error) {
+      console.error("Failed to fetch balance:", error);
+      setIsReloading(false);
     }
-    const balance = (await neobuxApi.balanceOf(account)).data.balance;
-    setBalance(balance);
-    setIsLoading(false)
-  }
+  };
 
   return (
     <div className={'redeem-header-wrapper'}>
       <Header />
-      {/*<LazyLoadImage src={background} wrapperClassName='redeem-header-box' effect='blur'/>*/}
       {isMobile ? (
         <div className={'mobile-title-box'}>
           <div className={'balance-mob-text'}>
@@ -69,11 +99,12 @@ export const HeaderRedeem = () => {
             <button
               className={'reload-btn'}
               onClick={getBalance}
+              disabled={isReloading}
             >
               <img
                 src={refresh}
                 alt={'refresh-balance'}
-                className={`refresh-balance ${isLoading ? 'spinning' : ''}`}
+                className={`refresh-balance ${isReloading ? 'spinning' : ''}`}
               />
             </button>
           </div>
@@ -85,6 +116,7 @@ export const HeaderRedeem = () => {
             <button
               className={'button-balance'}
               onClick={login}
+              disabled={isLoading}
             >
               <span>{isAuthenticated ? "Wallet connected" : "Connect your wallet"}</span>
             </button>
@@ -97,6 +129,7 @@ export const HeaderRedeem = () => {
             <button
               className={'button-balance'}
               onClick={login}
+              disabled={isLoading}
             >
               <span>{isAuthenticated ? "Wallet connected" : "Connect your wallet"}</span>
             </button>
@@ -106,11 +139,12 @@ export const HeaderRedeem = () => {
               <button
                 className={'reload-btn'}
                 onClick={getBalance}
+                disabled={isReloading}
               >
                 <img
                   src={refresh}
                   alt={'refresh-balance'}
-                  className={`refresh-balance ${isLoading ? 'spinning' : ''}`}
+                  className={`refresh-balance ${isReloading ? 'spinning' : ''}`}
                 />
               </button>
             </div>

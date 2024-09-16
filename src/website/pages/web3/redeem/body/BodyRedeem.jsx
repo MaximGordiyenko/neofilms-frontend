@@ -11,18 +11,22 @@ import * as rewardNftApi from '../../../../../api/reward_nft';
 import { a } from 'react-spring';
 import { runTransaction } from '../../../../../utils/MetaMask';
 
-export const BodyRedeem = () => {
+export const BodyRedeem = ({ authCount }) => {
   const isMobile = window.innerWidth <= 430;
-  const [approveTx, setApproveTx] = useState(null);
-  const [claimTx, setClaimTx] = useState(null);
   const [eligablePasses, setEligablePasses] = useState([]);
 
   useEffect(() => {
-    (async () => {
+    updateEligiblePasses();
+  }, [authCount]);
+
+  const updateEligiblePasses = async () => {
+    try {
       const eligible_passes = (await rewardNftApi.getEligiblePasses()).data;
       setEligablePasses(eligible_passes);
-    })()
-  }, []);
+    } catch (error) {
+      console.error("Failed to fetch eligible passes:", error);
+    }
+  };
 
   const claim = async () => {
     for (let eligiblePass of eligablePasses) {
@@ -33,7 +37,8 @@ export const BodyRedeem = () => {
         await runTransaction(eligiblePass.purchase_tx);
       }
     }
-  }
+    updateEligiblePasses();
+  };
 
   const options = [
     { value: '150-250k', label: '150-250k' },
