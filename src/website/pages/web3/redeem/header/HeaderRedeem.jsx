@@ -49,9 +49,6 @@ export const HeaderRedeem = ({ onLogin }) => {
   };
 
   const login = async () => {
-    if (await checkAuth()) {
-      return;
-    }
     try {
       setIsLoading(true);
       const account = await getAccount();

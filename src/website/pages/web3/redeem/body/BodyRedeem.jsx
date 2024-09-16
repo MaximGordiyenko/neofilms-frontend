@@ -25,6 +25,7 @@ export const BodyRedeem = ({ authCount }) => {
       const eligible_passes = (await rewardNftApi.getEligiblePasses()).data;
       setApprove(eligible_passes.approve);
       setEligablePasses(eligible_passes.passes);
+      console.log("eligible passes:", eligible_passes);
     } catch (error) {
       console.error("Failed to fetch eligible passes:", error);
     }
