@@ -33,10 +33,12 @@ export const BodyRedeem = ({ authCount }) => {
   const claim = async () => {
     try {
       if (approve) {
+        console.log("approve tx:", approve);
         await waitTransactionReceipt(await runTransaction(approve));
       }
       for (let eligiblePass of eligablePasses) {
         if (eligiblePass.purchase_tx) {
+          console.log("purchase tx:", eligiblePass.purchase_tx);
           await waitTransactionReceipt(await runTransaction(eligiblePass.purchase_tx));
         }
       }
