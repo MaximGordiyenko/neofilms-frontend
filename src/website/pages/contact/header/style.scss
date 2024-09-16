@@ -1,5 +1,5 @@
 .header-contact-wrapper{
-  background: url("../../../assets/images/contact-bg.png") center no-repeat;
+  //background: url("../../../assets/images/contact-bg.png") center no-repeat;
   margin: 0;
   background-size: cover;
   width: 100%;
@@ -13,6 +13,16 @@
   .header{
     position: absolute;
     top: 30px;
+  }
+  .contacts-header-box{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+    img{
+      width: 100%;
+    }
   }
   .header-contact{
     width: 100%;
@@ -53,6 +63,9 @@
           color: var(--white);
           opacity: 0.7;
         }
+      }
+      .contact-form-container{
+        max-width: 555px;
       }
     }
   }

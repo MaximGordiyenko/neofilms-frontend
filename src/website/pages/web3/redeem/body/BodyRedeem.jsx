@@ -1,4 +1,5 @@
 import './style.scss';
+import { useState, useEffect } from 'react';
 import bottomLine from '../../../../assets/images/footer-hp-placeholder.svg';
 import coin from '../../../../assets/images/coin.svg';
 import CustomDropdown from '../../../../components/dropdown/CustomDropdown';
@@ -6,8 +7,38 @@ import { Button } from '../../../../components/button/Button';
 import dots from '../../../../assets/images/thripleDots.svg';
 import { MobButton } from '../../../../components/button/MobButton';
 import mobileLine from '../../../../assets/images/cast-footer-geometry.png';
-export const BodyRedeem = () => {
+import * as rewardNftApi from '../../../../../api/reward_nft';
+import { a } from 'react-spring';
+import { runTransaction } from '../../../../../utils/MetaMask';
+
+export const BodyRedeem = ({ authCount }) => {
   const isMobile = window.innerWidth <= 430;
+  const [eligablePasses, setEligablePasses] = useState([]);
+
+  useEffect(() => {
+    updateEligiblePasses();
+  }, [authCount]);
+
+  const updateEligiblePasses = async () => {
+    try {
+      const eligible_passes = (await rewardNftApi.getEligiblePasses()).data;
+      setEligablePasses(eligible_passes);
+    } catch (error) {
+      console.error("Failed to fetch eligible passes:", error);
+    }
+  };
+
+  const claim = async () => {
+    for (let eligiblePass of eligablePasses) {
+      if (eligiblePass.approve_tx) {
+        await runTransaction(eligiblePass.approve_tx);
+      }
+      if (eligiblePass.purchase_tx) {
+        await runTransaction(eligiblePass.purchase_tx);
+      }
+    }
+    updateEligiblePasses();
+  };
 
   const options = [
     { value: '150-250k', label: '150-250k' },
@@ -24,11 +55,19 @@ export const BodyRedeem = () => {
             Choose a promotion, select claim, head to the Coupon page to see your codes. Please note
             that claiming promotions can take up to 20 seconds.
           </p>
-          <CustomDropdown options={options} value={'$5 storewide for 5 NEOBux'}/>
           <div className={'form-btn-box'}>
             <img src={dots} alt={'redeem-dots'}/>
             <div className={'hr'}/>
-            {isMobile ? <MobButton btnText={'claim'}/> : <Button text={'claim'}/>}
+            {isMobile ? <MobButton
+              btnText={'claim'}
+              onClick={claim}
+              disabled={!eligablePasses.length}
+            /> : <Button
+              isGlitch
+              text={'claim'}
+              onClick={claim}
+              disabled={!eligablePasses.length}
+            />}
           </div>
         </div>
         <img src={coin} alt={'redeem-coin'} className={'coin'}/>

@@ -31,8 +31,8 @@ export const InputTextAutosize = ({
             label={label}
             fullWidth
             focused
-            error={!!errors[name]}
             onBlur={field.onBlur}
+            error={!!errors[name]}
             helperText={
               errors[name]
                 ? errors[name].message

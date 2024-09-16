@@ -3,7 +3,7 @@ import { ServicesBody } from './body/BodyServices';
 import { ServicesFooter } from './footer/ServicesFooter';
 import { FooterCreds } from '../../components/credsFooter/FooterCreds';
 
-export const Services = () => {
+const Services = () => {
   return (
     <>
       <ServicesHeader />
@@ -13,3 +13,5 @@ export const Services = () => {
     </>
   );
 };
+
+export default Services;

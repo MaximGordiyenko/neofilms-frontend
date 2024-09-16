@@ -11,32 +11,32 @@ import img9 from '../../assets/images/Frame 1799.svg';
 export const SERVICES_CARDS = [
   {
     img: img1,
-    title: 'Location scouting and casting ',
+    title: 'Location Scouting and Casting ',
     text: 'Finding the perfect location and the right talent for your production can be a daunting task. Let us handle it for you! Ensuring that your project looks and feels just the way you imagined it.',
   },
   {
     img: img2,
-    title: 'Consultation and production planning',
+    title: 'Consultation and Production Planning',
     text: "Before any project, it's important to have a solid plan in place. Our team of experts will work with you to develop a comprehensive production plan that aligns with your goals and budget. ",
   },
   {
     img: img3,
-    title: 'Animation and editing',
+    title: 'Animation and Editing',
     text: "From animation to post-production editing, we've got you covered. Our team of skilled animators and editors will bring your project to life, ensuring it looks and feels just the way you envisioned it.",
   },
   {
     img: img4,
-    title: 'Video production and branding',
+    title: 'Video Production and Branding',
     text: "Your brand is important, and we understand that. That's why we offer branding services alongside our video production capabilities. Let us help you create a cohesive brand identity",
   },
   {
     img: img5,
-    title: 'Budget management and market research',
+    title: 'Budget Management and Market Research',
     text: 'Adhering to a budget is crucial for any project. Our experts will work with you to develop a budget that meets your goals and conduct quality market research',
   },
   {
     img: img6,
-    title: 'Сrowd funding and investments',
+    title: 'Сrowd Funding and Investments',
     text: "Funding a project can be a daunting task, but we're here to help. Our team will assist in organizing crowd funding and connect you with potential investors",
   },
   {
@@ -46,12 +46,12 @@ export const SERVICES_CARDS = [
   },
   {
     img: img8,
-    title: 'IP development and legal guidance',
+    title: 'IP Development and Legal Guidance',
     text: 'Protecting your intellectual property is important, and our team can help. We offer IP development services as well as legal guidance to ensure your project is protected.',
   },
   {
     img: img9,
-    title: 'Marketing, promotions and distribution',
+    title: 'Marketing, Promotions and Distribution',
     text: "Once your project is complete, it's important to get it to the right audience. Our team can assist with marketing, promotion and distribution to get your project noticed",
   },
 ];

@@ -39,11 +39,10 @@ export async function addCasting(_formData) {
 			withCredentials: true
 		});
 }
-
 export async function getCasting(castingId) {
 	return await axios.get(`/api/pages/casting/${castingId}`, {
-			withCredentials: true
-		});
+		withCredentials: true
+	});
 }
 
 // FormData:
@@ -97,7 +96,10 @@ export async function getCastings() {
 }
 
 export function getImage(castingId) {
-	return `/api/pages/casting/${castingId}/image`;
+	return axios.get(`/api/pages/casting/${castingId}/image`, {
+		responseType: 'blob', // Ensure the response is a Blob
+		withCredentials: true
+	});
 }
 
 // FormData:

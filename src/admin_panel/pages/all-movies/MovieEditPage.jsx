@@ -19,26 +19,61 @@ import { ROUTE } from '../../../constants.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMovie, updateMovie, deleteMovie } from '../../store/thunk/movie.api.js';
 import { updateField } from '../../store/reducers/movie.reducer.js';
+import moment from 'moment';
 
 export const MovieEditPage = () => {
-  const [posterUpload, setPosterUpload] = useState([{ name: 'mock.png', size: 0 }]);
-  const [movieUpload, setMovieUpload] = useState([{ name: 'mock.png', size: 0 }]);
+  const [movieData, setMovieData] = useState({
+    header_image_name: [],
+    poster_name: [],
+    title: '',
+    description: '',
+    movie_link: '',
+    release_date: null,
+    status: '',
+    directed_by: [],
+    written_by: [],
+    starring: []
+  });
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
   const { movieId } = useParams();
+  
+  useEffect(() => {
+    dispatch(getMovie(movieId)).then((movie) => {
+      const {
+        header_image_name,
+        poster_name,
+        title,
+        description,
+        movie_link,
+        release_date,
+        status,
+        directed_by,
+        written_by,
+        starring
+      } = movie.payload;
+      
+      setMovieData({
+        header_image_name,
+        poster_name,
+        title,
+        description,
+        movie_link,
+        release_date: release_date ? moment(release_date) : null,
+        status,
+        directed_by,
+        written_by,
+        starring
+      });
+    });
+  }, [dispatch, movieId]);
   
   useEffect(() => {
     dispatch(getMovie(movieId));
   }, [dispatch, movieId]);
   
   const {
-    title,
-    description,
-    movie_link,
-    release_date,
-    status,
     directed_by,
     written_by,
     starring
@@ -49,10 +84,10 @@ export const MovieEditPage = () => {
   const [actors, setActors] = useState(starring || []);
   
   useEffect(() => {
-    setDirectors(directed_by);
-    setWriters(written_by);
-    setActors(starring);
-  }, []);
+    setDirectors(directed_by || []);
+    setWriters(written_by || []);
+    setActors(starring || []);
+  }, [directed_by, written_by, starring]);
   
   const onDirectorChange = (index, value) => {
     const updatedDirectors = [...directors];
@@ -72,31 +107,37 @@ export const MovieEditPage = () => {
     setActors(updatedActors);
   };
   
-  const onInputChange = (field, value) => dispatch(updateField({ field, value }));
+  const onInputChange = (field, value) => {
+    setMovieData((prevData) => ({
+      ...prevData,
+      [field]: value
+    }));
+    dispatch(updateField({ field, value }));
+  };
   
   const methods = useForm({
-    mode: 'onSubmit'
-    // resolver: yupResolver(AccountSchema),
+    mode: 'onSubmit',
+    defaultValues: movieData
   });
   
   const { control, handleSubmit, formState: { errors } } = methods;
   
   const onSubmit = (data) => {
-    const movieDate = {
-      poster: posterUpload[0],
-      header_image: movieUpload[0],
-      title: data.title || title,
-      description: data.description || description,
-      movie_link: data.movie_link || movie_link,
-      release_date: data?.release_date.unix() * 1000 || release_date.unix() * 1000,
-      status: data.status || status,
+    const updatedMovieData = {
+      poster: movieData.poster_name[0],
+      header_image: movieData.header_image_name[0],
+      title: data.title || movieData.title,
+      description: data.description || movieData.description,
+      movie_link: data.movie_link || movieData.movie_link,
+      release_date: data?.release_date?.unix() * 1000 || movieData.release_date?.unix() * 1000,
+      status: data.status || movieData.status,
       directed_by: directors,
       written_by: writers,
       starring: actors
     };
-    dispatch(updateMovie({ id: movieId, data: movieDate }));
+    dispatch(updateMovie({ id: movieId, data: updatedMovieData }));
     navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
-    toast.success(`Movie "${title}" was update successfuly`);
+    toast.success(`Movie "${updatedMovieData.title}" was update successfuly`);
   };
   
   return (
@@ -110,15 +151,15 @@ export const MovieEditPage = () => {
             <Grid item xs={4} sm={9} md={9} lg={9.5}>
               <Typography variant="h5" color="primary">New Movie</Typography>
             </Grid>
-            <Grid item container xs={4} sm={3} md={9} lg={2.5} justifyContent="space-between">
+            <Grid item container xs={12} sm={12} md={12} lg={2.5} justifyContent="flex-end">
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteMovie(movieId));
                 navigate(`/${ROUTE.admin}/${ROUTE.allMovies}`);
-                toast.error(`Movie "${title}" was delete successfuly`);
+                toast.error(`Movie "${movieData.title}" was delete successfuly`);
               }}>
                 Delete
               </Button>
-              <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
+              <Button variant="contained" endIcon={<DownloadDone/>} type="submit" sx={{ ml: 20 }}>
                 Save
               </Button>
             </Grid>
@@ -128,19 +169,19 @@ export const MovieEditPage = () => {
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h5" gutterBottom color="primary">Movie Poster</Typography>
                 <FileUploader
-                  name="poster"
+                  name="poster_name"
                   multiple={false}
-                  fileUpload={posterUpload}
-                  setFileUpload={setPosterUpload}
+                  fileUpload={movieData}
+                  setFileUpload={setMovieData}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h5" gutterBottom color="primary">Movie Page Header Image</Typography>
                 <FileUploader
-                  name="header_image"
+                  name="header_image_name"
                   multiple={false}
-                  fileUpload={movieUpload}
-                  setFileUpload={setMovieUpload}
+                  fileUpload={movieData}
+                  setFileUpload={setMovieData}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', p: 30 }}>
@@ -152,7 +193,7 @@ export const MovieEditPage = () => {
                     name="title"
                     label="Title"
                     placeholder="The maestro"
-                    value={title}
+                    value={movieData.title}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('title', value)}
@@ -163,7 +204,7 @@ export const MovieEditPage = () => {
                     name="description"
                     label="Description"
                     placeholder="Write something..."
-                    value={description}
+                    value={movieData.description}
                     control={control}
                     errors={errors}
                     isText={true}
@@ -178,7 +219,7 @@ export const MovieEditPage = () => {
                     name="movie_link"
                     label="IMDB Link"
                     placeholder="https://..."
-                    value={movie_link}
+                    value={movieData.movie_link}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('movie_link', value)}
@@ -188,7 +229,7 @@ export const MovieEditPage = () => {
                   <DataPicker
                     name="release_date"
                     label="Release date"
-                    value={release_date}
+                    value={movieData.release_date}
                     control={control}
                     errors={errors}
                   />
@@ -198,7 +239,7 @@ export const MovieEditPage = () => {
                     name="status"
                     control={control}
                     errors={errors}
-                    value={status}
+                    value={movieData.status}
                   />
                 </Grid>
               </Grid>

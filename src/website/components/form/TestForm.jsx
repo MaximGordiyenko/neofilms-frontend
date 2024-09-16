@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './style.scss';
-import { Button } from '../button/Button';
 import dots from '../../assets/images/thripleDots.svg';
 import CustomDropdown from '../dropdown/CustomDropdown';
 import clipleft from '../../assets/images/clipleft.svg';
@@ -8,7 +7,6 @@ import clipright from '../../assets/images/clipright.svg';
 import emailjs from '@emailjs/browser';
 import bgBorder from '../../assets/images/buttonSvg.svg';
 import successImg from '../../assets/images/success.svg';
-import errimg from '../../assets/images/submit-error.svg';
 
 const Form = () => {
   const [userName, setUserName] = useState({ value: '', error: '' });
@@ -30,7 +28,7 @@ const Form = () => {
         setTimeout(() => {
           setShowSuccessSneaker(false);
           setFadeOut(false);
-        }, 1000); // Adjust the duration to match your animation duration
+        }, 1000);
       }, 2000);
     }
   }, [isSubmit, isBtnPressed, isFilled]);
@@ -43,13 +41,12 @@ const Form = () => {
     { value: '250-500k', label: '250-500k' },
     { value: '500+k', label: '500+k' },
   ];
-  const handleDropdownChange = (selectedValue) => {
-    setSelectedBudget(selectedValue); // Step 2
-  };
 
   const handleBtnPressed = () => {
     setIsBtnPressed(true);
   };
+
+  console.log(selectedBudget, 'value');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +59,7 @@ const Form = () => {
       budget: selectedBudget,
     };
     if (!userCredentials.username) {
-      setUserName({ value: '', error: 'Name is require' });
+      setUserName({ value: '', error: 'Name is required' });
       isError = true;
     }
     if (!userCredentials.discordName) {
@@ -77,6 +74,10 @@ const Form = () => {
       setUserConcept({ value: '', error: 'Please, concept need' });
       isError = true;
     }
+    if (!userCredentials.budget) {
+      setSelectedBudget(null);
+      isError = true;
+    }
     if (!isError) {
       setUserName({ value: '', error: '' });
       setUserDiscord({ value: '', error: '' });
@@ -84,7 +85,6 @@ const Form = () => {
       setUserConcept({ value: '', error: '' });
       setSelectedBudget(selectedBudget);
       try {
-        console.log('The email is valid');
         emailjs
           .sendForm('service_yfracbb', 'template_hjypvh8', form.current, 'Z9T9c4TGtpcAEIrXq')
           .then((result) => {
@@ -97,6 +97,7 @@ const Form = () => {
       }
     }
   };
+
   const handleChangeName = (e) => {
     setUserName({ value: e.target.value, error: '' });
     setIsFilled(true);
@@ -113,7 +114,9 @@ const Form = () => {
     setUserConcept({ value: e.target.value, error: '' });
     setIsFilled(true);
   };
-  console.log(isBtnPressed, 'isBtnPressed');
+  const handleDropdownChange = (selectedValue) => {
+    setSelectedBudget(selectedValue);
+  };
   return (
     <form className="form-container" ref={form} onSubmit={handleSubmit}>
       <div className={'inputs-container'}>
@@ -125,7 +128,7 @@ const Form = () => {
               type="text"
               placeholder={'Dave?'}
               id="input1"
-              name={'user_name'}
+              name="user_name"
               value={userName.value}
               onChange={handleChangeName}
             />
@@ -189,8 +192,6 @@ const Form = () => {
         name="concept"
         value={userConcept.value}
         onChange={handleChangeConcept}
-        // value={formData.concept}
-        // onChange={handleChange}
       ></textarea>
       {userConcept.error && <span className="error-message">{userConcept.error}</span>}
       <div className={'button-form-box'}>
@@ -200,7 +201,8 @@ const Form = () => {
           type="submit"
           className={'submit-btn'}
           onClick={handleBtnPressed}
-          disabled={!isFilled}>
+          disabled={!isFilled}
+        >
           <img src={bgBorder} alt={'bg-form-btn-border'} className='background-btn-form' />
           <span>submit</span>
         </button>

@@ -10,7 +10,7 @@ const CastFilmCard = ({ ...rest }) => {
   const navigate = useNavigate();
 
   const navigateToDetails = () => {
-    navigate(`/cast-film-details/${rest.id}`);
+    window.open(`/cast-film-details/${rest.id}`, '_blank');
     window.scrollTo(0, 0);
   };
   return (
@@ -33,7 +33,13 @@ const CastFilmCard = ({ ...rest }) => {
         />
       )}
       <p className="cast-desc">{rest.movieDes}</p>
-      <Button text={'explore roles'} style={{ width: '150px' }} onClick={navigateToDetails} />
+      <Button
+        isGlitch
+        text={'explore roles'}
+        style={{ width: '195px' }}
+        onClick={navigateToDetails}
+        additionalClass="explore-roles"
+      />
     </div>
   );
 };

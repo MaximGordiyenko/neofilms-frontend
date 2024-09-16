@@ -8,11 +8,11 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 
 export const DataPicker = ({ name, value, label, control }) => {
-  const initialDate = value ? dayjs(value) : dayjs('MM/DD/YYYY');
+  const initialDate = value ? dayjs(value) : dayjs('DD/MM/YYYY');
   const [selectedDate, setSelectedDate] = useState(initialDate);
   
   useEffect(() => {
-    setSelectedDate(value ? dayjs(value) : dayjs('MM/DD/YYYY'));
+    setSelectedDate(value ? dayjs(value) : dayjs('DD/MM/YYYY'));
   }, [value]);
   
   return (
@@ -26,6 +26,7 @@ export const DataPicker = ({ name, value, label, control }) => {
             {...field}
             label={label}
             reduceAnimations={true}
+            format="DD/MM/YYYY"
             value={selectedDate}
             onChange={(date) => {
               field.onChange(date);
@@ -45,33 +46,37 @@ export const DataPicker = ({ name, value, label, control }) => {
 export const DatePickerCSS = styled(DatePicker)(
   ({ theme }) => ({
     width: '100%',
+    '& .MuiInputBase-root-MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+      borderColor: theme.palette.grey[400]
+    },
+    '& .MuiInputBase-root-MuiOutlinedInput-root.Mui-error.MuiOutlinedInput-notchedOutline': {
+      borderColor: theme.palette.grey[400]
+    },
     "& .MuiInputBase-root": {
       color: theme.palette.grey[800],
       "& .MuiOutlinedInput-notchedOutline": {
-        border: `1px solid ${theme.palette.grey[400]}`
+        borderColor: theme.palette.grey[400]
       },
       "& .MuiOutlinedInput-root.Mui-error ": {
-        border: `1px solid ${theme.palette.grey[400]}`
+        borderColor: theme.palette.grey[400]
       }
     },
     "& .MuiFormHelperText-root": {
       color: "blue",
-      "& .error-chars": {
-        color: "red"
-      }
     },
     "& .MuiInputBase-input": {
-      fontSize: "1.3em"
+      fontSize: "1.3em",
+      color: theme.palette.grey[800]
     },
     "& textarea": {
       minHeight: "100px"
     },
     "& .MuiFormLabel-root.Mui-focused": {
-      color: `${theme.palette.grey[600]}`,
+      color: theme.palette.grey[600],
       fontSize: "0.87rem"
     },
     "& .MuiFormLabel-root": {
-      color: `${theme.palette.grey[600]}`,
+      color: theme.palette.grey[600],
       background: 'white',
       padding: 2,
       fontSize: "0.87rem"
@@ -80,7 +85,7 @@ export const DatePickerCSS = styled(DatePicker)(
 );
 
 const MyCustomLayout = ({ children }) => (
-  <BoxCSS className="bla-bla" sx={{ backgroundColor: 'white' }}>
+  <BoxCSS sx={{ backgroundColor: 'white' }}>
     {children}
   </BoxCSS>
 );

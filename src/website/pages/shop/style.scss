@@ -1,7 +1,7 @@
 .soon-page-wrapper{
   width: 100%;
-  height: 100vh;
-  background: url("../../assets/images/image 60.png") bottom no-repeat;
+  height: 100%;
+  background: url("../../assets/images/image 66.jpg") bottom no-repeat;
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -9,16 +9,36 @@
   align-items: center;
   padding: 30px 0 0;
   box-sizing: border-box;
+  //.footer-creds{
+  //  position: fixed;
+  //  bottom: 0;
+  //}
+  .shop-header-box{
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+  }
   .header{
     position: absolute;
     top: 30px;
   }
+  .shopify-products_wrapper{
+    width: 100%;
+    height: 100%;
+    min-height: 70vh;
+    margin-top: -2vh;
+  }
   .soon-page-inner-box{
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+    margin: 150px 0 100px;
+    text-align: left;
     .soon-title{
       position: relative;
       max-width: 59%;
@@ -46,22 +66,38 @@
     }
     .navbar-wrapper{
       position: relative;
-      margin-top: 10vh;
     }
   }
 }
-
+.shopify-buy__collection{
+  margin-top: -4vh;
+}
 @media (max-width: 430px) {
   .soon-page-wrapper{
     height: 100%;
     background: url("../../assets/images/PUC_BG.png") top no-repeat;
     background-size: contain;
+    .shopify-products_wrapper{
+      margin: 0;
+      height: 50vh;
+      overflow: scroll;
+    }
     .soon-page-inner-box{
-      height: 100vh;
+      height: 100%;
+      max-height: 100vh;
+      min-height: 50vh;
       display: flex;
       flex-direction: column;
+      width: 100%;
+      padding: 0 30px;
+      box-sizing: border-box;
+      margin: 0;
       .header{
         padding: 0;
+        height: 100%;
+        max-height: 100%;
+        min-height: 100%;
+        overflow-y: scroll;
       }
       .soon-title{
         align-self: center;

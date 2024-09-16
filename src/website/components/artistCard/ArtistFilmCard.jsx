@@ -11,7 +11,7 @@ export const ArtistFilmCard = ({ actor_name, bio, onApplyClick }) => {
         <p className="actor-name">{actor_name}</p>
         <p className="actor-bio">{bio}</p>
       </div>
-      <Button text={'Apply'} style={{ width: '150px' }} onClick={onApplyClick} />{' '}
+      <Button isGlitch text={'Apply'} style={{ width: '150px' }} onClick={onApplyClick} />{' '}
     </div>
   );
 };

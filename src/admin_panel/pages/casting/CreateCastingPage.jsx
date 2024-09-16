@@ -21,7 +21,10 @@ import { addCasting } from '../../store/thunk/casting.api';
 import { FileUploader } from '../../components/file-upload/FileUploader';
 
 export const CreateCastingPage = () => {
-  const [imageUpload, setImageUpload] = useState([]);
+  const [imageUpload, setImageUpload] = useState({
+    image_name: [],
+  });
+  const [checkedData, setCheckedData] = useState(null);
   const [roles, setRoles] = useState([
     { id: 1, name: 'test', description: 'hello world' }
   ]);
@@ -50,11 +53,12 @@ export const CreateCastingPage = () => {
     const newCasting = {
       id: uuidv4(),
       ...data,
-      image: imageUpload[0],
+      image: imageUpload?.image_name[0],
       audition_dates: {
         from: data.audition_dates.from.unix() * 1000,
         to: data.audition_dates.to.unix() * 1000
       },
+      eco_cast_self_tape: data.eco_cast_self_tape || checkedData,
       callback_dates: {
         from: data.callback_dates.from.unix() * 1000,
         to: data.callback_dates.to.unix() * 1000
@@ -75,16 +79,15 @@ export const CreateCastingPage = () => {
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <ContainerCSS>
-          
           <Grid container>
             <Grid item xs={12} sm={6} md={12} lg={12}>
               <BreadCrumbs currentPage={`${ROUTE.admin}/${ROUTE.casting}`}/>
             </Grid>
-            <Grid container item xs={12} sm={6} md={12} lg={12} my={30}>
-              <Grid item xs={12} sm={6} md={9} lg={11.1}>
+            <Grid container item xs={12} sm={6} md={12} lg={12} my={10}>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Typography variant="h5" color={'primary'}>New Casting</Typography>
               </Grid>
-              <Grid item xs={12} sm={6} md={9} lg={0.9} display="flex" justifyContent="space-between">
+              <Grid item xs={12} sm={12} md={12} lg={12} display="flex" justifyContent="flex-end">
                 <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
                   Save
                 </Button>
@@ -100,7 +103,7 @@ export const CreateCastingPage = () => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                   <FileUploader
-                    name="image"
+                    name="image_name"
                     multiple={false}
                     fileUpload={imageUpload}
                     setFileUpload={setImageUpload}
@@ -226,8 +229,10 @@ export const CreateCastingPage = () => {
                 <Grid item xs={12} sm={12} md={12} lg={12} mb={15}>
                   <NeoCheckbox
                     name="eco_cast_self_tape"
-                    label="Eco Cast Self-Tape"
+                    label="Self-Tape"
                     control={control}
+                    value={checkedData}
+                    setCheckedData={setCheckedData}
                   />
                 </Grid>
                 <GroupGridCSS item container xs={12} sm={12} md={12} lg={12}>

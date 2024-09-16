@@ -4,10 +4,9 @@ import { styled, Typography, Link, Grid, IconButton } from '@mui/material';
 import { UploadFile, Delete, CheckCircle } from '@mui/icons-material';
 import { blue, grey, green } from '@mui/material/colors';
 
-export const FileUploader = ({ multiple, fileUpload, setFileUpload }) => {
+export const FileUploader = ({ name, multiple, fileUpload, setFileUpload }) => {
   const { acceptedFiles, getRootProps, getInputProps, isFocused, isDragAccept, isDragReject, open } = useDropzone({
     accept: {
-      'video/mp4': ['.mp4', '.MP4'],
       'image/png': ['.png', '.PNG'],
       'image/jpeg': ['.jpeg', '.jpg', '.JPEG', '.JPG']
     },
@@ -18,43 +17,50 @@ export const FileUploader = ({ multiple, fileUpload, setFileUpload }) => {
   
   useEffect(() => {
     if (acceptedFiles.length > 0) {
-      setFileUpload(acceptedFiles);
+      setFileUpload((prevData) => ({
+        ...prevData,
+        [name]: acceptedFiles
+      }));
     }
-  }, [acceptedFiles, setFileUpload]);
+  }, [acceptedFiles, setFileUpload, name]);
   
-  const handleDelete = (fileIndex) => {
-    setFileUpload((prevFiles) => prevFiles.filter((_, index) => index !== fileIndex));
+  const handleDelete = () => {
+    setFileUpload((prevData) => ({
+      ...prevData,
+      [name]: []
+    }));
   };
   
-  const files = fileUpload.map((file, idx) => (
-    <Grid key={`${file.name}-${idx}`} container justifyContent="center" alignItems="center">
-      <Grid item xs={12} sm={12} md={12} lg={1}>
+  const fileName = Array.isArray(fileUpload[name]) && fileUpload[name].length > 0 ? fileUpload[name][0].name : fileUpload[name];
+
+  const files = (
+    <Grid container justifyContent="center" alignItems="center">
+      <Grid item xs={12} sm={1} md={1} lg={1}>
         <UploadFile sx={{ color: blue[300] }} fontSize="small"/>
       </Grid>
-      <Grid item xs={12} sm={12} md={12} lg={9}>
-        <Typography sx={{ color: grey[600] }}>{file.name}</Typography>
-        <Typography sx={{ color: grey[500] }}>{file.size} bytes · Complete</Typography>
+      <Grid item xs={12} sm={9} md={7} lg={9}>
+        <Typography sx={{ color: grey[600] }}>{fileName}</Typography>
       </Grid>
-      <Grid container item xs={12} sm={12} md={12} lg={2} justifyContent="space-between">
-        <IconButton onClick={() => handleDelete(idx)}>
+      <Grid container item xs={12} sm={3} md={2} lg={2} justifyContent="space-between">
+        <IconButton onClick={handleDelete}>
           <Delete sx={{ color: grey[600] }} fontSize="small"/>
         </IconButton>
         <CheckCircle sx={{ color: green[800], p: 7 }} fontSize="small"/>
       </Grid>
     </Grid>
-  ));
-
+  );
+  
   return (
     <section>
-      {fileUpload.length === 0 ? (
+      {fileUpload[name]?.length === 0 ? (
         <Container {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
           <UploadFile sx={{ color: blue[300] }} fontSize="small"/>
           <input {...getInputProps()} />
-          <Typography>
-            <LinkCSS underline="hover" onClick={open}>Click to upload</LinkCSS>
+          <Typography color="#000">
+            <LinkCSS underline="hover" onClick={open}>Click to upload </LinkCSS>
             or drag and drop
           </Typography>
-          <Typography>MP4, PNG, or JPG (max. 3MB)</Typography>
+          <Typography color="#757575">PNG or JPG (Max. 3MB) </Typography>
         </Container>
       ) : (
         <aside>{files}</aside>

@@ -1,54 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, forwardRef } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { NAVBAR_TABS } from '../../constants/homePageConst';
 import './style.scss';
 
-export const Navbar = () => {
+export const Navbar = forwardRef((props, ref) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [navbarHeight, setNavbarHeight] = useState(5);
+  const [navbarHeight, setNavbarHeight] = useState(null);
   const [initialActive, setInitialActive] = useState(location.pathname);
   const [isWeb3DropdownVisible, setIsWeb3DropdownVisible] = useState(false);
 
   useEffect(() => {
     setInitialActive(location.pathname);
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const maxNavbarHeight = 25;
-      const minNavbarHeight = 5;
-      const scrollRange = window.innerHeight * 0.21;
-      if (scrollPosition >= documentHeight - scrollRange) {
-        const newHeight = Math.min(
-          maxNavbarHeight,
-          minNavbarHeight +
-          ((scrollPosition - (documentHeight - scrollRange)) / scrollRange) *
-          (maxNavbarHeight - minNavbarHeight),
-        );
-        setNavbarHeight(newHeight);
-      } else {
-        setNavbarHeight(minNavbarHeight);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
   }, [location.pathname, navbarHeight]);
 
-  const handleLinkClick = (path, inside_page = true) => {
+
+  const handleLinkClick = (path, inside_page = true, external = false, openInNewTab = false) => {
+    if (external) {
+      window.location.href = path;
+      return;
+    }
     if (!inside_page) {
-      // navigate(path, { replace: false });
       window.location.href = path;
       return;
     }
     setInitialActive(path);
     setIsWeb3DropdownVisible(false);
-    window.scrollTo({ top: 0});
+    window.scrollTo({ top: 0 });
+    navigate(path);
   };
 
   return (
-    <div className="navbar-wrapper" style={{ bottom: `${navbarHeight}vh` }}>
+    <div className="navbar-wrapper" ref={ref}>
       <div className={'nav-inner-content'}>
         <div className="navigation-container">
           {NAVBAR_TABS.map((item, i) => {
@@ -63,7 +46,7 @@ export const Navbar = () => {
                         if (item.title === 'web3') {
                           setIsWeb3DropdownVisible(!isWeb3DropdownVisible);
                         } else {
-                          handleLinkClick(item.path);
+                          handleLinkClick(item.path, true, false, item.openInNewTab);
                         }
                       }}>
                       <Link
@@ -73,7 +56,7 @@ export const Navbar = () => {
                           if (item.title === 'web3') {
                             setIsWeb3DropdownVisible(!isWeb3DropdownVisible);
                           } else {
-                            handleLinkClick(item.path);
+                            handleLinkClick(item.path, true, false, item.openInNewTab);
                           }
                         }}>
                         {item.title} {item.icon && <img src={item.icon} />}
@@ -81,15 +64,15 @@ export const Navbar = () => {
                       {isWeb3DropdownVisible && item.title === 'web3' && (
                         <div className="dropdown-content">
                           {item.dropdown.map((dropdownItem, j) => (
-                            <Link
-                              to={dropdownItem.path}
+                            <a
+                              href={dropdownItem.inside_page ? undefined : dropdownItem.path}
+                              onClick={() => dropdownItem.inside_page && handleLinkClick(dropdownItem.path, dropdownItem.inside_page, dropdownItem.external, dropdownItem.openInNewTab)}
                               key={j}
                               className={`nav-title ${
                                 location.pathname === dropdownItem.path ? 'active-link' : ''
-                              }`}
-                              onClick={() => handleLinkClick(dropdownItem.path, dropdownItem.inside_page)}>
+                              }`}>
                               {dropdownItem.title}
-                            </Link>
+                            </a>
                           ))}
                         </div>
                       )}
@@ -99,7 +82,7 @@ export const Navbar = () => {
                   <Link
                     to={item.path}
                     className={`nav-title ${isActive ? 'active-link' : ''}`}
-                    onClick={() => handleLinkClick(item.path)}
+                    onClick={() => handleLinkClick(item.path, true, false, item.openInNewTab)}
                     style={isActive ? { color: '#FFFFFF', opacity: 1 } : {}}>
                     {item.title} {item.icon && <img src={item.icon} />}
                   </Link>
@@ -111,4 +94,5 @@ export const Navbar = () => {
       </div>
     </div>
   );
-};
+
+});

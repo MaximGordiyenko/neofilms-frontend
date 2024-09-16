@@ -64,7 +64,6 @@ const Form = () => {
 
     if (isValid) {
       try {
-        console.log('The email is valid');
         emailjs
           .sendForm('service_yfracbb', 'template_hjypvh8', form.current, 'Z9T9c4TGtpcAEIrXq')
           .then(
@@ -83,8 +82,6 @@ const Form = () => {
     }
   };
   const form = useRef();
-  console.log(isError, 'isError');
-  console.log(isSubmit, 'isSubmit');
   return (
     <form className="form-container" onSubmit={handleSubmit} ref={form}>
       <div className={'inputs-container'}>

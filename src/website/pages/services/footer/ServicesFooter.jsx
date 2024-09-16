@@ -18,9 +18,7 @@ export const ServicesFooter = () => {
             <img src={img1} alt={'img-1-service-f'} className={'img-1-service-f'} />
           </div>
           <p>
-            Id vivamus habitant ac lectus diam et. Dignissim at mauris sagittis nibh maecenas
-            adipiscing. Facilisis enim nunc aliquet quis ipsum. Vitae id sodales nunc congue morbi
-            consectetur sed.
+            Bring your vision to life with Neofilms. Our expert team crafts stunning movies, from features to commercials. Contact us today to discuss your project.
           </p>
         </div>
         <Form />

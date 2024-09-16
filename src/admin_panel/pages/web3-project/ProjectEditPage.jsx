@@ -19,38 +19,53 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants.js';
 
 export const ProjectEditPage = () => {
-  const [imageUpload, setImageUpload] = useState([{ name: 'mock.png', size: 0 }]);
+  const [projectData, setProjectData] = useState({
+    image_name: [],
+    name: '',
+    description: '',
+    completion: 0,
+  });
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
   const { projectId } = useParams();
+  
+  useEffect(() => {
+    dispatch(getProject(projectId)).then((project) => {
+      const { image_name, name, description, completion } = project.payload;
+      setProjectData({ image_name, name, description, completion });
+    });
+  }, [dispatch, projectId]);
   
   useEffect(() => {
     dispatch(getProject(projectId));
   }, [dispatch, projectId]);
-
-  const { name, description, completion } = useSelector((state) => state?.project?.project);
   
   const methods = useForm({
-    mode: 'onSubmit'
-    // resolver: yupResolver(AccountSchema),
+    mode: 'onSubmit',
+    defaultValues: projectData,
   });
   
   const { control, handleSubmit, formState: { errors } } = methods;
   
-  const onInputChange = (field, value) => dispatch(updateField({ field, value }));
+  const onInputChange = (field, value) => {
+    setProjectData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+    dispatch(updateField({ field, value }));
+  };
   
   const onSubmit = (data) => {
-    const projectData = {
-      image: imageUpload[0],
-      name: data.name,
-      description: data.description,
-      completion: data.completion
+    const updatedProjectData = {
+      image: projectData.image_name[0],
+      name: data.name || projectData.name,
+      description: data.description || projectData.description,
+      completion: data.completion || projectData.completion
     };
-    dispatch(updateProject({ id: projectId, data: projectData }));
+    dispatch(updateProject({ id: projectId, data: updatedProjectData }));
     navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
-    toast.success(`Project "${name}" was update successfuly`);
+    toast.success(`Project "${updatedProjectData.name}" was updated successfully`);
   };
   
   return (
@@ -64,7 +79,7 @@ export const ProjectEditPage = () => {
             <Grid item xs={4} sm={9} md={9} lg={9.5}>
               <Typography variant="h5" color="primary">New Project</Typography>
             </Grid>
-            <Grid item xs={4} sm={3} md={9} lg={2.5} display="flex" justifyContent="space-between">
+            <Grid item xs={12} sm={12} md={12} lg={2.5} display="flex" justifyContent="flex-end">
               <Button variant="contained" color="error" endIcon={<Delete/>} onClick={() => {
                 dispatch(deleteProject(projectId));
                 navigate(`/${ROUTE.admin}/${ROUTE.web3project}`);
@@ -72,7 +87,7 @@ export const ProjectEditPage = () => {
               }}>
                 Delete
               </Button>
-              <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
+              <Button variant="contained" endIcon={<DownloadDone/>} type="submit" sx={{ ml: 20 }}>
                 Save
               </Button>
             </Grid>
@@ -82,10 +97,10 @@ export const ProjectEditPage = () => {
               <Grid item xs={12} sm={12} md={12} lg={12} sx={{ background: 'white', my: 20, p: 30 }}>
                 <Typography variant="h6">Project Image</Typography>
                 <FileUploader
-                  name="image"
+                  name="image_name"
                   multiple={false}
-                  fileUpload={imageUpload}
-                  setFileUpload={setImageUpload}
+                  fileUpload={projectData}
+                  setFileUpload={setProjectData}
                 />
               </Grid>
             </Grid>
@@ -97,7 +112,7 @@ export const ProjectEditPage = () => {
                     name="name"
                     label="Project name"
                     placeholder="The maestro"
-                    value={name}
+                    value={projectData.name}
                     control={control}
                     errors={errors}
                     onInputChange={(value) => onInputChange('logo_text', value)}
@@ -108,7 +123,7 @@ export const ProjectEditPage = () => {
                     name="description"
                     label="Description"
                     placeholder="Write something..."
-                    value={description}
+                    value={projectData.description}
                     control={control}
                     errors={errors}
                     isText={true}
@@ -121,7 +136,7 @@ export const ProjectEditPage = () => {
                 <Grid item xs={12} sm={12} md={12} lg={12} sx={{ my: 20 }}>
                   <Slide
                     name="completion"
-                    value={completion}
+                    value={projectData.completion}
                     control={control}
                     errors={errors}
                   />

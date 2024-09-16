@@ -18,12 +18,14 @@
     .cards-wrapper{
         display: flex;
         justify-content: flex-end;
+        width: 100%;
+        margin-top: 90px;
         .detail-cards{
             display: flex;
-            width: 65%;
+            width: 64.2%;
             flex-wrap: wrap;
             align-items: flex-end;
-            justify-content: flex-end;
+            gap: 35px;
         }
     }
 }
@@ -35,8 +37,7 @@
 }
 .detail-desc{
     margin: 0;
-    height: 53px;
-    width:974px;
+    width:64.2%;
     opacity:0.7;
     color:#fafafa;
     font-size:24px;
@@ -78,3 +79,16 @@
     }
 }
 
+@media (min-width: 1720px) and (max-width: 1920px){
+    .detail-body{
+        .cards-wrapper{
+            .detail-cards{
+                width: 62.2%;
+
+            }
+        }
+    }
+    .detail-desc{
+        width: 62.2%;
+    }
+}

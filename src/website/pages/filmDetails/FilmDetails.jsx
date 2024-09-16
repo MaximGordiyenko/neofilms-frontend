@@ -6,7 +6,7 @@ import './style.scss';
 import { FooterCreds } from '../../components/credsFooter/FooterCreds';
 import blackStroke from '../../assets/images/footer-hp-placeholder.svg';
 import imdb from '../../assets/images/IMDb.png';
-import {getMovie, getPoster} from "../../../api/movie";
+import { getMovie, getPoster } from "../../../api/movie";
 
 const FilmDetails = () => {
     const { id } = useParams();
@@ -50,15 +50,16 @@ const FilmDetails = () => {
         };
     }, [id]);
 
-    const formatDate = (milliseconds) => {
-        const date = new Date(milliseconds);
-        return date.toLocaleDateString();
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', options).replace(/\//g, '.');
     };
 
     const handleNav = () => {
         navigate(`${film.movie_link}}`, { replace: true });
         window.scrollTo(0, 0);
-    }
+    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -73,14 +74,22 @@ const FilmDetails = () => {
     }
 
     const { title, starring, release_date, written_by, directed_by } = film;
+    console.log(film, 'film details');
 
     return (
       <div className="movie-details-wrapper">
-          <div className="bg-details-box" style={{ backgroundImage: `url(${poster || film.backgroundImg})` }}>
+          <div className="bg-details-box"
+               style={{
+                   background: `linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), url(${poster || film.backgroundImg})`,
+                   backgroundPosition: 'center',
+                   backgroundRepeat: 'no-repeat',
+                   backgroundSize: 'cover',
+          }}
+          >
               <Header />
               <div className="title-details-box">
                   <h2>{title}</h2>
-                  <img src={imdb} alt='imdb' onClick={handleNav} />
+                  <img src={imdb} alt='imdb' onClick={handleNav} className="imdb"/>
               </div>
           </div>
           <div className="movie-details-desc">
@@ -95,7 +104,9 @@ const FilmDetails = () => {
                   </div>
                   <div className="directed-by">
                       <span>directed by</span>
-                      <h2>{directed_by}</h2>
+                      {directed_by && directed_by.filter(director => director).map((director, index) => (
+                        <h2 key={index}>{director}</h2>
+                      ))}
                   </div>
               </div>
               <div className="desc-text">

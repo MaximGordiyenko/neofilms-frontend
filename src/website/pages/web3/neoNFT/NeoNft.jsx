@@ -1,7 +1,8 @@
 import { FooterCreds } from '../../../components/credsFooter/FooterCreds';
 import { HeaderNeo } from './header/HeaderNeo';
 import { BodyNeo } from './body/BodyNeo';
-export const NeoNft = () => {
+
+const NeoNft = () => {
   return (
     <div className={'neo-nft-wrapper'}>
       <HeaderNeo />
@@ -10,3 +11,5 @@ export const NeoNft = () => {
     </div>
   );
 };
+
+export default NeoNft;

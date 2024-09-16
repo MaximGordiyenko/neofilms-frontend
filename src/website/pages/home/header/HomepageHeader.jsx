@@ -9,7 +9,7 @@ import menuMobile from '../../../assets/images/burger-menu.svg';
 import { useState } from 'react';
 import { MobMenu } from '../../../components/mobileMenu/MobMenu';
 import './glitch.css';
-import { useNavigate } from 'react-router-dom';
+import {GlitchButton} from "../../../components/button/glitchButton/GlitchButton";
 
 export const HomepageHeader = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
@@ -17,23 +17,6 @@ export const HomepageHeader = () => {
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
-  };
-
-  const GlitchText = () => {
-    return (
-      <ul className="glitch" style={{ textAlign: 'center' }}>
-        <li>
-          <a href="#" style={{ fontSize: '32px' }}>
-            The
-          </a>
-        </li>
-        <li>
-          <a href="#" style={{ fontSize: '128px', textAlign: 'center' }}>
-            Maestro
-          </a>
-        </li>
-      </ul>
-    );
   };
 
   return (
@@ -56,8 +39,8 @@ export const HomepageHeader = () => {
             <h1>Future Of</h1>
             <h1>Filmmaking</h1>
           </div>
-          <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'}>
-            <Button text={'watch reel'} width={'250px'} />
+          <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'} target="_blank" rel="noopener noreferrer">
+            <Button isGlitch text={'watch reel'} width={'250px'} vimeoLink={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'}/>
           </a>
         </div>
       ) : (
@@ -66,13 +49,12 @@ export const HomepageHeader = () => {
             <h1>The Future</h1>
             <h1>Of Filmmaking</h1>
           </div>
-          <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'}>
-            <Button text={'watch reel'} width={'250px'} />
+          <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'} target="_blank" rel="noopener noreferrer">
+            <Button text={'watch reel'} width={'250px'} isGlitch/>
           </a>
         </div>
       )}
       <div className={'navbar-box'}>
-        {/*<img src={tabbar} alt={'home-page-tabs'} className={'tabs-bar-home'} />*/}
       </div>
       {isMobile ? (
         <div className={'menu-mob-wrapper'}>
@@ -88,7 +70,6 @@ export const HomepageHeader = () => {
       )}
       {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen} />}
       <img src={downDots} alt={'up-dots'} className={'down-dots'} />
-      {/*<div className={'linear-bg'} />*/}
     </div>
   );
 };

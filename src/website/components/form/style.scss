@@ -6,7 +6,7 @@
     opacity: 1;
   }
 }
-.form-container {
+.form-container, .contact-form-container {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -220,7 +220,7 @@
 }
 
 @media (max-width: 430px) {
-  .form-container{
+  .form-container, .contact-form-container {
     .inputs-container{
       width: 100%;
       .name-box,
@@ -261,6 +261,11 @@
         width: 100%;
         max-width: 29.5%;
       }
+      .submit-btn{
+        .background-btn-form{
+          max-width: 180px;
+        }
+      }
       .btn-box{
         max-width: 205px;
         .btn-body{
@@ -269,6 +274,7 @@
           }
           .background-btn-form{
             width: 205px;
+            max-width: 150px;
           }
         }
       }

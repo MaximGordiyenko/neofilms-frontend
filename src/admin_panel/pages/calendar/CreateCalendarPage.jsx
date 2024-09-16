@@ -55,7 +55,7 @@ export const CreateCalendarPage = () => {
             <Grid item xs={9} sm={10} md={11} lg={11.1}>
               <Typography variant="h5" color="primary">New Event</Typography>
             </Grid>
-            <Grid item xs={3} sm={2} md={1} lg={0.9} display="flex" justifyContent="space-between">
+            <Grid item xs={12} sm={12} md={12} lg={12} display="flex" justifyContent="flex-end">
               <Button variant="contained" endIcon={<DownloadDone/>} type="submit">
                 Save
               </Button>

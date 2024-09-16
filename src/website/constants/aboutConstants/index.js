@@ -1,6 +1,6 @@
 export const ACCORDION_PANELS = [
   {
-    title: 'What is Neo masterpiece films?',
+    title: 'What is Neo Masterpiece Films?',
     content:
       'Neo Masterpiece Films is a production company that will leverage Blockchain technology as a disruptive tool to forever change filmmaking by providing everyone with actual value, usefulness, and ownership. We will construct a community that will prove to be vital to the film industry moving forward.',
   },
@@ -14,6 +14,6 @@ export const ACCORDION_PANELS = [
     content4: 'We are an established film studio and rewards are shared by ALL of our holders.',
       content2:'We have specific reward-building vehicles that will be provided to all holders in our film projects.' ,
       content3:'We also provide airdrops to our Founder’s Pass holders from royalties collected from the trading of our NFTs.' },
-  { title: 'Can I trade my NFT? Or should I hold?', content: 'All holders can trade their NFTs, but if you do, you miss out on the amazing benefits of holding like exclusive access and special airdrops.' },
-  { title: 'What blockchain is Neo Masterpiece Films on?', content: 'We are built on the Ethereum blockchain.' },
+  { title: 'Can I trade my NFT? Or should I hold?', content: 'All holders can trade their NFTs, but if you do, you miss out on the amazing benefits of holding, like exclusive access and special airdrops.' },
+  { title: 'What blockchain is Neo Masterpiece Films on?', content: 'We are built on the Polygon blockchain.' },
 ];

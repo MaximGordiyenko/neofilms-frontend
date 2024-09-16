@@ -104,10 +104,18 @@
     .hp-cards-body-box{
       display: flex;
       gap: 0 20px;
-      max-width: 1140px;
+      max-width: 1360px;
+      .first-card {
+        clip-path: polygon(50px 0, 100% 0, 100% 100%, 0 100%, 0 50px);
+      }
+
+      .second-card {
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 50px), calc(100% - 50px) 100%, 0 100%);
+      }
       .news-card{
         position: relative;
         height: 100%;
+        width: 670px;
         .news-content{
           left: 15px;
           bottom: 15px;
@@ -141,16 +149,19 @@
             align-items: center;
             font-family: actay, "sans-serif";
             color: var(--white);
-            opacity: 0.5;
-            text-transform: uppercase;
-            .card-news-date{
-              margin: 0;
-            }
           }
         }
+        .card-news-date{
+          margin: 0;
+          font-family: actay, "sans-serif";
+          color: var(--white);
+          opacity: 0.5;
+          text-align: end;
+        }
         .background-news-img{
-          width: 100%;
-          height: 100%;
+          width: 670px;
+          height: 520px;
+          border-radius: 20px;
         }
       }
     }
@@ -238,10 +249,14 @@
           display: flex;
           flex-direction: column;
           align-items: center;
+          max-width: 370px;
           .background-news-img{
             width: 100%;
+            max-width: 370px;
+            border-radius: 20px 20px 0 0;
           }
           .news-content{
+            padding: 20px 40px;
             background: var(--black) !important;
             max-width: 390px;
             width: 100%;

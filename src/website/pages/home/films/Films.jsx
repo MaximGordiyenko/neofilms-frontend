@@ -1,6 +1,6 @@
 import './style.scss';
-import fAward from '../../../assets/images/fAward.svg';
-import sAward from '../../../assets/images/sAward.svg';
+import fAward from '../../../assets/images/f-award.png';
+import sAward from '../../../assets/images/reward-sec.png';
 import { FILM_CARDS } from '../../../constants/filmsConstants';
 import FilmCards from './FilmsCards';
 import { Button } from '../../../components/button/Button';
@@ -20,12 +20,15 @@ export const Films = () => {
   }, [dispatch, getMovies]);
   
   const { movies, status } = useSelector((state) => state?.movie);
-  
+
+
   const handleNav = () => {
     navigate('/all_movies', { replace: true });
     window.scrollTo(0, 0);
   };
-
+  const sortMoviesByDate = (movies) => {
+    return movies.slice().sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+  };
   return (
     <div className={'films-box-wrapper'}>
       <h3 className={'films-title'}>original films, series & more</h3>
@@ -35,14 +38,14 @@ export const Films = () => {
         International Film Festival, and many more.
       </p>
       <div className={'rewards'}>
-        <img src={fAward} alt={'fAward-films'} />
-        <img src={sAward} alt={'sAward-films'} />
+        <img src={fAward} alt={'fAward-films'} className="f-award"/>
+        <img src={sAward} alt={'sAward-films'} className="s-award"/>
       </div>
       {status === 'loading' ? (
         <Spinner />
       ) : (
         <div className={'film-cards-box'}>
-          {movies && movies?.slice(-3)?.map((film) => (
+          {movies && sortMoviesByDate(movies)?.slice(0, 3)?.map((film) => (
             <HomeFilmCards
               key={film.id}
               img={`/api/pages/movie/${film?.id}/poster`}
@@ -56,7 +59,13 @@ export const Films = () => {
           ))}
         </div>
       )}
-      <Button onClick={handleNav} text={'explore full library'} style={{width: '100%'}} />
+      <Button
+        isGlitch
+        onClick={handleNav}
+        text={'explore full library'}
+        style={{width: '100%'}}
+        additionalClass="explore-lib"
+      />
     </div>
   );
 };

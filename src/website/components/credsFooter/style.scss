@@ -42,16 +42,41 @@
       img{
         opacity: 0.5;
       }
+      .freeform-logo-f{
+        width: 111px;
+        height: 26px;
+      }
+      .hulu-logo-f{
+        width: 77px;
+        height: 25px;
+      }
+      .amazon-logo-f{
+        width: 155px;
+        height: 29px;
+      }
     }
   }
   .other-logos{
     display: flex;
+    align-items: center;
+    gap: 25px;
+    .square-first{
+      width: 54px;
+      height: 54px;
+    }
   }
   .socials{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    gap: 12px;
+    a{
+      svg{
+        width: 24px;
+        height: 24px;
+      }
+    }
   }
 }
 

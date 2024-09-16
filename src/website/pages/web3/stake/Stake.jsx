@@ -6,9 +6,11 @@ import { CustomModal } from '../../../components/modal/Modal';
 import { Button } from '../../../components/button/Button';
 import Checkbox from '../../../components/checkbox/Checkbox';
 import { MobButton } from '../../../components/button/MobButton';
-export const NeoStaking = () => {
+
+const NeoStaking = () => {
   const [isOpen, setIsOpen] = useState(localStorage.getItem('agreed') !== 'true');
   const [agreed, setAgreed] = useState(false);
+  const [authCount, setAuthCount] = useState(0);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -17,6 +19,10 @@ export const NeoStaking = () => {
   function toggleCheckbox(checkbox) {
     checkbox.classList.toggle('selected');
   }
+
+  const onLogin = () => {
+    setAuthCount(authCount + 1);
+  };
 
   const isMobile = window.innerWidth <= 430;
 
@@ -49,16 +55,18 @@ export const NeoStaking = () => {
             I have read and understand the above
           </span>
         </div>
-        <Button text="i agree" disabled={!agreed} onClick={() => closeModal()} />
+        <Button isGlitch text="i agree" disabled={!agreed} onClick={() => closeModal()} />
       </div>
     </div>
   );
   return (
     <>
-      <HeaderStaking />
-      <StakingBody />
+      <HeaderStaking onLogin = {onLogin} />
+      <StakingBody authCount={authCount} />
       <FooterCreds />
       {isOpen && <CustomModal isOpen={isOpen} onClose={closeModal} content={modalContent} />}
     </>
   );
 };
+
+export default NeoStaking;

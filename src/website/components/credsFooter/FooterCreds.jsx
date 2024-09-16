@@ -1,12 +1,13 @@
 import './style.scss';
 import Logo from '../../assets/images/neo_logo.svg';
-import amazon from '../../assets/images/amazon-logo.svg';
-import hulu from '../../assets/images/hulu-logo.svg';
-import freeform from '../../assets/images/freeformLogo.svg';
+import amazon from '../../assets/images/amazon-services.png';
+import hulu from '../../assets/images/hulu-services.png';
+import freeform from '../../assets/images/freeform-services.png';
 import squareIcon from '../../assets/images/footer-square.svg';
 import tetraSquare from '../../assets/images/footer-tetra.svg';
 import discord from '../../assets/images/Discord.svg';
 import x from '../../assets/images/X.svg';
+import { FaInstagram } from "react-icons/fa";
 
 export const FooterCreds = () => {
   return (
@@ -24,23 +25,26 @@ export const FooterCreds = () => {
       <div className={'sponsors'}>
         <span className={'proud'}>PROUDLY ACCOMPANIED BY</span>
         <div className={'sponsors-box-fc'}>
-          <img src={freeform} alt={'freeform-f-c'} />
-          <img src={hulu} alt={'hulu-f-c'} />
-          <img src={amazon} alt={'f-c-amazon'} />
+          <img src={freeform} alt={'freeform-f-c'} className="freeform-logo-f"/>
+          <img src={hulu} alt={'hulu-f-c'} className="hulu-logo-f"/>
+          <img src={amazon} alt={'f-c-amazon'} className="amazon-logo-f"/>
         </div>
       </div>
       <div className={'f-c-hr'} />
       <div className={'other-logos'}>
-        <img src={squareIcon} alt={'f-cred-squareIcon'} />
+        <img src={squareIcon} alt={'f-cred-squareIcon'} className="square-first"/>
         <img src={tetraSquare} alt={'f-cred-tetraSquare'} />
       </div>
       <div className={'f-c-hr'} />
       <div className={'socials'}>
         <a href={'https://twitter.com/NeoFilmsNFT'}>
-          <img src={x} alt={'x-cred-footer'} />
+          <img src={x} alt={'x-cred-footer'}/>
         </a>
         <a href={'https://discord.com/invite/brMNhjGdTn'}>
-          <img src={discord} alt={'f-cred-discord'} />
+          <img src={discord} alt={'f-cred-discord'}/>
+        </a>
+        <a href="https://www.instagram.com/neofilmsnft/" target="_blank" rel="noopener noreferrer">
+          <FaInstagram color="#FFF"/>
         </a>
       </div>
     </div>
