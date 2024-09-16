@@ -44,6 +44,18 @@ export async function signData(data) {
     return null;
 }
 
+export async function waitTransactionReceipt(transactionHash) {
+    let receipt = null;
+    while (receipt === null) {
+        receipt = await window.ethereum.request({
+            method: 'eth_getTransactionReceipt',
+            params: [transactionHash],
+        });
+        await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+    return receipt;
+}
+
 export async function runTransaction(...data) {
     if (checkMetaMask()) {
         return await window.ethereum.request({
