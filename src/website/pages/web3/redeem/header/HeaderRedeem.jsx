@@ -26,12 +26,7 @@ export const HeaderRedeem = ({ onLogin }) => {
   const isMobile = window.innerWidth <= 430;
 
   useEffect(() => {
-    checkAuth().then((res) => {
-      setIsAuthenticated(res);
-      if (res) {
-        getBalance();
-      }
-    });
+    getBalance();
   }, []);
 
   const handleOpenMobMenu = () => {
@@ -41,8 +36,10 @@ export const HeaderRedeem = ({ onLogin }) => {
   const checkAuth = async () => {
     try {
       const response = await authApi.check();
+      setIsAuthenticated(response.status === 200);
       return response.status === 200;
     } catch (error) {
+      setIsAuthenticated(false);
       if (error.response && error.response.status === 401) {
         return false;
       } else {
