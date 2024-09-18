@@ -44,6 +44,7 @@ const Live = () => {
     await authApi.login(account, sign);
     console.log(account, 'acc', data, 'data');
     checkLive();
+    getBalance();
   }
 
   const getBalance = async () => {
@@ -86,6 +87,7 @@ const Live = () => {
   };
 
   useEffect(() => {
+    getBalance();
     checkLive();
   }, []);
 
