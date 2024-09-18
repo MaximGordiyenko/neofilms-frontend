@@ -75,8 +75,8 @@ export const HeaderStaking = ({ onLogin }) => {
       if (account) {
         const response = await neobuxApi.balanceOf(account);
         setBalance(response.data.balance);
+        setIsAuthenticated(true);
       }
-      setIsAuthenticated(true);
       setIsReloading(false);
     } catch (error) {
       console.error("Failed to fetch balance:", error);
