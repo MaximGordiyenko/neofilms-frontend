@@ -43,6 +43,7 @@ const Live = () => {
     const sign = await signData(data);
     await authApi.login(account, sign);
     console.log(account, 'acc', data, 'data');
+    checkLive();
   }
 
   const getBalance = async () => {
@@ -56,7 +57,7 @@ const Live = () => {
     setInitialActive(location.pathname);
   }, [location.pathname]);
 
-  useEffect(() => {
+  const checkLive = () => {
     liveApi.status().then((res) => {
       console.log("live status", res.data.is_active, res.data.access_for_nft);
       setIsActive(res.data.is_active);
@@ -82,6 +83,10 @@ const Live = () => {
     }).catch((err) => {
       console.error("Error fetching live status", err);
     });
+  };
+
+  useEffect(() => {
+    checkLive();
   }, []);
 
   const renderContent = () => {
