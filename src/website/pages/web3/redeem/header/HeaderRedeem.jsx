@@ -71,10 +71,10 @@ export const HeaderRedeem = ({ onLogin }) => {
       setIsReloading(true);
       const account = await getAccount();
       if (account) {
-        setIsAuthenticated(true);
         const response = await neobuxApi.balanceOf(account);
         setBalance(response.data.balance);
       }
+      setIsAuthenticated(true);
       setIsReloading(false);
     } catch (error) {
       console.error("Failed to fetch balance:", error);
