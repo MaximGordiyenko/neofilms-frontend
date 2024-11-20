@@ -15,20 +15,20 @@ export const ACCORDION_PANELS = [
         Totally! Our goal is to put the power of filmmaking in your hands. This is one of our
         mission statements. So if you think you have a great idea -
         <strong onClick={(e) => {
-          e.preventDefault(); // Prevent default link behavior
-          localStorage.setItem('scrollToForm', true); // Set flag in localStorage
+          e.preventDefault();
+          localStorage.setItem('scrollToForm', true);
           if (window.location.pathname !== '/') {
-            // Navigate to the homepage
             window.location.href = '/';
           } else {
-            // Scroll to the form container if already on the homepage
             const formElement = document.getElementById('test-form-container');
             if (formElement) {
               formElement.scrollIntoView({ behavior: 'smooth' });
               formElement.focus();
             }
           }
-        }}>submit a ticket</strong>
+        }}
+        style={{cursor: 'pointer', textDecoration: "underline"}}
+        > submit a ticket </strong>
         – we think it is a viable idea.. the next step we ask is for you to create a pitch deck
         that will be presented to the founders for a vote and then presented to the community for
         the final say.
