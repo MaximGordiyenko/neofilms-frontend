@@ -16,6 +16,7 @@ import * as neobuxApi from '../../../../../api/neobux';
 import {Wallet} from "../../../../components/wallet/Wallet";
 import * as authCheck from "../../../../../api/auth";
 import Spinner from "../../../../components/loader/Spinner";
+import axios from "axios";
 
 export const HeaderRedeem = ({ onLogin }) => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
@@ -32,6 +33,10 @@ export const HeaderRedeem = ({ onLogin }) => {
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
+
+  const handleSignOut = () => {
+    axios.post('/api/auth/signOut', {})
+  }
 
   const checkAuth = async () => {
     try {
@@ -109,10 +114,10 @@ export const HeaderRedeem = ({ onLogin }) => {
           <div className={'balance-mob-box'}>
             <button
               className={'button-balance'}
-              onClick={login}
+              onClick={isAuthenticated ? handleSignOut : login}
               disabled={isLoading}
             >
-              <span>{isAuthenticated ? "Wallet connected" : "Connect your wallet"}</span>
+              <span>{isAuthenticated ? "Disconnect wallet" : "Connect your wallet"}</span>
             </button>
           </div>
         </div>
@@ -122,10 +127,10 @@ export const HeaderRedeem = ({ onLogin }) => {
           <div className={'balance-box'}>
             <button
               className={'button-balance'}
-              onClick={login}
+              onClick={isAuthenticated ? handleSignOut : login}
               disabled={isLoading}
             >
-              <span>{isAuthenticated ? "Wallet connected" : "Connect your wallet"}</span>
+              <span>{isAuthenticated ? "Disconnect wallet" : "Connect your wallet"}</span>
             </button>
             <div className={'balance-text'}>
               <span>Your Balance:</span>

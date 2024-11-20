@@ -5,8 +5,20 @@ import lowerMobLine from '../../../assets/images/bot-body-mob-stroke.png';
 
 import Form from '../../../components/form/Form';
 import TestForm from '../../../components/form/TestForm';
+import {useEffect} from "react";
 export const FooterHomepage = () => {
   const isMobile = window.innerWidth <= 430;
+  useEffect(() => {
+    const shouldScroll = localStorage.getItem('scrollToForm');
+    if (shouldScroll) {
+      const formElement = document.getElementById('test-form-container');
+      if (formElement) {
+        formElement.scrollIntoView({ behavior: 'smooth' });
+        formElement.focus();
+      }
+      localStorage.removeItem('scrollToForm');
+    }
+  }, []);
   return (
     <div className={'f-hp-form-description'}>
       <div className={'footer-form-container'}>

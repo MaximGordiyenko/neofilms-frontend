@@ -6,18 +6,44 @@ import Header from '../../../components/header/Header';
 import videoBg from '../../../assets/images/HeroVid10 (1).mp4';
 import { Button } from '../../../components/button/Button';
 import menuMobile from '../../../assets/images/burger-menu.svg';
-import { useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import { MobMenu } from '../../../components/mobileMenu/MobMenu';
 import './glitch.css';
 import {GlitchButton} from "../../../components/button/glitchButton/GlitchButton";
+import {CustomModal} from "../../../components/modal/Modal";
+import videoBG from "../../../assets/neo-video.mp4"
+import closeBtn from "../../../assets/images/xmarkmodal.png";
 
 export const HomepageHeader = () => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const isMobile = window.innerWidth <= 430;
+  const videoRef = useRef(null);
+
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
+  useEffect(() => {
+    if (isModalOpen && videoRef.current) {
+      videoRef.current.play().catch((error) => {
+        console.error('Video playback failed:', error);
+      });
+    }
+  }, [isModalOpen]);
 
   return (
     <div className={'homepage-header-box'}>
@@ -39,9 +65,7 @@ export const HomepageHeader = () => {
             <h1>Future Of</h1>
             <h1>Filmmaking</h1>
           </div>
-          <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'} target="_blank" rel="noopener noreferrer">
-            <Button isGlitch text={'watch reel'} width={'250px'} vimeoLink={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'}/>
-          </a>
+          <Button isGlitch text={'watch reel'} width={'250px'} onClick={handleOpenModal}/>
         </div>
       ) : (
         <div className={'poster-container'}>
@@ -49,9 +73,7 @@ export const HomepageHeader = () => {
             <h1>The Future</h1>
             <h1>Of Filmmaking</h1>
           </div>
-          <a href={'https://vimeo.com/user109067760/review/913360625/0f57eb2d22'} target="_blank" rel="noopener noreferrer">
-            <Button text={'watch reel'} width={'250px'} isGlitch/>
-          </a>
+          <Button text={'watch reel'} width={'250px'} isGlitch onClick={handleOpenModal}/>
         </div>
       )}
       <div className={'navbar-box'}>
@@ -70,6 +92,21 @@ export const HomepageHeader = () => {
       )}
       {isMobileMenuOpen && <MobMenu onClose={handleOpenMobMenu} isOpen={isMobileMenuOpen} />}
       <img src={downDots} alt={'up-dots'} className={'down-dots'} />
+      <CustomModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        title="Watch Reel"
+        content={
+          <div className="video-container">
+            <button onClick={handleCloseModal} className="close-button">
+              <img src={closeBtn} alt=""/>
+            </button>
+            <video controls className="modal-video" ref={videoRef}>
+              <source src={videoBG} type="video/mp4"/>
+            </video>
+          </div>
+        }
+      />
     </div>
   );
 };
