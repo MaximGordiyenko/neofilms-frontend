@@ -8,12 +8,13 @@ import FormData from 'form-data';
 // additional_text: ${additionalText}
 // button_text: ${buttonText}
 // button_link: ${buttonLink}
+
 export async function addSlide(_formData) {
 	const formData = new FormData();
 	for (const key in _formData) {
 		formData.append(key, _formData[key]);
 	}
-	
+
 	return await axios.post(`/api/pages/slide`, formData, {
 			withCredentials: true
 		});
@@ -37,7 +38,7 @@ export async function editSlide(slideId, _formData) {
 	for (const key in _formData) {
 		formData.append(key, _formData[key]);
 	}
-	
+
 	return await axios.post(`/api/pages/slide/${slideId}`, formData, {
 			withCredentials: true
 		});

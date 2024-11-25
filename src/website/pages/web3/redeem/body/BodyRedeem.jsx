@@ -9,10 +9,11 @@ import { MobButton } from '../../../../components/button/MobButton';
 import mobileLine from '../../../../assets/images/cast-footer-geometry.png';
 import * as rewardNftApi from '../../../../../api/reward_nft';
 import { a } from 'react-spring';
-import { runTransaction } from '../../../../../utils/MetaMask';
+import { runTransaction, waitTransactionReceipt } from '../../../../../utils/MetaMask';
 
 export const BodyRedeem = ({ authCount }) => {
   const isMobile = window.innerWidth <= 430;
+  const [approve, setApprove] = useState(null);
   const [eligablePasses, setEligablePasses] = useState([]);
 
   useEffect(() => {
@@ -22,22 +23,30 @@ export const BodyRedeem = ({ authCount }) => {
   const updateEligiblePasses = async () => {
     try {
       const eligible_passes = (await rewardNftApi.getEligiblePasses()).data;
-      setEligablePasses(eligible_passes);
+      setApprove(eligible_passes.approve);
+      setEligablePasses(eligible_passes.passes);
+      console.log("eligible passes:", eligible_passes);
     } catch (error) {
       console.error("Failed to fetch eligible passes:", error);
     }
   };
 
   const claim = async () => {
-    for (let eligiblePass of eligablePasses) {
-      if (eligiblePass.approve_tx) {
-        await runTransaction(eligiblePass.approve_tx);
+    try {
+      if (approve) {
+        console.log("approve tx:", approve);
+        await waitTransactionReceipt(await runTransaction(approve));
       }
-      if (eligiblePass.purchase_tx) {
-        await runTransaction(eligiblePass.purchase_tx);
+      for (let eligiblePass of eligablePasses) {
+        if (eligiblePass.purchase_tx) {
+          console.log("purchase tx:", eligiblePass.purchase_tx);
+          await waitTransactionReceipt(await runTransaction(eligiblePass.purchase_tx));
+        }
       }
+    } catch (error) {
+      console.error("Failed to claim promotion:", error);
     }
-    updateEligiblePasses();
+    await updateEligiblePasses();
   };
 
   const options = [

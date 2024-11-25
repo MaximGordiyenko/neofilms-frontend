@@ -16,6 +16,7 @@ import * as neobuxApi from '../../../../../api/neobux';
 import {Wallet} from "../../../../components/wallet/Wallet";
 import * as authCheck from "../../../../../api/auth";
 import Spinner from "../../../../components/loader/Spinner";
+import axios from "axios";
 
 export const HeaderRedeem = ({ onLogin }) => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
@@ -26,23 +27,24 @@ export const HeaderRedeem = ({ onLogin }) => {
   const isMobile = window.innerWidth <= 430;
 
   useEffect(() => {
-    checkAuth().then((res) => {
-      setIsAuthenticated(res.data);
-      if (res.data) {
-        getBalance();
-      }
-    });
+    getBalance();
   }, []);
 
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
 
+  const handleSignOut = () => {
+    axios.post('/api/auth/signOut', {})
+  }
+
   const checkAuth = async () => {
     try {
       const response = await authApi.check();
+      setIsAuthenticated(response.status === 200);
       return response.status === 200;
     } catch (error) {
+      setIsAuthenticated(false);
       if (error.response && error.response.status === 401) {
         return false;
       } else {
@@ -52,9 +54,6 @@ export const HeaderRedeem = ({ onLogin }) => {
   };
 
   const login = async () => {
-    if (await checkAuth()) {
-      return;
-    }
     try {
       setIsLoading(true);
       const account = await getAccount();
@@ -77,9 +76,9 @@ export const HeaderRedeem = ({ onLogin }) => {
       setIsReloading(true);
       const account = await getAccount();
       if (account) {
-        setIsAuthenticated(true);
         const response = await neobuxApi.balanceOf(account);
         setBalance(response.data.balance);
+        setIsAuthenticated(true);
       }
       setIsReloading(false);
     } catch (error) {
@@ -115,10 +114,10 @@ export const HeaderRedeem = ({ onLogin }) => {
           <div className={'balance-mob-box'}>
             <button
               className={'button-balance'}
-              onClick={login}
+              onClick={isAuthenticated ? handleSignOut : login}
               disabled={isLoading}
             >
-              <span>{isAuthenticated ? "Wallet connected" : "Connect your wallet"}</span>
+              <span>{isAuthenticated ? "Disconnect wallet" : "Connect your wallet"}</span>
             </button>
           </div>
         </div>
@@ -128,10 +127,10 @@ export const HeaderRedeem = ({ onLogin }) => {
           <div className={'balance-box'}>
             <button
               className={'button-balance'}
-              onClick={login}
+              onClick={isAuthenticated ? handleSignOut : login}
               disabled={isLoading}
             >
-              <span>{isAuthenticated ? "Wallet connected" : "Connect your wallet"}</span>
+              <span>{isAuthenticated ? "Disconnect wallet" : "Connect your wallet"}</span>
             </button>
             <div className={'balance-text'}>
               <span>Your Balance:</span>

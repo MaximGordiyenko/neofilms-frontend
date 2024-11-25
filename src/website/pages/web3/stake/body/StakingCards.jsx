@@ -4,7 +4,7 @@ import { Button } from '../../../../components/button/Button';
 import { MobButton } from '../../../../components/button/MobButton';
 import * as stakingApi from '../../../../../api/staking';
 import * as authApi from '../../../../../api/auth';
-import { runTransaction } from '../../../../../utils/MetaMask';
+import { runTransaction, waitTransactionReceipt } from '../../../../../utils/MetaMask';
 
 export const StakingCards = ({ authCount }) => {
   const [pools, setPools] = useState([]);
@@ -59,7 +59,7 @@ export const StakingCards = ({ authCount }) => {
     const data = (await stakingApi.approveAll(pool.id)).data;
     if (data && typeof data === 'object') {
       console.log("approve all tx:", data);
-      await runTransaction(data);
+      await waitTransactionReceipt(await runTransaction(data));
       await updateStakingData();
     }
   };
@@ -70,7 +70,7 @@ export const StakingCards = ({ authCount }) => {
     }
     const tx = (await stakingApi.stake(pool.id, pool.nft_to_stake)).data;
     console.log("stake tx:", tx);
-    await runTransaction(tx);
+    await waitTransactionReceipt(await runTransaction(tx));
     await updateStakingData();
   };
 
@@ -82,14 +82,14 @@ export const StakingCards = ({ authCount }) => {
     }
     const tx = (await stakingApi.unstake(pool.id, staking.token_ids)).data;
     console.log("unstake tx:", tx);
-    await runTransaction(tx);
+    await waitTransactionReceipt(await runTransaction(tx));
     await updateStakingData();
   };
 
   const claim = async (pool) => {
     const tx = (await stakingApi.claimRewards(pool.id)).data;
     console.log("claim tx:", tx);
-    await runTransaction(tx);
+    await waitTransactionReceipt(await runTransaction(tx));
     await updateStakingData();
   };
 

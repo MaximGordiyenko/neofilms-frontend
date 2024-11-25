@@ -13,6 +13,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import background from "../../../../assets/images/Staking_BG.jpg";
 import * as neobuxApi from '../../../../../api/neobux';
 import {Wallet} from "../../../../components/wallet/Wallet";
+import axios from "axios";
 
 export const HeaderStaking = ({ onLogin }) => {
   const [isMobileMenuOpen, setIsMobMenuOpen] = useState(false);
@@ -29,6 +30,10 @@ export const HeaderStaking = ({ onLogin }) => {
   const handleOpenMobMenu = () => {
     setIsMobMenuOpen((prev) => !prev);
   };
+
+  const handleSignOut = () => {
+    axios.post('/api/auth/signOut', {})
+  }
 
   const checkAuth = async () => {
     try {
@@ -48,12 +53,9 @@ export const HeaderStaking = ({ onLogin }) => {
       }
     }
   };
-  
+
 
   const login = async () => {
-    if (await checkAuth()) {
-      return;
-    }
     try {
       setIsLoading(true);
       const account = await getAccount();
@@ -76,9 +78,9 @@ export const HeaderStaking = ({ onLogin }) => {
       setIsReloading(true);
       const account = await getAccount();
       if (account) {
-        setIsAuthenticated(true);
         const response = await neobuxApi.balanceOf(account);
         setBalance(response.data.balance);
+        setIsAuthenticated(true);
       }
       setIsReloading(false);
     } catch (error) {
@@ -115,10 +117,10 @@ export const HeaderStaking = ({ onLogin }) => {
           <div className={'balance-mob-box'}>
             <button
               className={'button-balance'}
-              onClick={login}
+              onClick={isAuthenticated ? handleSignOut : login}
               disabled={isLoading}
             >
-              <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
+              <span>{isAuthenticated ? "Disconnect wallet" : "Wallet connect"}</span>
             </button>
           </div>
         </div>
@@ -128,10 +130,10 @@ export const HeaderStaking = ({ onLogin }) => {
           <div className={'balance-box'}>
             <button
               className={'button-balance'}
-              onClick={login}
+              onClick={isAuthenticated ? handleSignOut : login}
               disabled={isLoading}
             >
-              <span>{isAuthenticated ? "Connected" : "Wallet connect"}</span>
+              <span>{isAuthenticated ? "Disconnect wallet" : "Wallet connect"}</span>
             </button>
             <div className={'balance-text'}>
             <span>Your Balance:</span>

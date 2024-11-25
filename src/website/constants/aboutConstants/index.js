@@ -9,7 +9,32 @@ export const ACCORDION_PANELS = [
   { title: 'How can I be a part of the filmmaking process?', content: 'Holding a founder NFT gives you rights in our discord to vote on pivotal decisions that our company must make ie. Casting, what films to produce next, exclusive access, etc.' },
   { title: 'What is your experience in the film industry?', content: 'Our team has over two decades of experience in the film industry. Our team has experience working on projects currently on Freeform, Hulu, and Amazon Prime. Most recently awarded multiple accolades from San Francisco Indie film festival, Los Angeles International Film Festival, and many more. Our Team has one decade of experience in marketing and application development along with a heightened emphasis on Web3 Technologies, NFTs, and blockchain development. Technologies including Binance, Solana, Node.js, AWS, Flutter ..etc' },
   { title: 'Can a movie make zero dollars?', content: 'It is possible for a film to “flop” but we have created avenues to ensure that no matter what our projects make money. Theatrical release is always goal number one, but if this doesn’t happen, we have resources and agents to sell the project to multiple streaming platforms.' },
-  { title: 'Can I Pitch a movie to NEO?', content: 'Totally! Our goal is to put the power of filmmaking in your hands. This is one of our mission statements. So if you think you have a great idea- submit a ticket – we think it is a viable idea.. the next step we ask is for you to create a pitch deck that will be presented to the founders for a vote and then presented to the community for the final say.' },
+  { title: 'Can I Pitch a movie to NEO?',
+    content: (
+      <>
+        Totally! Our goal is to put the power of filmmaking in your hands. This is one of our
+        mission statements. So if you think you have a great idea -
+        <strong onClick={(e) => {
+          e.preventDefault();
+          localStorage.setItem('scrollToForm', true);
+          if (window.location.pathname !== '/') {
+            window.location.href = '/';
+          } else {
+            const formElement = document.getElementById('test-form-container');
+            if (formElement) {
+              formElement.scrollIntoView({ behavior: 'smooth' });
+              formElement.focus();
+            }
+          }
+        }}
+        style={{cursor: 'pointer', textDecoration: "underline"}}
+        > submit a ticket </strong>
+        – we think it is a viable idea.. the next step we ask is for you to create a pitch deck
+        that will be presented to the founders for a vote and then presented to the community for
+        the final say.
+      </>
+    ),
+  },
   { title: 'How Are Film Rewards Shared?',
     content4: 'We are an established film studio and rewards are shared by ALL of our holders.',
       content2:'We have specific reward-building vehicles that will be provided to all holders in our film projects.' ,
