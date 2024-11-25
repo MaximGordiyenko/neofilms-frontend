@@ -39,7 +39,13 @@ export const ShopBody = () => {
               neo store
             </h2>
           </div>
-          <Button isGlitch text="Go to shop" isFilled additionalClass="filled-button-box"/>
+          <Button
+            isGlitch
+            text="Go to shop"
+            isFilled
+            additionalClass="filled-button-box"
+            onClick={() => window.open('https://theneoshop.store/', '_blank')}
+          />
         </div>
         {isMobile ? (
           <div className={'menu-mob-wrapper'}>
