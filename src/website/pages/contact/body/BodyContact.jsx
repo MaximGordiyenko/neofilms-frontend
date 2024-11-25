@@ -14,8 +14,9 @@ export const BodyContact = () => {
           <div className={'mobile-content'}>
             <span>Studio Location</span>
             <h2>Visit Our Studio Location in New York</h2>
+            <span className="subtitle-contact">(By appointment only)</span>
             <p>107 Memorial Dr, St. Louis, MO 63102</p>
-            <Button text={'see more about'} />
+            <Button text={'see more about'}/>
           </div>
         )}
         <div className={'map-box'}>
