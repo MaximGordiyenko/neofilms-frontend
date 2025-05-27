@@ -1,12 +1,7 @@
 {
-  "name": "neo-film",
+  "name": "neofilm",
   "private": true,
   "version": "0.1.0",
-  "options": {
-    "allowedHosts": [
-      "57.151.104.191"
-    ]
-  },
   "scripts": {
     "start": "react-scripts start",
     "front:dev": "vite --port 3000",
